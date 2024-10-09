@@ -22,8 +22,11 @@ export default function LoginForm() {
 
       <Button className="h-[35px] mb-6 bg-buttonPurple text-white">Iniciar sesión</Button>
 
-      <div className="mb-4 flex items-center justify-center">
-        <span className="text-gray-400">o inicia sesión con</span>
+      <div className="mb-4 flex items-center justify-center relative">
+        <span className="text-black-400 relative z-10 bg-white px-2">o inicia sesión con</span>
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-black"></div>
+        </div>
       </div>
 
       <GoogleLoginButton />
