@@ -20,7 +20,7 @@ export default function LoginForm() {
         </a>
       </div>
 
-      <Button className="mb-6 bg-buttonPurple">Iniciar sesión</Button>
+      <Button className="h-[35px] mb-6 bg-buttonPurple text-white">Iniciar sesión</Button>
 
       <div className="mb-4 flex items-center justify-center">
         <span className="text-gray-400">o inicia sesión con</span>
