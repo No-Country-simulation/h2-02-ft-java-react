@@ -18,7 +18,7 @@ import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
-public class JwtService implements TokenService {
+class JwtService implements TokenService {
 
     private final SecretKeyConfig secretKeyConfig;
 
