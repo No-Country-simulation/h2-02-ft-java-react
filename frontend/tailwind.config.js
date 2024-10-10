@@ -11,6 +11,7 @@ module.exports = withMT({
         'regular-12': ['12px', { lineHeight: '18px' }],
         'regular-14': ['14px', { lineHeight: '21px' }],
         'regular-16': ['16px', { lineHeight: '19.2px' }],
+        'regularNav-16': ['16px', { lineHeight: '24px' }],
         'medium-18': ['18px', { lineHeight: '21.6px' }],
         'semibold-22': [
           '22px',
@@ -21,16 +22,14 @@ module.exports = withMT({
           { lineHeight: '39px', letterSpacing: '0.36px' },
         ],
       },
-      fontWeight: {
-        regular: 400,
-        medium: 500,
-        semibold: 600,
-      },
       colors: {
-        buttonPurple: '#8E2BFF',
+        purpleWaki: '#8E2BFF',
+        purpleWakiHover: '#6516BF',
         inputBorder: '#7676801F',
         inputBackground: '#EFEFF0',
         label: '#181818',
+        blueWaki: '#317EF4',
+        grayWaki: '#555555',
       },
     },
     borderRadius: {

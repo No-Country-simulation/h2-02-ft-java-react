@@ -41,7 +41,7 @@ export default function RegisterForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex w-full max-w-md flex-col justify-center bg-white p-8 sm:rounded-lg sm:shadow-lg"
+      className="flex w-full flex-col justify-center p-8"
     >
       <h2 className="mb-2 text-xl font-bold text-blue-600">
         Bienvenido a waki,
@@ -79,7 +79,7 @@ export default function RegisterForm() {
 
       <Button
         type="submit"
-        className="my-6 h-[35px] bg-buttonPurple text-white"
+        className="my-6 h-[35px] bg-purpleWaki text-white hover:bg-purpleWakiHover"
       >
         Registrarse
       </Button>
