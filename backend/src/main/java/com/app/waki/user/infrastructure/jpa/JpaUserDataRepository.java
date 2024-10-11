@@ -1,15 +1,13 @@
-package com.app.waki.user.domain;
+package com.app.waki.user.infrastructure.jpa;
 
 import com.app.waki.user.domain.valueObject.Email;
+import com.app.waki.user.domain.User;
 import com.app.waki.user.domain.valueObject.UserId;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository {
-    void save(User user);
-    Optional<User> findById(UserId userId);
+interface JpaUserDataRepository extends JpaRepository<User, UserId> {
     Optional<User> findByEmail(Email email);
-    List<User> findAll();
     boolean existsByEmail(Email email);
 }

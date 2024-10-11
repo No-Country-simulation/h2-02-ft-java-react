@@ -2,15 +2,15 @@
   "groups": [
     {
       "name": "jwtkey",
-      "type": "com.app.waki.user.infrastructure.SecretKeyConfig",
-      "sourceType": "com.app.waki.user.infrastructure.SecretKeyConfig"
+      "type": "com.app.waki.user.infrastructure.security.SecretKeyConfig",
+      "sourceType": "com.app.waki.user.infrastructure.security.SecretKeyConfig"
     }
   ],
   "properties": [
     {
       "name": "jwtkey.s-e-c-r-e-t-k-e-y",
       "type": "java.lang.String",
-      "sourceType": "com.app.waki.user.infrastructure.SecretKeyConfig"
+      "sourceType": "com.app.waki.user.infrastructure.security.SecretKeyConfig"
     }
   ],
   "hints": []

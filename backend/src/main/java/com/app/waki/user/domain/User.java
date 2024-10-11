@@ -1,5 +1,9 @@
 package com.app.waki.user.domain;
 
+import com.app.waki.user.domain.valueObject.Email;
+import com.app.waki.user.domain.valueObject.Password;
+import com.app.waki.user.domain.valueObject.UserId;
+import com.app.waki.user.domain.valueObject.UserName;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -10,13 +14,13 @@ import lombok.ToString;
 public class User {
 
     @Id
-    private  UserId userId;
+    private UserId userId;
     @Embedded
-    private  UserName userName;
+    private UserName userName;
     @Embedded
-    private  Email email;
+    private Email email;
     @Embedded
-    private  Password password;
+    private Password password;
     @Enumerated(EnumType.STRING)
     private  UserRole role;
 
