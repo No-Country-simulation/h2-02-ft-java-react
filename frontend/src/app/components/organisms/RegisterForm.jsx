@@ -25,8 +25,34 @@ export default function RegisterForm() {
     e.preventDefault();
     const { username, email, password, confirmPassword } = formData;
 
+    // Valida que todos los campos no estén vacíos
+    if (!username || !email || !password || !confirmPassword) {
+      alert('Todos los campos son obligatorios');
+      return;
+    }
+
+    // Valida que username no empiece por un espacio
+    if (username.startsWith(' ')) {
+      alert('El nombre de usuario no puede empezar con un espacio');
+      return;
+    }
+
+    // Valida que password no contenga espacios
+    if (/\s/.test(password)) {
+      alert('La contraseña no puede contener espacios');
+      return;
+    }
+
+    // Valida que las contraseñas coincidan
     if (password !== confirmPassword) {
       alert('Las contraseñas no coinciden');
+      return;
+    }
+
+    // Valida que el email sea de gmail, hotmail o outlook
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail|outlook)\.com$/;
+    if (!emailRegex.test(email)) {
+      alert('El correo electrónico debe ser de gmail, hotmail o outlook');
       return;
     }
 
@@ -89,7 +115,7 @@ export default function RegisterForm() {
           O inicia sesión con
         </span>
         <div className="absolute inset-0 flex items-center">
-          <div className="border-grayLineWaki w-full border-t"></div>
+          <div className="w-full border-t border-grayLineWaki"></div>
         </div>
       </div>
 

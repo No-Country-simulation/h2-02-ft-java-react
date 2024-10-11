@@ -8,7 +8,7 @@ export const loginUser = async (email, password) => {
       email,
       password,
     });
-    return response.data;
+    return response.data.token;
   } catch (error) {
     throw new Error('Error en el login');
   }
