@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply font-sans text-regular-14;
+  min-height: 100vh;
+}
+
+/* Media query personalizada para pantallas de mínimo 540px */
+@media (min-width: 540px) {
+  body {
+    display: grid;
+    place-content: center;
+  }
+}
