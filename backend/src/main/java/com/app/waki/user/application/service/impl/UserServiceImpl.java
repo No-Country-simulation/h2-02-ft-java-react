@@ -1,13 +1,13 @@
 package com.app.waki.user.application.service.impl;
 
 import com.app.waki.common.exceptions.EmailNotAvailableException;
-import com.app.waki.user.application.utils.Mapper;
+import com.app.waki.user.application.utils.UserMapper;
 import com.app.waki.user.application.utils.UserAuth;
 import com.app.waki.user.application.dto.CreateUserRequestDto;
 import com.app.waki.user.application.dto.JwtAuthToken;
 import com.app.waki.user.application.dto.LoginUserAuthDto;
 import com.app.waki.user.application.dto.UserDto;
-import com.app.waki.common.events.UserCreatedEvent;
+import com.app.waki.user.domain.UserCreatedEvent;
 import com.app.waki.user.application.service.TokenService;
 import com.app.waki.user.application.service.UserService;
 import com.app.waki.user.domain.*;
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(newUser);
         publisher.publishEvent(new UserCreatedEvent(newUser.getId()));
 
-        return Mapper.userToUserDTO(newUser);
+        return UserMapper.userToUserDTO(newUser);
     }
 
     public JwtAuthToken loginUserAuthentication(LoginUserAuthDto loginUserCredentials){

@@ -1,4 +1,4 @@
-package com.app.waki.user.domain.valueObject;
+package com.app.waki.profile.domain.valueObjects;
 
 import io.jsonwebtoken.lang.Assert;
 import jakarta.persistence.Embeddable;
@@ -6,12 +6,13 @@ import jakarta.persistence.Embeddable;
 import java.util.UUID;
 
 @Embeddable
-public record UserId(UUID id) {
-    public UserId {
+public record AvailablePredictionId(UUID id) {
+
+    public AvailablePredictionId {
         Assert.notNull(id, "id must not be null");
     }
 
-    public UserId() {
+    public AvailablePredictionId() {
         this(UUID.randomUUID());
     }
 }
