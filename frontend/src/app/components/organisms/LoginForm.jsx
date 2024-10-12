@@ -53,7 +53,7 @@ export default function LoginForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex w-full flex-col justify-center p-[37.5px]"
+      className="flex w-full flex-col justify-center px-4 py-[37.5px] xs:px-[37.5px]"
     >
       <h2 className="mb-1 text-semibold-22 font-semibold text-blueWaki">
         Hola de nuevo,
