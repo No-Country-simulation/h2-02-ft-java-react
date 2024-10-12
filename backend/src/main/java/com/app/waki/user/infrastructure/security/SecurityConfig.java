@@ -26,7 +26,8 @@ public class SecurityConfig {
     RequestMatcher publicUrls = new OrRequestMatcher(
             new AntPathRequestMatcher("/user/create"),
             new AntPathRequestMatcher("/user/login"),
-            new AntPathRequestMatcher("/profile/{profileId}")
+            new AntPathRequestMatcher("/profile/{profileId}"),
+            new AntPathRequestMatcher("/profile/predictionByDate/{profileId}")
     );
     RequestMatcher adminUrls = new OrRequestMatcher(
             new AntPathRequestMatcher("/user/admin")

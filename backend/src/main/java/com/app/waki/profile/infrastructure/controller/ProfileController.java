@@ -1,14 +1,13 @@
 package com.app.waki.profile.infrastructure.controller;
 
+import com.app.waki.profile.application.dto.AvailablePredictionDto;
 import com.app.waki.profile.application.dto.ProfileDto;
 import com.app.waki.profile.application.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @RestController
@@ -22,5 +21,11 @@ public class ProfileController {
     public ResponseEntity<ProfileDto> getProfile(@PathVariable UUID profileId) {
 
         return ResponseEntity.ok(profileService.getProfile(profileId));
+    }
+
+    @GetMapping("/predictionByDate/{profileId}")
+    public ResponseEntity<AvailablePredictionDto> getAvailablePredictionsByDate(@PathVariable UUID profileId, @RequestParam LocalDate date) {
+
+        return ResponseEntity.ok(profileService.getAvailablePredictionsByDate(profileId, date));
     }
 }

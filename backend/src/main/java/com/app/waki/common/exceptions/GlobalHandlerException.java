@@ -1,8 +1,6 @@
-package com.app.waki.user.application.utils;
+package com.app.waki.common.exceptions;
 
 
-import com.app.waki.common.exceptions.EmailNotAvailableException;
-import com.app.waki.common.exceptions.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,5 +28,14 @@ public class GlobalHandlerException {
         resp.put("INVALID_DATA", ex.getMessage());
 
         return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<Map<String,String>> validationExceptionHandler(EntityNotFoundException ex){
+        Map<String,String> resp = new HashMap<>();
+
+        resp.put("NOT_FOUND", ex.getMessage());
+
+        return new ResponseEntity<>(resp, HttpStatus.NOT_FOUND);
     }
 }

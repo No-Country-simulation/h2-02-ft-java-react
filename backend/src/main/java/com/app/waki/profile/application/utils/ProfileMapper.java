@@ -11,7 +11,7 @@ public class ProfileMapper {
 
     public static ProfileDto profileToDto(Profile profile){
 
-        List<AvailablePredictionDto> predictions = predictionToDtop(profile.getAvailablePredictions());
+        List<AvailablePredictionDto> predictions = predictionListToDto(profile.getAvailablePredictions());
         return new ProfileDto(
                 profile.getProfileUserId().userId(),
                 profile.getTimeProfileCreated(),
@@ -19,7 +19,7 @@ public class ProfileMapper {
                 predictions);
     }
 
-    public static List<AvailablePredictionDto> predictionToDtop(List<AvailablePrediction> remainingPredictions){
+    public static List<AvailablePredictionDto> predictionListToDto(List<AvailablePrediction> remainingPredictions){
 
         return remainingPredictions
                 .stream()
@@ -28,5 +28,11 @@ public class ProfileMapper {
                         prediction.getRemainingPredictions().AvailablePrediction()))
                 .toList();
 
+    }
+
+    public static AvailablePredictionDto predictionToDto (AvailablePrediction prediction){
+        return new AvailablePredictionDto(
+                prediction.getPredictionDate(),
+                prediction.getRemainingPredictions().AvailablePrediction());
     }
 }

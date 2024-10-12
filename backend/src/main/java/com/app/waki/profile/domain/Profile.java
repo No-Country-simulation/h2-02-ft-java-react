@@ -51,7 +51,7 @@ public class Profile {
         return predictions;
     }
 
-    public Optional<AvailablePrediction> getAvailablePredictionByDate(LocalDate date) {
+    public Optional<AvailablePrediction> getPredictionByDate(LocalDate date) {
         return availablePredictions.stream()
                 .filter(prediction -> prediction.getPredictionDate().equals(date))
                 .findFirst();
