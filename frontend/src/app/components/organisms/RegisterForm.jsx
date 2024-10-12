@@ -25,8 +25,34 @@ export default function RegisterForm() {
     e.preventDefault();
     const { username, email, password, confirmPassword } = formData;
 
+    // Valida que todos los campos no estén vacíos
+    if (!username || !email || !password || !confirmPassword) {
+      alert('Todos los campos son obligatorios');
+      return;
+    }
+
+    // Valida que username no empiece por un espacio
+    if (username.startsWith(' ')) {
+      alert('El nombre de usuario no puede empezar con un espacio');
+      return;
+    }
+
+    // Valida que password no contenga espacios
+    if (/\s/.test(password)) {
+      alert('La contraseña no puede contener espacios');
+      return;
+    }
+
+    // Valida que las contraseñas coincidan
     if (password !== confirmPassword) {
       alert('Las contraseñas no coinciden');
+      return;
+    }
+
+    // Valida que el email sea de gmail, hotmail o outlook
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail|outlook)\.com$/;
+    if (!emailRegex.test(email)) {
+      alert('El correo electrónico debe ser de gmail, hotmail o outlook');
       return;
     }
 
@@ -41,12 +67,12 @@ export default function RegisterForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex w-full flex-col justify-center p-8"
+      className="flex w-full flex-col justify-center p-[37.5px]"
     >
-      <h2 className="mb-2 text-xl font-bold text-blue-600">
+      <h2 className="mb-1 text-semibold-22 font-semibold text-blueWaki">
         Bienvenido a waki,
       </h2>
-      <p className="mb-6 text-gray-500">Crea tu cuenta completando los datos</p>
+      <p className="mb-8 text-grayWaki">Crea tu cuenta completando los datos</p>
 
       <div className="flex flex-col gap-3">
         <InputField
@@ -79,17 +105,17 @@ export default function RegisterForm() {
 
       <Button
         type="submit"
-        className="my-6 h-[35px] bg-purpleWaki text-white hover:bg-purpleWakiHover"
+        className="mt-8 h-[35px] bg-purpleWaki text-white hover:bg-purpleWakiHover"
       >
         Registrarse
       </Button>
 
-      <div className="relative mb-4 flex items-center justify-center">
-        <span className="text-black-400 relative z-10 bg-white px-2">
-          o inicia sesión con
+      <div className="relative my-8 flex items-center justify-center">
+        <span className="relative z-10 bg-white px-2 text-grayWaki">
+          O inicia sesión con
         </span>
         <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-black"></div>
+          <div className="w-full border-t border-grayLineWaki"></div>
         </div>
       </div>
 
