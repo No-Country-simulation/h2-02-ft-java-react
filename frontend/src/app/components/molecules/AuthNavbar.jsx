@@ -1,10 +1,18 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function AuthNavbar() {
   const location = useLocation();
-  const navLocation = location.pathname === '/login' ? 'left' : 'right';
-  const [underlinePosition, setUnderlinePosition] = useState(navLocation);
+  const [underlinePosition, setUnderlinePosition] = useState('');
+
+  // Actualizar la posición inicial del subrayado basado en la ruta actual
+  useEffect(() => {
+    if (location.pathname === '/login') {
+      setUnderlinePosition('left');
+    } else if (location.pathname === '/register') {
+      setUnderlinePosition('right');
+    }
+  }, [location.pathname]);
 
   // Función para manejar el cambio de posición del subrayado al hacer clic
   const handleTabClick = (tab) => {

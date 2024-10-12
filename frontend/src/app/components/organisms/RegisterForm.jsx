@@ -44,7 +44,7 @@ export default function RegisterForm() {
       className="flex w-full flex-col justify-center p-[37.5px]"
     >
       <h2 className="mb-1 text-semibold-22 font-semibold text-blueWaki">
-        Bienvenido a waki,
+        Bienvenido a Waki,
       </h2>
       <p className="mb-8 text-grayWaki">Crea tu cuenta completando los datos</p>
 
