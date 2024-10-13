@@ -22,6 +22,8 @@ public class AvailablePrediction {
     private Profile profile;
     private LocalDate predictionDate;
     private RemainingPredictions remainingPredictions;
+    @Version
+    private Long version;
 
     public AvailablePrediction(){}
 

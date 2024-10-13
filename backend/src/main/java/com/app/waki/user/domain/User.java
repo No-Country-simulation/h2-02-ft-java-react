@@ -24,7 +24,9 @@ public class User {
     @Embedded
     private Password password;
     @Enumerated(EnumType.STRING)
-    private  UserRole role;
+    private UserRole role;
+    @Version
+    private Long version;
 
     public User(){}
     private User (UserName userName, Email email, Password password, UserRole userRole) {

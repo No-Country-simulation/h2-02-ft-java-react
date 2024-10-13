@@ -11,12 +11,11 @@ import com.app.waki.profile.application.utils.ProfileMapper;
 import com.app.waki.profile.domain.Profile;
 import com.app.waki.profile.domain.ProfileRepository;
 import com.app.waki.profile.domain.valueObjects.ProfileUserId;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.event.EventListener;
 import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -36,18 +35,21 @@ public class ProfileServiceImpl implements ProfileService {
         repository.save(newProfile);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public ProfileDto getProfile(UUID id) {
         var profile = findProfile(id);
-        return ProfileMapper.profileToDto(profile);
+        var predictions = profile.getAvailablePredictions();
+        return ProfileMapper.profileToDto(profile, predictions);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public AvailablePredictionDto getAvailablePredictionsByDate(UUID profileId, LocalDate date) {
         var profile = findProfile(profileId);
         AvailablePrediction getPredictionByDate = profile.getPredictionByDate(date)
                 .orElseThrow(()-> new EntityNotFoundException("No predictions available found with date " + date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
-        return ProfileMapper.predictionToDto(getPredictionByDate);
+        return ProfileMapper.availablePredictionsToDto(getPredictionByDate);
     }
 
     private Profile findProfile (UUID id){
