@@ -82,9 +82,7 @@ export default function LoginForm() {
         </a>
       </div>
 
-      <Button className="mt-6 h-[35px] bg-purpleWaki text-white hover:bg-purpleWakiHover">
-        Iniciar sesión
-      </Button>
+      <Button className="mx-auto mt-6">Iniciar sesión</Button>
 
       <div className="relative my-8 flex items-center justify-center">
         <span className="relative z-10 bg-white px-2 text-grayWaki">
