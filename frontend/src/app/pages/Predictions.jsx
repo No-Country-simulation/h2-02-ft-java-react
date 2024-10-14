@@ -3,12 +3,28 @@ import PredictionSection from '../components/organisms/PredictionSection';
 
 const predictionsActivas = [
   {
-    league: 'La Liga',
+    league: 'Liga española',
     result: 'Resultado final:',
     team1: 'Barcelona',
     team2: 'Osasuna',
     points: 13,
-    status: 'pendiente',
+    status: 'pending',
+  },
+  {
+    league: 'Liga española',
+    result: 'Resultado final:',
+    team1: 'Barcelona',
+    team2: 'Osasuna',
+    points: 13,
+    status: 'lose',
+  },
+  {
+    league: 'Liga española',
+    result: 'Resultado final:',
+    team1: 'Barcelona',
+    team2: 'Osasuna',
+    points: 13,
+    status: 'win',
   },
   // Más predicciones...
 ];
@@ -37,7 +53,7 @@ export default function Predictions() {
   return (
     <div className="flex flex-col bg-gradientWaki">
       <PredictionsHeader />
-      <PredictionSection title={'título'} predictions={predictionsActivas} />
+      <PredictionSection title={'Activas'} predictions={predictionsActivas} />
     </div>
   );
 }
