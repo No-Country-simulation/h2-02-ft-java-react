@@ -103,10 +103,7 @@ export default function RegisterForm() {
         />
       </div>
 
-      <Button
-        type="submit"
-        className="mt-8 h-[35px] bg-purpleWaki text-white hover:bg-purpleWakiHover"
-      >
+      <Button type="submit" className="mx-auto mt-8">
         Registrarse
       </Button>
 
