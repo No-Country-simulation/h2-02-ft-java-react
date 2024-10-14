@@ -37,6 +37,8 @@ module.exports = withMT({
         grayWaki: '#555555',
         grayLineWaki: '#353535',
         grayLightWaki: '#8D8D8D',
+        greenWaki: '#06BD06',
+        redWaki: '#C61C1E',
       },
       backgroundImage: {
         gradientWaki: 'linear-gradient(90deg, #317EF4 -0.04%, #8E2BFF 99.96%)',

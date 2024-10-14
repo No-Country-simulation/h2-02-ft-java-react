@@ -21,7 +21,7 @@ export default function StatusPredictionsCard({ status, points }) {
     case 'lose':
       statusContent = (
         <div className="flex items-center gap-2 px-4 py-2">
-          <CgCloseO className="text-red-500" size={18} />
+          <CgCloseO className="text-redWaki" size={18} />
           <p className="text-regular-12 text-grayWaki">
             No ganaste puntos con esta predicción
           </p>
@@ -31,7 +31,7 @@ export default function StatusPredictionsCard({ status, points }) {
     case 'win':
       statusContent = (
         <div className="flex items-center gap-2 px-4 py-2">
-          <FaCheck className="text-green-500" size={18} />
+          <FaCheck className="text-greenWaki" size={18} />
           <p className="text-regular-12 text-grayWaki">
             Ganaste {points} puntos con esta predicción
           </p>

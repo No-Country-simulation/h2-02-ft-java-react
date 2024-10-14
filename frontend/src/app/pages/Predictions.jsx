@@ -4,7 +4,7 @@ import PredictionSection from '../components/organisms/PredictionSection';
 const predictionsActivas = [
   {
     league: 'Liga española',
-    result: 'Resultado final:',
+    result: 'En Juego',
     team1: 'Barcelona',
     team2: 'Osasuna',
     points: 13,
@@ -12,7 +12,7 @@ const predictionsActivas = [
   },
   {
     league: 'Liga española',
-    result: 'Resultado final:',
+    result: 'Osasuna',
     team1: 'Barcelona',
     team2: 'Osasuna',
     points: 13,
@@ -20,7 +20,7 @@ const predictionsActivas = [
   },
   {
     league: 'Liga española',
-    result: 'Resultado final:',
+    result: 'Barcelona',
     team1: 'Barcelona',
     team2: 'Osasuna',
     points: 13,
