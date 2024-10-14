@@ -27,4 +27,5 @@ public class JpaProfileRepositoryImpl implements ProfileRepository {
     public List<Profile> findAll() {
         return jpaRepository.findAll();
     }
+
 }

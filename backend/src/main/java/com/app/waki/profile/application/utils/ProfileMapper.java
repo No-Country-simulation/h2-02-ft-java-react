@@ -23,6 +23,6 @@ public class ProfileMapper {
     public static AvailablePredictionDto availablePredictionsToDto (AvailablePrediction prediction){
         return new AvailablePredictionDto(
                 prediction.getPredictionDate(),
-                prediction.getRemainingPredictions().AvailablePrediction());
+                prediction.getRemainingPredictions().availablePrediction());
     }
 }

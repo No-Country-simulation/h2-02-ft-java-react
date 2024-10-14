@@ -37,4 +37,22 @@ public class AvailablePrediction {
         var predictions = new RemainingPredictions(remainingPredictions);
         return new AvailablePrediction(profile, predictionDate, predictions);
     }
+
+    public boolean validateRemainingPredictions(LocalDate matchDay){
+
+        LocalDate today = LocalDate.now();
+
+        if (matchDay.equals(today)) {
+            if (this.remainingPredictions.getValue() > 0) {
+                this.remainingPredictions = this.remainingPredictions.subtractOne();
+                return true;
+            }
+        } else if (matchDay.isAfter(today) && matchDay.isBefore(LocalDate.now().plusDays(6))) {
+            if (this.remainingPredictions.getValue() > 3) {
+                this.remainingPredictions = this.remainingPredictions.subtractOne();
+                return true;
+            }
+        }
+        return false;
+    }
 }
