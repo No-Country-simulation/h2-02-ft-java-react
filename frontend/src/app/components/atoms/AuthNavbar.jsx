@@ -25,7 +25,7 @@ export default function AuthNavbar() {
 
   return (
     <div className="relative">
-      <nav className="z-10 grid grid-cols-2 pt-10 text-center shadow-[0_0_10.2px_0_rgba(0,0,0,0.2)]">
+      <nav className="grid grid-cols-2 pt-10 text-center shadow-[0_0_10.2px_0_rgba(0,0,0,0.2)]">
         {/* Link para Iniciar Sesión */}
         <NavLink
           to="/login"

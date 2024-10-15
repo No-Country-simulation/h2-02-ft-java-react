@@ -1,5 +1,5 @@
 import RegisterForm from '../components/organisms/RegisterForm';
-import AuthNavbar from '../components/molecules/AuthNavbar';
+import AuthNavbar from '../components/atoms/AuthNavbar';
 
 export default function Register() {
   return (
