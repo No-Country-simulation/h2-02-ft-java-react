@@ -5,6 +5,7 @@ import com.app.waki.common.exceptions.EntityNotFoundException;
 import com.app.waki.profile.application.dto.AvailablePredictionDto;
 import com.app.waki.profile.domain.CreatePredictionRequest;
 import com.app.waki.profile.domain.AvailablePrediction;
+import com.app.waki.profile.domain.valueObject.ValidateMatchId;
 import com.app.waki.user.domain.UserCreatedEvent;
 import com.app.waki.common.exceptions.ValidationException;
 import com.app.waki.profile.application.dto.ProfileDto;
@@ -12,7 +13,7 @@ import com.app.waki.profile.application.service.ProfileService;
 import com.app.waki.profile.application.utils.ProfileMapper;
 import com.app.waki.profile.domain.Profile;
 import com.app.waki.profile.domain.ProfileRepository;
-import com.app.waki.profile.domain.valueObjects.ProfileUserId;
+import com.app.waki.profile.domain.valueObject.ProfileUserId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -36,6 +37,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     @ApplicationModuleListener
     void onUserCreate (UserCreatedEvent event){
+
         log.info("nuevo usuario con id: " + event.id());
         var newProfile = Profile.createProfile(event.id());
         repository.save(newProfile);
@@ -44,17 +46,21 @@ public class ProfileServiceImpl implements ProfileService {
     @Transactional(readOnly = true)
     @Override
     public ProfileDto getProfile(UUID id) {
+
         var profile = findProfile(id);
         var predictions = profile.getAvailablePredictions();
+
         return ProfileMapper.profileToDto(profile, predictions);
     }
 
     @Transactional(readOnly = true)
     @Override
     public AvailablePredictionDto getAvailablePredictionsByDate(UUID profileId, LocalDate date) {
+
         var profile = findProfile(profileId);
         AvailablePrediction getPredictionByDate = profile.getPredictionByDate(date)
                 .orElseThrow(()-> new EntityNotFoundException("No predictions available found with date " + date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+
         return ProfileMapper.availablePredictionsToDto(getPredictionByDate);
     }
 
@@ -64,21 +70,58 @@ public class ProfileServiceImpl implements ProfileService {
 
         var profile = findProfile(profileId);
 
+        Set<String> matchIds = request.stream()
+                .map(CreatePredictionRequest::matchId)
+                .collect(Collectors.toSet());
+
+        addMatchIdsToProfile(matchIds, profile);
+
         Set<LocalDate> requestDates = request.stream()
                 .map(CreatePredictionRequest::matchDay)
                 .collect(Collectors.toSet());
 
+        Map<LocalDate, AvailablePrediction> predictionMap = getAvailablePredictions(profile, requestDates);
+
+        validatePredictionsForDays(request, predictionMap);
+
+        return saveProfileAndPublishEvent(profile, profileId, request);
+    }
+
+    private Profile findProfile (UUID id){
+        return repository.findById(new ProfileUserId(id))
+                .orElseThrow(()-> new ValidationException("Profile not found with id " + id));
+    }
+
+    private void checkErrors(List<String> errors){
+        if (!errors.isEmpty()) {
+            throw new ValidationException(String.join(", ", errors));
+        }
+    }
+
+    private void addMatchIdsToProfile(Set<String> matchIds, Profile profile) {
+        List<String> errors = new ArrayList<>();
+        for (String ids : matchIds) {
+            if (!profile.addMatchId(new ValidateMatchId(ids))) {
+                errors.add("You have already bet on the match with id " + ids);
+            }
+        }
+        checkErrors(errors);
+    }
+
+    private Map<LocalDate, AvailablePrediction> getAvailablePredictions(Profile profile, Set<LocalDate> requestDates) {
         List<AvailablePrediction> availablePredictions = profile.getAvailablePredictions().stream()
                 .filter(ap -> requestDates.contains(ap.getPredictionDate()))
                 .toList();
 
-        if (availablePredictions.isEmpty()){
-            throw new EntityNotFoundException("No available predictions found for profile with ID " + profileId);
+        if (availablePredictions.isEmpty()) {
+            throw new EntityNotFoundException("No available predictions found for profile with ID " + profile.getProfileUserId());
         }
 
-        Map<LocalDate, AvailablePrediction> predictionMap = availablePredictions.stream()
+        return availablePredictions.stream()
                 .collect(Collectors.toMap(AvailablePrediction::getPredictionDate, ap -> ap));
+    }
 
+    private void validatePredictionsForDays(List<CreatePredictionRequest> request, Map<LocalDate, AvailablePrediction> predictionMap) {
         List<String> errors = new ArrayList<>();
 
         for (CreatePredictionRequest prediction : request) {
@@ -90,10 +133,10 @@ public class ProfileServiceImpl implements ProfileService {
             }
         }
 
-        if (!errors.isEmpty()) {
-            throw new ValidationException(String.join(", ", errors));
-        }
+        checkErrors(errors);
+    }
 
+    private List<AvailablePredictionDto> saveProfileAndPublishEvent(Profile profile, UUID profileId, List<CreatePredictionRequest> request) {
         try {
             repository.save(profile);
             var createPredictionEvent = ProfileMapper.predictionRequestToEvent(profileId, request);
@@ -105,10 +148,5 @@ public class ProfileServiceImpl implements ProfileService {
         return profile.getAvailablePredictions().stream()
                 .map(ProfileMapper::availablePredictionsToDto)
                 .toList();
-    }
-
-    private Profile findProfile (UUID id){
-        return repository.findById(new ProfileUserId(id))
-                .orElseThrow(()-> new ValidationException("Profile not found with id " + id));
     }
 }
