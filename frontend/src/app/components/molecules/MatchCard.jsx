@@ -50,7 +50,9 @@ export default function MatchCard({ matchData }) {
               <MdOutlineSignalCellularAlt className="h-4.5 w-5 font-semibold text-[#8E2BFF]" />
               <p className="text-lg font-semibold text-[#181818]">{score}</p>
               <p className="flex items-center text-[10.35px]">
-                <span className="mr-1 h-2 w-2 rounded-full bg-red-500"></span>
+                {elapsedTime !== 'FT' && (
+                  <span className="mr-1 h-2 w-2 rounded-full bg-red-500"></span>
+                )}
                 {elapsedTime}
               </p>
             </>

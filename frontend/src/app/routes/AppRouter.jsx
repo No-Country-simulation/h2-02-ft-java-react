@@ -3,6 +3,7 @@ import Home from '../pages/Home';
 import Profile from '../pages/Profile';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
+import Match from '../pages/Match';
 import PrivateRoute from '../routes/PrivateRoute';
 
 export default function AppRouter() {
@@ -27,6 +28,14 @@ export default function AppRouter() {
           element={
             <PrivateRoute>
               <Profile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/match"
+          element={
+            <PrivateRoute>
+              <Match />
             </PrivateRoute>
           }
         />

@@ -34,6 +34,9 @@ module.exports = withMT({
         grayWaki: '#555555',
         grayLineWaki: '#353535',
       },
+      boxShadow: {
+        custom: '0 0 14.6px rgba(0, 0, 0, 0.2)',
+      },
     },
     borderRadius: {
       none: '0',

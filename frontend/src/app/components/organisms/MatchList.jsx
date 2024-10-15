@@ -1,29 +1,62 @@
-import MatchCard from '../molecules/MatchCard';
+import { useEffect, useState } from 'react';
+import { getMatches } from '../../services/matchService';
+import MatchDropdown from '../molecules/MatchDropdown';
 
-export default function MatchList() {
-  const matchData = {
-    localTeam: {
-      name: 'Osasuna',
-      logoUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/3/38/CA_Osasuna_2024_crest.svg/1200px-CA_Osasuna_2024_crest.svg.png',
-    },
-    visitorTeam: {
-      name: 'Barcelona',
-      logoUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/FC_Barcelona_%28crest%29.svg/640px-FC_Barcelona_%28crest%29.svg.png',
-    },
-    score: '0-0',
-    predictions: {
-      localWin: '2.0',
-      draw: '3.5',
-      visitorWin: '1.8',
-    },
-    startTime: '2024-10-14T18:00:00Z',
-  };
+export default function MatchList({ selectedDate }) {
+  const [leagues, setLeagues] = useState({});
 
-  return (
-    <div>
-      <MatchCard matchData={matchData} />
-    </div>
-  );
+  useEffect(() => {
+    const fetchMatches = async () => {
+      try {
+        const matches = await getMatches();
+        const groupedMatches = matches.reduce((acc, match) => {
+          const league = match.competition.name;
+          if (!acc[league]) {
+            acc[league] = {
+              matches: [],
+              country: match.area.name,
+              emblem: match.competition.emblem,
+            };
+          }
+          acc[league].matches.push({
+            id: match.id,
+            localTeam: {
+              name: match.homeTeam.name,
+              logoUrl: match.homeTeam.crest,
+            },
+            visitorTeam: {
+              name: match.awayTeam.name,
+              logoUrl: match.awayTeam.crest,
+            },
+            score: `${match.score.fullTime.home || 0}-${match.score.fullTime.away || 0}`,
+            predictions: {
+              localWin: match.match_odds.home_team,
+              draw: match.match_odds.draw,
+              visitorWin: match.match_odds.away_team,
+            },
+            startTime: match.utcDate,
+          });
+          return acc;
+        }, {});
+        setLeagues(groupedMatches);
+      } catch (error) {
+        console.error('Error fetching matches:', error);
+      }
+    };
+
+    fetchMatches();
+  }, []);
+
+  const filteredLeagues = Object.keys(leagues).reduce((acc, league) => {
+    const filteredMatches = leagues[league].matches.filter((match) => {
+      const matchDate = new Date(match.startTime).toLocaleDateString('es-ES');
+      return matchDate === selectedDate;
+    });
+    if (filteredMatches.length > 0) {
+      acc[league] = { ...leagues[league], matches: filteredMatches };
+    }
+    return acc;
+  }, {});
+
+  return <MatchDropdown leagues={filteredLeagues} />;
 }

@@ -6,6 +6,6 @@ import './app/styles/index.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Match />
+    <App />
   </StrictMode>
 );

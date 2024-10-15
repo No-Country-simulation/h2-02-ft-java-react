@@ -22,7 +22,7 @@ export default function Match() {
 
   return (
     <main className="flex w-full flex-col overflow-hidden bg-white sm:m-2 sm:w-[390px] sm:border sm:border-inputBorder">
-      <div className="relative flex w-full items-center justify-center text-[22px] font-semibold normal-case text-blueWaki">
+      <div className="relative flex w-full items-center justify-center pt-[60px] text-[22px] font-semibold normal-case text-blueWaki">
         <button className="absolute right-2 h-9 w-9 p-1">
           <IoCalendarClearOutline />
         </button>
@@ -31,7 +31,7 @@ export default function Match() {
       <MatchNavbar updateList={updateList} />
       <Searchbar placeholder="Buscar equipo" />
       <div></div>
-      <MatchList />
+      <MatchList selectedDate={selectedDate} />
     </main>
   );
 }
