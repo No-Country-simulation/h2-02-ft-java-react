@@ -1,9 +1,9 @@
 package com.app.waki.prediction.infrastructure.jpa;
 
 import com.app.waki.prediction.domain.PredictionDetails;
-import com.app.waki.prediction.domain.PredictionDetailsId;
+import com.app.waki.prediction.domain.valueObject.PredictionDetailsId;
 import com.app.waki.prediction.domain.PredictionRepository;
-import com.app.waki.prediction.domain.ProfileId;
+import com.app.waki.prediction.domain.valueObject.ProfileId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -26,8 +26,9 @@ public class JpaPredictionRepositoryImpl implements PredictionRepository {
     }
 
     @Override
-    public List<PredictionDetails> getAllPredictionByUserId(ProfileId profileId) {
-        return null;
+    public List<PredictionDetails> getAllPredictionsByProfileId(ProfileId profileId) {
+
+        return repository.getAllPredictionsByProfileId(profileId);
     }
 
     @Override
@@ -39,4 +40,6 @@ public class JpaPredictionRepositoryImpl implements PredictionRepository {
     public List<PredictionDetails> getAllPredictionByCompetition(String competition) {
         return null;
     }
+
+
 }

@@ -3,7 +3,6 @@ package com.app.waki.user.infrastructure.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,7 +29,16 @@ public class SecurityConfig {
             //PROFILE
             new AntPathRequestMatcher("/profile/{profileId}"),
             new AntPathRequestMatcher("/profile/predictionByDate/{profileId}"),
-            new AntPathRequestMatcher("/profile/validatePrediction/{profileId}")
+            new AntPathRequestMatcher("/profile/validatePrediction/{profileId}"),
+            //PREDICTION
+            new AntPathRequestMatcher("/prediction/{profileId}"),
+            //API FOOTBALL
+            new AntPathRequestMatcher("/match/updateMatches"),
+            new AntPathRequestMatcher("/match/getMatches"),
+            //SWAGGER
+            new AntPathRequestMatcher("/swagger-ui.html"),
+            new AntPathRequestMatcher("/v3/api-docs/**"),
+            new AntPathRequestMatcher("/swagger-ui/**")
     );
     RequestMatcher adminUrls = new OrRequestMatcher(
             new AntPathRequestMatcher("/user/admin")
@@ -45,8 +53,6 @@ public class SecurityConfig {
                         .requestMatchers(publicUrls)
                         .permitAll()
                         .requestMatchers(adminUrls).hasRole("ADMIN")
-                        //Swagger
-                        .requestMatchers(HttpMethod.GET,"/swagger-ui.html", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
                         .anyRequest()
                         .authenticated()
                 )

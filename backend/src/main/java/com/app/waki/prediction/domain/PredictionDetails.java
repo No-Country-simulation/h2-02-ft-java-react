@@ -2,6 +2,10 @@ package com.app.waki.prediction.domain;
 
 
 import com.app.waki.common.exceptions.ValidationException;
+import com.app.waki.prediction.domain.valueObject.EarnablePoints;
+import com.app.waki.prediction.domain.valueObject.PredictionDetailsId;
+import com.app.waki.prediction.domain.valueObject.PredictionStatus;
+import com.app.waki.prediction.domain.valueObject.ProfileId;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
