@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { loginUser } from '../../services/userService';
+import { useAuth } from '../../utils/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import InputField from '../atoms/InputField';
 import PasswordInput from '../molecules/PasswordInput';
 import Button from '../atoms/Button';
@@ -10,6 +12,9 @@ export default function LoginForm() {
     email: '',
     password: '',
   });
+
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,8 +48,11 @@ export default function LoginForm() {
     }
 
     try {
-      const response = await loginUser(email, password);
-      console.log('Usuario logueado:', response);
+      const token = await loginUser(email, password);
+      localStorage.setItem('token', token);
+      login();
+      navigate('/match');
+      console.log('Usuario logueado:', token);
     } catch (error) {
       console.error('Error al loguear el usuario:', error);
     }
