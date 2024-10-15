@@ -33,6 +33,11 @@ public class SecurityConfig {
             new AntPathRequestMatcher("/user/admin")
     );
 
+    RequestMatcher clientUrls = new OrRequestMatcher(
+            new AntPathRequestMatcher("/match/updateMatches", "GET"),
+            new AntPathRequestMatcher("/match/getMatches", "GET")
+    );
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -42,6 +47,7 @@ public class SecurityConfig {
                         .requestMatchers(publicUrls)
                         .permitAll()
                         .requestMatchers(adminUrls).hasRole("ADMIN")
+                        .requestMatchers(clientUrls).hasRole("USER")
                         //Swagger
                         .requestMatchers(HttpMethod.GET,"/swagger-ui.html", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
                         .anyRequest()
