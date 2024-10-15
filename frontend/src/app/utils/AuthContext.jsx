@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react';
 
 // Crear contexto
 const AuthContext = createContext();
@@ -7,11 +7,19 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
   const login = () => {
     setIsAuthenticated(true);
   };
 
   const logout = () => {
+    localStorage.removeItem('token');
     setIsAuthenticated(false);
   };
 

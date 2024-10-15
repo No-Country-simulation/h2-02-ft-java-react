@@ -3,7 +3,7 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Home from '../pages/Home';
 import Profile from '../pages/Profile';
-import Partidos from '../pages/Partidos';
+import Macth from '../pages/Macth';
 import ScoutPlayers from '../pages/ScoutPlayers';
 import Divisiones from '../pages/Divisiones';
 import Predictions from '../pages/Predictions';
@@ -18,7 +18,7 @@ export default function AppRouter() {
         <Route path="/register" element={<Register />} />
 
         {/* Anidamos /predictions dentro de /partidos */}
-        <Route path="/partidos" element={<Partidos />}>
+        <Route path="/match" element={<Macth />}>
           <Route path="predictions" element={<Predictions />} />
         </Route>
 

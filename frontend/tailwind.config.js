@@ -46,6 +46,9 @@ module.exports = withMT({
       animation: {
         'spin-slow': 'spin 3s linear infinite',
       },
+      boxShadow: {
+        custom: '0 0 14.6px rgba(0, 0, 0, 0.2)',
+      },
     },
     borderRadius: {
       none: '0',
