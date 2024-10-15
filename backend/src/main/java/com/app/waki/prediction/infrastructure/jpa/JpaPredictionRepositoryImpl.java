@@ -32,8 +32,9 @@ public class JpaPredictionRepositoryImpl implements PredictionRepository {
     }
 
     @Override
-    public List<PredictionDetails> getAllPredictionByDate(LocalDate creationTime) {
-        return null;
+    public List<PredictionDetails> getAllPredictionByDate(ProfileId profileId, LocalDate creationTime) {
+
+        return repository.getAllPredictionByDate(profileId, creationTime);
     }
 
     @Override

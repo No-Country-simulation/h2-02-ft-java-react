@@ -14,6 +14,6 @@ public interface PredictionRepository {
     Optional<PredictionDetails> getPredictionById(PredictionDetailsId id);
 
     List<PredictionDetails> getAllPredictionsByProfileId(ProfileId profileId);
-    List<PredictionDetails> getAllPredictionByDate(LocalDate creationTime);
+    List<PredictionDetails> getAllPredictionByDate(ProfileId profileId, LocalDate creationTime);
     List<PredictionDetails> getAllPredictionByCompetition(String competition);
 }
