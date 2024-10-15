@@ -1,7 +1,7 @@
 export default function Button({ children, className = '', ...props }) {
   return (
     <button
-      className={`mx-auto rounded px-4 py-1 normal-case transition-colors ease-in-out ${className}`}
+      className={`h-[35px] rounded bg-purpleWaki px-[1.075rem] py-1 font-medium normal-case text-white transition-colors ease-in-out hover:bg-purpleWakiHover ${className}`}
       {...props}
     >
       {children}

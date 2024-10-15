@@ -53,7 +53,7 @@ export default function LoginForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex w-full flex-col justify-center p-[37.5px]"
+      className="flex w-full flex-col justify-center px-4 py-[37.5px] xs:px-[37.5px]"
     >
       <h2 className="mb-1 text-semibold-22 font-semibold text-blueWaki">
         Hola de nuevo,
@@ -82,9 +82,7 @@ export default function LoginForm() {
         </a>
       </div>
 
-      <Button className="mt-6 h-[35px] bg-purpleWaki text-white hover:bg-purpleWakiHover">
-        Iniciar sesión
-      </Button>
+      <Button className="mx-auto mt-6">Iniciar sesión</Button>
 
       <div className="relative my-8 flex items-center justify-center">
         <span className="relative z-10 bg-white px-2 text-grayWaki">

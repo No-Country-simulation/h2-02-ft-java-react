@@ -25,9 +25,10 @@ public class Profile {
     private LocalDate timeProfileCreated;
     @Embedded
     private TotalPoints totalPoints;
-    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<AvailablePrediction> availablePredictions = new ArrayList<>();
-
+    @Version
+    private Long version;
     public Profile(){};
 
     private Profile (ProfileUserId profileUserId){
@@ -56,4 +57,5 @@ public class Profile {
                 .filter(prediction -> prediction.getPredictionDate().equals(date))
                 .findFirst();
     }
+
 }

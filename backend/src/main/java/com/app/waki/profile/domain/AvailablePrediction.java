@@ -22,6 +22,8 @@ public class AvailablePrediction {
     private Profile profile;
     private LocalDate predictionDate;
     private RemainingPredictions remainingPredictions;
+    @Version
+    private Long version;
 
     public AvailablePrediction(){}
 
@@ -34,5 +36,23 @@ public class AvailablePrediction {
     public static AvailablePrediction create(Profile profile, LocalDate predictionDate, Integer remainingPredictions) {
         var predictions = new RemainingPredictions(remainingPredictions);
         return new AvailablePrediction(profile, predictionDate, predictions);
+    }
+
+    public boolean validateRemainingPredictions(LocalDate matchDay){
+
+        LocalDate today = LocalDate.now();
+
+        if (matchDay.equals(today)) {
+            if (this.remainingPredictions.getValue() > 0) {
+                this.remainingPredictions = this.remainingPredictions.subtractOne();
+                return true;
+            }
+        } else if (matchDay.isAfter(today) && matchDay.isBefore(LocalDate.now().plusDays(6))) {
+            if (this.remainingPredictions.getValue() > 3) {
+                this.remainingPredictions = this.remainingPredictions.subtractOne();
+                return true;
+            }
+        }
+        return false;
     }
 }
