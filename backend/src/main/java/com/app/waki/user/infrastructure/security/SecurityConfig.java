@@ -1,6 +1,5 @@
 package com.app.waki.user.infrastructure.security;
 
-import com.app.waki.user.infrastructure.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,8 +24,13 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
 
     RequestMatcher publicUrls = new OrRequestMatcher(
+            //USER
             new AntPathRequestMatcher("/user/create"),
-            new AntPathRequestMatcher("/user/login")
+            new AntPathRequestMatcher("/user/login"),
+            //PROFILE
+            new AntPathRequestMatcher("/profile/{profileId}"),
+            new AntPathRequestMatcher("/profile/predictionByDate/{profileId}"),
+            new AntPathRequestMatcher("/profile/validatePrediction/{profileId}")
     );
     RequestMatcher adminUrls = new OrRequestMatcher(
             new AntPathRequestMatcher("/user/admin")

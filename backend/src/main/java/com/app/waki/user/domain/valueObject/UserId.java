@@ -4,6 +4,7 @@ import io.jsonwebtoken.lang.Assert;
 import jakarta.persistence.Embeddable;
 
 import java.util.UUID;
+
 @Embeddable
 public record UserId(UUID id) {
     public UserId {

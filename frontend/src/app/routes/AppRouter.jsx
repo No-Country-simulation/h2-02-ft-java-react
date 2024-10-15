@@ -1,9 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from '../pages/Home';
-import Profile from '../pages/Profile';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
-import Match from '../pages/Match';
+import Home from '../pages/Home';
+import Profile from '../pages/Profile';
+import Macth from '../pages/Macth';
+import ScoutPlayers from '../pages/ScoutPlayers';
+import Divisiones from '../pages/Divisiones';
+import Predictions from '../pages/Predictions';
 import PrivateRoute from '../routes/PrivateRoute';
 
 export default function AppRouter() {
@@ -13,6 +16,14 @@ export default function AppRouter() {
         {/* Rutas públicas */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
+        {/* Anidamos /predictions dentro de /partidos */}
+        <Route path="/match" element={<Macth />}>
+          <Route path="predictions" element={<Predictions />} />
+        </Route>
+
+        <Route path="/scout-players" element={<ScoutPlayers />} />
+        <Route path="/divisiones" element={<Divisiones />} />
 
         {/* Rutas privadas */}
         <Route
@@ -28,14 +39,6 @@ export default function AppRouter() {
           element={
             <PrivateRoute>
               <Profile />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/match"
-          element={
-            <PrivateRoute>
-              <Match />
             </PrivateRoute>
           }
         />
