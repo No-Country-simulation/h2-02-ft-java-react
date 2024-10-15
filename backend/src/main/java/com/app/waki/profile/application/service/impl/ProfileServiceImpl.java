@@ -2,9 +2,8 @@ package com.app.waki.profile.application.service.impl;
 
 import com.app.waki.common.exceptions.ConcurrencyException;
 import com.app.waki.common.exceptions.EntityNotFoundException;
-import com.app.waki.common.exceptions.InsufficientPredictionsException;
 import com.app.waki.profile.application.dto.AvailablePredictionDto;
-import com.app.waki.profile.application.dto.CreatePredictionRequest;
+import com.app.waki.profile.domain.CreatePredictionRequest;
 import com.app.waki.profile.domain.AvailablePrediction;
 import com.app.waki.user.domain.UserCreatedEvent;
 import com.app.waki.common.exceptions.ValidationException;
@@ -16,6 +15,7 @@ import com.app.waki.profile.domain.ProfileRepository;
 import com.app.waki.profile.domain.valueObjects.ProfileUserId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
@@ -32,6 +32,7 @@ import java.util.stream.Collectors;
 public class ProfileServiceImpl implements ProfileService {
 
     private final ProfileRepository repository;
+    private final ApplicationEventPublisher publisher;
 
     @ApplicationModuleListener
     void onUserCreate (UserCreatedEvent event){
@@ -95,6 +96,8 @@ public class ProfileServiceImpl implements ProfileService {
 
         try {
             repository.save(profile);
+            var createPredictionEvent = ProfileMapper.predictionRequestToEvent(profileId, request);
+            publisher.publishEvent(createPredictionEvent);
         } catch (OptimisticLockingFailureException e) {
             throw new ConcurrencyException("Available predictions were updated by another transaction. Please try again.");
         }

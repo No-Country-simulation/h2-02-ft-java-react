@@ -6,10 +6,10 @@ import jakarta.persistence.Embeddable;
 import java.util.UUID;
 
 @Embeddable
-public record PredictionId(UUID id) {
+public record PredictionId(UUID predictionId) {
 
     public PredictionId{
-        Assert.notNull(id, "id must not be null");
+        Assert.notNull(predictionId, "id must not be null");
     }
 
     public PredictionId() {

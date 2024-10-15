@@ -17,22 +17,25 @@ import java.util.*;
 public class PredictionDetails {
 
     @Id
-    private PredictionDetailsId predictionId;
-    private UserId userId;
+    private PredictionDetailsId predictionDetailsId;
+    private ProfileId profileId;
     @OneToMany(mappedBy = "predictionDetails", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Prediction> predictions = new ArrayList<>();
     private LocalDate creationTime;
     private Boolean combined;
+    @Embedded
     private EarnablePoints earnablePoints;
     @Enumerated(EnumType.STRING)
     private PredictionStatus status;
+    @Version
+    private Long version;
 
     public PredictionDetails(){}
 
-    private PredictionDetails(PredictionDetailsId id, UserId userId, List<Prediction> predictions){
-        this.predictionId = id;
-        this.userId = userId;
-        this.predictions = new ArrayList<>(predictions);
+    private PredictionDetails(ProfileId profileId, List<PredictionRequest> predictionRequest){
+        this.predictionDetailsId = new PredictionDetailsId();
+        this.profileId = profileId;
+        this.predictions = createPredictions(predictionRequest);
         this.creationTime = LocalDate.now();
         this.combined = isCombined();
         this.earnablePoints = calculateTotalPoints();
@@ -40,24 +43,21 @@ public class PredictionDetails {
 
     }
 
-    public static PredictionDetails createPredictionDetails(UserId userId, List<PredictionRequestDto> predictionRequestDto) {
-        validateUniqueMatchIds(predictionRequestDto);
-        PredictionDetails predictionDetails = new PredictionDetails(new PredictionDetailsId(), userId, new ArrayList<>());
-        List<Prediction> predictions = createPredictions(predictionDetails, predictionRequestDto);
-        predictionDetails.predictions.addAll(predictions);
-        return predictionDetails;
+    public static PredictionDetails createPredictionDetails(ProfileId profileId, List<PredictionRequest> predictionRequest) {
+        validateUniqueMatchIds(predictionRequest);
+        return new PredictionDetails(profileId,predictionRequest);
     }
 
-    private static List<Prediction> createPredictions(PredictionDetails predictionDetails, List<PredictionRequestDto> predictionRequestDto) {
+    private List<Prediction> createPredictions(List<PredictionRequest> predictionRequest) {
 
-        return predictionRequestDto.stream()
-                .map(dto -> Prediction.createPrediction(predictionDetails, dto))
+        return predictionRequest.stream()
+                .map(dto -> Prediction.createPrediction(this, dto))
                 .toList();
     }
 
-    private static void validateUniqueMatchIds(List<PredictionRequestDto> predictionRequestDto) {
+    private static void validateUniqueMatchIds(List<PredictionRequest> predictionRequest) {
         Set<String> uniqueMatchIds = new HashSet<>();
-        for (PredictionRequestDto dto : predictionRequestDto) {
+        for (PredictionRequest dto : predictionRequest) {
             if (!uniqueMatchIds.add(dto.matchId())) {
                 throw new ValidationException("Duplicate match ID found: " + dto.matchId());
             }
@@ -77,7 +77,7 @@ public class PredictionDetails {
                     .mapToDouble(Prediction::getOdds)
                     .reduce(1, (a, b) -> a * b);
             int numberOfPredictions = this.predictions.size();
-            var totalPoints = (int)(combinedPay * numberOfPredictions);
+            var totalPoints = (int)(combinedPay * 10 * numberOfPredictions);
             return new EarnablePoints(totalPoints);
         }
     }

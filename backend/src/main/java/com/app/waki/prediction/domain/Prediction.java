@@ -14,33 +14,36 @@ import java.time.LocalDate;
 public class Prediction {
 
     @Id
-    private PredictionId id;
+    private PredictionId predictionId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "prediction_d_id")
+    @JoinColumn(name = "details_id")
     private PredictionDetails predictionDetails;
     private MatchId matchId;
     @Enumerated(EnumType.STRING)
     private ExpectedResult expectedResult;
+    @Enumerated(EnumType.STRING)
     private MatchResult matchResult;
     private LocalDate matchDay;
     private Double odds;
     private String competition;
+    @Version
+    private Long version;
 
     public Prediction(){}
 
     private Prediction(PredictionDetails predictionDetails, MatchId matchId,
                        ExpectedResult expectedResult, LocalDate matchDay, Double odds, String competition) {
-        this.id = new PredictionId();
+        this.predictionId = new PredictionId();
         this.predictionDetails = predictionDetails;
         this.matchId = matchId;
         this.expectedResult = expectedResult;
-        this.matchResult = MatchResult.NOT_FINISHED;
+        this.matchResult = MatchResult.PENDING;
         this.matchDay = matchDay;
         this.odds = odds;
         this.competition = competition;
     }
 
-    public static Prediction createPrediction(PredictionDetails predictionDetails, PredictionRequestDto predictionRequest){
+    public static Prediction createPrediction(PredictionDetails predictionDetails, PredictionRequest predictionRequest){
         var matchId = new MatchId(predictionRequest.matchId());
         var expectedResult = ExpectedResult.fromString(predictionRequest.expectedResult());
 

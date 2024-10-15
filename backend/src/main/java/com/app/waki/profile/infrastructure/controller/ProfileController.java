@@ -1,7 +1,7 @@
 package com.app.waki.profile.infrastructure.controller;
 
 import com.app.waki.profile.application.dto.AvailablePredictionDto;
-import com.app.waki.profile.application.dto.CreatePredictionRequest;
+import com.app.waki.profile.domain.CreatePredictionRequest;
 import com.app.waki.profile.application.dto.ProfileDto;
 import com.app.waki.profile.application.service.ProfileService;
 import lombok.RequiredArgsConstructor;

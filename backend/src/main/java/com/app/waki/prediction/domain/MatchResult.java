@@ -3,7 +3,7 @@ package com.app.waki.prediction.domain;
 import com.app.waki.common.exceptions.ValidationException;
 
 public enum MatchResult {
-    NOT_FINISHED,
+    PENDING,
     LOCAL,
     DRAW,
     AWAY;
