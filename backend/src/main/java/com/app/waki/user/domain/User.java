@@ -1,8 +1,14 @@
 package com.app.waki.user.domain;
 
+import com.app.waki.user.domain.valueObject.Email;
+import com.app.waki.user.domain.valueObject.Password;
+import com.app.waki.user.domain.valueObject.UserId;
+import com.app.waki.user.domain.valueObject.UserName;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.util.UUID;
 
 @Entity
 @EqualsAndHashCode
@@ -10,18 +16,18 @@ import lombok.ToString;
 public class User {
 
     @Id
-    private  UserId userId;
+    private UserId userId;
     @Embedded
-    private  UserName userName;
+    private UserName userName;
     @Embedded
-    private  Email email;
+    private Email email;
     @Embedded
-    private  Password password;
+    private Password password;
     @Enumerated(EnumType.STRING)
     private  UserRole role;
 
     public User(){}
-    public User (UserName userName, Email email, Password password, UserRole userRole) {
+    private User (UserName userName, Email email, Password password, UserRole userRole) {
         this.userId = new UserId();
         this.userName = userName;
         this.email = email;
@@ -35,8 +41,8 @@ public class User {
         var userPassword = new Password(password);
         return new User(username, userEmail, userPassword, UserRole.USER);
     }
-    public String getId(){
-        return this.userId.id().toString();
+    public UUID getId(){
+        return this.userId.id();
     }
     public String getRole(){
         return this.role.name();

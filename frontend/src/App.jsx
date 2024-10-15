@@ -1,8 +1,13 @@
-function App() {
+import { AuthProvider } from './app/utils/AuthContext';
+import AppRouter from './app/routes/AppRouter';
+import AuthPage from './app/pages/AuthPage';
 
+export default function App() {
   return (
-    <h1 className='text-rose-500 text-3xl font-bold underline'>Waki</h1>
-  )
+    <AuthProvider>
+      <AppRouter>
+        <AuthPage />
+      </AppRouter>
+    </AuthProvider>
+  );
 }
-
-export default App
