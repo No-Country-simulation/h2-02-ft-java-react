@@ -8,7 +8,7 @@ export default function PredictionsHeader() {
     <div className="w-full text-white">
       <div className="p-5 pt-8">
         {/* Botón de volver */}
-        <Link to="/partidos">
+        <Link to="/match">
           <div className="mb-4 flex items-center gap-2 text-regular-14">
             <BsArrowLeft className="text-lg" />
             Partidos

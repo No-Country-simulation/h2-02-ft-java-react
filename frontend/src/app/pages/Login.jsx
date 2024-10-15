@@ -1,5 +1,5 @@
 import LoginForm from '../components/organisms/LoginForm';
-import AuthNavbar from '../components/molecules/AuthNavbar';
+import AuthNavbar from '../components/atoms/AuthNavbar';
 
 export default function Login() {
   return (

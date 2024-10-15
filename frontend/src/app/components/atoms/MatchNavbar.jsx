@@ -29,8 +29,8 @@ export default function MatchNavbar({ updateList }) {
   };
 
   return (
-    <div className="relative">
-      <nav className="z-10 grid grid-cols-3 pt-5 text-center">
+    <>
+      <nav className="grid grid-cols-3 pt-5 text-center">
         <button
           onClick={() => handleTabClick('yesterday')}
           className={`px-4 py-2 text-regularNav-16 transition-colors duration-300 ${
@@ -49,7 +49,7 @@ export default function MatchNavbar({ updateList }) {
               : 'text-grayWaki'
           }`}
         >
-          HOY
+          Hoy
         </button>
         <button
           onClick={() => handleTabClick('tomorrow')}
@@ -71,6 +71,6 @@ export default function MatchNavbar({ updateList }) {
               : 'translate-x-[200%]'
         }`}
       ></span>
-    </div>
+    </>
   );
 }

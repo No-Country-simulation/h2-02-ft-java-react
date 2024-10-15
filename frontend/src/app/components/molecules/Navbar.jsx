@@ -9,13 +9,13 @@ const navItems = [
     icon: <FaDollarSign size={28} />,
     label: 'Scout players',
   },
-  { to: '/partidos', icon: <RiFootballLine size={30} />, label: 'Partidos' },
+  { to: '/match', icon: <RiFootballLine size={30} />, label: 'Partidos' },
   { to: '/divisiones', icon: <BsTrophy size={28} />, label: 'Divisiones' },
 ];
 
 export default function Navbar() {
   return (
-    <nav className="grid h-[90px] w-full grid-cols-3 items-center justify-evenly rounded-t-large bg-blueWaki px-4 sm:min-w-[500px] xs:px-8">
+    <nav className="xs:px-8 grid h-[90px] w-full grid-cols-3 items-center justify-evenly rounded-t-large bg-blueWaki px-4 sm:min-w-[500px]">
       {navItems.map((item, index) => (
         <NavLink
           key={index}
