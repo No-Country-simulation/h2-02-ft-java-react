@@ -10,7 +10,7 @@ export default function MatchDropdown({ leagues }) {
   };
 
   return (
-    <div className="flex w-full flex-col px-5">
+    <div className="flex w-full flex-col px-5 pb-5">
       {Object.keys(leagues).map((league, index) => (
         <div
           key={league}

@@ -3,10 +3,10 @@ import { useState } from 'react';
 export default function MatchNavbar({ updateList }) {
   const today = new Date();
   const yesterday = new Date(today);
-  const tomorrow = new Date(today);
+  const tomorrow = new Date(2024, 9, 19);
 
   yesterday.setDate(today.getDate() - 1);
-  tomorrow.setDate(today.getDate() + 4);
+  // tomorrow.setDate(today.getDate() + 1);
 
   const formatDate = (date) => {
     const options = { day: '2-digit', month: 'short' };
@@ -27,6 +27,7 @@ export default function MatchNavbar({ updateList }) {
       updateList(tomorrow);
     }
   };
+  console.log('tomorrow', tomorrow);
 
   return (
     <>

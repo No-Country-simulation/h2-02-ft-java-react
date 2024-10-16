@@ -9,6 +9,7 @@ export default function MatchList({ selectedDate }) {
     const fetchMatches = async () => {
       try {
         const matches = await getMatches();
+        console.log('matches', matches);
         const groupedMatches = matches.reduce((acc, match) => {
           const league = match.competition.name;
           if (!acc[league]) {

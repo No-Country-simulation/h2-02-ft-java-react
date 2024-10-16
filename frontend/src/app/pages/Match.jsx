@@ -29,13 +29,13 @@ export default function Match() {
         <>
           <HeaderMatch updateList={updateList} />
           <Searchbar placeholder="Buscar equipo" />
-          <MatchList selectedDate={selectedDate} />
-          <div className="flex items-center justify-between px-5">
+          <div className="flex items-center justify-between px-5 pb-5">
             <h2 className="text-regularNav-16 text-label">Ligas</h2>
             <AnchorButton to="/match/mypredictions">
               Mis predicciones
             </AnchorButton>
           </div>
+          <MatchList selectedDate={selectedDate} />
         </>
       )}
       <Outlet />
