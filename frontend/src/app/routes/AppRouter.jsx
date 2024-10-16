@@ -6,7 +6,7 @@ import Profile from '../pages/Profile';
 import Match from '../pages/Match';
 import ScoutPlayers from '../pages/ScoutPlayers';
 import Divisiones from '../pages/Divisiones';
-import Predictions from '../pages/Predictions';
+import MyPredictions from '../pages/MyPredictions';
 import PrivateRoute from '../routes/PrivateRoute';
 
 export default function AppRouter() {
@@ -17,13 +17,34 @@ export default function AppRouter() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Anidamos /predictions dentro de /partidos */}
-        <Route path="/match" element={<Match />}>
-          <Route path="predictions" element={<Predictions />} />
+        {/* Rutas privadas para Match y sus rutas anidadas */}
+        <Route
+          path="/match"
+          element={
+            <PrivateRoute>
+              <Match />
+            </PrivateRoute>
+          }
+        >
+          <Route path="mypredictions" element={<MyPredictions />} />
         </Route>
 
-        <Route path="/scout-players" element={<ScoutPlayers />} />
-        <Route path="/divisiones" element={<Divisiones />} />
+        <Route
+          path="/scout-players"
+          element={
+            <PrivateRoute>
+              <ScoutPlayers />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/divisiones"
+          element={
+            <PrivateRoute>
+              <Divisiones />
+            </PrivateRoute>
+          }
+        />
 
         {/* Rutas privadas */}
         <Route

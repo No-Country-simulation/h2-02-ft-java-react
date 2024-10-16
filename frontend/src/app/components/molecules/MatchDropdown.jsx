@@ -14,7 +14,7 @@ export default function MatchDropdown({ leagues }) {
       {Object.keys(leagues).map((league, index) => (
         <div
           key={league}
-          className={`shadow-custom mb-2 ${
+          className={`mb-2 shadow-custom ${
             index === 0 ? 'rounded-t-lg' : ''
           } ${index === Object.keys(leagues).length - 1 ? 'rounded-b-lg' : ''}`}
         >

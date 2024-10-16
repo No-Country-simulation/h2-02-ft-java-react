@@ -1,9 +1,19 @@
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../utils/AuthContext'; // Importamos el hook de autenticación
+import { useAuth } from '../utils/AuthContext';
 
 export default function PrivateRoute({ children }) {
-  const { isAuthenticated } = useAuth(); // Verificamos si el usuario está autenticado
+  const { isAuthenticated, loading } = useAuth();
 
-  // Si no está autenticado, redirige a la página de inicio de sesión
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  if (loading) {
+    // Mientras el estado de carga está activo, mostramos un spinner o simplemente evitamos el renderizado
+    return <div>Cargando...</div>; // O un componente de carga
+  }
+
+  // Si no está autenticado, redirige al login
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+
+  // Si está autenticado, renderiza el componente hijo
+  return children;
 }

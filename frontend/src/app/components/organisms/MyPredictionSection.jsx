@@ -9,9 +9,9 @@ export default function PredictionSection({ title, predictions }) {
         <AnchorButton>Hacer predicción</AnchorButton>
       </div>
       <ul className="mb-2 grid grid-cols-[1fr_1fr_50px] items-center rounded-large px-4 py-2 shadow-[0_0_14.6px_0_rgba(0,0,0,0.2)]">
-        <li className="text-grayLightWaki text-regular-12">Predicción</li>
-        <li className="text-grayLightWaki text-regular-12">Partido</li>
-        <li className="text-grayLightWaki text-regular-12">Puntos</li>
+        <li className="text-regular-12 text-grayLightWaki">Predicción</li>
+        <li className="text-regular-12 text-grayLightWaki">Partido</li>
+        <li className="text-regular-12 text-grayLightWaki">Puntos</li>
       </ul>
       <div className="flex flex-col gap-2">
         {predictions.map((prediction, index) => (

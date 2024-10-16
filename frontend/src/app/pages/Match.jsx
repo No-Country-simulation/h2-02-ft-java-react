@@ -25,14 +25,14 @@ export default function Match() {
 
   return (
     <main className="flex min-h-screen w-full flex-col overflow-hidden sm:min-w-[500px]">
-      {location.pathname !== '/match/predictions' && (
+      {location.pathname !== '/match/mypredictions' && (
         <>
           <HeaderMatch updateList={updateList} />
           <Searchbar placeholder="Buscar equipo" />
           <MatchList selectedDate={selectedDate} />
           <div className="flex items-center justify-between px-5">
             <h2 className="text-regularNav-16 text-label">Ligas</h2>
-            <AnchorButton to="/match/predictions">
+            <AnchorButton to="/match/mypredictions">
               Mis predicciones
             </AnchorButton>
           </div>

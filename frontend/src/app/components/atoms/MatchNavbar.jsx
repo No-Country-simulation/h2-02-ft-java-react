@@ -6,7 +6,7 @@ export default function MatchNavbar({ updateList }) {
   const tomorrow = new Date(today);
 
   yesterday.setDate(today.getDate() - 1);
-  tomorrow.setDate(today.getDate() + 1);
+  tomorrow.setDate(today.getDate() + 4);
 
   const formatDate = (date) => {
     const options = { day: '2-digit', month: 'short' };

@@ -8,53 +8,45 @@ import Button from '../atoms/Button';
 import GoogleLoginButton from '../molecules/GoogleLoginButton';
 
 export default function LoginForm() {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [errorMessage, setErrorMessage] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = formData;
 
-    // Valida que todos los campos no estén vacíos
+    // Validaciones
     if (!email || !password) {
-      alert('Todos los campos son obligatorios');
+      setErrorMessage('Todos los campos son obligatorios');
       return;
     }
 
-    // Valida que el email sea de gmail, hotmail o outlook
     const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail|outlook)\.com$/;
     if (!emailRegex.test(email)) {
-      alert('El correo electrónico debe ser de gmail, hotmail o outlook');
+      setErrorMessage(
+        'El correo electrónico debe ser de gmail, hotmail o outlook'
+      );
       return;
     }
 
-    // Valida que password no contenga espacios
     if (/\s/.test(password)) {
-      alert('La contraseña no puede contener espacios');
+      setErrorMessage('La contraseña no puede contener espacios');
       return;
     }
 
     try {
-      const token = await loginUser(email, password);
-      localStorage.setItem('token', token);
-      login();
+      const token = await loginUser(email, password); // Llama al servicio
+      login(token); // Guarda el token en el contexto
       navigate('/match');
-      console.log('Usuario logueado:', token);
     } catch (error) {
-      console.error('Error al loguear el usuario:', error);
+      setErrorMessage(error.message || 'Error al iniciar sesión');
     }
   };
 
@@ -68,9 +60,11 @@ export default function LoginForm() {
       </h2>
       <p className="mb-8 text-grayWaki">Por favor inicia sesión</p>
 
+      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+
       <div className="flex flex-col gap-3">
         <InputField
-          label="Ingresa tu email o teléfono"
+          label="Ingresa tu email"
           type="text"
           name="email"
           value={formData.email}
@@ -84,6 +78,7 @@ export default function LoginForm() {
         />
       </div>
 
+      {/* ¿Olvidaste tu contraseña? */}
       <div className="mt-4 w-full text-center">
         <a href="#" className="text-regular-13 text-blueWaki underline">
           ¿Olvidaste tu contraseña?
@@ -92,6 +87,7 @@ export default function LoginForm() {
 
       <Button className="mx-auto mt-6">Iniciar sesión</Button>
 
+      {/* O inicia sesión con */}
       <div className="relative my-8 flex items-center justify-center">
         <span className="relative z-10 bg-white px-2 text-grayWaki">
           O inicia sesión con
@@ -101,6 +97,7 @@ export default function LoginForm() {
         </div>
       </div>
 
+      {/* Botón para Google */}
       <GoogleLoginButton />
     </form>
   );
