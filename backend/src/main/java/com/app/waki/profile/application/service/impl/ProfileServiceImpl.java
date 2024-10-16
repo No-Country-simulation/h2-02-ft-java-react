@@ -138,9 +138,9 @@ public class ProfileServiceImpl implements ProfileService {
 
     private List<AvailablePredictionDto> saveProfileAndPublishEvent(Profile profile, UUID profileId, List<CreatePredictionRequest> request) {
         try {
-            repository.save(profile);
             var createPredictionEvent = ProfileMapper.predictionRequestToEvent(profileId, request);
             publisher.publishEvent(createPredictionEvent);
+            repository.save(profile);
         } catch (OptimisticLockingFailureException e) {
             throw new ConcurrencyException("Available predictions were updated by another transaction. Please try again.");
         }

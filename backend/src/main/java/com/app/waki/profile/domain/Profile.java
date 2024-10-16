@@ -25,7 +25,7 @@ public class Profile {
     private TotalPoints totalPoints;
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<AvailablePrediction> availablePredictions = new ArrayList<>();
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "predicted_matches", joinColumns = @JoinColumn(name = "available_prediction_id"))
     private final Set<ValidateMatchId> matchIds = new HashSet<>();
     @Version

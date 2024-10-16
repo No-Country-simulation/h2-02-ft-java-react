@@ -11,9 +11,9 @@ public interface PredictionRepository {
 
     void savePrediction(PredictionDetails predictionDetails);
 
-    Optional<PredictionDetails> getPredictionById(PredictionDetailsId id);
+    Optional<PredictionDetails> getPredictionDetailsById(PredictionDetailsId id);
 
-    List<PredictionDetails> getAllPredictionsByProfileId(ProfileId profileId);
-    List<PredictionDetails> getAllPredictionByDate(ProfileId profileId, LocalDate creationTime);
-    List<PredictionDetails> getAllPredictionByCompetition(String competition);
+    List<PredictionDetails> getAllPredictionDetailsByProfileId(ProfileId profileId);
+    List<PredictionDetails> getAllPredictionDetailsByDate(ProfileId profileId, LocalDate creationTime);
+    List<PredictionDetails> getAllPredictionDetailsByCompetition(ProfileId profileId, String competition);
 }

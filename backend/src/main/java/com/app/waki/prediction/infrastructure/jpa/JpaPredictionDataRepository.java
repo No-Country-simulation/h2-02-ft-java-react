@@ -15,9 +15,15 @@ public interface JpaPredictionDataRepository extends JpaRepository<PredictionDet
 
     @EntityGraph(attributePaths = {"predictionDetailsId", "profileId", "creationTime", "combined", "earnablePoints", "status", "version"})
     @Query("SELECT pd FROM PredictionDetails pd WHERE pd.profileId = :profileId")
-    List<PredictionDetails> getAllPredictionsByProfileId(@Param("profileId") ProfileId profileId);
+    List<PredictionDetails> getAllPredictionDetailsByProfileId(@Param("profileId") ProfileId profileId);
 
     @EntityGraph(attributePaths = {"predictionDetailsId", "profileId", "creationTime", "combined", "earnablePoints", "status", "version"})
     @Query("SELECT pd FROM PredictionDetails pd WHERE pd.profileId = :profileId AND pd.creationTime = :creationTime")
-    List<PredictionDetails> getAllPredictionByDate(@Param("profileId") ProfileId profileId, @Param("creationTime") LocalDate creationTime);
+    List<PredictionDetails> getAllPredictionDetailsByDate(@Param("profileId") ProfileId profileId, @Param("creationTime") LocalDate creationTime);
+
+    @Query("SELECT DISTINCT pd FROM PredictionDetails pd " +
+            "JOIN FETCH pd.predictions p " +
+            "WHERE pd.profileId = :profileId " +
+            "AND p.competition = :competition")
+    List<PredictionDetails> getAllPredictionDetailsByCompetition(@Param("profileId") ProfileId profileId, @Param("competition") String competition);
 }
