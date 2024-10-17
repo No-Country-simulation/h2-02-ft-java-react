@@ -32,8 +32,11 @@ public class MatchController {
 
     @GetMapping("/getMatches/{code}")
     @Operation(summary = "Esto se utiliza para traer los partidos de la Liga(code: PL,CL,CLI,ECL) que se ingrese, desde hoy hasta 5 dias posteriores")
-    public ResponseEntity<List<Match>> getLigasMatches(@PathVariable("code") String code) {
+    public ResponseEntity<?> getLigasMatches(@PathVariable("code") String code) {
         List<Match> matches = service.getMatchesWithinFiveDays(code.toUpperCase());
+        if (matches.isEmpty()) {
+            return new ResponseEntity<>("No hay partidos para estos 5 dia.", HttpStatus.OK);
+        }
         return new ResponseEntity<>(matches, HttpStatus.OK);
     }
 
@@ -45,9 +48,12 @@ public class MatchController {
     }
 
     @GetMapping("/getMatchesToday")
-    @Operation(summary = "Esto se utiliza para traer los partidos de la liga(code: PL,CL,CLI,ECL) y el dia (formato: 2024-10-19) que se ingrese")
-    public ResponseEntity<List<Match>> getLigasMatches(@RequestParam("code") String code, @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    @Operation(summary = "Esto se utiliza para traer los partidos de la liga (code: PL, CL, CLI, ECL) y el día (formato: 2024-10-19) que se ingrese")
+    public ResponseEntity<?> getLigasMatches(@RequestParam("code") String code, @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         List<Match> matches = service.getMatchesToday(code.toUpperCase(), date);
+        if (matches.isEmpty()) {
+            return new ResponseEntity<>("No hay partidos para este dia.", HttpStatus.OK);
+        }
         return new ResponseEntity<>(matches, HttpStatus.OK);
     }
 }
