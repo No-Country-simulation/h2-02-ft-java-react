@@ -3,42 +3,42 @@
     {
       "code": "PL",
       "name": "Premier League",
-      "logoUrl": "https://raw.githubusercontent.com/No-Country-simulation/h2-02-ft-java-react/refs/heads/feature/predictions/frontend/src/assets/premier.png?token=GHSAT0AAAAAACYKXUEMKUXBVXZVUY2BW3R2ZYRFDDA"
+      "logoUrl": "../src/assets/PremierLeague.png"
     },
     {
       "code": "CLI",
       "name": "Copa Libertadores",
-      "logoUrl": "https://raw.githubusercontent.com/No-Country-simulation/h2-02-ft-java-react/5f96caf9f6e6cd28e0a0f066b4907dd949e4a688/frontend/src/assets/Copa_Libertadores_logo.svg?token=AQ3TBW5JEMIOCKU2JW2YFH3HCEUJE"
+      "logoUrl": "../src/assets/Libertadores.png"
     },
     {
       "code": "CL",
       "name": "UEFA Champions League",
-      "logoUrl": "https://raw.githubusercontent.com/No-Country-simulation/h2-02-ft-java-react/5f96caf9f6e6cd28e0a0f066b4907dd949e4a688/frontend/src/assets/UEFA_Champions_League.svg?token=AQ3TBW4PNRYE44F5WGOC3PDHCEUK6"
+      "logoUrl": "../src/assets/ChampionsLeague.png"
     },
     {
       "code": "ELC",
       "name": "Championship",
-      "logoUrl": "https://upload.wikimedia.org/wikipedia/en/0/0e/EFL_Championship.svg"
+      "logoUrl": "../src/assets/Championship.png"
     },
     {
       "code": "SA",
       "name": "Seria A",
-      "logoUrl": "https://raw.githubusercontent.com/No-Country-simulation/h2-02-ft-java-react/refs/heads/feature/predictions/frontend/src/assets/premier.png?token=GHSAT0AAAAAACYKXUEMKUXBVXZVUY2BW3R2ZYRFDDA"
+      "logoUrl": "../src/assets/SerieA.png"
     },
     {
       "code": "BL",
       "name": "Bundesliga",
-      "logoUrl": "https://raw.githubusercontent.com/No-Country-simulation/h2-02-ft-java-react/5f96caf9f6e6cd28e0a0f066b4907dd949e4a688/frontend/src/assets/Copa_Libertadores_logo.svg?token=AQ3TBW5JEMIOCKU2JW2YFH3HCEUJE"
+      "logoUrl": "../src/assets/Bundesliga.png"
     },
     {
       "code": "LL",
       "name": "La Liga",
-      "logoUrl": "https://raw.githubusercontent.com/No-Country-simulation/h2-02-ft-java-react/5f96caf9f6e6cd28e0a0f066b4907dd949e4a688/frontend/src/assets/UEFA_Champions_League.svg?token=AQ3TBW4PNRYE44F5WGOC3PDHCEUK6"
+      "logoUrl": "../src/assets/LaLiga.png"
     },
     {
-      "code": "LA",
-      "name": "Liga Argentina",
-      "logoUrl": "https://upload.wikimedia.org/wikipedia/en/0/0e/EFL_Championship.svg"
+      "code": "LPA",
+      "name": "Liga Profesional Argentina",
+      "logoUrl": "../src/assets/LigaArgentina.png"
     }
   ]
 }

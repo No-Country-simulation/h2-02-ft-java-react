@@ -4,6 +4,7 @@ import MatchCard from '../molecules/MatchCard';
 
 export default function MatchDropdown({ leagues, competitionInfo }) {
   const [activeLeague, setActiveLeague] = useState(null);
+  // console.log('leagues', leagues);
 
   const toggleLeague = () => {
     setActiveLeague(activeLeague ? null : competitionInfo.name);
@@ -15,19 +16,15 @@ export default function MatchDropdown({ leagues, competitionInfo }) {
         onClick={toggleLeague}
         className="flex h-14 w-full items-center justify-between bg-white px-5"
       >
-        <div className="flex items-center gap-2">
-          <div className="flex h-12 w-12 items-center justify-center">
-            <img
-              src={competitionInfo.emblem}
-              alt={`${competitionInfo.name} emblem`}
-              className="h-full w-full object-contain"
-            />
-          </div>
-          <div className="flex w-full gap-2">
-            <span className="whitespace-nowrap text-regularNav-16 text-label">
-              {competitionInfo.name}
-            </span>
-          </div>
+        <div className="grid grid-cols-[36px_1fr] items-center gap-2">
+          <img
+            src={competitionInfo.emblem}
+            alt={`${competitionInfo.name} emblem`}
+            className="h-full w-full object-contain"
+          />
+          <span className="whitespace-nowrap text-regularNav-16 text-label">
+            {competitionInfo.name}
+          </span>
         </div>
         <div className="flex-shrink-0">
           {activeLeague ? (
