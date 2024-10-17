@@ -3,21 +3,41 @@
     {
       "code": "PL",
       "name": "Premier League",
-      "logoUrl": "https://upload.wikimedia.org/wikipedia/en/f/f2/Premier_League_Logo.svg"
+      "logoUrl": "https://raw.githubusercontent.com/No-Country-simulation/h2-02-ft-java-react/refs/heads/feature/predictions/frontend/src/assets/premier.png?token=GHSAT0AAAAAACYKXUEMKUXBVXZVUY2BW3R2ZYRFDDA"
     },
     {
       "code": "CLI",
       "name": "Copa Libertadores",
-      "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Copa_Libertadores_logo.svg"
+      "logoUrl": "https://raw.githubusercontent.com/No-Country-simulation/h2-02-ft-java-react/5f96caf9f6e6cd28e0a0f066b4907dd949e4a688/frontend/src/assets/Copa_Libertadores_logo.svg?token=AQ3TBW5JEMIOCKU2JW2YFH3HCEUJE"
     },
     {
       "code": "CL",
       "name": "UEFA Champions League",
-      "logoUrl": "https://upload.wikimedia.org/wikipedia/en/d/d1/UEFA_Champions_League_logo_2.svg"
+      "logoUrl": "https://raw.githubusercontent.com/No-Country-simulation/h2-02-ft-java-react/5f96caf9f6e6cd28e0a0f066b4907dd949e4a688/frontend/src/assets/UEFA_Champions_League.svg?token=AQ3TBW4PNRYE44F5WGOC3PDHCEUK6"
     },
     {
       "code": "ELC",
       "name": "Championship",
+      "logoUrl": "https://upload.wikimedia.org/wikipedia/en/0/0e/EFL_Championship.svg"
+    },
+    {
+      "code": "SA",
+      "name": "Seria A",
+      "logoUrl": "https://raw.githubusercontent.com/No-Country-simulation/h2-02-ft-java-react/refs/heads/feature/predictions/frontend/src/assets/premier.png?token=GHSAT0AAAAAACYKXUEMKUXBVXZVUY2BW3R2ZYRFDDA"
+    },
+    {
+      "code": "BL",
+      "name": "Bundesliga",
+      "logoUrl": "https://raw.githubusercontent.com/No-Country-simulation/h2-02-ft-java-react/5f96caf9f6e6cd28e0a0f066b4907dd949e4a688/frontend/src/assets/Copa_Libertadores_logo.svg?token=AQ3TBW5JEMIOCKU2JW2YFH3HCEUJE"
+    },
+    {
+      "code": "LL",
+      "name": "La Liga",
+      "logoUrl": "https://raw.githubusercontent.com/No-Country-simulation/h2-02-ft-java-react/5f96caf9f6e6cd28e0a0f066b4907dd949e4a688/frontend/src/assets/UEFA_Champions_League.svg?token=AQ3TBW4PNRYE44F5WGOC3PDHCEUK6"
+    },
+    {
+      "code": "LA",
+      "name": "Liga Argentina",
       "logoUrl": "https://upload.wikimedia.org/wikipedia/en/0/0e/EFL_Championship.svg"
     }
   ]
