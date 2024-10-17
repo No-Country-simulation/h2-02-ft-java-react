@@ -1,18 +1,16 @@
 package com.app.waki.profile.domain;
 
 
-import com.app.waki.profile.domain.valueObjects.ProfileUserId;
-import com.app.waki.profile.domain.valueObjects.TotalPoints;
+import com.app.waki.profile.domain.valueObject.ProfileUserId;
+import com.app.waki.profile.domain.valueObject.TotalPoints;
+import com.app.waki.profile.domain.valueObject.ValidateMatchId;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 
 @Entity
@@ -27,6 +25,9 @@ public class Profile {
     private TotalPoints totalPoints;
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<AvailablePrediction> availablePredictions = new ArrayList<>();
+    @ElementCollection
+    @CollectionTable(name = "predicted_matches", joinColumns = @JoinColumn(name = "available_prediction_id"))
+    private final Set<ValidateMatchId> matchIds = new HashSet<>();
     @Version
     private Long version;
     public Profile(){};
@@ -51,11 +52,12 @@ public class Profile {
         }
         return predictions;
     }
-
     public Optional<AvailablePrediction> getPredictionByDate(LocalDate date) {
         return availablePredictions.stream()
                 .filter(prediction -> prediction.getPredictionDate().equals(date))
                 .findFirst();
     }
-
+    public boolean addMatchId(ValidateMatchId matchId){
+        return this.matchIds.add(matchId);
+    }
 }

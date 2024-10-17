@@ -1,5 +1,9 @@
 package com.app.waki.prediction.domain;
 
+import com.app.waki.prediction.domain.valueObject.ExpectedResult;
+import com.app.waki.prediction.domain.valueObject.MatchId;
+import com.app.waki.prediction.domain.valueObject.MatchResult;
+import com.app.waki.prediction.domain.valueObject.PredictionId;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

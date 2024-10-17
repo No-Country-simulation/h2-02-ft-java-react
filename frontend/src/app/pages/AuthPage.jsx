@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import AuthNavbar from '../components/molecules/AuthNavbar';
+import AuthNavbar from '../components/atoms/AuthNavbar';
 import Login from './Login';
 import Register from './Register';
 

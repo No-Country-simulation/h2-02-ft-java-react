@@ -1,7 +1,7 @@
 package com.app.waki.profile.domain;
 
-import com.app.waki.profile.domain.valueObjects.AvailablePredictionId;
-import com.app.waki.profile.domain.valueObjects.RemainingPredictions;
+import com.app.waki.profile.domain.valueObject.AvailablePredictionId;
+import com.app.waki.profile.domain.valueObject.RemainingPredictions;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -41,7 +41,6 @@ public class AvailablePrediction {
     public boolean validateRemainingPredictions(LocalDate matchDay){
 
         LocalDate today = LocalDate.now();
-
         if (matchDay.equals(today)) {
             if (this.remainingPredictions.getValue() > 0) {
                 this.remainingPredictions = this.remainingPredictions.subtractOne();
