@@ -5,6 +5,7 @@ import com.app.waki.match.domain.Match;
 import com.app.waki.match.domain.MatchResponse;
 import com.app.waki.match.domain.Odds;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URI;
 import java.net.http.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,6 +30,7 @@ public class MatchServiceImpl implements MatchService {
         this.objectMapper = objectMapper;
     }
 
+    @Scheduled(fixedRate = 21600000) // Cada hora (3600000 ms = 1 hora)
     @Override
     public void UpdateMatches() {
         List<String> codes = List.of("PL", "CL", "CLI", "ELC");
@@ -100,5 +103,10 @@ public class MatchServiceImpl implements MatchService {
         return matches.stream()
                 .distinct()  // Eliminar duplicados en base a equals() y hashCode()
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Match> getMatchesToday(String code, LocalDate date) {
+        return matchRepository.findByCompetitionCodeAndDay(code, date);
     }
 }

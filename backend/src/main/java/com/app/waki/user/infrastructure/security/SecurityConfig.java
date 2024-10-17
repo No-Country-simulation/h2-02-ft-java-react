@@ -39,7 +39,8 @@ public class SecurityConfig {
     RequestMatcher clientUrls = new OrRequestMatcher(
             new AntPathRequestMatcher("/match/ligasUpdate", "GET"),
             new AntPathRequestMatcher("/getMatches/{code}", "GET"),
-            new AntPathRequestMatcher("/area-competition", "GET")
+            new AntPathRequestMatcher("/area-competition", "GET"),
+            new AntPathRequestMatcher("/getMatchesToday", "GET")
     );
 
     @Bean
