@@ -8,6 +8,8 @@ import java.util.UUID;
 
 public interface PredictionService {
 
-    List<PredictionDetailsDto> getAllPredictionsByProfileId(UUID profileId);
-    List<PredictionDetailsDto> getAllPredictionByDate(UUID profileId, LocalDate date);
+    List<PredictionDetailsDto> getAllPredictionDetailsByProfileId(UUID profileId);
+    List<PredictionDetailsDto> getAllPredictionDetailsByDate(UUID profileId, LocalDate date);
+    List<PredictionDetailsDto> getAllPredictionDetailsByCompetition(UUID profileId, String competition);
+
 }

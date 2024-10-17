@@ -8,5 +8,6 @@ import java.util.UUID;
 public record ProfileDto(UUID profileUserId,
                          LocalDate created,
                          Integer totalPoints,
+                         Integer correctPredictions,
                          List<AvailablePredictionDto> availablePredictions) {
 }

@@ -21,6 +21,7 @@ public class ProfileMapper {
                 profile.getProfileUserId().userId(),
                 profile.getTimeProfileCreated(),
                 profile.getTotalPoints().points(),
+                profile.getCorrectPredictions().correctPredictions(),
                 predictionDto);
     }
     public static AvailablePredictionDto availablePredictionsToDto (AvailablePrediction prediction){

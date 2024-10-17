@@ -1,6 +1,7 @@
 package com.app.waki.prediction.application.service.impl;
 
 import com.app.waki.common.exceptions.EntityNotFoundException;
+import com.app.waki.match.match.MatchFinalizedEvent;
 import com.app.waki.prediction.application.dto.PredictionDetailsDto;
 import com.app.waki.prediction.application.service.PredictionService;
 import com.app.waki.prediction.application.utils.PredictionMapper;
@@ -36,11 +37,18 @@ public class PredictionServiceImpl implements PredictionService {
         repository.savePrediction(createPrediction);
     }
 
+    @ApplicationModuleListener
+    void onFinalizeMatch (MatchFinalizedEvent event){
+        log.info("nuevo partido finalizado con id: " + event.matchId());
+
+    }
+
+
     @Transactional(readOnly = true)
     @Override
-    public List<PredictionDetailsDto> getAllPredictionsByProfileId(UUID profileId) {
+    public List<PredictionDetailsDto> getAllPredictionDetailsByProfileId(UUID profileId) {
 
-        List<PredictionDetails> predictionsByProfileId = repository.getAllPredictionsByProfileId(new ProfileId(profileId));
+        List<PredictionDetails> predictionsByProfileId = repository.getAllPredictionDetailsByProfileId(new ProfileId(profileId));
         checkIfPredictionsAreEmpty(profileId, predictionsByProfileId);
 
         return mapPredictionDetailsToDto(predictionsByProfileId);
@@ -48,17 +56,26 @@ public class PredictionServiceImpl implements PredictionService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<PredictionDetailsDto> getAllPredictionByDate(UUID profileId, LocalDate date) {
+    public List<PredictionDetailsDto> getAllPredictionDetailsByDate(UUID profileId, LocalDate date) {
 
-        List<PredictionDetails> predictionByDate = repository.getAllPredictionByDate(new ProfileId(profileId), date);
-        checkIfPredictionsAreEmpty(profileId, predictionByDate);
+        List<PredictionDetails> predictionsByDate = repository.getAllPredictionDetailsByDate(new ProfileId(profileId), date);
+        checkIfPredictionsAreEmpty(profileId, predictionsByDate);
 
-        return mapPredictionDetailsToDto(predictionByDate);
+        return mapPredictionDetailsToDto(predictionsByDate);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<PredictionDetailsDto> getAllPredictionDetailsByCompetition(UUID profileId, String competition) {
+        List<PredictionDetails> predictionsByCompetition = repository.getAllPredictionDetailsByCompetition(new ProfileId(profileId), competition);
+        checkIfPredictionsAreEmpty(profileId, predictionsByCompetition);
+
+        return mapPredictionDetailsToDto(predictionsByCompetition);
     }
 
     private void checkIfPredictionsAreEmpty(UUID profileId, List<PredictionDetails> predictions){
         if (predictions.isEmpty()){
-            throw new EntityNotFoundException("No predictions were found with the id " + profileId);
+            throw new EntityNotFoundException("No prediction details were found for the id: " + profileId);
         }
     }
 
