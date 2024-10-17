@@ -1,6 +1,7 @@
 package com.app.waki.profile.domain;
 
 
+import com.app.waki.profile.domain.valueObject.CorrectPredictions;
 import com.app.waki.profile.domain.valueObject.ProfileUserId;
 import com.app.waki.profile.domain.valueObject.TotalPoints;
 import com.app.waki.profile.domain.valueObject.ValidateMatchId;
@@ -28,6 +29,8 @@ public class Profile {
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "predicted_matches", joinColumns = @JoinColumn(name = "available_prediction_id"))
     private final Set<ValidateMatchId> matchIds = new HashSet<>();
+    @Embedded
+    private CorrectPredictions correctPredictions;
     @Version
     private Long version;
     public Profile(){};
@@ -37,6 +40,7 @@ public class Profile {
         this.timeProfileCreated = LocalDate.now();
         this.totalPoints = new TotalPoints(0);
         this.availablePredictions = createInitialAvailablePredictions();
+        this.correctPredictions = new CorrectPredictions(0);
     }
 
     public static Profile createProfile(UUID userId){
@@ -59,5 +63,9 @@ public class Profile {
     }
     public boolean addMatchId(ValidateMatchId matchId){
         return this.matchIds.add(matchId);
+    }
+
+    public  void increaseCorrectPredictions(){
+        this.correctPredictions = new CorrectPredictions(this.correctPredictions.correctPredictions() + 1);
     }
 }

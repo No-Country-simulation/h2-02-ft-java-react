@@ -4,9 +4,9 @@ import io.jsonwebtoken.lang.Assert;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public record MatchId(String id) {
+public record MatchId(String matchId) {
 
     public MatchId {
-        Assert.notNull(id, "id must not be null");
+        Assert.notNull(matchId, "id must not be null");
     }
 }

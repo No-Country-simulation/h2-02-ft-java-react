@@ -1,6 +1,7 @@
 package com.app.waki.prediction.application.service.impl;
 
 import com.app.waki.common.exceptions.EntityNotFoundException;
+import com.app.waki.match.match.MatchFinalizedEvent;
 import com.app.waki.prediction.application.dto.PredictionDetailsDto;
 import com.app.waki.prediction.application.service.PredictionService;
 import com.app.waki.prediction.application.utils.PredictionMapper;
@@ -35,6 +36,13 @@ public class PredictionServiceImpl implements PredictionService {
                 );
         repository.savePrediction(createPrediction);
     }
+
+    @ApplicationModuleListener
+    void onFinalizeMatch (MatchFinalizedEvent event){
+        log.info("nuevo partido finalizado con id: " + event.matchId());
+
+    }
+
 
     @Transactional(readOnly = true)
     @Override

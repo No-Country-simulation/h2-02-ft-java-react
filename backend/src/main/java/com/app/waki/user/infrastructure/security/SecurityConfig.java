@@ -34,6 +34,8 @@ public class SecurityConfig {
             new AntPathRequestMatcher("/prediction/{profileId}"),
             new AntPathRequestMatcher("/prediction/byDate/{profileId}"),
             new AntPathRequestMatcher("/prediction/byCompetition/{profileId}"),
+            //MATCH-TEST
+            new AntPathRequestMatcher("/test/match/finalize"),
             //API FOOTBALL
             new AntPathRequestMatcher("/match/updateMatches"),
             new AntPathRequestMatcher("/match/getMatches"),
