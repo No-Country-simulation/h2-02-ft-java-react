@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "scores")
+@Table(name = "score")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,11 +18,9 @@ public class Score {
     private String winner;
     private String duration;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "full_time_score_id")
+    @OneToOne(cascade = CascadeType.PERSIST) // Asegúrate de que esta relación tenga el tipo de cascada correcto
     private TimeScore fullTime;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "half_time_score_id")
+    @OneToOne(cascade = CascadeType.PERSIST)
     private TimeScore halfTime;
 }

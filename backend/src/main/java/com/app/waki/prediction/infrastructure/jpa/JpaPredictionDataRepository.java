@@ -1,7 +1,9 @@
 package com.app.waki.prediction.infrastructure.jpa;
 
 import com.app.waki.prediction.domain.PredictionDetails;
+import com.app.waki.prediction.domain.valueObject.MatchId;
 import com.app.waki.prediction.domain.valueObject.PredictionDetailsId;
+import com.app.waki.prediction.domain.valueObject.PredictionStatus;
 import com.app.waki.prediction.domain.valueObject.ProfileId;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,4 +28,13 @@ public interface JpaPredictionDataRepository extends JpaRepository<PredictionDet
             "WHERE pd.profileId = :profileId " +
             "AND p.competition = :competition")
     List<PredictionDetails> getAllPredictionDetailsByCompetition(@Param("profileId") ProfileId profileId, @Param("competition") String competition);
+
+    @Query("SELECT pd FROM PredictionDetails pd " +
+            "JOIN pd.predictions p " +
+            "WHERE p.matchId = :matchId " +
+            "AND p.status = :status")
+    List<PredictionDetails> findPredictionDetailsWithPendingPredictionByMatchId(
+            @Param("matchId") MatchId matchId,
+            @Param("status") PredictionStatus status
+    );
 }

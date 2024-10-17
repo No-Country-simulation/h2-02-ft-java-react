@@ -1,8 +1,10 @@
 package com.app.waki.prediction.infrastructure.jpa;
 
 import com.app.waki.prediction.domain.PredictionDetails;
+import com.app.waki.prediction.domain.valueObject.MatchId;
 import com.app.waki.prediction.domain.valueObject.PredictionDetailsId;
 import com.app.waki.prediction.domain.PredictionRepository;
+import com.app.waki.prediction.domain.valueObject.PredictionStatus;
 import com.app.waki.prediction.domain.valueObject.ProfileId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -41,6 +43,11 @@ public class JpaPredictionRepositoryImpl implements PredictionRepository {
     @Override
     public List<PredictionDetails> getAllPredictionDetailsByCompetition(ProfileId profileId, String competition) {
         return repository.getAllPredictionDetailsByCompetition(profileId, competition);
+    }
+
+    @Override
+    public List<PredictionDetails> findPredictionDetailsWithPendingPredictionByMatchId(MatchId matchId, PredictionStatus status) {
+        return repository.findPredictionDetailsWithPendingPredictionByMatchId(matchId,status);
     }
 
 
