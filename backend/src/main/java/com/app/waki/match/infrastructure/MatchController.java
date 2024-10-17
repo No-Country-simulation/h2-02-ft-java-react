@@ -1,5 +1,6 @@
 package com.app.waki.match.infrastructure;
 
+import com.app.waki.match.application.MatchAreaCompetitionDTO;
 import com.app.waki.match.application.MatchService;
 import com.app.waki.match.domain.Match;
 import org.springframework.http.HttpStatus;
@@ -19,21 +20,21 @@ public class MatchController {
         this.service = service;
     }
 
-//    @GetMapping("/updateMatches")
-//    public void updateMatches() throws IOException, InterruptedException {
-//        service.UpdateMatches(matchIds);
-//    }
+    @GetMapping("/ligasUpdate")
+    public ResponseEntity<Void> updateLigas() throws IOException, InterruptedException {
+        service.UpdateMatches();  // Solo actualiza y guarda en la base de datos
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
-    @GetMapping("/getMatches")
-    public ResponseEntity<List<Match>> UpdateAndGetMatches() throws IOException, InterruptedException {
-        service.UpdateMatches();
-        List<Match> matches = service.findAllMatches();
+    @GetMapping("/getMatches/{code}")
+    public ResponseEntity<List<Match>> getLigasMatches(@PathVariable("code") String code) {
+        List<Match> matches = service.getMatchesWithinFiveDays(code.toUpperCase());
         return new ResponseEntity<>(matches, HttpStatus.OK);
     }
 
-//    @GetMapping("/getMatches2")
-//    public ResponseEntity<List<Match>> getMatches() {
-//        List<Match> matches = service.findAllMatches();
-//        return new ResponseEntity<>(matches, HttpStatus.OK);
-//    }
+    @GetMapping("/area-competition")
+    public ResponseEntity<List<MatchAreaCompetitionDTO>> getMatchesWithAreaAndCompetition() {
+        List<MatchAreaCompetitionDTO> matches = service.getMatchesWithAreaAndCompetition();
+        return new ResponseEntity<>(matches, HttpStatus.OK);
+    }
 }
