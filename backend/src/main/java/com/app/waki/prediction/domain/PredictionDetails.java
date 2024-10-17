@@ -27,6 +27,7 @@ public class PredictionDetails {
     private List<Prediction> predictions = new ArrayList<>();
     private LocalDate creationTime;
     private Boolean combined;
+    private Integer pendingPredictions;
     @Embedded
     private EarnablePoints earnablePoints;
     @Enumerated(EnumType.STRING)
@@ -42,6 +43,7 @@ public class PredictionDetails {
         this.predictions = createPredictions(predictionRequest);
         this.creationTime = LocalDate.now();
         this.combined = isCombined();
+        this.pendingPredictions = this.predictions.size();
         this.earnablePoints = calculateTotalPoints();
         this.status = PredictionStatus.PENDING;
 
@@ -55,7 +57,7 @@ public class PredictionDetails {
     private List<Prediction> createPredictions(List<PredictionRequest> predictionRequest) {
 
         return predictionRequest.stream()
-                .map(dto -> Prediction.createPrediction(this, dto))
+                .map(dto -> Prediction.createPrediction(this, dto, predictionRequest.size() > 1))
                 .toList();
     }
 
@@ -83,6 +85,12 @@ public class PredictionDetails {
             int numberOfPredictions = this.predictions.size();
             var totalPoints = (int)(combinedPay * 10 * numberOfPredictions);
             return new EarnablePoints(totalPoints);
+        }
+    }
+
+    public void decrementPendingPredictions() {
+        if (this.pendingPredictions > 0) {
+            this.pendingPredictions--;
         }
     }
 }

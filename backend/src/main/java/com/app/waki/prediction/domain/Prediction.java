@@ -28,6 +28,7 @@ public class Prediction {
     private Double odds;
     private String competition;
     private Boolean combined;
+    @Enumerated(EnumType.STRING)
     private PredictionStatus status;
     @Version
     private Long version;
@@ -49,7 +50,7 @@ public class Prediction {
         this.status = PredictionStatus.PENDING;
     }
 
-    public static Prediction createPrediction(PredictionDetails predictionDetails, PredictionRequest predictionRequest){
+    public static Prediction createPrediction(PredictionDetails predictionDetails, PredictionRequest predictionRequest, Boolean combined){
         var matchId = new MatchId(predictionRequest.matchId());
         var expectedResult = ExpectedResult.fromString(predictionRequest.expectedResult());
 
@@ -60,7 +61,7 @@ public class Prediction {
                 predictionRequest.matchDay(),
                 predictionRequest.pay(),
                 predictionRequest.competition(),
-                predictionDetails.getCombined()
+                combined
         );
     }
 
@@ -68,5 +69,18 @@ public class Prediction {
         this.predictionDetails = predictionDetails;
     }
 
+    public void updateMatchResult(MatchResult result) {
+        this.matchResult = result;
+        this.status = (this.expectedResult.toString().equals(result.toString())) ? PredictionStatus.RIGHT : PredictionStatus.WRONG;
+    }
+
+    public boolean wasPredictionCorrect(){
+
+        return this.status.equals(PredictionStatus.RIGHT);
+    }
+
+    public boolean getCombined(){
+        return this.combined;
+    }
 
 }

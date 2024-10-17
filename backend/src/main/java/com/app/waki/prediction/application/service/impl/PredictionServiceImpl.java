@@ -7,6 +7,8 @@ import com.app.waki.prediction.application.service.PredictionService;
 import com.app.waki.prediction.application.utils.PredictionMapper;
 import com.app.waki.prediction.domain.PredictionDetails;
 import com.app.waki.prediction.domain.PredictionRepository;
+import com.app.waki.prediction.domain.valueObject.MatchId;
+import com.app.waki.prediction.domain.valueObject.PredictionStatus;
 import com.app.waki.prediction.domain.valueObject.ProfileId;
 import com.app.waki.profile.domain.CreatePredictionEvent;
 import lombok.RequiredArgsConstructor;
@@ -41,9 +43,9 @@ public class PredictionServiceImpl implements PredictionService {
     void onFinalizeMatch (MatchFinalizedEvent event){
         log.info("nuevo partido finalizado con id: " + event.matchId());
 
+        List<PredictionDetails> pre = repository.findPredictionDetailsWithPendingPredictionByMatchId(new MatchId(event.matchId()), PredictionStatus.PENDING);
         //llamar traer todas las
-
-
+        pre.getFirst().getPredictions().forEach(p -> log.info(p.getCompetition()));
     }
 
 
