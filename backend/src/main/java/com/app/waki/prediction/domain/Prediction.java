@@ -1,9 +1,6 @@
 package com.app.waki.prediction.domain;
 
-import com.app.waki.prediction.domain.valueObject.ExpectedResult;
-import com.app.waki.prediction.domain.valueObject.MatchId;
-import com.app.waki.prediction.domain.valueObject.MatchResult;
-import com.app.waki.prediction.domain.valueObject.PredictionId;
+import com.app.waki.prediction.domain.valueObject.*;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -30,13 +27,16 @@ public class Prediction {
     private LocalDate matchDay;
     private Double odds;
     private String competition;
+    private Boolean combined;
+    private PredictionStatus status;
     @Version
     private Long version;
 
     public Prediction(){}
 
     private Prediction(PredictionDetails predictionDetails, MatchId matchId,
-                       ExpectedResult expectedResult, LocalDate matchDay, Double odds, String competition) {
+                       ExpectedResult expectedResult, LocalDate matchDay,
+                       Double odds, String competition, Boolean combined) {
         this.predictionId = new PredictionId();
         this.predictionDetails = predictionDetails;
         this.matchId = matchId;
@@ -45,6 +45,8 @@ public class Prediction {
         this.matchDay = matchDay;
         this.odds = odds;
         this.competition = competition;
+        this.combined = combined;
+        this.status = PredictionStatus.PENDING;
     }
 
     public static Prediction createPrediction(PredictionDetails predictionDetails, PredictionRequest predictionRequest){
@@ -57,7 +59,8 @@ public class Prediction {
                 expectedResult,
                 predictionRequest.matchDay(),
                 predictionRequest.pay(),
-                predictionRequest.competition()
+                predictionRequest.competition(),
+                predictionDetails.getCombined()
         );
     }
 

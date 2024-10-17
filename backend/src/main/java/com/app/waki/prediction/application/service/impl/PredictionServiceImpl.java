@@ -41,6 +41,9 @@ public class PredictionServiceImpl implements PredictionService {
     void onFinalizeMatch (MatchFinalizedEvent event){
         log.info("nuevo partido finalizado con id: " + event.matchId());
 
+        //llamar traer todas las
+
+
     }
 
 
