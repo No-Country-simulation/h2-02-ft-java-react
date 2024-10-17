@@ -3,6 +3,7 @@ package com.app.waki.user.infrastructure.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -42,10 +43,19 @@ public class SecurityConfig {
             //SWAGGER
             new AntPathRequestMatcher("/swagger-ui.html"),
             new AntPathRequestMatcher("/v3/api-docs/**"),
-            new AntPathRequestMatcher("/swagger-ui/**")
+            new AntPathRequestMatcher("/swagger-ui/**"),
+            new AntPathRequestMatcher("/profile/validatePrediction/{profileId}")
+
     );
     RequestMatcher adminUrls = new OrRequestMatcher(
             new AntPathRequestMatcher("/user/admin")
+    );
+
+    RequestMatcher clientUrls = new OrRequestMatcher(
+            new AntPathRequestMatcher("/match/ligasUpdate", "GET"),
+            new AntPathRequestMatcher("/getMatches/{code}", "GET"),
+            new AntPathRequestMatcher("/area-competition", "GET"),
+            new AntPathRequestMatcher("/getMatchesToday", "GET")
     );
 
     @Bean
@@ -57,6 +67,7 @@ public class SecurityConfig {
                         .requestMatchers(publicUrls)
                         .permitAll()
                         .requestMatchers(adminUrls).hasRole("ADMIN")
+                        .requestMatchers(clientUrls).hasRole("USER")
                         .anyRequest()
                         .authenticated()
                 )
