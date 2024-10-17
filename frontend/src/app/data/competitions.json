@@ -1,0 +1,24 @@
+{
+  "competitions": [
+    {
+      "code": "PL",
+      "name": "Premier League",
+      "logoUrl": "https://upload.wikimedia.org/wikipedia/en/f/f2/Premier_League_Logo.svg"
+    },
+    {
+      "code": "CLI",
+      "name": "Copa Libertadores",
+      "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Copa_Libertadores_logo.svg"
+    },
+    {
+      "code": "CL",
+      "name": "UEFA Champions League",
+      "logoUrl": "https://upload.wikimedia.org/wikipedia/en/d/d1/UEFA_Champions_League_logo_2.svg"
+    },
+    {
+      "code": "ELC",
+      "name": "Championship",
+      "logoUrl": "https://upload.wikimedia.org/wikipedia/en/0/0e/EFL_Championship.svg"
+    }
+  ]
+}

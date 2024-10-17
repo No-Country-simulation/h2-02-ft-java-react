@@ -27,7 +27,6 @@ export default function MatchNavbar({ updateList }) {
       updateList(tomorrow);
     }
   };
-  console.log('tomorrow', tomorrow);
 
   return (
     <>

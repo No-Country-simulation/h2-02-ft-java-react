@@ -2,63 +2,48 @@ import { useState } from 'react';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import MatchCard from '../molecules/MatchCard';
 
-export default function MatchDropdown({ leagues }) {
+export default function MatchDropdown({ leagues, competitionInfo }) {
   const [activeLeague, setActiveLeague] = useState(null);
 
-  const toggleLeague = (league) => {
-    setActiveLeague(activeLeague === league ? null : league);
+  const toggleLeague = () => {
+    setActiveLeague(activeLeague ? null : competitionInfo.name);
   };
 
   return (
-    <div className="flex w-full flex-col px-5 pb-5">
-      {Object.keys(leagues).map((league, index) => (
-        <div
-          key={league}
-          className={`mb-2 shadow-custom ${
-            index === 0 ? 'rounded-t-lg' : ''
-          } ${index === Object.keys(leagues).length - 1 ? 'rounded-b-lg' : ''}`}
-        >
-          <button
-            onClick={() => toggleLeague(league)}
-            className="flex h-14 w-full items-center justify-between rounded-[10px] bg-white px-5"
-          >
-            <div className="flex items-center">
-              <div className="mr-2 flex h-12 w-12 items-center justify-center">
-                <img
-                  src={leagues[league].emblem}
-                  alt={`${league} emblem`}
-                  className="h-full w-full object-contain"
-                />
-              </div>
-              <div className="flex w-full">
-                <span className="mr-2 whitespace-nowrap text-[16px] text-[#181818]">
-                  {leagues[league].country}
-                </span>
-                <span
-                  className="overflow-hidden text-ellipsis whitespace-nowrap text-[14px] text-[#555555]"
-                  style={{ maxWidth: '170px' }}
-                >
-                  {league}
-                </span>
-              </div>
-            </div>
-            <div className="flex-shrink-0">
-              {activeLeague === league ? (
-                <IoIosArrowUp className="text-[#317EF4]" />
-              ) : (
-                <IoIosArrowDown className="text-[#317EF4]" />
-              )}
-            </div>
-          </button>
-          {activeLeague === league && (
-            <div>
-              {leagues[league].matches.map((match) => (
-                <MatchCard key={match.id} matchData={match} />
-              ))}
-            </div>
+    <>
+      <button
+        onClick={toggleLeague}
+        className="flex h-14 w-full items-center justify-between bg-white px-5"
+      >
+        <div className="flex items-center gap-2">
+          <div className="flex h-12 w-12 items-center justify-center">
+            <img
+              src={competitionInfo.emblem}
+              alt={`${competitionInfo.name} emblem`}
+              className="h-full w-full object-contain"
+            />
+          </div>
+          <div className="flex w-full gap-2">
+            <span className="whitespace-nowrap text-regularNav-16 text-label">
+              {competitionInfo.name}
+            </span>
+          </div>
+        </div>
+        <div className="flex-shrink-0">
+          {activeLeague ? (
+            <IoIosArrowUp className="text-blueWaki" size={18} />
+          ) : (
+            <IoIosArrowDown className="text-blueWaki" size={18} />
           )}
         </div>
-      ))}
-    </div>
+      </button>
+      {activeLeague && (
+        <div>
+          {leagues.matches.map((match) => (
+            <MatchCard key={match.id} matchData={match} />
+          ))}
+        </div>
+      )}
+    </>
   );
 }
