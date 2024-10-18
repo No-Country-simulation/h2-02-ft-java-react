@@ -74,7 +74,7 @@ public class Prediction {
         this.status = (this.expectedResult.toString().equals(result.toString())) ? PredictionStatus.RIGHT : PredictionStatus.WRONG;
     }
 
-    public boolean wasPredictionCorrect(){
+    public boolean isPredictionCorrect(){
 
         return this.status.equals(PredictionStatus.RIGHT);
     }
@@ -83,4 +83,11 @@ public class Prediction {
         return this.combined;
     }
 
+    public void setPredictionStatus(PredictionStatus status){
+        this.status = status;
+    }
+
+    public void setMatchResult(MatchResult matchResult){
+        this.matchResult = matchResult;
+    }
 }

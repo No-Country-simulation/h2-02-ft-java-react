@@ -3,7 +3,7 @@ package com.app.waki.prediction.application.utils;
 import com.app.waki.prediction.application.dto.PredictionDetailsDto;
 import com.app.waki.prediction.domain.PredictionDetails;
 import com.app.waki.prediction.domain.PredictionRequest;
-import com.app.waki.profile.domain.CreatePredictionEvent;
+import com.app.waki.common.events.CreatePredictionEvent;
 
 import java.util.List;
 

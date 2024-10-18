@@ -2,10 +2,7 @@ package com.app.waki.prediction.domain;
 
 
 import com.app.waki.common.exceptions.ValidationException;
-import com.app.waki.prediction.domain.valueObject.EarnablePoints;
-import com.app.waki.prediction.domain.valueObject.PredictionDetailsId;
-import com.app.waki.prediction.domain.valueObject.PredictionStatus;
-import com.app.waki.prediction.domain.valueObject.ProfileId;
+import com.app.waki.prediction.domain.valueObject.*;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -92,5 +89,28 @@ public class PredictionDetails {
         if (this.pendingPredictions > 0) {
             this.pendingPredictions--;
         }
+    }
+
+    public void setStatus(PredictionStatus status){
+        this.status = status;
+    }
+
+    public Prediction getPredictionByMatchId(MatchId matchId){
+
+        return this.getPredictions().stream()
+                .filter(pd -> pd.getMatchId().equals(matchId))
+                .findFirst()
+                .orElseThrow();
+    }
+
+    public List<Prediction> getRemainingPredictions(){
+
+        return this.getPredictions().stream()
+                .filter(pd -> pd.getStatus().equals(PredictionStatus.PENDING))
+                .toList();
+    }
+
+    public void setPendingPredictions(Integer pendingPredictions){
+        this.pendingPredictions = pendingPredictions;
     }
 }

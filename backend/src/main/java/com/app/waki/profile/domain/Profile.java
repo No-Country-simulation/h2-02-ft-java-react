@@ -64,8 +64,15 @@ public class Profile {
     public boolean addMatchId(ValidateMatchId matchId){
         return this.matchIds.add(matchId);
     }
+    public boolean removeMatchId(ValidateMatchId matchId){
+        return this.matchIds.remove(matchId);
+    }
 
     public  void increaseCorrectPredictions(){
         this.correctPredictions = new CorrectPredictions(this.correctPredictions.correctPredictions() + 1);
+    }
+
+    public void updateTotalPoints(Integer points){
+        this.totalPoints = new TotalPoints(this.totalPoints.points() + points);
     }
 }

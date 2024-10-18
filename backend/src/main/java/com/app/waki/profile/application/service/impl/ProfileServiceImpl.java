@@ -2,11 +2,12 @@ package com.app.waki.profile.application.service.impl;
 
 import com.app.waki.common.exceptions.ConcurrencyException;
 import com.app.waki.common.exceptions.EntityNotFoundException;
+import com.app.waki.common.events.CorrectPredictionEvent;
 import com.app.waki.profile.application.dto.AvailablePredictionDto;
-import com.app.waki.profile.domain.CreatePredictionRequest;
+import com.app.waki.common.events.CreatePredictionRequestEvent;
 import com.app.waki.profile.domain.AvailablePrediction;
 import com.app.waki.profile.domain.valueObject.ValidateMatchId;
-import com.app.waki.user.domain.UserCreatedEvent;
+import com.app.waki.common.events.UserCreatedEvent;
 import com.app.waki.common.exceptions.ValidationException;
 import com.app.waki.profile.application.dto.ProfileDto;
 import com.app.waki.profile.application.service.ProfileService;
@@ -66,18 +67,18 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Transactional
     @Override
-    public List<AvailablePredictionDto> validateAndCreateEventPredictions(UUID profileId, List<CreatePredictionRequest> request) {
+    public List<AvailablePredictionDto> validateAndCreateEventPredictions(UUID profileId, List<CreatePredictionRequestEvent> request) {
 
         var profile = findProfile(profileId);
 
         Set<String> matchIds = request.stream()
-                .map(CreatePredictionRequest::matchId)
+                .map(CreatePredictionRequestEvent::matchId)
                 .collect(Collectors.toSet());
 
         addMatchIdsToProfile(matchIds, profile);
 
         Set<LocalDate> requestDates = request.stream()
-                .map(CreatePredictionRequest::matchDay)
+                .map(CreatePredictionRequestEvent::matchDay)
                 .collect(Collectors.toSet());
 
         Map<LocalDate, AvailablePrediction> predictionMap = getAvailablePredictions(profile, requestDates);
@@ -121,10 +122,10 @@ public class ProfileServiceImpl implements ProfileService {
                 .collect(Collectors.toMap(AvailablePrediction::getPredictionDate, ap -> ap));
     }
 
-    private void validatePredictionsForDays(List<CreatePredictionRequest> request, Map<LocalDate, AvailablePrediction> predictionMap) {
+    private void validatePredictionsForDays(List<CreatePredictionRequestEvent> request, Map<LocalDate, AvailablePrediction> predictionMap) {
         List<String> errors = new ArrayList<>();
 
-        for (CreatePredictionRequest prediction : request) {
+        for (CreatePredictionRequestEvent prediction : request) {
             AvailablePrediction availablePrediction = predictionMap.get(prediction.matchDay());
             if (availablePrediction == null) {
                 errors.add("There are no predictions available for the day " + prediction.matchDay());
@@ -136,7 +137,7 @@ public class ProfileServiceImpl implements ProfileService {
         checkErrors(errors);
     }
 
-    private List<AvailablePredictionDto> saveProfileAndPublishEvent(Profile profile, UUID profileId, List<CreatePredictionRequest> request) {
+    private List<AvailablePredictionDto> saveProfileAndPublishEvent(Profile profile, UUID profileId, List<CreatePredictionRequestEvent> request) {
         try {
             var createPredictionEvent = ProfileMapper.predictionRequestToEvent(profileId, request);
             publisher.publishEvent(createPredictionEvent);
@@ -148,5 +149,17 @@ public class ProfileServiceImpl implements ProfileService {
         return profile.getAvailablePredictions().stream()
                 .map(ProfileMapper::availablePredictionsToDto)
                 .toList();
+    }
+
+    @ApplicationModuleListener
+    void onCorrectPredictionToUpdateProfile (CorrectPredictionEvent event){
+
+        Profile profile = findProfile(UUID.fromString(event.profileId()));
+        profile.increaseCorrectPredictions();
+        profile.updateTotalPoints(event.earnablePoints());
+        profile.removeMatchId(new ValidateMatchId(event.matchId()));
+
+        repository.save(profile);
+        log.info("nuevo usuario con id: " + event.matchId());
     }
 }

@@ -1,10 +1,10 @@
 package com.app.waki.profile.application.utils;
 
 import com.app.waki.profile.application.dto.AvailablePredictionDto;
-import com.app.waki.profile.domain.CreatePredictionRequest;
+import com.app.waki.common.events.CreatePredictionRequestEvent;
 import com.app.waki.profile.application.dto.ProfileDto;
 import com.app.waki.profile.domain.AvailablePrediction;
-import com.app.waki.profile.domain.CreatePredictionEvent;
+import com.app.waki.common.events.CreatePredictionEvent;
 import com.app.waki.profile.domain.Profile;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class ProfileMapper {
                 prediction.getRemainingPredictions().availablePrediction());
     }
 
-    public static CreatePredictionEvent predictionRequestToEvent(UUID profileId, List<CreatePredictionRequest> request){
+    public static CreatePredictionEvent predictionRequestToEvent(UUID profileId, List<CreatePredictionRequestEvent> request){
 
         return new CreatePredictionEvent(
                 profileId,

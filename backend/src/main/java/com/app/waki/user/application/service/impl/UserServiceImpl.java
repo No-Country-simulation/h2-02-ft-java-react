@@ -7,7 +7,7 @@ import com.app.waki.user.application.dto.CreateUserRequestDto;
 import com.app.waki.user.application.dto.JwtAuthToken;
 import com.app.waki.user.application.dto.LoginUserAuthDto;
 import com.app.waki.user.application.dto.UserDto;
-import com.app.waki.user.domain.UserCreatedEvent;
+import com.app.waki.common.events.UserCreatedEvent;
 import com.app.waki.user.application.service.TokenService;
 import com.app.waki.user.application.service.UserService;
 import com.app.waki.user.domain.*;
