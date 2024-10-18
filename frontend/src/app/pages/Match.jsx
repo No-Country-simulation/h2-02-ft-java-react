@@ -6,16 +6,17 @@ import MatchList from '../components/organisms/MatchList';
 import FooterNavbar from '../components/organisms/FooterNavbar';
 import AnchorButton from '../components/atoms/AnchorButton';
 
+const formatDate = (date) => {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${year}-${month}-${day}`;
+};
+
 export default function Match() {
   const location = useLocation();
-  const [selectedDate, setSelectedDate] = useState('');
-
-  const formatDate = (date) => {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
+  const defaultDay = new Date();
+  const [selectedDate, setSelectedDate] = useState(formatDate(defaultDay));
 
   const updateList = (date) => {
     const formattedDate = formatDate(date);
