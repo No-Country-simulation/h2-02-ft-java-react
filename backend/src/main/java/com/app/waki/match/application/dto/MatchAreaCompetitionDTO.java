@@ -1,4 +1,4 @@
-package com.app.waki.match.application;
+package com.app.waki.match.application.dto;
 
 import lombok.Data;
 
