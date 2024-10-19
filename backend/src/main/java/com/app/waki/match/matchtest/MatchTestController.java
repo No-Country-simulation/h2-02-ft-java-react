@@ -1,4 +1,4 @@
-package com.app.waki.match.match;
+package com.app.waki.match.matchtest;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;

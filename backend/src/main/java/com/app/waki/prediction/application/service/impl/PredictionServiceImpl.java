@@ -1,7 +1,7 @@
 package com.app.waki.prediction.application.service.impl;
 
 import com.app.waki.common.exceptions.EntityNotFoundException;
-import com.app.waki.match.match.MatchFinalizedEvent;
+import com.app.waki.match.matchtest.MatchFinalizedEvent;
 import com.app.waki.prediction.application.dto.PredictionDetailsDto;
 import com.app.waki.prediction.application.service.PredictionService;
 import com.app.waki.prediction.application.utils.PredictionMapper;

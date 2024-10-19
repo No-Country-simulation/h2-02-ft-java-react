@@ -1,4 +1,4 @@
-package com.app.waki.match.match;
+package com.app.waki.match.matchtest;
 
 public record MatchResultDto(String matchId, String result) {
 }
