@@ -1,7 +1,7 @@
-import PredictionsHeader from '../components/organisms/PredictionsHeader';
-import PredictionSection from '../components/organisms/PredictionSection';
+import MyPredictionsHeader from '../components/organisms/MyPredictionsHeader';
+import MyPredictionsection from '../components/organisms/MyPredictionsection';
 
-const predictionsActivas = [
+const myPredictionsActivas = [
   {
     league: 'Liga española',
     result: 'En Juego',
@@ -29,7 +29,7 @@ const predictionsActivas = [
   // Más predicciones...
 ];
 
-const predictionsPasadas = [
+const myPredictionsPasadas = [
   {
     league: 'La Liga',
     result: 'Resultado final:',
@@ -49,11 +49,14 @@ const predictionsPasadas = [
   // Más predicciones...
 ];
 
-export default function Predictions() {
+export default function MyPredictions() {
   return (
     <div className="flex flex-col bg-gradientWaki">
-      <PredictionsHeader />
-      <PredictionSection title={'Activas'} predictions={predictionsActivas} />
+      <MyPredictionsHeader />
+      <MyPredictionsection
+        title={'Activas'}
+        predictions={myPredictionsActivas}
+      />
     </div>
   );
 }

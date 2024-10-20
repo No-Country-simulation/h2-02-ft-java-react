@@ -6,7 +6,8 @@ import Profile from '../pages/Profile';
 import Match from '../pages/Match';
 import ScoutPlayers from '../pages/ScoutPlayers';
 import Divisiones from '../pages/Divisiones';
-import Predictions from '../pages/Predictions';
+import MyPredictions from '../pages/MyPredictions';
+import NotFound from '../pages/NotFound'; // Importamos la página de error 404
 import PrivateRoute from '../routes/PrivateRoute';
 
 export default function AppRouter() {
@@ -16,14 +17,6 @@ export default function AppRouter() {
         {/* Rutas públicas */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
-        {/* Anidamos /predictions dentro de /partidos */}
-        <Route path="/match" element={<Match />}>
-          <Route path="predictions" element={<Predictions />} />
-        </Route>
-
-        <Route path="/scout-players" element={<ScoutPlayers />} />
-        <Route path="/divisiones" element={<Divisiones />} />
 
         {/* Rutas privadas */}
         <Route
@@ -35,6 +28,32 @@ export default function AppRouter() {
           }
         />
         <Route
+          path="/match"
+          element={
+            <PrivateRoute>
+              <Match />
+            </PrivateRoute>
+          }
+        >
+          <Route path="mypredictions" element={<MyPredictions />} />
+        </Route>
+        <Route
+          path="/scout-players"
+          element={
+            <PrivateRoute>
+              <ScoutPlayers />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/divisiones"
+          element={
+            <PrivateRoute>
+              <Divisiones />
+            </PrivateRoute>
+          }
+        />
+        <Route
           path="/profile"
           element={
             <PrivateRoute>
@@ -42,6 +61,9 @@ export default function AppRouter() {
             </PrivateRoute>
           }
         />
+
+        {/* Ruta para la página de error 404 */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

@@ -26,6 +26,10 @@ module.exports = withMT({
           '26px',
           { lineHeight: '39px', letterSpacing: '0.36px' },
         ],
+        'black-44': [
+          '44.5px',
+          { lineHeight: '14.6px', letterSpacing: '-0.22px' },
+        ],
       },
       colors: {
         purpleWaki: '#8E2BFF',

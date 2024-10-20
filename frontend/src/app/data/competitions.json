@@ -1,0 +1,44 @@
+{
+  "competitions": [
+    {
+      "code": "PL",
+      "name": "Premier League",
+      "logoUrl": "../src/assets/PremierLeague.png"
+    },
+    {
+      "code": "CLI",
+      "name": "Copa Libertadores",
+      "logoUrl": "../src/assets/Libertadores.png"
+    },
+    {
+      "code": "CL",
+      "name": "UEFA Champions League",
+      "logoUrl": "../src/assets/ChampionsLeague.png"
+    },
+    {
+      "code": "ELC",
+      "name": "Championship",
+      "logoUrl": "../src/assets/Championship.png"
+    },
+    {
+      "code": "SA",
+      "name": "Seria A",
+      "logoUrl": "../src/assets/SerieA.png"
+    },
+    {
+      "code": "BL",
+      "name": "Bundesliga",
+      "logoUrl": "../src/assets/Bundesliga.png"
+    },
+    {
+      "code": "LL",
+      "name": "La Liga",
+      "logoUrl": "../src/assets/LaLiga.png"
+    },
+    {
+      "code": "LPA",
+      "name": "Liga Profesional Argentina",
+      "logoUrl": "../src/assets/LigaArgentina.png"
+    }
+  ]
+}
