@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { loginUser } from '../../services/userService';
-import { useAuth } from '../../utils/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import InputField from '../atoms/InputField';
 import PasswordInput from '../molecules/PasswordInput';

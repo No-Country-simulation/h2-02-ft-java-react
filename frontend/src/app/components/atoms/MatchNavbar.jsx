@@ -1,31 +1,33 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { DateContext } from '../../context/DateContext';
 
-export default function MatchNavbar({ updateList }) {
-  const today = new Date();
-  const yesterday = new Date(today);
-  const tomorrow = new Date(today);
+// Función para ajustar la fecha actual según un número de días
+const adjustDate = (days) => {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  return date;
+};
 
-  yesterday.setDate(today.getDate() - 1);
-  tomorrow.setDate(today.getDate() + 1);
+export default function MatchNavbar() {
+  const { updateDate, formatDateNav } = useContext(DateContext);
 
-  const formatDate = (date) => {
-    const options = { day: '2-digit', month: 'short' };
-    return date.toLocaleDateString('es-ES', options);
-  };
+  const today = adjustDate(0);
+  const yesterday = adjustDate(-1);
+  const tomorrow = adjustDate(1);
 
   const [underlinePosition, setUnderlinePosition] = useState('center');
 
   const handleTabClick = (tab) => {
-    if (tab === 'yesterday') {
-      setUnderlinePosition('left');
-      updateList(yesterday);
-    } else if (tab === 'today') {
-      setUnderlinePosition('center');
-      updateList(today);
-    } else if (tab === 'tomorrow') {
-      setUnderlinePosition('right');
-      updateList(tomorrow);
-    }
+    const tabData = {
+      yesterday: { position: 'left', date: yesterday },
+      today: { position: 'center', date: today },
+      tomorrow: { position: 'right', date: tomorrow },
+    };
+
+    const { position, date } = tabData[tab];
+
+    setUnderlinePosition(position);
+    updateDate(date);
   };
 
   return (
@@ -39,7 +41,7 @@ export default function MatchNavbar({ updateList }) {
               : 'text-grayWaki'
           }`}
         >
-          {formatDate(yesterday)}
+          {formatDateNav(yesterday)}
         </button>
         <button
           onClick={() => handleTabClick('today')}
@@ -59,7 +61,7 @@ export default function MatchNavbar({ updateList }) {
               : 'text-grayWaki'
           }`}
         >
-          {formatDate(tomorrow)}
+          {formatDateNav(tomorrow)}
         </button>
       </nav>
       <span

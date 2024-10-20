@@ -1,61 +1,71 @@
-import { useState } from 'react';
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { useState, useContext, useEffect } from 'react';
+import { IoIosArrowDown } from 'react-icons/io';
 import MatchCard from '../molecules/MatchCard';
 import { getMatchesToday } from '../../services/matchService';
+import { DateContext } from '../../context/DateContext';
 
-export default function MatchDropdown({ competitionInfo, selectedDate }) {
+export default function MatchDropdown({ competitionInfo }) {
   const [matches, setMatches] = useState([]);
   const [activeLeague, setActiveLeague] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  console.log('matches', matches);
-  console.log('competitionInfo', competitionInfo);
-  console.log('selectedDate', selectedDate);
+  const { selectedDate, formatDate } = useContext(DateContext);
 
-  const toggleLeague = async () => {
-    if (!activeLeague) {
-      setLoading(true);
-      setError(null);
+  // Función para obtener los partidos
+  const fetchMatches = async () => {
+    setLoading(true);
+    setError(null);
 
-      try {
-        // Llamada a la API para obtener los partidos de la competencia y fecha seleccionada
-        const fetchedMatches = await getMatchesToday(
-          competitionInfo.code,
-          selectedDate
-        );
+    try {
+      const fetchedMatches = await getMatchesToday(
+        competitionInfo.code,
+        formatDate(selectedDate)
+      );
 
-        // Almacenar los partidos en el estado
-        setMatches(
-          fetchedMatches.map((match) => ({
-            id: match.id,
-            localTeam: {
-              name: match.homeTeam.name,
-              logoUrl: match.homeTeam.crest, // El logo del equipo local
-            },
-            visitorTeam: {
-              name: match.awayTeam.name,
-              logoUrl: match.awayTeam.crest, // El logo del equipo visitante
-            },
-            score:
-              match.status === 'FINISHED'
+      // Almacenar los partidos en el estado
+      setMatches(
+        fetchedMatches.map((match) => ({
+          id: match.id,
+          localTeam: {
+            name: match.homeTeam.name.replace(/ FC$/, ''),
+            logoUrl: match.homeTeam.crest,
+          },
+          visitorTeam: {
+            name: match.awayTeam.name.replace(/ FC$/, ''),
+            logoUrl: match.awayTeam.crest,
+          },
+          score:
+            match.status === 'FINISHED'
+              ? match.score.fullTime.home !== null &&
+                match.score.fullTime.away !== null
                 ? `${match.score.fullTime.home} - ${match.score.fullTime.away}`
-                : null, // Si el partido ha finalizado muestra el score
-            predictions: {
-              localWin: match.match_odds.home_team, // Porcentaje de apuesta para el equipo local
-              draw: match.match_odds.draw, // Porcentaje de empate
-              visitorWin: match.match_odds.away_team, // Porcentaje de apuesta para el equipo visitante
-            },
-            startTime: match.utcDate, // Fecha y hora del partido
-            status: match.status, // Estado del partido (ej. 'TIMED', 'FINISHED')
-          }))
-        );
-      } catch (error) {
-        setError('Error fetching matches');
-      } finally {
-        setLoading(false);
-      }
+                : '? - ?'
+              : 'vs',
+          predictions: {
+            localWin: match.odds.home_team,
+            draw: match.odds.draw,
+            visitorWin: match.odds.away_team,
+          },
+          startTime: match.utcDate,
+          status: match.status,
+        }))
+      );
+    } catch (error) {
+      setError('Error fetching matches');
+    } finally {
+      setLoading(false);
     }
-    setActiveLeague(!activeLeague); // Alterna entre mostrar/ocultar la liga
+  };
+
+  // useEffect para actualizar los partidos cuando cambie la fecha o se abra la liga
+  useEffect(() => {
+    if (activeLeague) {
+      fetchMatches();
+    }
+  }, [selectedDate, activeLeague]); // Se ejecuta cuando cambia selectedDate o activeLeague
+
+  const toggleLeague = () => {
+    setActiveLeague(!activeLeague);
   };
 
   return (
@@ -74,32 +84,41 @@ export default function MatchDropdown({ competitionInfo, selectedDate }) {
             {competitionInfo.name}
           </span>
         </div>
-        <div className="flex-shrink-0">
-          {activeLeague ? (
-            <IoIosArrowUp className="text-blueWaki" size={18} />
-          ) : (
-            <IoIosArrowDown className="text-blueWaki" size={18} />
-          )}
+        <div className="flex-shrink-0 transform transition-transform duration-300">
+          {/* Giramos la flecha según el estado */}
+          <IoIosArrowDown
+            className={`text-blueWaki transition-transform duration-300 ${
+              activeLeague ? 'rotate-180' : 'rotate-0'
+            }`}
+            size={18}
+          />
         </div>
       </button>
 
-      {/* Mostrar los partidos si la liga está activa */}
-      {activeLeague && (
-        <div>
-          {loading && <p>Cargando partidos...</p>}
-          {error && (
-            <p className="px-5 pt-2 text-center text-red-500">{error}</p>
-          )}
-          {matches.length === 0 && !loading && (
-            <p className="px-5 pb-2 text-center">
-              No hay partidos disponibles.
-            </p>
-          )}
-          {matches.map((match) => (
-            <MatchCard key={match.id} matchData={match} />
-          ))}
-        </div>
-      )}
+      {/* Mostrar los partidos si la liga está activa con transición */}
+      <div
+        className={`transition-max-height divide-y overflow-hidden duration-500 ease-in-out ${
+          activeLeague ? 'max-h-screen' : 'max-h-0'
+        }`}
+      >
+        {/* Mostrar solo el mensaje de carga mientras se está cargando */}
+        {loading && <p className="p-5 text-center">Cargando partidos...</p>}
+
+        {/* Mostrar los partidos o el mensaje de "No hay partidos" solo cuando no esté cargando */}
+        {!loading && (
+          <>
+            {error ? (
+              <p className="p-5 text-center text-red-500">{error}</p>
+            ) : matches.length === 0 ? (
+              <p className="p-5 text-center">No hay partidos disponibles.</p>
+            ) : (
+              matches.map((match) => (
+                <MatchCard key={match.id} matchData={match} />
+              ))
+            )}
+          </>
+        )}
+      </div>
     </>
   );
 }
