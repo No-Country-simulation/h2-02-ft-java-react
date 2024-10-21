@@ -1,7 +1,8 @@
 package com.app.waki.match.infrastructure;
 
-import com.app.waki.match.application.MatchAreaCompetitionDTO;
+import com.app.waki.match.application.dto.MatchAreaCompetitionDTO;
 import com.app.waki.match.application.MatchService;
+import com.app.waki.match.application.dto.MatchSummaryDTO;
 import com.app.waki.match.domain.Match;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -50,10 +51,11 @@ public class MatchController {
     @GetMapping("/getMatchesToday")
     @Operation(summary = "Esto se utiliza para traer los partidos de la liga (code: PL, CL, CLI, ECL) y el día (formato: 2024-10-19) que se ingrese")
     public ResponseEntity<?> getLigasMatches(@RequestParam("code") String code, @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        List<Match> matches = service.getMatchesToday(code.toUpperCase(), date);
+        List<MatchSummaryDTO> matches = service.getMatchesToday(code.toUpperCase(), date);
         if (matches.isEmpty()) {
             return new ResponseEntity<>("No hay partidos para este dia.", HttpStatus.OK);
         }
         return new ResponseEntity<>(matches, HttpStatus.OK);
     }
+
 }

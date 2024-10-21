@@ -1,13 +1,13 @@
-import { AuthProvider } from './app/utils/AuthContext';
+import { AuthProvider } from './app/context/AuthContext';
+import { DateProvider } from './app/context/DateContext';
 import AppRouter from './app/routes/AppRouter';
-import AuthPage from './app/pages/AuthPage';
 
 export default function App() {
   return (
     <AuthProvider>
-      <AppRouter>
-        <AuthPage />
-      </AppRouter>
+      <DateProvider>
+        <AppRouter />
+      </DateProvider>
     </AuthProvider>
   );
 }

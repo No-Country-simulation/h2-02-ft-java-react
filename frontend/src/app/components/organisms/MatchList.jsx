@@ -1,62 +1,37 @@
 import { useEffect, useState } from 'react';
-import { getMatches } from '../../services/matchService';
 import MatchDropdown from '../molecules/MatchDropdown';
+import { getAreaCompetitions } from '../../services/matchService';
 
-export default function MatchList({ selectedDate }) {
-  const [leagues, setLeagues] = useState({});
+export default function MatchList() {
+  const [competitions, setCompetitions] = useState([]);
 
   useEffect(() => {
-    const fetchMatches = async () => {
+    const fetchCompetitions = async () => {
       try {
-        const matches = await getMatches();
-        const groupedMatches = matches.reduce((acc, match) => {
-          const league = match.competition.name;
-          if (!acc[league]) {
-            acc[league] = {
-              matches: [],
-              country: match.area.name,
-              emblem: match.competition.emblem,
-            };
-          }
-          acc[league].matches.push({
-            id: match.id,
-            localTeam: {
-              name: match.homeTeam.name,
-              logoUrl: match.homeTeam.crest,
-            },
-            visitorTeam: {
-              name: match.awayTeam.name,
-              logoUrl: match.awayTeam.crest,
-            },
-            score: `${match.score.fullTime.home || 0}-${match.score.fullTime.away || 0}`,
-            predictions: {
-              localWin: match.match_odds.home_team,
-              draw: match.match_odds.draw,
-              visitorWin: match.match_odds.away_team,
-            },
-            startTime: match.utcDate,
-          });
-          return acc;
-        }, {});
-        setLeagues(groupedMatches);
+        const areaCompetitions = await getAreaCompetitions();
+        setCompetitions(areaCompetitions);
       } catch (error) {
-        console.error('Error fetching matches:', error);
+        console.error('Error fetching competitions:', error);
       }
     };
 
-    fetchMatches();
+    fetchCompetitions();
   }, []);
 
-  const filteredLeagues = Object.keys(leagues).reduce((acc, league) => {
-    const filteredMatches = leagues[league].matches.filter((match) => {
-      const matchDate = new Date(match.startTime).toLocaleDateString('es-ES');
-      return matchDate === selectedDate;
-    });
-    if (filteredMatches.length > 0) {
-      acc[league] = { ...leagues[league], matches: filteredMatches };
-    }
-    return acc;
-  }, {});
-
-  return <MatchDropdown leagues={filteredLeagues} />;
+  return (
+    <div className="flex w-full flex-col p-5">
+      <div className="w-full divide-y overflow-hidden rounded-large shadow-custom">
+        {competitions.map((competition) => (
+          <MatchDropdown
+            key={competition.competitionCode}
+            competitionInfo={{
+              code: competition.competitionCode,
+              name: competition.competitionName,
+              emblem: competition.competitionEmblem,
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }

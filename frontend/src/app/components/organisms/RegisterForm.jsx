@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { createUser } from '../../services/userService';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import InputField from '../atoms/InputField';
 import PasswordInput from '../molecules/PasswordInput';
 import Button from '../atoms/Button';
-import GoogleLoginButton from '../molecules/GoogleLoginButton';
 
 export default function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -12,55 +12,53 @@ export default function RegisterForm() {
     password: '',
     confirmPassword: '',
   });
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate(); // Inicializa useNavigate para redirigir
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { username, email, password, confirmPassword } = formData;
 
-    // Valida que todos los campos no estén vacíos
+    // Validaciones
     if (!username || !email || !password || !confirmPassword) {
-      alert('Todos los campos son obligatorios');
+      setErrorMessage('Todos los campos son obligatorios');
       return;
     }
 
-    // Valida que username no empiece por un espacio
     if (username.startsWith(' ')) {
-      alert('El nombre de usuario no puede empezar con un espacio');
+      setErrorMessage('El nombre de usuario no puede empezar con un espacio');
       return;
     }
 
-    // Valida que password no contenga espacios
     if (/\s/.test(password)) {
-      alert('La contraseña no puede contener espacios');
+      setErrorMessage('La contraseña no puede contener espacios');
       return;
     }
 
-    // Valida que las contraseñas coincidan
     if (password !== confirmPassword) {
-      alert('Las contraseñas no coinciden');
+      setErrorMessage('Las contraseñas no coinciden');
       return;
     }
 
-    // Valida que el email sea de gmail, hotmail o outlook
     const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail|outlook)\.com$/;
     if (!emailRegex.test(email)) {
-      alert('El correo electrónico debe ser de gmail, hotmail o outlook');
+      setErrorMessage(
+        'El correo electrónico debe ser de gmail, hotmail o outlook'
+      );
       return;
     }
 
     try {
       const response = await createUser(username, email, password);
       console.log('Usuario creado:', response);
+      navigate('/login'); // Redirige al login después del registro exitoso
     } catch (error) {
-      console.error('Error al crear el usuario:', error);
+      setErrorMessage(error.message || 'Error al crear el usuario');
     }
   };
 
@@ -74,6 +72,8 @@ export default function RegisterForm() {
       </h2>
       <p className="mb-8 text-grayWaki">Crea tu cuenta completando los datos</p>
 
+      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+
       <div className="flex flex-col gap-3">
         <InputField
           label="Nombre de usuario"
@@ -83,7 +83,7 @@ export default function RegisterForm() {
           onChange={handleChange}
         />
         <InputField
-          label="Ingresa tu email o teléfono"
+          label="Ingresa tu email"
           type="text"
           name="email"
           value={formData.email}
@@ -106,17 +106,6 @@ export default function RegisterForm() {
       <Button type="submit" className="mx-auto mt-8">
         Registrarse
       </Button>
-
-      <div className="relative my-8 flex items-center justify-center">
-        <span className="relative z-10 bg-white px-2 text-grayWaki">
-          O inicia sesión con
-        </span>
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-grayLineWaki"></div>
-        </div>
-      </div>
-
-      <GoogleLoginButton />
     </form>
   );
 }

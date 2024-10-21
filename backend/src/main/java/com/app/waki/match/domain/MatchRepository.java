@@ -1,6 +1,6 @@
 package com.app.waki.match.domain;
 
-import com.app.waki.match.application.MatchAreaCompetitionDTO;
+import com.app.waki.match.application.dto.MatchAreaCompetitionDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,7 +23,7 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
     @Query("SELECT m FROM Match m WHERE m.competition.code = :code AND FUNCTION('DATE', m.utcDate) = :date")
     List<Match> findByCompetitionCodeAndDay(@Param("code") String code, @Param("date") LocalDate date);
 
-    @Query("SELECT new com.app.waki.match.application.MatchAreaCompetitionDTO(m.area.name, m.area.code, m.area.flag, m.competition.name, m.competition.code, m.competition.emblem) FROM Match m")
+    @Query("SELECT new com.app.waki.match.application.dto.MatchAreaCompetitionDTO(m.area.name, m.area.code, m.area.flag, m.competition.name, m.competition.code, m.competition.emblem) FROM Match m")
     List<MatchAreaCompetitionDTO> findAllMatchesWithAreaAndCompetition();
 
     boolean existsByHomeTeamId(Long id);

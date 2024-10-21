@@ -1,6 +1,5 @@
 package com.app.waki.prediction.application.service.impl;
 
-import com.app.waki.common.events.EstablishedPredictionEvent;
 import com.app.waki.common.exceptions.EntityNotFoundException;
 import com.app.waki.match.matchtest.MatchFinalizedEvent;
 import com.app.waki.prediction.application.dto.PredictionDetailsDto;
@@ -10,7 +9,6 @@ import com.app.waki.common.events.CorrectPredictionEvent;
 import com.app.waki.prediction.domain.Prediction;
 import com.app.waki.prediction.domain.PredictionDetails;
 import com.app.waki.prediction.domain.PredictionRepository;
-import com.app.waki.prediction.domain.valueObject.MatchId;
 import com.app.waki.prediction.domain.valueObject.MatchResult;
 import com.app.waki.prediction.domain.valueObject.PredictionStatus;
 import com.app.waki.prediction.domain.valueObject.ProfileId;
@@ -25,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -44,10 +41,7 @@ public class PredictionServiceImpl implements PredictionService {
                 prediction
                 );
         repository.savePrediction(createPrediction);
-        publisher.publishEvent(new EstablishedPredictionEvent(
-                createPrediction.getPredictionDetailsId().toString(),
-                createPrediction.getProfileId().profileId().toString(),
-                createPrediction.getCreationTime()));
+        publisher.publishEvent(PredictionMapper.establishedPredictionEvent(createPrediction));
     }
 
     @ApplicationModuleListener
@@ -104,7 +98,7 @@ public class PredictionServiceImpl implements PredictionService {
         details.setStatus(PredictionStatus.WRONG);
         details.setPendingPredictions(0);
         log.info("Predicción combinada errada");
-        // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICCION COMBINADA FALLIDA
+        // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICTION COMBINADA FALLIDA
     }
 
 
@@ -114,7 +108,8 @@ public class PredictionServiceImpl implements PredictionService {
         details.setStatus(PredictionStatus.RIGHT);
         log.info("Predicción individual acertada");
 
-        // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICCION ACERTADA
+        // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICTION ACERTADA
+        publisher.publishEvent(PredictionMapper.finishPredictionEvent(details));
 
         // EVENTO PARA ACTUALIZAR PERFIL
         publisher.publishEvent(new CorrectPredictionEvent(
@@ -141,13 +136,10 @@ public class PredictionServiceImpl implements PredictionService {
                     details.getProfileId().profileId().toString(),
                     matchIds,
                     details.getEarnablePoints().points()));
-            // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICCION COMBINADA ACERTADA ACERTADA
+            // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICTION COMBINADA ACERTADA
+            publisher.publishEvent(PredictionMapper.finishPredictionEvent(details));
+
         }
-        publisher.publishEvent(new CorrectPredictionEvent(
-                details.getProfileId().profileId().toString(),
-                List.of(matchId),
-                0));
-        // EVENTO PARA NOTIFICAR AL ACIERTO EN UNO DE SUS PARTIDOS DE LA COMBINADA
     }
 
 

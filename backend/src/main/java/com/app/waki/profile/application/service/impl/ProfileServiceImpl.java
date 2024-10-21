@@ -155,7 +155,6 @@ public class ProfileServiceImpl implements ProfileService {
     void onCorrectPredictionToUpdateProfile (CorrectPredictionEvent event){
 
         Profile profile = findProfile(UUID.fromString(event.profileId()));
-        log.warn("profile id " + profile.getProfileUserId());
         profile.increaseCorrectPredictions();
         profile.updateTotalPoints(event.earnablePoints());
         for (String matchId : event.matchId()) {
@@ -165,6 +164,6 @@ public class ProfileServiceImpl implements ProfileService {
             }
         }
         repository.save(profile);
-        log.info("nuevo usuario con id: " + event.matchId());
+        log.info("Actualizados los puntos en profile: " + event.matchId());
     }
 }
