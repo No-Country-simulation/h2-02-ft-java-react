@@ -1,5 +1,7 @@
 package com.app.waki.match.application;
 
+import com.app.waki.match.application.dto.MatchAreaCompetitionDTO;
+import com.app.waki.match.application.dto.MatchSummaryDTO;
 import com.app.waki.match.domain.*;
 import com.app.waki.match.domain.Match;
 import com.app.waki.match.domain.MatchResponse;
@@ -22,12 +24,14 @@ import java.util.stream.Collectors;
 public class MatchServiceImpl implements MatchService {
 
     private final MatchRepository matchRepository;
+    private MatchMapper matchMapper;
     private final ObjectMapper objectMapper;
     private final Random random = new Random(); // Generador de números aleatorios
 
-    public MatchServiceImpl(MatchRepository matchRepository, ObjectMapper objectMapper) {
+    public MatchServiceImpl(MatchRepository matchRepository, MatchMapper matchMapper,ObjectMapper objectMapper) {
         this.matchRepository = matchRepository;
         this.objectMapper = objectMapper;
+        this.matchMapper = matchMapper;
     }
 
     @Scheduled(fixedRate = 21600000) // Cada hora (3600000 ms = 1 hora)
@@ -106,7 +110,11 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public List<Match> getMatchesToday(String code, LocalDate date) {
-        return matchRepository.findByCompetitionCodeAndDay(code, date);
+    public List<MatchSummaryDTO> getMatchesToday(String code, LocalDate date) {
+        List<Match> matches = matchRepository.findByCompetitionCodeAndDay(code, date);
+        return matches.stream()
+                .map(matchMapper::matchToMatchSummaryDTO)
+                .collect(Collectors.toList());
     }
+
 }

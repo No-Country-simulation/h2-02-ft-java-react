@@ -3,7 +3,7 @@ import IconButton from '../atoms/IconButton';
 
 export default function Searchbar({ placeholder, name, value, onChange }) {
   return (
-    <div className="relative p-5">
+    <div className="relative px-5 py-6">
       <IconButton
         icon={IoSearchSharp}
         className="absolute left-8 top-1/2 -translate-y-1/2 transform text-[#999999]"

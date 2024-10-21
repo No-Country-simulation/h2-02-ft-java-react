@@ -1,5 +1,7 @@
 package com.app.waki.match.application;
 
+import com.app.waki.match.application.dto.MatchAreaCompetitionDTO;
+import com.app.waki.match.application.dto.MatchSummaryDTO;
 import com.app.waki.match.domain.Match;
 
 import java.io.IOException;
@@ -13,5 +15,5 @@ public interface MatchService {
     Optional<Match> findById(Long id);
     List<Match> getMatchesWithinFiveDays(String code);
     List<MatchAreaCompetitionDTO> getMatchesWithAreaAndCompetition();
-    List<Match> getMatchesToday(String code, LocalDate date);
+    List<MatchSummaryDTO> getMatchesToday(String code, LocalDate date);
 }

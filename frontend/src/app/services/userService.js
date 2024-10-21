@@ -10,7 +10,11 @@ export const loginUser = async (email, password) => {
     });
     return response.data.token;
   } catch (error) {
-    throw new Error('Error en el login');
+    console.error(
+      'Error en el login:',
+      error.response?.data?.message || error.message
+    );
+    throw new Error(error.response?.data?.message || 'Error en el login');
   }
 };
 
@@ -23,6 +27,12 @@ export const createUser = async (username, email, password) => {
     });
     return response.data;
   } catch (error) {
-    throw new Error('Error al crear el usuario');
+    console.error(
+      'Error al crear el usuario:',
+      error.response?.data?.message || error.message
+    );
+    throw new Error(
+      error.response?.data?.message || 'Error al crear el usuario'
+    );
   }
 };
