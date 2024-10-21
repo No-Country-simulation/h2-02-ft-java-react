@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function PredictionTabs() {
+export default function MyPredictionTabs() {
   const [activeTab, setActiveTab] = useState('Todas');
 
   const tabs = [

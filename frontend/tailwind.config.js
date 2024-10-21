@@ -18,6 +18,10 @@ module.exports = withMT({
         'regular-16': ['16px', { lineHeight: '19.2px' }],
         'regularNav-16': ['16px', { lineHeight: '24px' }],
         'medium-18': ['18px', { lineHeight: '21.6px' }],
+        'medium-39': [
+          '39.45px',
+          { lineHeight: '59.17px', letterSpacing: '0.65px' },
+        ],
         'semibold-22': [
           '22px',
           { lineHeight: '33px', letterSpacing: '0.36px' },
@@ -39,6 +43,7 @@ module.exports = withMT({
         label: '#181818',
         blueWaki: '#317EF4',
         grayWaki: '#555555',
+        grayCard: '#F3F4F5',
         grayLineWaki: '#353535',
         grayLightWaki: '#8D8D8D',
         greenWaki: '#06BD06',

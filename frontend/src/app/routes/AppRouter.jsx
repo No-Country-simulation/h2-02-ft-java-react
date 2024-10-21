@@ -7,7 +7,8 @@ import Match from '../pages/Match';
 import ScoutPlayers from '../pages/ScoutPlayers';
 import Divisiones from '../pages/Divisiones';
 import MyPredictions from '../pages/MyPredictions';
-import NotFound from '../pages/NotFound'; // Importamos la página de error 404
+import Details from '../pages/Details';
+import NotFound from '../pages/NotFound';
 import PrivateRoute from '../routes/PrivateRoute';
 
 export default function AppRouter() {
@@ -36,6 +37,7 @@ export default function AppRouter() {
           }
         >
           <Route path="mypredictions" element={<MyPredictions />} />
+          <Route path="details" element={<Details />} />
         </Route>
         <Route
           path="/scout-players"
