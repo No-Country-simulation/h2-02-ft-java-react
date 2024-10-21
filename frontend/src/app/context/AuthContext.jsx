@@ -1,20 +1,21 @@
 import { createContext, useState, useContext, useEffect } from 'react';
 
-// Crear contexto
 const AuthContext = createContext();
 
-// Proveedor del contexto de autenticación
 export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       setIsAuthenticated(true);
     }
+    setLoading(false);
   }, []);
 
-  const login = () => {
+  const login = (token) => {
+    localStorage.setItem('token', token);
     setIsAuthenticated(true);
   };
 
@@ -24,13 +25,12 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
-// Hook para acceder al contexto
 export function useAuth() {
   return useContext(AuthContext);
 }

@@ -1,8 +1,10 @@
 package com.app.waki.prediction.infrastructure.jpa;
 
 import com.app.waki.prediction.domain.PredictionDetails;
+import com.app.waki.prediction.domain.valueObject.MatchId;
 import com.app.waki.prediction.domain.valueObject.PredictionDetailsId;
 import com.app.waki.prediction.domain.PredictionRepository;
+import com.app.waki.prediction.domain.valueObject.PredictionStatus;
 import com.app.waki.prediction.domain.valueObject.ProfileId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -21,25 +23,31 @@ public class JpaPredictionRepositoryImpl implements PredictionRepository {
     }
 
     @Override
-    public Optional<PredictionDetails> getPredictionById(PredictionDetailsId id) {
-        return Optional.empty();
+    public Optional<PredictionDetails> getPredictionDetailsById(PredictionDetailsId id) {
+
+        return repository.findById(id);
     }
 
     @Override
-    public List<PredictionDetails> getAllPredictionsByProfileId(ProfileId profileId) {
+    public List<PredictionDetails> getAllPredictionDetailsByProfileId(ProfileId profileId) {
 
-        return repository.getAllPredictionsByProfileId(profileId);
+        return repository.getAllPredictionDetailsByProfileId(profileId);
     }
 
     @Override
-    public List<PredictionDetails> getAllPredictionByDate(ProfileId profileId, LocalDate creationTime) {
+    public List<PredictionDetails> getAllPredictionDetailsByDate(ProfileId profileId, LocalDate creationTime) {
 
-        return repository.getAllPredictionByDate(profileId, creationTime);
+        return repository.getAllPredictionDetailsByDate(profileId, creationTime);
     }
 
     @Override
-    public List<PredictionDetails> getAllPredictionByCompetition(String competition) {
-        return null;
+    public List<PredictionDetails> getAllPredictionDetailsByCompetition(ProfileId profileId, String competition) {
+        return repository.getAllPredictionDetailsByCompetition(profileId, competition);
+    }
+
+    @Override
+    public List<PredictionDetails> findPredictionDetailsWithPendingPredictionByMatchId(MatchId matchId, PredictionStatus status) {
+        return repository.findPredictionDetailsWithPendingPredictionByMatchId(matchId,status);
     }
 
 

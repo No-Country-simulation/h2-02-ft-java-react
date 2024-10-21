@@ -1,7 +1,7 @@
 package com.app.waki.profile.application.service;
 
 import com.app.waki.profile.application.dto.AvailablePredictionDto;
-import com.app.waki.profile.domain.CreatePredictionRequest;
+import com.app.waki.common.events.CreatePredictionRequestEvent;
 import com.app.waki.profile.application.dto.ProfileDto;
 
 import java.time.LocalDate;
@@ -14,5 +14,5 @@ public interface ProfileService {
 
     AvailablePredictionDto getAvailablePredictionsByDate(UUID profileId, LocalDate date);
 
-    List<AvailablePredictionDto> validateAndCreateEventPredictions(UUID profileId, List<CreatePredictionRequest> prediction);
+    List<AvailablePredictionDto> validateAndCreateEventPredictions(UUID profileId, List<CreatePredictionRequestEvent> prediction);
 }

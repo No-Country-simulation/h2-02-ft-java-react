@@ -6,7 +6,8 @@ public enum MatchResult {
     PENDING,
     LOCAL,
     DRAW,
-    AWAY;
+    AWAY,
+    FAILED_COMBINED;
 
     public static MatchResult fromString(String value) {
         try {

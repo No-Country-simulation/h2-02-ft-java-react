@@ -30,7 +30,22 @@ public class SecurityConfig {
             //PROFILE
             new AntPathRequestMatcher("/profile/{profileId}"),
             new AntPathRequestMatcher("/profile/predictionByDate/{profileId}"),
+            new AntPathRequestMatcher("/profile/validatePrediction/{profileId}"),
+            //PREDICTION
+            new AntPathRequestMatcher("/prediction/{profileId}"),
+            new AntPathRequestMatcher("/prediction/byDate/{profileId}"),
+            new AntPathRequestMatcher("/prediction/byCompetition/{profileId}"),
+            //MATCH-TEST
+            new AntPathRequestMatcher("/test/match/finalize"),
+            //API FOOTBALL
+            new AntPathRequestMatcher("/match/updateMatches"),
+            new AntPathRequestMatcher("/match/getMatches"),
+            //SWAGGER
+            new AntPathRequestMatcher("/swagger-ui.html"),
+            new AntPathRequestMatcher("/v3/api-docs/**"),
+            new AntPathRequestMatcher("/swagger-ui/**"),
             new AntPathRequestMatcher("/profile/validatePrediction/{profileId}")
+
     );
     RequestMatcher adminUrls = new OrRequestMatcher(
             new AntPathRequestMatcher("/user/admin")
@@ -53,8 +68,6 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers(adminUrls).hasRole("ADMIN")
                         .requestMatchers(clientUrls).hasRole("USER")
-                        //Swagger
-                        .requestMatchers(HttpMethod.GET,"/swagger-ui.html", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
                         .anyRequest()
                         .authenticated()
                 )

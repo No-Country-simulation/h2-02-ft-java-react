@@ -1,7 +1,7 @@
 package com.app.waki.profile.infrastructure.controller;
 
 import com.app.waki.profile.application.dto.AvailablePredictionDto;
-import com.app.waki.profile.domain.CreatePredictionRequest;
+import com.app.waki.common.events.CreatePredictionRequestEvent;
 import com.app.waki.profile.application.dto.ProfileDto;
 import com.app.waki.profile.application.service.ProfileService;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ public class ProfileController {
 
     @PostMapping("/validatePrediction/{profileId}")
     public ResponseEntity<List<AvailablePredictionDto>> validateAndCreateEventPredictions(@PathVariable UUID profileId,
-                                                                                    @RequestBody List<CreatePredictionRequest> predictions){
+                                                                                    @RequestBody List<CreatePredictionRequestEvent> predictions){
         return ResponseEntity.ok(profileService.validateAndCreateEventPredictions(profileId,predictions));
     }
 }

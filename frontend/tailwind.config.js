@@ -26,6 +26,10 @@ module.exports = withMT({
           '26px',
           { lineHeight: '39px', letterSpacing: '0.36px' },
         ],
+        'black-44': [
+          '44.5px',
+          { lineHeight: '14.6px', letterSpacing: '-0.22px' },
+        ],
       },
       colors: {
         purpleWaki: '#8E2BFF',
@@ -43,8 +47,30 @@ module.exports = withMT({
       backgroundImage: {
         gradientWaki: 'linear-gradient(90deg, #317EF4 -0.04%, #8E2BFF 99.96%)',
       },
+      keyframes: {
+        slideIn: {
+          '0%': { transform: 'translateY(100%)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        slideOut: {
+          '0%': { transform: 'translateY(0)', opacity: '1' },
+          '100%': { transform: 'translateY(100%)', opacity: '0' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
+      },
       animation: {
         'spin-slow': 'spin 3s linear infinite',
+        slideIn: 'slideIn 0.5s forwards',
+        slideOut: 'slideOut 0.5s forwards',
+        fadeIn: 'fadeIn 0.5s forwards',
+        fadeOut: 'fadeOut 0.5s forwards',
       },
       boxShadow: {
         custom: '0 0 14.6px rgba(0, 0, 0, 0.2)',

@@ -22,12 +22,18 @@ public class PredictionController {
     @GetMapping("/{profileId}")
     public ResponseEntity<List<PredictionDetailsDto>> getAllPredictionsByProfileId(@PathVariable UUID profileId) {
 
-        return ResponseEntity.ok(service.getAllPredictionsByProfileId(profileId));
+        return ResponseEntity.ok(service.getAllPredictionDetailsByProfileId(profileId));
     }
 
     @GetMapping("/byDate/{profileId}")
     public ResponseEntity<List<PredictionDetailsDto>> getAllPredictionByDate(@PathVariable UUID profileId, LocalDate date) {
 
-        return ResponseEntity.ok(service.getAllPredictionByDate(profileId, date));
+        return ResponseEntity.ok(service.getAllPredictionDetailsByDate(profileId, date));
+    }
+
+    @GetMapping("/byCompetition/{profileId}")
+    public ResponseEntity<List<PredictionDetailsDto>> getAllPredictionDetailsByCompetition(@PathVariable UUID profileId, String competition) {
+
+        return ResponseEntity.ok(service.getAllPredictionDetailsByCompetition(profileId, competition));
     }
 }

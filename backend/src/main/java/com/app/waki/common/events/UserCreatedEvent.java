@@ -1,4 +1,4 @@
-package com.app.waki.user.domain;
+package com.app.waki.common.events;
 
 
 import java.util.UUID;
