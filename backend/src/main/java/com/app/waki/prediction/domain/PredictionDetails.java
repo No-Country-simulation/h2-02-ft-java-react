@@ -95,7 +95,7 @@ public class PredictionDetails {
         this.status = status;
     }
 
-    public Prediction getPredictionByMatchId(MatchId matchId){
+    public Prediction getPredictionByMatchId(String matchId){
 
         return this.getPredictions().stream()
                 .filter(pd -> pd.getMatchId().equals(matchId))

@@ -20,6 +20,6 @@ public interface PredictionRepository {
     List<PredictionDetails> getAllPredictionDetailsByDate(ProfileId profileId, LocalDate creationTime);
     List<PredictionDetails> getAllPredictionDetailsByCompetition(ProfileId profileId, String competition);
 
-    List<PredictionDetails> findPredictionDetailsWithPendingPredictionByMatchId(MatchId matchId, PredictionStatus status
+    List<PredictionDetails> findPredictionDetailsWithPendingPredictionByMatchId(String matchId, PredictionStatus status
     );
 }

@@ -19,7 +19,11 @@ public class MatchTestController {
     @PostMapping("/finalize")
     public ResponseEntity<Void> finalizeMatch(@RequestBody MatchResultDto matchResultDto) {
 
-        MatchFinalizedEvent event = new MatchFinalizedEvent(matchResultDto.matchId(), matchResultDto.result());
+        MatchFinalizedEvent event = new MatchFinalizedEvent(
+                matchResultDto.matchId(),
+                matchResultDto.result(),
+                matchResultDto.homeGoals(),
+                matchResultDto.awayGoals());
         publisher.publishEvent(event);
 
         return ResponseEntity.ok().build();

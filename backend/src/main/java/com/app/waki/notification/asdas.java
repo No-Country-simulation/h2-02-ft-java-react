@@ -1,4 +1,4 @@
 package com.app.waki.notification;
 
-public class Notification {
+public class asdas {
 }

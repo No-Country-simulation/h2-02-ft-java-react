@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -18,6 +19,7 @@ import java.util.*;
 @EqualsAndHashCode
 @ToString
 @Getter
+@Slf4j
 public class Profile {
     @Id
     private ProfileUserId profileUserId;
@@ -28,7 +30,7 @@ public class Profile {
     private List<AvailablePrediction> availablePredictions = new ArrayList<>();
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "predicted_matches", joinColumns = @JoinColumn(name = "available_prediction_id"))
-    private final Set<ValidateMatchId> matchIds = new HashSet<>();
+    private final List<String> matchIds = new ArrayList<>();
     @Embedded
     private CorrectPredictions correctPredictions;
     @Version
@@ -61,11 +63,13 @@ public class Profile {
                 .filter(prediction -> prediction.getPredictionDate().equals(date))
                 .findFirst();
     }
-    public boolean addMatchId(ValidateMatchId matchId){
+    public boolean addMatchId(String matchId){
+
         return this.matchIds.add(matchId);
     }
-    public boolean removeMatchId(ValidateMatchId matchId){
+    public boolean removeMatchId(String matchId){
         return this.matchIds.remove(matchId);
+
     }
 
     public  void increaseCorrectPredictions(){

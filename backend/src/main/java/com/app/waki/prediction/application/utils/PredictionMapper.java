@@ -14,12 +14,14 @@ public class PredictionMapper {
         return event
                 .predictions()
                 .stream()
-                .map(pe -> new PredictionRequest(
-                        pe.matchId(),
-                        pe.expectedResult(),
-                        pe.matchDay(),
-                        pe.pay(),
-                        pe.competition()))
+                .map(pd -> new PredictionRequest(
+                        pd.matchId(),
+                        pd.expectedResult(),
+                        pd.homeTeam(),
+                        pd.awayTeam(),
+                        pd.matchDay(),
+                        pd.pay(),
+                        pd.competition()))
                 .toList();
     }
 

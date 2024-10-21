@@ -1,5 +1,6 @@
 package com.app.waki.prediction.application.service.impl;
 
+import com.app.waki.common.events.EstablishedPredictionEvent;
 import com.app.waki.common.exceptions.EntityNotFoundException;
 import com.app.waki.match.matchtest.MatchFinalizedEvent;
 import com.app.waki.prediction.application.dto.PredictionDetailsDto;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -35,33 +37,38 @@ public class PredictionServiceImpl implements PredictionService {
 
     @ApplicationModuleListener
     void onCreatePrediction (CreatePredictionEvent event){
-        log.info("nuevo usuario con id: " + event.profileId());
+        log.info("new prediction with profile id: " + event.profileId());
         var prediction = PredictionMapper.predictionEventToRequest(event);
         PredictionDetails createPrediction = PredictionDetails.createPredictionDetails(
                 new ProfileId(event.profileId()),
                 prediction
                 );
         repository.savePrediction(createPrediction);
+        publisher.publishEvent(new EstablishedPredictionEvent(
+                createPrediction.getPredictionDetailsId().toString(),
+                createPrediction.getProfileId().profileId().toString(),
+                createPrediction.getCreationTime()));
     }
 
     @ApplicationModuleListener
     void onFinalizeMatch (MatchFinalizedEvent event){
-        var matchId = new MatchId(event.matchId());
-        log.info("nuevo partido finalizado con id: " + matchId);
 
-        List<PredictionDetails> predictionDetails = repository.findPredictionDetailsWithPendingPredictionByMatchId(matchId, PredictionStatus.PENDING);
+        log.info("nuevo partido finalizado con id: " + event.matchId());
+
+        List<PredictionDetails> predictionDetails = repository.findPredictionDetailsWithPendingPredictionByMatchId(event.matchId(), PredictionStatus.PENDING);
 
         checkIfPredictionsAreEmpty(predictionDetails);
 
         predictionDetails.forEach(details -> {
-            Prediction prediction = details.getPredictionByMatchId(matchId);
-            updatePredictionStatus(details, prediction, event.result());
+            Prediction prediction = details.getPredictionByMatchId(event.matchId());
+            updatePredictionStatus(details, prediction, event.result(), event.homeGoals(), event.awayGoals());
         });
     }
 
-    private void updatePredictionStatus(PredictionDetails details, Prediction prediction, String matchResult) {
+    private void updatePredictionStatus(PredictionDetails details, Prediction prediction, String matchResult,
+                                        Integer homeGoals, Integer awayGoals) {
 
-        prediction.updateMatchResult(MatchResult.valueOf(matchResult));
+        prediction.updateMatchResult(MatchResult.valueOf(matchResult), homeGoals, awayGoals);
 
         var matchId = prediction.getMatchId();
 
@@ -101,7 +108,7 @@ public class PredictionServiceImpl implements PredictionService {
     }
 
 
-    private void handleIndividualCorrectPrediction(PredictionDetails details, MatchId matchId) {
+    private void handleIndividualCorrectPrediction(PredictionDetails details, String matchId) {
 
         details.decrementPendingPredictions();
         details.setStatus(PredictionStatus.RIGHT);
@@ -112,12 +119,12 @@ public class PredictionServiceImpl implements PredictionService {
         // EVENTO PARA ACTUALIZAR PERFIL
         publisher.publishEvent(new CorrectPredictionEvent(
                 details.getProfileId().profileId().toString(),
-                matchId.matchId(),
+                List.of(matchId),
                 details.getEarnablePoints().points()));
     }
 
 
-    private void handleCombinedCorrectPrediction(PredictionDetails details, MatchId matchId) {
+    private void handleCombinedCorrectPrediction(PredictionDetails details, String matchId) {
 
         details.decrementPendingPredictions();
         log.info("Combinada acertada");
@@ -125,14 +132,22 @@ public class PredictionServiceImpl implements PredictionService {
         if (details.getPendingPredictions() == 0) {
             details.setStatus(PredictionStatus.RIGHT);
             log.info("Última predicción de la combinada acertada");
+            List<String> matchIds = details.getPredictions()
+                                            .stream()
+                                            .map(Prediction::getMatchId)
+                                            .toList();
+            // EVENTO PARA ACTUALIZAR PERFIL
+            publisher.publishEvent(new CorrectPredictionEvent(
+                    details.getProfileId().profileId().toString(),
+                    matchIds,
+                    details.getEarnablePoints().points()));
+            // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICCION COMBINADA ACERTADA ACERTADA
         }
-        // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICCION COMBINADA ACERTADA ACERTADA
-
-        // EVENTO PARA ACTUALIZAR PERFIL
         publisher.publishEvent(new CorrectPredictionEvent(
                 details.getProfileId().profileId().toString(),
-                matchId.matchId(),
-                details.getEarnablePoints().points()));
+                List.of(matchId),
+                0));
+        // EVENTO PARA NOTIFICAR AL ACIERTO EN UNO DE SUS PARTIDOS DE LA COMBINADA
     }
 
 

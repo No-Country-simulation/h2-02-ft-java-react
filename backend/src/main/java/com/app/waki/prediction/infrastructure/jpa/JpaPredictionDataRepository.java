@@ -34,7 +34,7 @@ public interface JpaPredictionDataRepository extends JpaRepository<PredictionDet
             "WHERE p.matchId = :matchId " +
             "AND p.status = :status")
     List<PredictionDetails> findPredictionDetailsWithPendingPredictionByMatchId(
-            @Param("matchId") MatchId matchId,
+            @Param("matchId") String matchId,
             @Param("status") PredictionStatus status
     );
 }

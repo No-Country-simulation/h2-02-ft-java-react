@@ -46,7 +46,7 @@ public class JpaPredictionRepositoryImpl implements PredictionRepository {
     }
 
     @Override
-    public List<PredictionDetails> findPredictionDetailsWithPendingPredictionByMatchId(MatchId matchId, PredictionStatus status) {
+    public List<PredictionDetails> findPredictionDetailsWithPendingPredictionByMatchId(String matchId, PredictionStatus status) {
         return repository.findPredictionDetailsWithPendingPredictionByMatchId(matchId,status);
     }
 
