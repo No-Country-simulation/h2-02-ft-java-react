@@ -68,7 +68,7 @@ public class PredictionServiceImpl implements PredictionService {
 
         if (prediction.isPredictionCorrect()) {
             if (prediction.getCombined()) {
-                handleCombinedCorrectPrediction(details, matchId);
+                handleCombinedCorrectPrediction(details);
             } else {
                 handleIndividualCorrectPrediction(details, matchId);
             }
@@ -84,32 +84,34 @@ public class PredictionServiceImpl implements PredictionService {
     private void handleIndividualWrongPrediction(PredictionDetails details) {
 
         details.decrementPendingPredictions();
-        details.setStatus(PredictionStatus.WRONG);
+        details.setStatus(PredictionStatus.FAILED);
         log.info("Predicción individual errada");
         // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICCION FALLIDA
+        publisher.publishEvent(PredictionMapper.failedPredictionEvent(details));
     }
 
     private void handleCombinedWrongPrediction(PredictionDetails details) {
 
         details.getRemainingPredictions().forEach(pr -> {
-            pr.setPredictionStatus(PredictionStatus.WRONG);
+            pr.setPredictionStatus(PredictionStatus.FAILED);
             pr.setMatchResult(MatchResult.FAILED_COMBINED);
         });
-        details.setStatus(PredictionStatus.WRONG);
+        details.setStatus(PredictionStatus.FAILED);
         details.setPendingPredictions(0);
         log.info("Predicción combinada errada");
         // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICTION COMBINADA FALLIDA
+        publisher.publishEvent(PredictionMapper.failedPredictionEvent(details));
     }
 
 
     private void handleIndividualCorrectPrediction(PredictionDetails details, String matchId) {
 
         details.decrementPendingPredictions();
-        details.setStatus(PredictionStatus.RIGHT);
+        details.setStatus(PredictionStatus.CORRECT);
         log.info("Predicción individual acertada");
 
         // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICTION ACERTADA
-        publisher.publishEvent(PredictionMapper.finishPredictionEvent(details));
+        publisher.publishEvent(PredictionMapper.correctPredictionEvent(details));
 
         // EVENTO PARA ACTUALIZAR PERFIL
         publisher.publishEvent(new CorrectPredictionEvent(
@@ -119,13 +121,13 @@ public class PredictionServiceImpl implements PredictionService {
     }
 
 
-    private void handleCombinedCorrectPrediction(PredictionDetails details, String matchId) {
+    private void handleCombinedCorrectPrediction(PredictionDetails details) {
 
         details.decrementPendingPredictions();
         log.info("Combinada acertada");
 
         if (details.getPendingPredictions() == 0) {
-            details.setStatus(PredictionStatus.RIGHT);
+            details.setStatus(PredictionStatus.CORRECT);
             log.info("Última predicción de la combinada acertada");
             List<String> matchIds = details.getPredictions()
                                             .stream()
@@ -137,7 +139,7 @@ public class PredictionServiceImpl implements PredictionService {
                     matchIds,
                     details.getEarnablePoints().points()));
             // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICTION COMBINADA ACERTADA
-            publisher.publishEvent(PredictionMapper.finishPredictionEvent(details));
+            publisher.publishEvent(PredictionMapper.correctPredictionEvent(details));
 
         }
     }

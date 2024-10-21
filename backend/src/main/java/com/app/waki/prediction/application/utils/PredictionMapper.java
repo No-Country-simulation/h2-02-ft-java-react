@@ -1,7 +1,8 @@
 package com.app.waki.prediction.application.utils;
 
 import com.app.waki.common.events.EstablishedPredictionEvent;
-import com.app.waki.common.events.FinishPredictionEvent;
+import com.app.waki.common.events.FinishCorrectPredictionEvent;
+import com.app.waki.common.events.FinishFailedPredictionEvent;
 import com.app.waki.prediction.application.dto.PredictionDetailsDto;
 import com.app.waki.prediction.domain.Prediction;
 import com.app.waki.prediction.domain.PredictionDetails;
@@ -40,7 +41,7 @@ public class PredictionMapper {
         );
     }
 
-    public static FinishPredictionEvent finishPredictionEvent(PredictionDetails pd){
+    public static FinishCorrectPredictionEvent correctPredictionEvent(PredictionDetails pd){
 
         Prediction prediction = pd.getPredictions().get(0);
 
@@ -49,11 +50,30 @@ public class PredictionMapper {
                         + prediction.getAwayGoals().toString() + " "
                         + prediction.getAwayTeam().team();
 
-        return new FinishPredictionEvent(
-                pd.getPredictionDetailsId().toString(),
-                pd.getProfileId().toString(),
+        return new FinishCorrectPredictionEvent(
+                pd.getPredictionDetailsId().detailsId().toString(),
+                pd.getProfileId().profileId().toString(),
                 pd.getCreationTime(),
-                result
+                result,
+                pd.getEarnablePoints().points()
+        );
+    }
+
+    public static FinishFailedPredictionEvent failedPredictionEvent(PredictionDetails pd){
+
+        Prediction prediction = pd.getPredictions().get(0);
+
+        String result = prediction.getHomeTeam().team() + " "
+                + prediction.getHomeGoals().toString() + "-"
+                + prediction.getAwayGoals().toString() + " "
+                + prediction.getAwayTeam().team();
+
+        return new FinishFailedPredictionEvent(
+                pd.getPredictionDetailsId().detailsId().toString(),
+                pd.getProfileId().profileId().toString(),
+                pd.getCreationTime(),
+                result,
+                pd.getEarnablePoints().points()
         );
     }
 

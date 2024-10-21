@@ -87,14 +87,14 @@ public class Prediction {
 
     public void updateMatchResult(MatchResult result, Integer homeGoals, Integer awayGoals) {
         this.matchResult = result;
-        this.status = (this.expectedResult.toString().equals(result.toString())) ? PredictionStatus.RIGHT : PredictionStatus.WRONG;
+        this.status = (this.expectedResult.toString().equals(result.toString())) ? PredictionStatus.CORRECT : PredictionStatus.FAILED;
         this.homeGoals = new HomeGoals(homeGoals);
         this.awayGoals = new AwayGoals(awayGoals);
     }
 
     public boolean isPredictionCorrect(){
 
-        return this.status.equals(PredictionStatus.RIGHT);
+        return this.status.equals(PredictionStatus.CORRECT);
     }
 
     public boolean getCombined(){
