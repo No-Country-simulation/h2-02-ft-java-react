@@ -64,12 +64,13 @@ public class Profile {
                 .findFirst();
     }
     public boolean addMatchId(String matchId){
-
+        if (this.matchIds.contains(matchId)) {
+            return false;
+        }
         return this.matchIds.add(matchId);
     }
     public boolean removeMatchId(String matchId){
         return this.matchIds.remove(matchId);
-
     }
 
     public  void increaseCorrectPredictions(){

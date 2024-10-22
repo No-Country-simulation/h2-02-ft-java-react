@@ -46,8 +46,8 @@ public class PredictionMapper {
         Prediction prediction = pd.getPredictions().get(0);
 
         String result = prediction.getHomeTeam().team() + " "
-                        + prediction.getHomeGoals().toString() + "-"
-                        + prediction.getAwayGoals().toString() + " "
+                        + prediction.getHomeGoals().homeGoals().toString() + "-"
+                        + prediction.getAwayGoals().awayGoals().toString() + " "
                         + prediction.getAwayTeam().team();
 
         return new FinishCorrectPredictionEvent(
@@ -64,8 +64,8 @@ public class PredictionMapper {
         Prediction prediction = pd.getPredictions().get(0);
 
         String result = prediction.getHomeTeam().team() + " "
-                + prediction.getHomeGoals().toString() + "-"
-                + prediction.getAwayGoals().toString() + " "
+                + prediction.getHomeGoals().homeGoals().toString() + "-"
+                + prediction.getAwayGoals().awayGoals().toString() + " "
                 + prediction.getAwayTeam().team();
 
         return new FinishFailedPredictionEvent(
