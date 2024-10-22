@@ -1,6 +1,4 @@
-const withMT = require('@material-tailwind/react/utils/withMT');
-
-module.exports = withMT({
+module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
@@ -84,7 +82,6 @@ module.exports = withMT({
     borderRadius: {
       none: '0',
       sm: '0.125rem',
-      DEFAULT: '0.25rem',
       DEFAULT: '7px',
       md: '0.375rem',
       lg: '0.5rem',
@@ -93,4 +90,4 @@ module.exports = withMT({
     },
   },
   plugins: [],
-});
+};
