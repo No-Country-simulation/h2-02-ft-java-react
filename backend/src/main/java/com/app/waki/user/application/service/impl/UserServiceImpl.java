@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
         var userAuth = new UserAuth(findUser);
         var jwtToken = tokenService.generateToken(userAuth);
 
-        return new JwtAuthToken(jwtToken);
+        return new JwtAuthToken(jwtToken, findUser.getId());
     }
 
 

@@ -1,7 +1,7 @@
 package com.app.waki.prediction.application.service.impl;
 
 import com.app.waki.common.exceptions.EntityNotFoundException;
-import com.app.waki.match.match.MatchFinalizedEvent;
+import com.app.waki.match.matchtest.MatchFinalizedEvent;
 import com.app.waki.prediction.application.dto.PredictionDetailsDto;
 import com.app.waki.prediction.application.service.PredictionService;
 import com.app.waki.prediction.application.utils.PredictionMapper;
@@ -9,7 +9,6 @@ import com.app.waki.common.events.CorrectPredictionEvent;
 import com.app.waki.prediction.domain.Prediction;
 import com.app.waki.prediction.domain.PredictionDetails;
 import com.app.waki.prediction.domain.PredictionRepository;
-import com.app.waki.prediction.domain.valueObject.MatchId;
 import com.app.waki.prediction.domain.valueObject.MatchResult;
 import com.app.waki.prediction.domain.valueObject.PredictionStatus;
 import com.app.waki.prediction.domain.valueObject.ProfileId;
@@ -35,39 +34,41 @@ public class PredictionServiceImpl implements PredictionService {
 
     @ApplicationModuleListener
     void onCreatePrediction (CreatePredictionEvent event){
-        log.info("nuevo usuario con id: " + event.profileId());
+        log.info("new prediction with profile id: " + event.profileId());
         var prediction = PredictionMapper.predictionEventToRequest(event);
         PredictionDetails createPrediction = PredictionDetails.createPredictionDetails(
                 new ProfileId(event.profileId()),
                 prediction
                 );
         repository.savePrediction(createPrediction);
+        publisher.publishEvent(PredictionMapper.establishedPredictionEvent(createPrediction));
     }
 
     @ApplicationModuleListener
     void onFinalizeMatch (MatchFinalizedEvent event){
-        var matchId = new MatchId(event.matchId());
-        log.info("nuevo partido finalizado con id: " + matchId);
 
-        List<PredictionDetails> predictionDetails = repository.findPredictionDetailsWithPendingPredictionByMatchId(matchId, PredictionStatus.PENDING);
+        log.info("nuevo partido finalizado con id: " + event.matchId());
+
+        List<PredictionDetails> predictionDetails = repository.findPredictionDetailsWithPendingPredictionByMatchId(event.matchId(), PredictionStatus.PENDING);
 
         checkIfPredictionsAreEmpty(predictionDetails);
 
         predictionDetails.forEach(details -> {
-            Prediction prediction = details.getPredictionByMatchId(matchId);
-            updatePredictionStatus(details, prediction, event.result());
+            Prediction prediction = details.getPredictionByMatchId(event.matchId());
+            updatePredictionStatus(details, prediction, event.result(), event.homeGoals(), event.awayGoals());
         });
     }
 
-    private void updatePredictionStatus(PredictionDetails details, Prediction prediction, String matchResult) {
+    private void updatePredictionStatus(PredictionDetails details, Prediction prediction, String matchResult,
+                                        Integer homeGoals, Integer awayGoals) {
 
-        prediction.updateMatchResult(MatchResult.valueOf(matchResult));
+        prediction.updateMatchResult(MatchResult.valueOf(matchResult), homeGoals, awayGoals);
 
         var matchId = prediction.getMatchId();
 
         if (prediction.isPredictionCorrect()) {
             if (prediction.getCombined()) {
-                handleCombinedCorrectPrediction(details, matchId);
+                handleCombinedCorrectPrediction(details);
             } else {
                 handleIndividualCorrectPrediction(details, matchId);
             }
@@ -83,56 +84,64 @@ public class PredictionServiceImpl implements PredictionService {
     private void handleIndividualWrongPrediction(PredictionDetails details) {
 
         details.decrementPendingPredictions();
-        details.setStatus(PredictionStatus.WRONG);
+        details.setStatus(PredictionStatus.FAILED);
         log.info("Predicción individual errada");
         // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICCION FALLIDA
+        publisher.publishEvent(PredictionMapper.failedPredictionEvent(details));
     }
 
     private void handleCombinedWrongPrediction(PredictionDetails details) {
 
         details.getRemainingPredictions().forEach(pr -> {
-            pr.setPredictionStatus(PredictionStatus.WRONG);
+            pr.setPredictionStatus(PredictionStatus.FAILED);
             pr.setMatchResult(MatchResult.FAILED_COMBINED);
         });
-        details.setStatus(PredictionStatus.WRONG);
+        details.setStatus(PredictionStatus.FAILED);
         details.setPendingPredictions(0);
         log.info("Predicción combinada errada");
-        // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICCION COMBINADA FALLIDA
+        // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICTION COMBINADA FALLIDA
+        publisher.publishEvent(PredictionMapper.failedPredictionEvent(details));
     }
 
 
-    private void handleIndividualCorrectPrediction(PredictionDetails details, MatchId matchId) {
+    private void handleIndividualCorrectPrediction(PredictionDetails details, String matchId) {
 
         details.decrementPendingPredictions();
-        details.setStatus(PredictionStatus.RIGHT);
+        details.setStatus(PredictionStatus.CORRECT);
         log.info("Predicción individual acertada");
 
-        // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICCION ACERTADA
+        // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICTION ACERTADA
+        publisher.publishEvent(PredictionMapper.correctPredictionEvent(details));
 
         // EVENTO PARA ACTUALIZAR PERFIL
         publisher.publishEvent(new CorrectPredictionEvent(
                 details.getProfileId().profileId().toString(),
-                matchId.matchId(),
+                List.of(matchId),
                 details.getEarnablePoints().points()));
     }
 
 
-    private void handleCombinedCorrectPrediction(PredictionDetails details, MatchId matchId) {
+    private void handleCombinedCorrectPrediction(PredictionDetails details) {
 
         details.decrementPendingPredictions();
         log.info("Combinada acertada");
 
         if (details.getPendingPredictions() == 0) {
-            details.setStatus(PredictionStatus.RIGHT);
+            details.setStatus(PredictionStatus.CORRECT);
             log.info("Última predicción de la combinada acertada");
-        }
-        // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICCION COMBINADA ACERTADA ACERTADA
+            List<String> matchIds = details.getPredictions()
+                                            .stream()
+                                            .map(Prediction::getMatchId)
+                                            .toList();
+            // EVENTO PARA ACTUALIZAR PERFIL
+            publisher.publishEvent(new CorrectPredictionEvent(
+                    details.getProfileId().profileId().toString(),
+                    matchIds,
+                    details.getEarnablePoints().points()));
+            // EVENTO PARA NOTIFICAR AL USUARIO DE LA PREDICTION COMBINADA ACERTADA
+            publisher.publishEvent(PredictionMapper.correctPredictionEvent(details));
 
-        // EVENTO PARA ACTUALIZAR PERFIL
-        publisher.publishEvent(new CorrectPredictionEvent(
-                details.getProfileId().profileId().toString(),
-                matchId.matchId(),
-                details.getEarnablePoints().points()));
+        }
     }
 
 

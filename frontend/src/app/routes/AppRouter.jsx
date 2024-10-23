@@ -10,6 +10,10 @@ import MyPredictions from '../pages/MyPredictions';
 import Details from '../pages/Details';
 import NotFound from '../pages/NotFound';
 import PrivateRoute from '../routes/PrivateRoute';
+import PersonalData from '../pages/PersonalData';
+import Notifications from '../pages/Notifications';
+import Help from '../pages/Help';
+import Setting from '../pages/Setting';
 
 export default function AppRouter() {
   return (
@@ -62,7 +66,12 @@ export default function AppRouter() {
               <Profile />
             </PrivateRoute>
           }
-        />
+        >
+          <Route path="personal-data" element={<PersonalData />} />
+          <Route path="notifications" element={<Notifications />} />
+          <Route path="help" element={<Help />} />
+          <Route path="setting" element={<Setting />} />
+        </Route>
 
         {/* Ruta para la página de error 404 */}
         <Route path="*" element={<NotFound />} />

@@ -102,7 +102,7 @@ public class ProfileServiceImpl implements ProfileService {
     private void addMatchIdsToProfile(Set<String> matchIds, Profile profile) {
         List<String> errors = new ArrayList<>();
         for (String ids : matchIds) {
-            if (!profile.addMatchId(new ValidateMatchId(ids))) {
+            if (!profile.addMatchId(ids)) {
                 errors.add("You have already bet on the match with id " + ids);
             }
         }
@@ -157,9 +157,13 @@ public class ProfileServiceImpl implements ProfileService {
         Profile profile = findProfile(UUID.fromString(event.profileId()));
         profile.increaseCorrectPredictions();
         profile.updateTotalPoints(event.earnablePoints());
-        profile.removeMatchId(new ValidateMatchId(event.matchId()));
-
+        for (String matchId : event.matchId()) {
+            boolean removed = profile.removeMatchId(matchId);
+            if (!removed) {
+                log.warn("Failed to remove matchId: " + matchId);
+            }
+        }
         repository.save(profile);
-        log.info("nuevo usuario con id: " + event.matchId());
+        log.info("Actualizados los puntos en profile: " + event.matchId());
     }
 }
