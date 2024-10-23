@@ -1,0 +1,25 @@
+name: Sync frontend with upstream
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Ejecuta cada hora
+  push:
+    branches:
+      - develop
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: No-Country-simulation/h2-02-ft-java-react
+          ref: develop
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run sync script
+        run: |
+          chmod +x sync_frontend.sh
+          ./sync_frontend.sh
