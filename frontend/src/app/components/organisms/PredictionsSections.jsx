@@ -14,7 +14,7 @@ export default function PredictionsSections() {
     <div className="flex flex-col gap-6 px-5 py-6">
       <YourPredictions />
       {selectedMatch && (
-        <Button className="mx-auto" onClick={() => openModal(selectedMatch)}>
+        <Button className="mx-auto" onClick={() => openModal()}>
           Hacer predicción
         </Button>
       )}
@@ -25,7 +25,6 @@ export default function PredictionsSections() {
         isOpen={isModalOpen}
         onClose={closeModal}
         initialStep={1}
-        partidoSeleccionado={selectedMatch}
       />
     </div>
   );

@@ -98,7 +98,7 @@ export default function MatchCard({ matchData }) {
           ) : (
             <p className="flex items-center text-[10.35px]">
               {elapsedTime !== 'FT' && (
-                <span className="animate-blink mr-1 h-2 w-2 rounded-full bg-redWaki"></span>
+                <span className="mr-1 h-2 w-2 animate-blink rounded-full bg-redWaki"></span>
               )}
               En juego
             </p>

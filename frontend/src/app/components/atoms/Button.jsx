@@ -27,7 +27,7 @@ export default function Button({
   const sizes = {
     small: 'h-[30px] px-[0.85rem]',
     medium: 'h-[35px] px-[1.075rem]',
-    large: 'h-[40px] px-[1.25rem]',
+    large: 'h-[35px] px-1',
   };
 
   return (

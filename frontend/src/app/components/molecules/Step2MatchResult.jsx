@@ -10,6 +10,8 @@ export default function Step2MatchResult({
   handleMakeCombinedPrediction,
 }) {
   const { selectedMatch } = useContext(MatchContext);
+  console.log(selectedMatch);
+
   const { localTeam, visitorTeam, predictions } = selectedMatch;
 
   return (
@@ -85,7 +87,8 @@ export default function Step2MatchResult({
           </Button>
           <Button
             variant="outline"
-            className="w-full px-1"
+            size="large"
+            className="w-full"
             onClick={handleMakeCombinedPrediction}
             disabled={selectedOption === 'Resultado'}
           >

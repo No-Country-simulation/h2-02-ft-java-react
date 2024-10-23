@@ -19,10 +19,10 @@ export default function PredictionsSummary({
   };
 
   return (
-    <section className="w-full divide-y pt-5">
+    <section className="flex w-full flex-col items-center divide-y pt-5">
       {/* Botón para abrir/cerrar el resumen */}
       <button
-        className="flex w-full cursor-pointer items-center justify-center gap-2"
+        className="flex w-40 cursor-pointer items-center justify-center gap-2 rounded-t-xl border-x border-t p-2"
         onClick={toggleSummary}
       >
         {isOpen ? <MdKeyboardDoubleArrowDown /> : <MdKeyboardDoubleArrowUp />}
@@ -46,7 +46,7 @@ export default function PredictionsSummary({
       </div>
 
       {/* Puntos totales */}
-      <div className="grid grid-cols-[1fr_50px] p-4 text-medium-18 font-medium text-blueWaki">
+      <div className="grid w-full grid-cols-[1fr_50px] p-4 text-medium-18 font-medium text-blueWaki">
         <p>Puntos totales</p>
         <p className="text-center">15</p>
       </div>

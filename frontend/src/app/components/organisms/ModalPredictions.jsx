@@ -7,12 +7,7 @@ import { HiArrowLeft } from 'react-icons/hi';
 import { CgClose } from 'react-icons/cg';
 import PredictionsProgress from '../atoms/PredictionsProgress';
 
-export default function ModalPredictions({
-  isOpen,
-  onClose,
-  initialStep = 1,
-  partidoSeleccionado,
-}) {
+export default function ModalPredictions({ isOpen, onClose, initialStep = 1 }) {
   const [step, setStep] = useState(initialStep);
   const [predictions, setPredictions] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
