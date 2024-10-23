@@ -8,7 +8,7 @@ export default function ButtonWakiWhite({
   onToggle,
 }) {
   return (
-    <button className="flex h-14 w-full items-center justify-between rounded-lg pl-5 pr-3 shadow-custom">
+    <button className="flex h-14 w-full items-center rounded-lg pl-5 pr-3 shadow-custom">
       <div
         className={`mr-5 flex h-8 w-8 items-center justify-center ${iconColor}`}
       >
@@ -16,7 +16,9 @@ export default function ButtonWakiWhite({
       </div>
       <span className="text-lg text-[#555555]">{text}</span>
       {toggle !== undefined && (
-        <ToggleSwitch isChecked={toggle} onToggle={onToggle} />
+        <div className="ml-auto">
+          <ToggleSwitch isChecked={toggle} onToggle={onToggle} />
+        </div>
       )}
     </button>
   );

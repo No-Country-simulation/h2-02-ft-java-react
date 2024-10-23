@@ -17,7 +17,7 @@ const navItems = [
 
 export default function Navbar() {
   return (
-    <nav className="grid h-[90px] w-full grid-cols-3 items-center justify-evenly rounded-t-large bg-blueWaki px-4 xs:px-8 sm:min-w-[500px]">
+    <nav className="grid h-[90px] w-full grid-cols-4 items-center justify-evenly rounded-t-large bg-blueWaki px-4 xs:px-8 sm:min-w-[500px]">
       {navItems.map((item, index) => (
         <NavLink
           key={index}
