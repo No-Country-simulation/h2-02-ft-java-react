@@ -67,8 +67,13 @@ module.exports = {
           '0%': { opacity: '1' },
           '100%': { opacity: '0' },
         },
+        blink: {
+          '0%, 100%': { opacity: 1 }, // 100% visible al principio y al final
+          '50%': { opacity: 0 }, // 50% de opacidad en la mitad del ciclo
+        },
       },
       animation: {
+        blink: 'blink 2s infinite',
         'spin-slow': 'spin 3s linear infinite',
         slideIn: 'slideIn 0.5s forwards',
         slideOut: 'slideOut 0.5s forwards',

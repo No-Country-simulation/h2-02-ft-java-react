@@ -9,7 +9,7 @@ export default function Match() {
   const location = useLocation();
 
   return (
-    <main className="flex min-h-screen w-full flex-col overflow-hidden sm:min-w-[570px]">
+    <main className="flex min-h-screen w-full flex-col sm:min-w-[570px] sm:overflow-hidden">
       {location.pathname === '/match' && (
         <>
           <HeaderMatch />
