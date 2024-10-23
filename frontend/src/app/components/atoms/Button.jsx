@@ -9,7 +9,7 @@ export default function Button({
   ...props
 }) {
   const baseStyles =
-    'h-[35px] rounded px-[1.075rem] py-1 font-medium normal-case transition-colors ease-in-out';
+    'rounded py-1 font-medium normal-case transition-colors ease-in-out';
   const disabledStyles = 'opacity-50 cursor-not-allowed'; // También añadimos cursor-not-allowed cuando está deshabilitado
 
   const variants = {

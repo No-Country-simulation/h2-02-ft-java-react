@@ -92,6 +92,7 @@ module.exports = {
       lg: '0.5rem',
       full: '9999px',
       large: '9px',
+      xl: '11px',
     },
   },
   plugins: [],

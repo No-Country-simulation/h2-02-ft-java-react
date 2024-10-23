@@ -5,6 +5,7 @@ import Step3CombinedPrediction from '../molecules/Step3CombinedPrediction';
 import Step4SelectMatch from '../molecules/Step4SelectMatch';
 import { HiArrowLeft } from 'react-icons/hi';
 import { CgClose } from 'react-icons/cg';
+import PredictionsProgress from '../atoms/PredictionsProgress';
 
 export default function ModalPredictions({
   isOpen,
@@ -37,8 +38,8 @@ export default function ModalPredictions({
 
   return (
     <div className="fixed left-0 right-0 top-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="h-screen w-full max-w-md overflow-y-auto bg-white p-5">
-        <div className="flex items-center justify-between">
+      <div className="relative h-screen w-full max-w-md overflow-y-auto bg-white p-5">
+        <div className="flex items-center justify-between pb-5">
           {/* Botón "Volver" */}
           <button
             onClick={() => {
@@ -87,6 +88,8 @@ export default function ModalPredictions({
         {step === 4 && (
           <Step4SelectMatch handleSelectMatch={handleSelectMatch} />
         )}
+
+        <PredictionsProgress usedPredictions={3} />
       </div>
     </div>
   );

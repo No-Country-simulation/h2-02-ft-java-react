@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { MatchContext } from '../../context/MatchContext';
 import Button from '../atoms/Button';
+import PredictionsSummary from '../atoms/PredictionsSummary';
 
 export default function Step2MatchResult({
   selectedOption,
@@ -12,8 +13,8 @@ export default function Step2MatchResult({
   const { localTeam, visitorTeam, predictions } = selectedMatch;
 
   return (
-    <section className="flex h-full flex-col divide-y">
-      <div className="flex flex-col py-5">
+    <section className="flex h-[calc(100vh-120px)] flex-col divide-y overflow-y-auto">
+      <div className="flex flex-col pb-5">
         <h2 className="text-center text-semibold-22 font-semibold text-label">
           Predice el resultado
         </h2>
@@ -22,7 +23,7 @@ export default function Step2MatchResult({
         </p>
       </div>
       {/* Elección de resultado */}
-      <div className="flex h-full flex-col justify-between px-5 py-7">
+      <div className="flex h-full flex-col justify-between gap-4 px-5 py-7">
         <div className="grid shrink grid-cols-2 grid-rows-[1fr_auto] gap-4 hover:shrink-0">
           {/* Local */}
           <button
@@ -74,7 +75,7 @@ export default function Step2MatchResult({
           </button>
         </div>
         {/* Enviar resultados */}
-        <div className="mt-auto flex justify-between gap-2">
+        <div className="mt-auto grid grid-cols-2 gap-2">
           <Button
             className="w-full"
             onClick={handleSubmitPrediction}
@@ -84,7 +85,7 @@ export default function Step2MatchResult({
           </Button>
           <Button
             variant="outline"
-            className="w-full"
+            className="w-full px-1"
             onClick={handleMakeCombinedPrediction}
             disabled={selectedOption === 'Resultado'}
           >
@@ -93,14 +94,13 @@ export default function Step2MatchResult({
         </div>
       </div>
 
-      <div className="flex flex-col py-5">
-        <h2 className="text-center text-semibold-22 font-semibold text-label">
-          Predice el resultado
-        </h2>
-        <p className="text-center text-medium-18 font-medium text-grayWaki">
-          Selecciona una opción
-        </p>
-      </div>
+      <PredictionsSummary
+        result={selectedOption}
+        team1={localTeam.name}
+        team2={visitorTeam.name}
+        points={15}
+        status={'pending'}
+      />
     </section>
   );
 }
