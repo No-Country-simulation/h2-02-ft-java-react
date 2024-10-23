@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { FaDollarSign } from 'react-icons/fa';
 import { RiFootballLine } from 'react-icons/ri';
 import { BsTrophy } from 'react-icons/bs';
+import { RxPerson } from "react-icons/rx";
 
 const navItems = [
   {
@@ -9,13 +10,14 @@ const navItems = [
     icon: <FaDollarSign size={28} />,
     label: 'Scout players',
   },
-  { to: '/match', icon: <RiFootballLine size={30} />, label: 'Partidos' },
+  { to: '/match', icon: <RiFootballLine size={28} />, label: 'Partidos' },
   { to: '/divisiones', icon: <BsTrophy size={28} />, label: 'Divisiones' },
+  { to: '/profile', icon: <RxPerson size={28} />, label: 'Perfil' },
 ];
 
 export default function Navbar() {
   return (
-    <nav className="grid h-[90px] w-full grid-cols-3 items-center justify-evenly rounded-t-large bg-blueWaki px-4 sm:min-w-[500px] xs:px-8">
+    <nav className="grid h-[90px] w-full grid-cols-4 items-center justify-evenly rounded-t-large bg-blueWaki px-4 sm:min-w-[500px] xs:px-8">
       {navItems.map((item, index) => (
         <NavLink
           key={index}
