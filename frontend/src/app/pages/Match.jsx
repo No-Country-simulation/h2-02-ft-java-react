@@ -9,8 +9,8 @@ export default function Match() {
   const location = useLocation();
 
   return (
-    <main className="flex min-h-screen w-full flex-col overflow-hidden sm:min-w-[570px]">
-      {location.pathname !== '/match/mypredictions' && (
+    <main className="flex min-h-screen w-full flex-col sm:min-w-[570px] sm:overflow-hidden">
+      {location.pathname === '/match' && (
         <>
           <HeaderMatch />
           <Searchbar placeholder="Buscar equipo" />

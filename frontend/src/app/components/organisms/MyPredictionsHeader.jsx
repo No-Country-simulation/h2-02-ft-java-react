@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import AnchorButton from '../atoms/AnchorButton';
 import { BsArrowLeft } from 'react-icons/bs';
-import PredictionTabs from '../molecules/PredictionTabs';
+import MyPredictionTabs from '../molecules/MyPredictionTabs';
 
-export default function PredictionsHeader() {
+export default function MyPredictionsHeader() {
   return (
     <div className="w-full text-white">
       <div className="p-5 pt-8">
@@ -28,7 +28,7 @@ export default function PredictionsHeader() {
       </div>
 
       {/* Pestañas de selección de fecha */}
-      <PredictionTabs />
+      <MyPredictionTabs />
 
       {/* Sección de compra de predicciones */}
       <div className="p-5 pb-8">

@@ -1,6 +1,4 @@
-const withMT = require('@material-tailwind/react/utils/withMT');
-
-module.exports = withMT({
+module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
@@ -18,6 +16,10 @@ module.exports = withMT({
         'regular-16': ['16px', { lineHeight: '19.2px' }],
         'regularNav-16': ['16px', { lineHeight: '24px' }],
         'medium-18': ['18px', { lineHeight: '21.6px' }],
+        'medium-39': [
+          '39.45px',
+          { lineHeight: '59.17px', letterSpacing: '0.65px' },
+        ],
         'semibold-22': [
           '22px',
           { lineHeight: '33px', letterSpacing: '0.36px' },
@@ -39,6 +41,7 @@ module.exports = withMT({
         label: '#181818',
         blueWaki: '#317EF4',
         grayWaki: '#555555',
+        grayCard: '#F3F4F5',
         grayLineWaki: '#353535',
         grayLightWaki: '#8D8D8D',
         greenWaki: '#06BD06',
@@ -64,8 +67,13 @@ module.exports = withMT({
           '0%': { opacity: '1' },
           '100%': { opacity: '0' },
         },
+        blink: {
+          '0%, 100%': { opacity: 1 }, // 100% visible al principio y al final
+          '50%': { opacity: 0 }, // 50% de opacidad en la mitad del ciclo
+        },
       },
       animation: {
+        blink: 'blink 2s infinite',
         'spin-slow': 'spin 3s linear infinite',
         slideIn: 'slideIn 0.5s forwards',
         slideOut: 'slideOut 0.5s forwards',
@@ -79,13 +87,13 @@ module.exports = withMT({
     borderRadius: {
       none: '0',
       sm: '0.125rem',
-      DEFAULT: '0.25rem',
       DEFAULT: '7px',
       md: '0.375rem',
       lg: '0.5rem',
       full: '9999px',
       large: '9px',
+      xl: '11px',
     },
   },
   plugins: [],
-});
+};
