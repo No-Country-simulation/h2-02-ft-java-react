@@ -26,7 +26,9 @@ public class SecurityConfig {
     RequestMatcher publicUrls = new OrRequestMatcher(
             //USER
             new AntPathRequestMatcher("/user/create"),
-            new AntPathRequestMatcher("/user/login"),
+            new AntPathRequestMatcher("/user/login")
+            );
+    RequestMatcher UserUrls = new OrRequestMatcher(
             //PROFILE
             new AntPathRequestMatcher("/profile/{profileId}"),
             new AntPathRequestMatcher("/profile/predictionByDate/{profileId}"),
@@ -46,18 +48,15 @@ public class SecurityConfig {
             new AntPathRequestMatcher("/swagger-ui.html"),
             new AntPathRequestMatcher("/v3/api-docs/**"),
             new AntPathRequestMatcher("/swagger-ui/**"),
-            new AntPathRequestMatcher("/profile/validatePrediction/{profileId}")
-
-    );
-    RequestMatcher adminUrls = new OrRequestMatcher(
-            new AntPathRequestMatcher("/user/admin")
-    );
-
-    RequestMatcher clientUrls = new OrRequestMatcher(
+            new AntPathRequestMatcher("/profile/validatePrediction/{profileId}"),
+            //MATCH
             new AntPathRequestMatcher("/match/ligasUpdate", "GET"),
             new AntPathRequestMatcher("/getMatches/{code}", "GET"),
             new AntPathRequestMatcher("/area-competition", "GET"),
             new AntPathRequestMatcher("/getMatchesToday", "GET")
+    );
+    RequestMatcher adminUrls = new OrRequestMatcher(
+            new AntPathRequestMatcher("/user/admin")
     );
 
     @Bean
@@ -68,8 +67,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(publicUrls)
                         .permitAll()
+                        .requestMatchers(UserUrls).hasRole("USER")
                         .requestMatchers(adminUrls).hasRole("ADMIN")
-                        .requestMatchers(clientUrls).hasRole("USER")
                         .anyRequest()
                         .authenticated()
                 )
