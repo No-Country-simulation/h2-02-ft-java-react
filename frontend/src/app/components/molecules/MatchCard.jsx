@@ -1,7 +1,10 @@
+import { useState, useEffect, useContext } from 'react';
+import { MatchContext } from '../../context/MatchContext';
+import { Link } from 'react-router-dom';
 import { MdOutlineSignalCellularAlt } from 'react-icons/md';
-import { useState, useEffect } from 'react';
 
 export default function MatchCard({ matchData }) {
+  const { setSelectedMatch } = useContext(MatchContext);
   const { localTeam, visitorTeam, score, predictions, startTime, status } =
     matchData;
   const [elapsedTime, setElapsedTime] = useState('');
@@ -32,43 +35,48 @@ export default function MatchCard({ matchData }) {
     return () => clearInterval(interval);
   }, [startTime]);
 
+  const handleClick = () => {
+    setSelectedMatch(matchData);
+  };
+
   return (
-    <div className="relative grid grid-rows-[1fr_auto_auto] gap-2 bg-[#F3F4F5] px-4 py-5">
+    <div className="relative grid grid-rows-[1fr_auto_auto] gap-2 bg-grayCard px-4 py-5">
       {/* Fila 1: Escudos y marcador */}
-      <div className="grid grid-cols-3 items-center">
-        {/* Escudo local */}
-        <figure className="h-14">
-          <img
-            src={localTeam.logoUrl}
-            alt={`${localTeam.name} Logo`}
-            className="h-full w-full object-contain"
-          />
-        </figure>
+      <Link to="/match/details" onClick={handleClick}>
+        <div className="grid grid-cols-3 items-center">
+          {/* Escudo local */}
+          <figure className="h-14">
+            <img
+              src={localTeam.logoUrl}
+              alt={`${localTeam.name} Logo`}
+              className="h-full w-full object-contain"
+            />
+          </figure>
 
-        {/* Marcador o VS */}
-        <div className="flex flex-col items-center">
-          {hasStarted || status === 'IN_PLAY' ? (
-            <>
-              <MdOutlineSignalCellularAlt className="h-5 w-5 font-semibold text-purpleWaki" />
-              <p className="text-semibold-22 font-semibold text-label">
-                {score ? score : '0 - 0'}
-              </p>
-            </>
-          ) : (
-            <p className="text-semibold-22 font-semibold text-label">vs</p>
-          )}
+          {/* Marcador o VS */}
+          <div className="flex flex-col items-center">
+            {hasStarted || status === 'IN_PLAY' ? (
+              <>
+                <MdOutlineSignalCellularAlt className="h-5 w-5 font-semibold text-purpleWaki" />
+                <p className="text-semibold-22 font-semibold text-label">
+                  {score ? score : '0 - 0'}
+                </p>
+              </>
+            ) : (
+              <p className="text-semibold-22 font-semibold text-label">vs</p>
+            )}
+          </div>
+
+          {/* Escudo visitante */}
+          <figure className="h-14">
+            <img
+              src={visitorTeam.logoUrl}
+              alt={`${visitorTeam.name} Logo`}
+              className="h-full w-full object-contain"
+            />
+          </figure>
         </div>
-
-        {/* Escudo visitante */}
-        <figure className="h-14">
-          <img
-            src={visitorTeam.logoUrl}
-            alt={`${visitorTeam.name} Logo`}
-            className="h-full w-full object-contain"
-          />
-        </figure>
-      </div>
-
+      </Link>
       {/* Fila 2: Nombres y estado del partido */}
       <div className="grid grid-cols-3 items-center">
         {/* Nombre del equipo local */}
@@ -90,9 +98,9 @@ export default function MatchCard({ matchData }) {
           ) : (
             <p className="flex items-center text-[10.35px]">
               {elapsedTime !== 'FT' && (
-                <span className="mr-1 h-2 w-2 rounded-full bg-redWaki"></span>
+                <span className="mr-1 h-2 w-2 animate-blink rounded-full bg-redWaki"></span>
               )}
-              {elapsedTime}
+              En juego
             </p>
           )}
         </div>

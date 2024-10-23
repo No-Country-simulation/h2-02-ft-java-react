@@ -7,6 +7,7 @@ import Match from '../pages/Match';
 import ScoutPlayers from '../pages/ScoutPlayers';
 import Divisiones from '../pages/Divisiones';
 import MyPredictions from '../pages/MyPredictions';
+import Details from '../pages/Details';
 import NotFound from '../pages/NotFound';
 import PrivateRoute from '../routes/PrivateRoute';
 import PersonalData from '../pages/PersonalData';
@@ -40,6 +41,7 @@ export default function AppRouter() {
           }
         >
           <Route path="mypredictions" element={<MyPredictions />} />
+          <Route path="details" element={<Details />} />
         </Route>
         <Route
           path="/scout-players"

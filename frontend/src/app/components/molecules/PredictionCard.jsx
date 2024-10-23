@@ -1,4 +1,4 @@
-import BodyPredictionsCard from '../atoms/BodyPredictionsCard';
+import { BodyPredictionsCard } from '../atoms/BodyPredictionsCard';
 import HeaderLeague from '../atoms/HeaderLeague';
 import StatusPredictionsCard from '../atoms/StatusPredictionsCard';
 
