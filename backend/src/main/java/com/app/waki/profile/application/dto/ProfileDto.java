@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 public record ProfileDto(UUID profileUserId,
+                         String username,
                          LocalDate created,
                          Integer totalPoints,
                          Integer correctPredictions,

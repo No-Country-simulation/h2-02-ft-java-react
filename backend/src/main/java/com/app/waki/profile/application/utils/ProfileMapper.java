@@ -19,6 +19,7 @@ public class ProfileMapper {
                 .toList();
         return new ProfileDto(
                 profile.getProfileUserId().userId(),
+                profile.getUsername(),
                 profile.getTimeProfileCreated(),
                 profile.getTotalPoints().points(),
                 profile.getCorrectPredictions().correctPredictions(),

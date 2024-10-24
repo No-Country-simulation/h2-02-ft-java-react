@@ -40,7 +40,7 @@ public class ProfileServiceImpl implements ProfileService {
     void onUserCreate (UserCreatedEvent event){
 
         log.info("nuevo usuario con id: " + event.id());
-        var newProfile = Profile.createProfile(event.id());
+        var newProfile = Profile.createProfile(event.id(), event.username());
         repository.save(newProfile);
     }
 

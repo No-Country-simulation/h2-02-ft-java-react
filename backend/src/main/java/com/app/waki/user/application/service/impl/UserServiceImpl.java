@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
                 userRequest.email(),
                 passwordEncoder.encode(validatePassword.password()));
         userRepository.save(newUser);
-        publisher.publishEvent(new UserCreatedEvent(newUser.getId()));
+        publisher.publishEvent(new UserCreatedEvent(newUser.getId(), newUser.getUsername()));
 
         return UserMapper.userToUserDTO(newUser);
     }
