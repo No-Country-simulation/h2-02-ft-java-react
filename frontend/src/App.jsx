@@ -1,3 +1,4 @@
+import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthProvider } from './app/context/AuthContext';
 import { DateProvider } from './app/context/DateContext';
 import { MatchProvider } from './app/context/MatchContext';
@@ -10,7 +11,9 @@ export default function App() {
       <DateProvider>
         <MatchProvider>
           <ModalProvider>
-            <AppRouter />
+            <Router>
+              <AppRouter />
+            </Router>
           </ModalProvider>
         </MatchProvider>
       </DateProvider>

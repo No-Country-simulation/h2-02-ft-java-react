@@ -1,28 +1,48 @@
 import MyPredictionsHeader from '../components/organisms/MyPredictionsHeader';
-import MyPredictionsection from '../components/organisms/MyPredictionsection';
+import MyPredictionSection from '../components/organisms/MyPredictionSection';
+import LogoBarcelona from '../../assets/barcelona.png';
+import LogoOsasuna from '../../assets/osasuna.png';
 
 const myPredictionsActivas = [
   {
     league: 'Liga española',
-    result: 'En Juego',
-    team1: 'Barcelona',
-    team2: 'Osasuna',
+    selected: 'DRAW',
+    team1: {
+      logoUrl: LogoBarcelona,
+      name: 'Barcelona',
+    },
+    team2: {
+      logoUrl: LogoOsasuna,
+      name: 'Osasuna',
+    },
     points: 13,
     status: 'pending',
   },
   {
     league: 'Liga española',
-    result: 'Osasuna',
-    team1: 'Barcelona',
-    team2: 'Osasuna',
+    selected: 'AWAY',
+    team1: {
+      logoUrl: LogoBarcelona,
+      name: 'Barcelona',
+    },
+    team2: {
+      logoUrl: LogoOsasuna,
+      name: 'Osasuna',
+    },
     points: 13,
     status: 'lose',
   },
   {
     league: 'Liga española',
-    result: 'Barcelona',
-    team1: 'Barcelona',
-    team2: 'Osasuna',
+    selected: 'LOCAL',
+    team1: {
+      logoUrl: LogoBarcelona,
+      name: 'Barcelona',
+    },
+    team2: {
+      logoUrl: LogoOsasuna,
+      name: 'Osasuna',
+    },
     points: 13,
     status: 'win',
   },
@@ -32,7 +52,7 @@ const myPredictionsActivas = [
 const myPredictionsPasadas = [
   {
     league: 'La Liga',
-    result: 'Resultado final:',
+    selected: 'Resultado final:',
     team1: 'Barcelona',
     team2: 'Osasuna',
     points: 13,
@@ -40,7 +60,7 @@ const myPredictionsPasadas = [
   },
   {
     league: 'La Liga',
-    result: 'Resultado final:',
+    selected: 'Resultado final:',
     team1: 'Barcelona',
     team2: 'Osasuna',
     points: 13,
@@ -53,7 +73,7 @@ export default function MyPredictions() {
   return (
     <div className="flex flex-col bg-gradientWaki">
       <MyPredictionsHeader />
-      <MyPredictionsection
+      <MyPredictionSection
         title={'Activas'}
         predictions={myPredictionsActivas}
       />

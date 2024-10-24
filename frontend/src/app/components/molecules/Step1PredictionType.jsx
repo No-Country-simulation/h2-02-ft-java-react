@@ -4,7 +4,7 @@ import { IoShirtOutline } from 'react-icons/io5';
 export default function Step1PredictionType({ handlePrediction }) {
   return (
     <section className="flex flex-col divide-y">
-      <div className="flex flex-col py-5">
+      <div className="flex flex-col pb-5">
         <h2 className="text-center text-semibold-22 font-semibold text-label">
           ¿Qué vas a predecir?
         </h2>

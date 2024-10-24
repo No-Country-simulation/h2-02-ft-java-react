@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Home from '../pages/Home';
@@ -9,26 +10,46 @@ import Divisiones from '../pages/Divisiones';
 import MyPredictions from '../pages/MyPredictions';
 import Details from '../pages/Details';
 import NotFound from '../pages/NotFound';
-import PrivateRoute from '../routes/PrivateRoute';
+import PrivateRoute from './PrivateRoute';
 import PersonalData from '../pages/PersonalData';
 import Notifications from '../pages/Notifications';
 import Help from '../pages/Help';
 import Setting from '../pages/Setting';
 
 export default function AppRouter() {
+  const location = useLocation(); // Detectamos el cambio de ruta
+
   return (
-    <Router>
-      <Routes>
+    <AnimatePresence mode="wait">
+      {' '}
+      {/* Usamos mode="wait" para gestionar las transiciones */}
+      <Routes location={location} key={location.pathname}>
         {/* Rutas públicas */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route
+          path="/login"
+          element={
+            <PageWrapper>
+              <Login />
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <PageWrapper>
+              <Register />
+            </PageWrapper>
+          }
+        />
 
         {/* Rutas privadas */}
         <Route
           path="/"
           element={
             <PrivateRoute>
-              <Home />
+              <PageWrapper>
+                <Home />
+              </PageWrapper>
             </PrivateRoute>
           }
         />
@@ -36,18 +57,36 @@ export default function AppRouter() {
           path="/match"
           element={
             <PrivateRoute>
-              <Match />
+              <PageWrapper>
+                <Match />
+              </PageWrapper>
             </PrivateRoute>
           }
         >
-          <Route path="mypredictions" element={<MyPredictions />} />
-          <Route path="details" element={<Details />} />
+          <Route
+            path="mypredictions"
+            element={
+              <PageWrapper>
+                <MyPredictions />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="details"
+            element={
+              <PageWrapper>
+                <Details />
+              </PageWrapper>
+            }
+          />
         </Route>
         <Route
           path="/scout-players"
           element={
             <PrivateRoute>
-              <ScoutPlayers />
+              <PageWrapper>
+                <ScoutPlayers />
+              </PageWrapper>
             </PrivateRoute>
           }
         />
@@ -55,7 +94,9 @@ export default function AppRouter() {
           path="/divisiones"
           element={
             <PrivateRoute>
-              <Divisiones />
+              <PageWrapper>
+                <Divisiones />
+              </PageWrapper>
             </PrivateRoute>
           }
         />
@@ -63,19 +104,70 @@ export default function AppRouter() {
           path="/profile"
           element={
             <PrivateRoute>
-              <Profile />
+              <PageWrapper>
+                <Profile />
+              </PageWrapper>
             </PrivateRoute>
           }
         >
-          <Route path="personal-data" element={<PersonalData />} />
-          <Route path="notifications" element={<Notifications />} />
-          <Route path="help" element={<Help />} />
-          <Route path="setting" element={<Setting />} />
+          <Route
+            path="personal-data"
+            element={
+              <PageWrapper>
+                <PersonalData />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="notifications"
+            element={
+              <PageWrapper>
+                <Notifications />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="help"
+            element={
+              <PageWrapper>
+                <Help />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="setting"
+            element={
+              <PageWrapper>
+                <Setting />
+              </PageWrapper>
+            }
+          />
         </Route>
 
         {/* Ruta para la página de error 404 */}
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path="*"
+          element={
+            <PageWrapper>
+              <NotFound />
+            </PageWrapper>
+          }
+        />
       </Routes>
-    </Router>
+    </AnimatePresence>
+  );
+}
+
+// Componente PageWrapper para animar cada vista
+function PageWrapper({ children }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }} // La vista aparece con opacidad 0 y desplazada hacia abajo
+      animate={{ opacity: 1, y: 0 }} // Transición suave al mostrar la vista
+      exit={{ opacity: 0, y: -10 }} // La vista desaparece con un desvanecimiento y desplazamiento hacia arriba
+      transition={{ duration: 0.5 }} // Duración de la animación
+    >
+      {children}
+    </motion.div>
   );
 }
