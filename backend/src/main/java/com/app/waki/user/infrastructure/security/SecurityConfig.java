@@ -50,10 +50,16 @@ public class SecurityConfig {
             new AntPathRequestMatcher("/match/updateMatches"),
             new AntPathRequestMatcher("/match/getMatches"),
             //MATCH
-            new AntPathRequestMatcher("/match/ligasUpdate", "GET"),
-            new AntPathRequestMatcher("/getMatches/{code}", "GET"),
-            new AntPathRequestMatcher("/area-competition", "GET"),
-            new AntPathRequestMatcher("/getMatchesToday", "GET")
+            new AntPathRequestMatcher("/league/fetch-league", "GET"),
+            new AntPathRequestMatcher("/fixture/fetch-fixture", "Get"),
+            new AntPathRequestMatcher("/odd/fetch-odds", "Get"),
+            new AntPathRequestMatcher("/league/allLeagues", "Get"),
+            new AntPathRequestMatcher("/fixture/getFixtureToday", "Get"),
+            new AntPathRequestMatcher("/fixture/getFixtureAndOddsToday", "Get"),
+            new AntPathRequestMatcher("/odd/allOdds", "Get"),
+            new AntPathRequestMatcher("/odd/{id}", "Get"),
+            new AntPathRequestMatcher("/standing/fetch-standings", "Get"),
+            new AntPathRequestMatcher("/standing/{leagueId}", "Get")
     );
     RequestMatcher adminUrls = new OrRequestMatcher(
             new AntPathRequestMatcher("/user/admin")
