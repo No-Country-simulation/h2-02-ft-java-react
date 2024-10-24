@@ -12,7 +12,7 @@ export default function YourPredictions() {
           Tus predicciones
         </h3>
         <Link
-          to="/mypredictions"
+          to="/match/mypredictions"
           className="flex items-center gap-2 text-regular-14 text-purpleWaki"
         >
           Ver todas
