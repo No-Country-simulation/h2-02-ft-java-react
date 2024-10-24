@@ -4,9 +4,9 @@ import com.app.waki.common.exceptions.ValidationException;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public record UserRankingId(String user_id) {
+public record UserRankingId(String userId) {
     public UserRankingId{
-        if (user_id == null) {
+        if (userId == null) {
             throw new ValidationException("Points must not be null.");
         }
     }

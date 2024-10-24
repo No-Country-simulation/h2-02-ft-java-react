@@ -16,6 +16,7 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class JpaPredictionRepositoryImpl implements PredictionRepository {
+
     private final JpaPredictionDataRepository repository;
     @Override
     public void savePrediction(PredictionDetails predictionDetails) {
