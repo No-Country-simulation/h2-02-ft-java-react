@@ -19,8 +19,13 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
+<<<<<<< HEAD
     date = "2024-10-23T19:37:54-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.5 (Oracle Corporation)"
+=======
+    date = "2024-10-23T21:11:45-0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.1 (Oracle Corporation)"
+>>>>>>> profile
 )
 @Component
 public class MatchMapperImpl implements MatchMapper {
