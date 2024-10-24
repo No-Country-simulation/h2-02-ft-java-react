@@ -48,7 +48,7 @@ export default function Step2MatchResult({
   };
 
   return (
-    <section className="flex h-[calc(100vh-120px)] flex-col divide-y overflow-y-auto">
+    <section className="flex h-full flex-col divide-y overflow-y-auto">
       <div className="flex flex-col pb-5">
         <h2 className="text-center text-semibold-22 font-semibold text-label">
           Predice el resultado
@@ -59,7 +59,7 @@ export default function Step2MatchResult({
       </div>
 
       {/* Elección de resultado */}
-      <div className="flex h-full flex-col justify-between gap-4 px-5 py-7">
+      <div className="flex h-full max-h-[calc(100%-110px)] flex-col justify-between gap-4 px-5 py-7">
         <div className="grid shrink grid-cols-2 grid-rows-[1fr_auto] gap-4 hover:shrink-0">
           {/* Local */}
           <button

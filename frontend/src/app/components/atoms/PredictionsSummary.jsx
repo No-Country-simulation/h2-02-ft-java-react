@@ -44,6 +44,34 @@ export default function PredictionsSummary({
           points={points}
           status={status}
         />
+        <BodyPredictionsCard
+          selected={selected}
+          team1={team1}
+          team2={team2}
+          points={points}
+          status={status}
+        />
+        <BodyPredictionsCard
+          selected={selected}
+          team1={team1}
+          team2={team2}
+          points={points}
+          status={status}
+        />
+        <BodyPredictionsCard
+          selected={selected}
+          team1={team1}
+          team2={team2}
+          points={points}
+          status={status}
+        />
+        <BodyPredictionsCard
+          selected={selected}
+          team1={team1}
+          team2={team2}
+          points={points}
+          status={status}
+        />
       </div>
 
       {/* Puntos totales */}
