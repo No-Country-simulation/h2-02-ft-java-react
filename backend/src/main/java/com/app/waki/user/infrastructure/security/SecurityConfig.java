@@ -26,7 +26,12 @@ public class SecurityConfig {
     RequestMatcher publicUrls = new OrRequestMatcher(
             //USER
             new AntPathRequestMatcher("/user/create"),
-            new AntPathRequestMatcher("/user/login")
+            new AntPathRequestMatcher("/user/login"),
+            //SWAGGER
+            new AntPathRequestMatcher("/swagger-ui.html"),
+            new AntPathRequestMatcher("/v3/api-docs/**"),
+            new AntPathRequestMatcher("/swagger-ui/**"),
+            new AntPathRequestMatcher("/profile/validatePrediction/{profileId}"),
             );
     RequestMatcher UserUrls = new OrRequestMatcher(
             //PROFILE
@@ -44,11 +49,6 @@ public class SecurityConfig {
             //API FOOTBALL
             new AntPathRequestMatcher("/match/updateMatches"),
             new AntPathRequestMatcher("/match/getMatches"),
-            //SWAGGER
-            new AntPathRequestMatcher("/swagger-ui.html"),
-            new AntPathRequestMatcher("/v3/api-docs/**"),
-            new AntPathRequestMatcher("/swagger-ui/**"),
-            new AntPathRequestMatcher("/profile/validatePrediction/{profileId}"),
             //MATCH
             new AntPathRequestMatcher("/match/ligasUpdate", "GET"),
             new AntPathRequestMatcher("/getMatches/{code}", "GET"),
