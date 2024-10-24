@@ -8,11 +8,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfig implements WebMvcConfigurer {
 
 
-    private final CorsUrl corsUrls;
+    private final CorsDeployFrontUrl deployFrontUrls;
+    private final CorsLocalFrontUrl localFrontUrl;
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins(corsUrls.getCORS())
+                .allowedOrigins(deployFrontUrls.getCORS(), localFrontUrl.getCORS_LOCAL())
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .exposedHeaders("Authorization");

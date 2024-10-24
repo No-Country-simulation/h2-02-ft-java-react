@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "cors")
 @Data
-public class CorsUrl {
+public class CorsDeployFrontUrl {
 
     private String CORS;
 }
