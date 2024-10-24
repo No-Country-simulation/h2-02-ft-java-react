@@ -11,6 +11,7 @@ export default function ModalPredictions({ isOpen, onClose, initialStep = 1 }) {
   const [step, setStep] = useState(initialStep);
   const [predictions, setPredictions] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
+  console.log('predictions', predictions);
 
   const handleNextStep = () => setStep(step + 1);
   const handlePrevStep = () => setStep(step - 1);
@@ -66,9 +67,11 @@ export default function ModalPredictions({ isOpen, onClose, initialStep = 1 }) {
             setSelectedOption={setSelectedOption}
             handleNextStep={handleNextStep}
             handlePrevStep={handlePrevStep}
-            handleSubmitPrediction={() =>
-              alert(`Predicción enviada: ${selectedOption}`)
-            }
+            setPredictions={setPredictions}
+            predictions={predictions}
+            handleSubmitPrediction={() => {
+              alert(`Predicción enviada: ${selectedOption}`);
+            }}
             handleMakeCombinedPrediction={handleMakeCombinedPrediction}
           />
         )}

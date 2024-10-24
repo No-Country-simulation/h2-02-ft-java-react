@@ -4,7 +4,7 @@ import StatusPredictionsCard from '../atoms/StatusPredictionsCard';
 
 export function PredictionCard({
   league,
-  result,
+  selected,
   team1,
   team2,
   points,
@@ -14,7 +14,7 @@ export function PredictionCard({
     <div className="flex flex-col divide-y overflow-hidden rounded-large shadow-[0_0_14.6px_0_rgba(0,0,0,0.2)]">
       <HeaderLeague league={league} />
       <BodyPredictionsCard
-        result={result}
+        selected={selected}
         team1={team1}
         team2={team2}
         points={points}
