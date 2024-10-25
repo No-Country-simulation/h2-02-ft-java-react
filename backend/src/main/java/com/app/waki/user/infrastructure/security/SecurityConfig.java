@@ -34,10 +34,12 @@ public class SecurityConfig {
             new AntPathRequestMatcher("/profile/validatePrediction/{profileId}")
     );
     RequestMatcher UserUrls = new OrRequestMatcher(
+            new AntPathRequestMatcher("/profile/validatePrediction/{profileId}"),
             //PROFILE
             new AntPathRequestMatcher("/profile/{profileId}"),
             new AntPathRequestMatcher("/profile/predictionByDate/{profileId}"),
             new AntPathRequestMatcher("/profile/validatePrediction/{profileId}"),
+            new AntPathRequestMatcher("/profile/process"),
             //PREDICTION
             new AntPathRequestMatcher("/prediction/{profileId}"),
             new AntPathRequestMatcher("/prediction/byDate/{profileId}"),
@@ -60,7 +62,7 @@ public class SecurityConfig {
             new AntPathRequestMatcher("/odd/{id}", "Get"),
             new AntPathRequestMatcher("/standing/fetch-standings", "Get"),
             new AntPathRequestMatcher("/standing/{leagueId}", "Get")
-    );
+            );
     RequestMatcher adminUrls = new OrRequestMatcher(
             new AntPathRequestMatcher("/user/admin")
     );

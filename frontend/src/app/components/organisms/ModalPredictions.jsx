@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useModal } from '../../context/ModalContext';
 import { motion } from 'framer-motion';
 import Step1PredictionType from '../molecules/Step1PredictionType';
 import Step2MatchResult from '../molecules/Step2MatchResult';
@@ -10,14 +11,13 @@ import { CgClose } from 'react-icons/cg';
 import PredictionsProgress from '../atoms/PredictionsProgress';
 import PredictionAdded from '../atoms/PredictionAdded';
 
-export default function ModalPredictions({ isOpen, onClose, initialStep = 1 }) {
-  const [step, setStep] = useState(initialStep);
+export default function ModalPredictions({ isOpen, onClose }) {
+  const { modalStep, selectedOption, setSelectedOption } = useModal();
+  const [step, setStep] = useState(modalStep);
   const [predictions, setPredictions] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
   const [showPredictionAdded, setShowPredictionAdded] = useState(false);
-  console.log('predictions', predictions);
 
-  const navigate = useNavigate(); // Crea la instancia de useNavigate
+  const navigate = useNavigate();
 
   const handleNextStep = () => setStep(step + 1);
   const handlePrevStep = () => setStep(step - 1);
@@ -32,41 +32,29 @@ export default function ModalPredictions({ isOpen, onClose, initialStep = 1 }) {
     handleNextStep();
   };
 
-  const handleSelectMatch = (match) => {
-    setStep(1); // Volvemos al paso 1 para hacer una nueva predicción
-  };
-
   const handleSubmitPrediction = () => {
-    // Aquí puedes manejar la lógica de enviar la predicción (ej. llamada a la API)
     console.log('Predicción enviada:', selectedOption);
-
-    // Mostrar el componente de alerta por unos segundos
     setShowPredictionAdded(true);
-
     setTimeout(() => {
       setShowPredictionAdded(false);
-
-      // Cierra el modal
       onClose();
-
-      // Redirige al usuario a la ruta /match
       navigate('/match');
-    }, 3000); // Ocultar después de 3 segundos
+    }, 3000);
   };
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex h-full min-h-screen items-center justify-center overflow-y-auto bg-black bg-opacity-50">
-      <div className="relative h-full max-h-[844px] w-full max-w-md overflow-y-auto bg-white p-5">
-        <div className="flex items-center justify-between pb-5">
+      <div className="relative h-full max-h-[844px] w-full max-w-md overflow-y-auto bg-white">
+        <div className="flex items-center justify-between p-5">
           {/* Botón "Volver" */}
           <button
             onClick={() => {
               if (step > 1) {
-                handlePrevStep(); // Volver al paso anterior
+                handlePrevStep();
               } else {
-                onClose(); // Cerrar el modal si es el paso 1
+                onClose();
               }
             }}
             className="text-purpleWaki"
@@ -89,10 +77,6 @@ export default function ModalPredictions({ isOpen, onClose, initialStep = 1 }) {
           <Step2MatchResult
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
-            handleNextStep={handleNextStep}
-            handlePrevStep={handlePrevStep}
-            setPredictions={setPredictions}
-            predictions={predictions}
             handleSubmitPrediction={handleSubmitPrediction}
             handleMakeCombinedPrediction={handleMakeCombinedPrediction}
           />
@@ -105,9 +89,7 @@ export default function ModalPredictions({ isOpen, onClose, initialStep = 1 }) {
           />
         )}
 
-        {step === 4 && (
-          <Step4SelectMatch handleSelectMatch={handleSelectMatch} />
-        )}
+        {step === 4 && <Step4SelectMatch setStep={setStep} />}
 
         <PredictionsProgress usedPredictions={3} />
 

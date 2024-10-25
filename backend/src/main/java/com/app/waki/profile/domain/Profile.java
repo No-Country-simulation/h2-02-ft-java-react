@@ -34,6 +34,8 @@ public class Profile {
     private final List<String> matchIds = new ArrayList<>();
     @Embedded
     private CorrectPredictions correctPredictions;
+    @Column(name = "points_processed")
+    private boolean pointsProcessed;
     @Version
     private Long version;
     public Profile(){};
@@ -45,6 +47,7 @@ public class Profile {
         this.totalPoints = new TotalPoints(0);
         this.availablePredictions = createInitialAvailablePredictions();
         this.correctPredictions = new CorrectPredictions(0);
+        this.pointsProcessed = true;
     }
 
     public static Profile createProfile(UUID userId, String username){
@@ -81,5 +84,6 @@ public class Profile {
 
     public void updateTotalPoints(Integer points){
         this.totalPoints = new TotalPoints(this.totalPoints.points() + points);
+        this.pointsProcessed = false;
     }
 }

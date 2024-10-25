@@ -1,8 +1,8 @@
-import { useState, useEffect, useContext } from 'react';
-import { MatchContext } from '../../context/MatchContext';
+import { useState, useEffect } from 'react';
+import { useMatch } from '../../context/MatchContext';
 
 export default function PredictionsMatch() {
-  const { selectedMatch } = useContext(MatchContext);
+  const { selectedMatch } = useMatch();
   if (!selectedMatch)
     return <p className="text-center">No hay datos del partido.</p>;
 
