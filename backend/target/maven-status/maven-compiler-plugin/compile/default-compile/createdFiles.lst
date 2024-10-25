@@ -125,6 +125,7 @@ com\app\waki\match\domain\fixture\Score.class
 com\app\waki\user\infrastructure\security\AuthConfig.class
 com\app\waki\WakiApplication.class
 com\app\waki\profile\domain\ProfileRepository.class
+com\app\waki\match\infrastructure\ApIKeyConfig.class
 com\app\waki\match\domain\fixture\FixtureRepository.class
 com\app\waki\user\domain\valueObject\UserName.class
 com\app\waki\prediction\infrastructure\controller\PredictionController.class

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.app.waki.WakiApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 39.73 s -- in com.app.waki.WakiApplicationTests
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 38.71 s -- in com.app.waki.WakiApplicationTests

@@ -1,6 +1,11 @@
 {
   "groups": [
     {
+      "name": "apikey",
+      "type": "com.app.waki.match.infrastructure.ApIKeyConfig",
+      "sourceType": "com.app.waki.match.infrastructure.ApIKeyConfig"
+    },
+    {
       "name": "cors",
       "type": "com.app.waki.common.config.CorsDeployFrontUrl",
       "sourceType": "com.app.waki.common.config.CorsDeployFrontUrl"
@@ -17,6 +22,11 @@
     }
   ],
   "properties": [
+    {
+      "name": "apikey.a-p-i-t-o-k-e-n",
+      "type": "java.lang.String",
+      "sourceType": "com.app.waki.match.infrastructure.ApIKeyConfig"
+    },
     {
       "name": "cors.c-o-r-s",
       "type": "java.lang.String",

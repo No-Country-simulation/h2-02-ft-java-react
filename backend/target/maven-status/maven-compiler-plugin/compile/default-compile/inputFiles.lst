@@ -72,6 +72,7 @@ F:\Cosas\Programas\Java\h2-02-ft-java-react\backend\src\main\java\com\app\waki\m
 F:\Cosas\Programas\Java\h2-02-ft-java-react\backend\src\main\java\com\app\waki\match\domain\standings\Standing.java
 F:\Cosas\Programas\Java\h2-02-ft-java-react\backend\src\main\java\com\app\waki\match\domain\standings\StandingRepository.java
 F:\Cosas\Programas\Java\h2-02-ft-java-react\backend\src\main\java\com\app\waki\match\domain\standings\TeamStatistics.java
+F:\Cosas\Programas\Java\h2-02-ft-java-react\backend\src\main\java\com\app\waki\match\infrastructure\ApIKeyConfig.java
 F:\Cosas\Programas\Java\h2-02-ft-java-react\backend\src\main\java\com\app\waki\match\infrastructure\FixtureController.java
 F:\Cosas\Programas\Java\h2-02-ft-java-react\backend\src\main\java\com\app\waki\match\infrastructure\LeagueController.java
 F:\Cosas\Programas\Java\h2-02-ft-java-react\backend\src\main\java\com\app\waki\match\infrastructure\OddController.java
