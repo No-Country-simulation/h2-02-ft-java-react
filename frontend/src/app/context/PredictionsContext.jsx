@@ -18,7 +18,7 @@ export const PredictionsProvider = ({ children }) => {
       }, 3000);
     }
   };
-  console.log('predictions ', predictions);
+  // console.log('predictions ', predictions);
 
   return (
     <PredictionsContext.Provider value={{ predictions, addPrediction }}>

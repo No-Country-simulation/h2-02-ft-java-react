@@ -25,7 +25,7 @@ export const getMatchesToday = async (competitionCode, date) => {
   try {
     const token = localStorage.getItem('token');
     const response = await axios.get(
-      `${API_URL}/match/getMatchesToday?code=${competitionCode}&date=${date}`,
+      `${API_URL}/fixture/getFixtureCodeDate?leagueId=${competitionCode}&date=${date}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -42,7 +42,7 @@ export const getMatchesToday = async (competitionCode, date) => {
 export const getAreaCompetitions = async () => {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.get(`${API_URL}/match/area-competition`, {
+    const response = await axios.get(`${API_URL}/league/allLeagues`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

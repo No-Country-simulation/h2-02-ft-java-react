@@ -33,93 +33,99 @@ public class OddsServiceImpl implements OddsService {
 
     @Override
     public void fetchAndSaveOdds() throws IOException, InterruptedException {
-        // URL de la API para obtener las odds
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://v3.football.api-sports.io/odds?season=2024&bet=1&league=39&page=2"))
-                .header("x-rapidapi-key", apiToken)
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
+        // Lista de IDs de ligas
+        List<Long> leagueIds = List.of(39L, 140L);
 
-        // Envía la solicitud y recibe la respuesta
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        logger.info("API Response: {}", response.body());
+        // Itera sobre cada ID de liga
+        for (Long leagueId : leagueIds) {
+            // Construye la solicitud para la liga actual
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://v3.football.api-sports.io/odds?season=2024&bet=1&page=2&league=" + leagueId))
+                    .header("x-rapidapi-key", apiToken)
+                    .method("GET", HttpRequest.BodyPublishers.noBody())
+                    .build();
 
-        // Procesa el JSON
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode rootNode = objectMapper.readTree(response.body());
+            // Envía la solicitud y recibe la respuesta
+            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+            logger.info("API Response for League {}: {}", leagueId, response.body());
 
-        // Nodo que contiene las odds
-        JsonNode oddsNode = rootNode.path("response");
-        List<Odds> oddsList = new ArrayList<>();
+            // Procesa el JSON
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode rootNode = objectMapper.readTree(response.body());
 
-        // Itera sobre cada elemento del array 'response'
-        oddsNode.forEach(oddNode -> {
-            Long fixtureId = oddNode.path("fixture").path("id").asLong();
+            // Nodo que contiene las odds
+            JsonNode oddsNode = rootNode.path("response");
+            List<Odds> oddsList = new ArrayList<>();
 
-            // Verificar si ya existe un registro con este fixtureId
-            Odds existingOdds = oddsRepository.findByFixture_FixtureId(fixtureId);
-            Odds odds;
+            // Itera sobre cada elemento del array 'response'
+            oddsNode.forEach(oddNode -> {
+                Long fixtureId = oddNode.path("fixture").path("id").asLong();
 
-            if (existingOdds != null) {
-                logger.info("Odds for fixtureId {} already exist. Updating...", fixtureId);
-                odds = existingOdds;  // Si ya existe, actualizamos los datos
-            } else {
-                logger.info("Creating new odds for fixtureId {}.", fixtureId);
-                odds = new Odds();  // Si no existe, creamos uno nuevo
-            }
+                // Verificar si ya existe un registro con este fixtureId
+                Odds existingOdds = oddsRepository.findByFixture_FixtureId(fixtureId);
+                Odds odds;
 
-            // Setea el fixture
-            FixtureOdds fixture = new FixtureOdds();
-            fixture.setFixtureId(fixtureId);
-            fixture.setTimezone(oddNode.path("fixture").path("timezone").asText());
-            fixture.setDate(oddNode.path("fixture").path("date").asText());
-            fixture.setTimestamp(oddNode.path("fixture").path("timestamp").asLong());
-            odds.setFixture(fixture);
-
-            // Setea la fecha de actualización
-            String update = oddNode.path("update").asText();
-            odds.setLastUpdated(OffsetDateTime.parse(update));
-
-            // Itera sobre los bookmakers
-            JsonNode bookmakersNode = oddNode.path("bookmakers").get(0); // Solo tomamos el primer bookmaker
-
-            Bookmaker bookmaker = new Bookmaker();
-            bookmaker.setBookmakerId(bookmakersNode.path("id").asLong());
-            bookmaker.setBookmakerName(bookmakersNode.path("name").asText());
-
-            // Itera sobre los bets
-            JsonNode betNode = bookmakersNode.path("bets").get(0);  // Tomamos el primer bet
-
-            Bet bet = new Bet();
-            bet.setBetName(betNode.path("name").asText());
-
-            // Setea los valores de odds
-            OddValue values = new OddValue();
-            betNode.path("values").forEach(value -> {
-                switch (value.path("value").asText()) {
-                    case "Home":
-                        values.setHomeOdd(value.path("odd").asText());
-                        break;
-                    case "Draw":
-                        values.setDrawOdd(value.path("odd").asText());
-                        break;
-                    case "Away":
-                        values.setAwayOdd(value.path("odd").asText());
-                        break;
+                if (existingOdds != null) {
+                    logger.info("Odds for fixtureId {} already exist. Updating...", fixtureId);
+                    odds = existingOdds;  // Si ya existe, actualizamos los datos
+                } else {
+                    logger.info("Creating new odds for fixtureId {}.", fixtureId);
+                    odds = new Odds();  // Si no existe, creamos uno nuevo
                 }
+
+                // Setea el fixture
+                FixtureOdds fixture = new FixtureOdds();
+                fixture.setFixtureId(fixtureId);
+                fixture.setTimezone(oddNode.path("fixture").path("timezone").asText());
+                fixture.setDate(oddNode.path("fixture").path("date").asText());
+                fixture.setTimestamp(oddNode.path("fixture").path("timestamp").asLong());
+                odds.setFixture(fixture);
+
+                // Setea la fecha de actualización
+                String update = oddNode.path("update").asText();
+                odds.setLastUpdated(OffsetDateTime.parse(update));
+
+                // Itera sobre los bookmakers
+                JsonNode bookmakersNode = oddNode.path("bookmakers").get(0); // Solo tomamos el primer bookmaker
+
+                Bookmaker bookmaker = new Bookmaker();
+                bookmaker.setBookmakerId(bookmakersNode.path("id").asLong());
+                bookmaker.setBookmakerName(bookmakersNode.path("name").asText());
+
+                // Itera sobre los bets
+                JsonNode betNode = bookmakersNode.path("bets").get(0);  // Tomamos el primer bet
+
+                Bet bet = new Bet();
+                bet.setBetName(betNode.path("name").asText());
+
+                // Setea los valores de odds
+                OddValue values = new OddValue();
+                betNode.path("values").forEach(value -> {
+                    switch (value.path("value").asText()) {
+                        case "Home":
+                            values.setHomeOdd(value.path("odd").asText());
+                            break;
+                        case "Draw":
+                            values.setDrawOdd(value.path("odd").asText());
+                            break;
+                        case "Away":
+                            values.setAwayOdd(value.path("odd").asText());
+                            break;
+                    }
+                });
+
+                // Setea los valores de la apuesta en Bookmaker
+                bet.setValues(values);
+                bookmaker.setBet(bet);
+                odds.setBookmaker(bookmaker);
+
+                oddsList.add(odds);
             });
 
-            // Setea los valores de la apuesta en Bookmaker
-            bet.setValues(values);
-            bookmaker.setBet(bet);
-            odds.setBookmaker(bookmaker);
-
-            oddsList.add(odds);
-        });
-
-        // Guarda todas las odds en la base de datos
-        oddsRepository.saveAll(oddsList);
-        logger.info("Odds saved successfully.");
+            // Guarda todas las odds de la liga actual en la base de datos
+            oddsRepository.saveAll(oddsList);
+            logger.info("Odds for league {} saved successfully.", leagueId);
+        }
     }
 
     @Override

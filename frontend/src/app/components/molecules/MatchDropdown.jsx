@@ -22,6 +22,7 @@ export default function MatchDropdown({ competitionInfo }) {
         competitionInfo.code,
         formatDate(selectedDate)
       );
+      console.log('fetchedMatches', fetchedMatches);
 
       // Almacenar los partidos en el estado
       setMatches(
@@ -77,8 +78,8 @@ export default function MatchDropdown({ competitionInfo }) {
       >
         <div className="grid grid-cols-[36px_1fr] items-center gap-2">
           <img
-            src={competitionInfo.emblem}
-            alt={`${competitionInfo.name} emblem`}
+            src={competitionInfo.logo}
+            alt={`${competitionInfo.name} logo`}
             className="h-full w-full object-contain"
           />
           <span className="whitespace-nowrap text-regularNav-16 text-label">
