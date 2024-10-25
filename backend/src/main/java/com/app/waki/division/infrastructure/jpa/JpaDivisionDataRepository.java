@@ -14,7 +14,7 @@ import java.util.Optional;
 
 public interface JpaDivisionDataRepository extends JpaRepository<Division, DivisionId> {
     @Query("SELECT d FROM Division d WHERE d.division = :level")
-    List<Division> findByLevel(@Param("level") DivisionLevel level);
+    Optional<Division> findByLevel(@Param("level") DivisionLevel level);
 
     @Query("SELECT d FROM Division d JOIN d.rankings r WHERE r.userId = :userId")
     Optional<Division> findByUserRankings_UserId(@Param("userId") UserRankingId userId);

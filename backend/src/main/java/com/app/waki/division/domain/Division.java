@@ -4,12 +4,18 @@ import com.app.waki.division.domain.valueObject.DivisionId;
 import com.app.waki.division.domain.valueObject.DivisionLevel;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
-@Data
+@EqualsAndHashCode(exclude = {"rankings", "prizes"})  // Excluimos las colecciones
+@ToString(exclude = {"rankings", "prizes"})
+@Getter
 public class Division {
 
     @Id
@@ -20,6 +26,8 @@ public class Division {
     private final Set<UserRanking> rankings = new HashSet<>();
     @OneToMany(mappedBy = "division", cascade = CascadeType.ALL, orphanRemoval = true)
     private final Set<Prize> prizes = new HashSet<>();
+    @Version
+    private Long version;
 
     public Division(){}
     public Division(DivisionLevel division){
@@ -31,12 +39,11 @@ public class Division {
     }
 
     public void addPrize(Prize prize) {
-        prizes.add(prize);
-        prize.setDivision(this);
+        this.prizes.add(prize);
     }
 
-    public void addUserRanking(UserRanking ranking) {
-        rankings.add(ranking);
-        ranking.setDivision(this);
+    public void createUserRanking(UUID id, String username) {
+        UserRanking newUser = UserRanking.createUserRanking(this, id, username);
+        this.rankings.add(newUser);
     }
 }
