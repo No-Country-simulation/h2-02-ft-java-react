@@ -47,10 +47,7 @@ public class SecurityConfig {
                         new AntPathRequestMatcher("/notification/{profileId}"),
                         // MATCH-TEST
                         new AntPathRequestMatcher("/test/match/finalize"),
-                        // API FOOTBALL
-                        new AntPathRequestMatcher("/match/updateMatches"),
-                        new AntPathRequestMatcher("/match/getMatches"),
-                        // MATCH
+                        // API FOOTBALL MATCH
                         new AntPathRequestMatcher("/league/fetch-league", "GET"),
                         new AntPathRequestMatcher("/fixture/fetch-fixture", "Get"),
                         new AntPathRequestMatcher("/odd/fetch-odds", "Get"),
