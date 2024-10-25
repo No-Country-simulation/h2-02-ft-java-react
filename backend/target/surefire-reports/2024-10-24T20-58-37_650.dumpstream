@@ -1,4 +1,4 @@
-# Created at 2024-10-24T17:53:38.011
+# Created at 2024-10-24T20:58:37.822
 Boot Manifest-JAR contains absolute paths in classpath 'F:\Cosas\Programas\Java\h2-02-ft-java-react\backend\target\test-classes'
 Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
 'other' has different root

@@ -45,30 +45,10 @@ public class LeagueServiceImpl implements LeagueService {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode rootNode = objectMapper.readTree(response.body());
 
-        // Verificar si el nodo "response" existe y no está vacío
-        JsonNode responseNode = rootNode.path("response");
-        if (responseNode.isMissingNode() || !responseNode.isArray() || responseNode.size() == 0) {
-            throw new IllegalStateException("No se encontró ningún dato en la respuesta de la API.");
-        }
-
-        // Extraer el primer objeto dentro de "response"
-        JsonNode firstResponseNode = responseNode.get(0);
-        if (firstResponseNode == null) {
-            throw new IllegalStateException("El nodo 'response' está vacío o es nulo.");
-        }
-
         // Extrae los datos relevantes
-        JsonNode leagueNode = firstResponseNode.path("league");
-        JsonNode countryNode = firstResponseNode.path("country");
-        JsonNode seasonsNode = firstResponseNode.path("seasons");
-
-        // Verifica que los nodos "league" y "country" existan
-        if (leagueNode.isMissingNode()) {
-            throw new IllegalStateException("No se encontró el nodo 'league'.");
-        }
-        if (countryNode.isMissingNode()) {
-            throw new IllegalStateException("No se encontró el nodo 'country'.");
-        }
+        JsonNode leagueNode = rootNode.path("response").get(0).path("league");
+        JsonNode countryNode = rootNode.path("response").get(0).path("country");
+        JsonNode seasonsNode = rootNode.path("response").get(0).path("seasons");
 
         // Mapea el JSON a la entidad League
         League league = new League();
@@ -81,11 +61,6 @@ public class LeagueServiceImpl implements LeagueService {
         league.getCountry().setName(countryNode.path("name").asText());
         league.getCountry().setCode(countryNode.path("code").asText());
         league.getCountry().setFlag(countryNode.path("flag").asText());
-
-        // Verifica si el nodo "seasons" es una lista
-        if (!seasonsNode.isArray()) {
-            throw new IllegalStateException("El nodo 'seasons' no es una lista.");
-        }
 
         // Mapea Seasons
         List<Season> seasons = new ArrayList<>();

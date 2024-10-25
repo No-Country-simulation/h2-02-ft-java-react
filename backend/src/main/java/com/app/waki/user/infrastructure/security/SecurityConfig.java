@@ -32,7 +32,7 @@ public class SecurityConfig {
             new AntPathRequestMatcher("/v3/api-docs/**"),
             new AntPathRequestMatcher("/swagger-ui/**"),
             new AntPathRequestMatcher("/profile/validatePrediction/{profileId}")
-            );
+    );
     RequestMatcher UserUrls = new OrRequestMatcher(
             //PROFILE
             new AntPathRequestMatcher("/profile/{profileId}"),

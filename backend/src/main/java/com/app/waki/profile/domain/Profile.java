@@ -23,6 +23,7 @@ import java.util.*;
 public class Profile {
     @Id
     private ProfileUserId profileUserId;
+    private String username;
     private LocalDate timeProfileCreated;
     @Embedded
     private TotalPoints totalPoints;
@@ -37,17 +38,18 @@ public class Profile {
     private Long version;
     public Profile(){};
 
-    private Profile (ProfileUserId profileUserId){
+    private Profile (ProfileUserId profileUserId, String username){
         this.profileUserId = profileUserId;
+        this.username = username;
         this.timeProfileCreated = LocalDate.now();
         this.totalPoints = new TotalPoints(0);
         this.availablePredictions = createInitialAvailablePredictions();
         this.correctPredictions = new CorrectPredictions(0);
     }
 
-    public static Profile createProfile(UUID userId){
+    public static Profile createProfile(UUID userId, String username){
         var profileUserId = new ProfileUserId(userId);
-        return new Profile(profileUserId);
+        return new Profile(profileUserId, username);
     }
 
     private List<AvailablePrediction> createInitialAvailablePredictions() {

@@ -32,7 +32,6 @@ public class OddsServiceImpl implements OddsService {
     private final OddsRepository oddsRepository;
 
     @Override
-    @Transactional
     public void fetchAndSaveOdds() throws IOException, InterruptedException {
         // URL de la API para obtener las odds
         HttpRequest request = HttpRequest.newBuilder()
@@ -136,7 +135,6 @@ public class OddsServiceImpl implements OddsService {
     }
 
     // Método para obtener los odds por varios fixtureIds
-
     @Override
     @Transactional
     public Map<Long, List<Odds>> getOddsByFixtureIds(List<Long> fixtureIds) {
