@@ -40,7 +40,8 @@ public class FixtureController {
         }
     }
 
-    @GetMapping("/getFixtureToday")
+    //Que me traiga solo la fecha
+    @GetMapping("/getFixtureDate")
     public ResponseEntity<?> getFixturesByDateAndLeague(@RequestParam Long leagueId, @RequestParam String date) {
         try {
             OffsetDateTime startDate = OffsetDateTime.parse(date + "T00:00:00Z");
@@ -55,7 +56,7 @@ public class FixtureController {
         }
     }
 
-    @GetMapping("/getFixtureAndOddsToday")
+    @GetMapping("/getFixtureCodeDate")
     public ResponseEntity<?> getFixturesAndOddsByDateAndLeague(@RequestParam Long leagueId, @RequestParam String date) {
         try {
             OffsetDateTime startDate = OffsetDateTime.parse(date + "T00:00:00Z");
