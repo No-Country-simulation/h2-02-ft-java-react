@@ -6,11 +6,13 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Entity
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "division")  // Excluimos la referencia a Division
+@ToString(exclude = "division")
 @Getter
 @Setter
 public class Prize {
