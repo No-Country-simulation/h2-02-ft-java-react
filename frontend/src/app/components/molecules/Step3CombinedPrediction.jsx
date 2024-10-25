@@ -15,7 +15,7 @@ export default function Step3CombinedPrediction({
           Selecciona una opción
         </p>
       </div>
-      <div className="flex flex-col gap-4 px-5 py-7">
+      <div className="flex flex-col gap-4 px-10 py-7">
         <button
           className="flex items-center gap-2 rounded-large border border-transparent bg-white p-5 text-medium-18 font-medium text-label shadow-[0_0_9.2px_0_rgba(0,0,0,0.25)] transition-all duration-300 hover:border-blueWaki disabled:border-transparent disabled:bg-gray-200"
           disabled

@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
 export default function PredictionsProgress({
-  usedPredictions,
+  usedPredictions = 0,
   totalPredictions = 5,
 }) {
   const circles = [];
@@ -16,6 +16,11 @@ export default function PredictionsProgress({
         )}
       />
     );
+  }
+
+  // Si `totalPredictions` no es igual a 5, devolver solo los círculos sin el contenedor
+  if (totalPredictions !== 5) {
+    return <div className="flex space-x-1">{circles}</div>;
   }
 
   return (

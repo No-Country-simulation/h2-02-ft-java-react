@@ -1,33 +1,19 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
-export const DateContext = createContext();
+const DateContext = createContext();
 
-// Función para formatear la fecha
-const formatDate = (date) => {
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = date.getFullYear();
-  return `${year}-${month}-${day}`;
-};
-
-const formatDateNav = (date) => {
-  const options = { day: '2-digit', month: 'short' };
-  return date.toLocaleDateString('es-ES', options);
-};
+export const useDate = () => useContext(DateContext);
 
 export const DateProvider = ({ children }) => {
-  const today = new Date();
-  const [selectedDate, setSelectedDate] = useState(today);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  // console.log('selectedDate ', selectedDate);
 
-  // Función para actualizar la fecha y formatearla
-  const updateDate = (date) => {
-    setSelectedDate(date);
+  const updateSelectedDate = (newDate) => {
+    setSelectedDate(newDate);
   };
 
   return (
-    <DateContext.Provider
-      value={{ selectedDate, updateDate, formatDate, formatDateNav }}
-    >
+    <DateContext.Provider value={{ selectedDate, updateSelectedDate }}>
       {children}
     </DateContext.Provider>
   );

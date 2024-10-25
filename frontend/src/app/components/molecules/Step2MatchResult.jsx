@@ -1,25 +1,17 @@
-import { useContext } from 'react';
-import { MatchContext } from '../../context/MatchContext';
+import { useMatch } from '../../context/MatchContext';
+import { usePredictions } from '../../context/PredictionsContext';
 import Button from '../atoms/Button';
 import PredictionsSummary from '../atoms/PredictionsSummary';
-
-const calculatePoints = (selectedOption, matchPredictions) => {
-  return selectedOption === 'LOCAL'
-    ? matchPredictions.localWin
-    : selectedOption === 'DRAW'
-      ? matchPredictions.draw
-      : matchPredictions.visitorWin;
-};
+import { calculatePoints } from '../../utils/predictionUtils';
 
 export default function Step2MatchResult({
   selectedOption,
   setSelectedOption,
   handleSubmitPrediction,
   handleMakeCombinedPrediction,
-  setPredictions,
-  predictions,
 }) {
-  const { selectedMatch } = useContext(MatchContext);
+  const { selectedMatch } = useMatch();
+  const { addPrediction } = usePredictions();
 
   const {
     id,
@@ -31,10 +23,8 @@ export default function Step2MatchResult({
 
   const points = calculatePoints(selectedOption, matchPredictions);
 
-  // Función para agregar la predicción al array
-  const addPrediction = () => {
-    setPredictions([
-      ...predictions,
+  const handleAddPrediction = (isCombined) => {
+    addPrediction(
       {
         matchId: id,
         expectedResult: selectedOption,
@@ -44,7 +34,8 @@ export default function Step2MatchResult({
         pay: points,
         competitionCode: 'CLI',
       },
-    ]);
+      isCombined
+    );
   };
 
   return (
@@ -58,12 +49,16 @@ export default function Step2MatchResult({
         </p>
       </div>
 
-      {/* Elección de resultado */}
-      <div className="flex h-full max-h-[calc(100%-110px)] flex-col justify-between gap-4 px-5 py-7">
+      {/* Opciones de predicción */}
+      <div className="flex h-full max-h-[calc(100%-110px)] flex-col justify-between gap-4 px-10 py-7">
         <div className="grid shrink grid-cols-2 grid-rows-[1fr_auto] gap-4 hover:shrink-0">
           {/* Local */}
           <button
-            className={`flex flex-col items-center justify-between gap-2 rounded-large border-2 bg-white p-2 shadow-[0_0_9.2px_0_rgba(0,0,0,0.25)] transition-all duration-300 ${selectedOption === 'LOCAL' ? 'border-blueWaki' : 'border-transparent'}`}
+            className={`flex flex-col items-center justify-between gap-2 rounded-large border-2 bg-white p-2 shadow-[0_0_9.2px_0_rgba(0,0,0,0.25)] transition-all duration-300 ${
+              selectedOption === 'LOCAL'
+                ? 'border-blueWaki'
+                : 'border-transparent'
+            }`}
             onClick={() => setSelectedOption('LOCAL')}
           >
             <figure className="h-12">
@@ -81,9 +76,12 @@ export default function Step2MatchResult({
             </p>
           </button>
 
-          {/* Empate */}
           <button
-            className={`order-last col-span-2 flex flex-col items-center justify-between gap-2 rounded-large border-2 bg-white p-2 text-medium-18 font-medium text-label shadow-[0_0_9.2px_0_rgba(0,0,0,0.25)] transition-all duration-300 ${selectedOption === 'DRAW' ? 'border-blueWaki' : 'border-transparent'}`}
+            className={`order-last col-span-2 flex flex-col items-center justify-between gap-2 rounded-large border-2 bg-white p-2 text-medium-18 font-medium text-label shadow-[0_0_9.2px_0_rgba(0,0,0,0.25)] transition-all duration-300 ${
+              selectedOption === 'DRAW'
+                ? 'border-blueWaki'
+                : 'border-transparent'
+            }`}
             onClick={() => setSelectedOption('DRAW')}
           >
             Empate
@@ -92,9 +90,12 @@ export default function Step2MatchResult({
             </p>
           </button>
 
-          {/* Visitante */}
           <button
-            className={`flex flex-col items-center justify-between gap-2 rounded-large border-2 bg-white p-2 shadow-[0_0_9.2px_0_rgba(0,0,0,0.25)] transition-all duration-300 ${selectedOption === 'AWAY' ? 'border-blueWaki' : 'border-transparent'}`}
+            className={`flex flex-col items-center justify-between gap-2 rounded-large border-2 bg-white p-2 shadow-[0_0_9.2px_0_rgba(0,0,0,0.25)] transition-all duration-300 ${
+              selectedOption === 'AWAY'
+                ? 'border-blueWaki'
+                : 'border-transparent'
+            }`}
             onClick={() => setSelectedOption('AWAY')}
           >
             <figure className="h-12">
@@ -113,12 +114,12 @@ export default function Step2MatchResult({
           </button>
         </div>
 
-        {/* Enviar resultados */}
+        {/* Botones de acción */}
         <div className="mt-auto grid grid-cols-2 gap-2">
           <Button
             className="w-full"
             onClick={() => {
-              addPrediction();
+              handleAddPrediction(false);
               handleSubmitPrediction();
             }}
             disabled={selectedOption === 'Resultado'}
@@ -130,7 +131,7 @@ export default function Step2MatchResult({
             size="large"
             className="w-full"
             onClick={() => {
-              addPrediction();
+              handleAddPrediction(true);
               handleMakeCombinedPrediction();
             }}
             disabled={selectedOption === 'Resultado'}
@@ -146,7 +147,7 @@ export default function Step2MatchResult({
           team1={localTeam}
           team2={visitorTeam}
           points={points}
-          status={'pending'}
+          status="pending"
         />
       )}
     </section>
