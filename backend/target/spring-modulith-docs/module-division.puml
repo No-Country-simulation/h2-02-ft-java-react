@@ -10,8 +10,10 @@ top to bottom direction
 
 Container_Boundary("WakiApplication.WakiApplication_boundary", "WakiApplication", $tags="") {
   Component(WakiApplication.WakiApplication.Division, "Division", $techn="Module", $descr="", $tags="", $link="")
+  Component(WakiApplication.WakiApplication.Common, "Common", $techn="Module", $descr="", $tags="", $link="")
 }
 
+Rel(WakiApplication.WakiApplication.Division, WakiApplication.WakiApplication.Common, "depends on", $techn="", $tags="", $link="")
 
 SHOW_LEGEND(true)
 @enduml

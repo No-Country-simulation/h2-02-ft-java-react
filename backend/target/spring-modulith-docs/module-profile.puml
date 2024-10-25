@@ -9,9 +9,11 @@ top to bottom direction
 !include <C4/C4_Component>
 
 Container_Boundary("WakiApplication.WakiApplication_boundary", "WakiApplication", $tags="") {
+  Component(WakiApplication.WakiApplication.Common, "Common", $techn="Module", $descr="", $tags="", $link="")
   Component(WakiApplication.WakiApplication.Profile, "Profile", $techn="Module", $descr="", $tags="", $link="")
 }
 
+Rel(WakiApplication.WakiApplication.Profile, WakiApplication.WakiApplication.Common, "listens to", $techn="", $tags="", $link="")
 
 SHOW_LEGEND(true)
 @enduml
