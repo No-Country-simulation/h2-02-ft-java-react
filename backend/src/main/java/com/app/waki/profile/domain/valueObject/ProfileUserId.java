@@ -6,9 +6,9 @@ import jakarta.persistence.Embeddable;
 import java.util.UUID;
 
 @Embeddable
-public record ProfileUserId(UUID userId) {
+public record ProfileUserId(UUID id) {
 
     public ProfileUserId {
-        Assert.notNull(userId, "id must not be null");
+        Assert.notNull(id, "id must not be null");
     }
 }

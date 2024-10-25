@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 @RequiredArgsConstructor
@@ -26,6 +27,16 @@ public class JpaProfileRepositoryImpl implements ProfileRepository {
     @Override
     public List<Profile> findAll() {
         return jpaRepository.findAll();
+    }
+
+    @Override
+    public List<Profile> findUnprocessedProfilesWithPoints() {
+        return jpaRepository.findUnprocessedProfilesWithPoints();
+    }
+
+    @Override
+    public void markProfilesAsProcessed(List<ProfileUserId> profileIds) {
+        jpaRepository.markProfilesAsProcessed(profileIds);
     }
 
 }

@@ -3,6 +3,7 @@ package com.app.waki.profile.infrastructure.controller;
 import com.app.waki.profile.application.dto.AvailablePredictionDto;
 import com.app.waki.common.events.CreatePredictionRequestEvent;
 import com.app.waki.profile.application.dto.ProfileDto;
+import com.app.waki.profile.application.service.ProfileBatchService;
 import com.app.waki.profile.application.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,8 @@ import java.util.UUID;
 public class ProfileController {
 
     private final ProfileService profileService;
+    private final ProfileBatchService profileBatchService;
+
 
     @GetMapping("/{profileId}")
     public ResponseEntity<ProfileDto> getProfile(@PathVariable UUID profileId) {
@@ -35,5 +38,11 @@ public class ProfileController {
     public ResponseEntity<List<AvailablePredictionDto>> validateAndCreateEventPredictions(@PathVariable UUID profileId,
                                                                                     @RequestBody List<CreatePredictionRequestEvent> predictions){
         return ResponseEntity.ok(profileService.validateAndCreateEventPredictions(profileId,predictions));
+    }
+
+    @PostMapping("/process")
+    public ResponseEntity<String> triggerBatchProcessing() {
+        profileBatchService.processProfilesBatch();
+        return ResponseEntity.ok("Batch processing triggered successfully.");
     }
 }

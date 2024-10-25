@@ -31,13 +31,12 @@ public class SecurityConfig {
             new AntPathRequestMatcher("/swagger-ui.html"),
             new AntPathRequestMatcher("/v3/api-docs/**"),
             new AntPathRequestMatcher("/swagger-ui/**"),
-            new AntPathRequestMatcher("/profile/validatePrediction/{profileId}")
-            );
-    RequestMatcher UserUrls = new OrRequestMatcher(
+            new AntPathRequestMatcher("/profile/validatePrediction/{profileId}"),
             //PROFILE
             new AntPathRequestMatcher("/profile/{profileId}"),
             new AntPathRequestMatcher("/profile/predictionByDate/{profileId}"),
             new AntPathRequestMatcher("/profile/validatePrediction/{profileId}"),
+            new AntPathRequestMatcher("/profile/process"),
             //PREDICTION
             new AntPathRequestMatcher("/prediction/{profileId}"),
             new AntPathRequestMatcher("/prediction/byDate/{profileId}"),
@@ -45,7 +44,9 @@ public class SecurityConfig {
             //NOTIFICATION
             new AntPathRequestMatcher("/notification/{profileId}"),
             //MATCH-TEST
-            new AntPathRequestMatcher("/test/match/finalize"),
+            new AntPathRequestMatcher("/test/match/finalize")
+            );
+    RequestMatcher UserUrls = new OrRequestMatcher(
             //API FOOTBALL
             new AntPathRequestMatcher("/match/updateMatches"),
             new AntPathRequestMatcher("/match/getMatches"),
