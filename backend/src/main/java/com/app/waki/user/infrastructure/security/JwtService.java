@@ -58,6 +58,7 @@ public class JwtService implements TokenService {
         return generateToken(new HashMap<>(), userDetails);
     }
 
+    @Override
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
         return Jwts
                 .builder()
