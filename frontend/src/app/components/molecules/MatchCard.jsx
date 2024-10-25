@@ -1,10 +1,12 @@
-import { useState, useEffect, useContext } from 'react';
-import { MatchContext } from '../../context/MatchContext';
+import { useState, useEffect } from 'react';
+import { useMatch } from '../../context/MatchContext';
+import { useModal } from '../../context/ModalContext';
 import { Link } from 'react-router-dom';
 import { MdOutlineSignalCellularAlt } from 'react-icons/md';
 
 export default function MatchCard({ matchData }) {
-  const { setSelectedMatch } = useContext(MatchContext);
+  const { selectMatch } = useMatch();
+  const { openModal, setSelectedOption } = useModal();
   const { localTeam, visitorTeam, score, predictions, startTime, status } =
     matchData;
   const [elapsedTime, setElapsedTime] = useState('');
@@ -35,14 +37,18 @@ export default function MatchCard({ matchData }) {
     return () => clearInterval(interval);
   }, [startTime]);
 
-  const handleClick = () => {
-    setSelectedMatch(matchData);
+  const handleClickDetails = () => {
+    selectMatch(matchData);
+  };
+  const handleClickPay = (option) => {
+    selectMatch(matchData);
+    setSelectedOption(option);
   };
 
   return (
     <div className="relative grid grid-rows-[1fr_auto_auto] gap-2 bg-grayCard px-4 py-5">
       {/* Fila 1: Escudos y marcador */}
-      <Link to="/match/details" onClick={handleClick}>
+      <Link to="/match/details" onClick={handleClickDetails}>
         <div className="grid grid-cols-3 items-center">
           {/* Escudo local */}
           <figure className="h-14">
@@ -115,6 +121,10 @@ export default function MatchCard({ matchData }) {
       <div className="grid grid-cols-3 justify-center">
         <div className="flex w-full justify-center">
           <button
+            onClick={() => {
+              openModal(2);
+              handleClickPay('LOCAL');
+            }}
             className="flex h-[27px] w-[83px] items-center justify-center rounded-[6.21px] border border-black border-opacity-5 bg-white text-regular-12 shadow-[0_0_4px_0_rgba(0,0,0,0.15)]"
             style={{ borderWidth: '0.52px' }}
           >
@@ -123,6 +133,10 @@ export default function MatchCard({ matchData }) {
         </div>
         <div className="flex w-full justify-center">
           <button
+            onClick={() => {
+              openModal(2);
+              handleClickPay('DRAW');
+            }}
             className="flex h-[27px] w-[83px] items-center justify-center rounded-[6.21px] border border-black border-opacity-5 bg-white text-regular-12 shadow-[0_0_4px_0_rgba(0,0,0,0.15)]"
             style={{ borderWidth: '0.52px' }}
           >
@@ -131,6 +145,10 @@ export default function MatchCard({ matchData }) {
         </div>
         <div className="flex w-full justify-center">
           <button
+            onClick={() => {
+              openModal(2);
+              handleClickPay('AWAY');
+            }}
             className="flex h-[27px] w-[83px] items-center justify-center rounded-[6.21px] border border-black border-opacity-5 bg-white text-regular-12 shadow-[0_0_4px_0_rgba(0,0,0,0.15)]"
             style={{ borderWidth: '0.52px' }}
           >

@@ -1,15 +1,16 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import MatchCard from '../molecules/MatchCard';
 import { getMatchesToday } from '../../services/matchService';
-import { DateContext } from '../../context/DateContext';
+import { useDate } from '../../context/DateContext';
+import { formatDate } from '../../utils/dateUtils';
 
 export default function MatchDropdown({ competitionInfo }) {
   const [matches, setMatches] = useState([]);
   const [activeLeague, setActiveLeague] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { selectedDate, formatDate } = useContext(DateContext);
+  const { selectedDate } = useDate();
 
   // Función para obtener los partidos
   const fetchMatches = async () => {
