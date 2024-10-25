@@ -8,7 +8,8 @@ export const loginUser = async (email, password) => {
       email,
       password,
     });
-    return response.data.token;
+    const { token } = response.data;
+    return { token };
   } catch (error) {
     console.error(
       'Error en el login:',
