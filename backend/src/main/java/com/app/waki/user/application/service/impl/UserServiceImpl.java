@@ -22,6 +22,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -44,7 +47,7 @@ public class UserServiceImpl implements UserService {
                 userRequest.email(),
                 passwordEncoder.encode(validatePassword.password()));
         userRepository.save(newUser);
-        publisher.publishEvent(new UserCreatedEvent(newUser.getId()));
+        publisher.publishEvent(new UserCreatedEvent(newUser.getId(), newUser.getUsername()));
 
         return UserMapper.userToUserDTO(newUser);
     }
@@ -60,9 +63,11 @@ public class UserServiceImpl implements UserService {
                 )
         );
         var userAuth = new UserAuth(findUser);
-        var jwtToken = tokenService.generateToken(userAuth);
+        Map<String, Object> setId = new HashMap<>();
+        setId.put("User_id", findUser.getId());
+        var jwtToken = tokenService.generateToken(setId, userAuth);
 
-        return new JwtAuthToken(jwtToken, findUser.getId());
+        return new JwtAuthToken(jwtToken);
     }
 
 

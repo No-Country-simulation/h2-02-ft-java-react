@@ -1,12 +1,12 @@
-import { useEffect, useState, useRef, useContext } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { format, addMonths, subMonths } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { IoIosArrowDown } from 'react-icons/io';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
-import { DateContext } from '../../context/DateContext';
+import { useDate } from '../../context/DateContext';
 
 export default function CalendarWaki({ closeModal, isClosing }) {
-  const { selectedDate, updateDate } = useContext(DateContext);
+  const { selectedDate, updateSelectedDate } = useDate();
   const [showMonths, setShowMonths] = useState(false);
   const modalRef = useRef(null);
 
@@ -40,11 +40,11 @@ export default function CalendarWaki({ closeModal, isClosing }) {
   const daysInMonth = endOfMonth.getDate();
 
   const handlePrevMonth = () => {
-    updateDate(subMonths(selectedDate, 1)); // Actualizamos la fecha del contexto
+    updateSelectedDate(subMonths(selectedDate, 1));
   };
 
   const handleNextMonth = () => {
-    updateDate(addMonths(selectedDate, 1)); // Actualizamos la fecha del contexto
+    updateSelectedDate(addMonths(selectedDate, 1));
   };
 
   const handleDateClick = (day) => {
@@ -53,12 +53,12 @@ export default function CalendarWaki({ closeModal, isClosing }) {
       selectedDate.getMonth(),
       day
     );
-    updateDate(newDate); // Actualizamos la fecha en el contexto
-    closeModal(); // Cerramos el modal
+    updateSelectedDate(newDate);
+    closeModal();
   };
 
   const handleMonthClick = (monthIndex) => {
-    updateDate(new Date(selectedDate.getFullYear(), monthIndex, 1)); // Cambiamos el mes seleccionado
+    updateSelectedDate(new Date(selectedDate.getFullYear(), monthIndex, 1));
     setShowMonths(false);
   };
 

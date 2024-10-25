@@ -18,7 +18,8 @@ public class ProfileMapper {
                 .map(ProfileMapper::availablePredictionsToDto)
                 .toList();
         return new ProfileDto(
-                profile.getProfileUserId().userId(),
+                profile.getProfileUserId().id(),
+                profile.getUsername(),
                 profile.getTimeProfileCreated(),
                 profile.getTotalPoints().points(),
                 profile.getCorrectPredictions().correctPredictions(),

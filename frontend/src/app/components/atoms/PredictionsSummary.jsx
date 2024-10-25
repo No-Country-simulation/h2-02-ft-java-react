@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { usePredictions } from '../../context/PredictionsContext';
 import { BodyPredictionsCard } from './BodyPredictionsCard';
 import {
   MdKeyboardDoubleArrowUp,
@@ -13,6 +14,7 @@ export default function PredictionsSummary({
   status,
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { predictions } = usePredictions();
 
   const toggleSummary = () => {
     setIsOpen(!isOpen);
@@ -20,7 +22,7 @@ export default function PredictionsSummary({
   const finalPoints = points + 10;
 
   return (
-    <section className="flex w-full flex-col items-center divide-y pt-5">
+    <section className="flex w-full flex-col items-center divide-y pb-14 pt-5">
       {/* Botón para abrir/cerrar el resumen */}
       <button
         className="flex w-40 cursor-pointer items-center justify-center gap-2 rounded-t-xl border-x border-t p-2"
@@ -33,8 +35,8 @@ export default function PredictionsSummary({
 
       {/* Contenido oculto que se despliega */}
       <div
-        className={`w-full overflow-hidden transition-all duration-300 ${
-          isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+        className={`w-full overflow-scroll transition-all duration-300 ${
+          isOpen ? 'max-h-[150px] opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
         <BodyPredictionsCard
@@ -44,34 +46,16 @@ export default function PredictionsSummary({
           points={points}
           status={status}
         />
-        <BodyPredictionsCard
-          selected={selected}
-          team1={team1}
-          team2={team2}
-          points={points}
-          status={status}
-        />
-        <BodyPredictionsCard
-          selected={selected}
-          team1={team1}
-          team2={team2}
-          points={points}
-          status={status}
-        />
-        <BodyPredictionsCard
-          selected={selected}
-          team1={team1}
-          team2={team2}
-          points={points}
-          status={status}
-        />
-        <BodyPredictionsCard
-          selected={selected}
-          team1={team1}
-          team2={team2}
-          points={points}
-          status={status}
-        />
+        {predictions.map((prediction, index) => (
+          <BodyPredictionsCard
+            key={index}
+            selected={prediction.expectedResult}
+            team1={prediction.homeTeam}
+            team2={prediction.awayTeam}
+            points={prediction.pay}
+            status="pending"
+          />
+        ))}
       </div>
 
       {/* Puntos totales */}
