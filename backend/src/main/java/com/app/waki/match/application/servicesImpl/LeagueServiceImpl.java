@@ -30,7 +30,7 @@ public class LeagueServiceImpl implements LeagueService {
     private String apiToken;
 
     // Lista de IDs de ligas que quieres obtener
-    private static final List<Long> LEAGUE_IDS = List.of(39L, 140L, 2L, 78L, 13L, 128L); // Premier League = 39, La Liga = 140
+    private static final List<Long> LEAGUE_IDS = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L); // Premier League = 39, La Liga = 140
 
     public void fetchAndSaveLeague() throws IOException, InterruptedException {
         for (Long leagueId : LEAGUE_IDS) {
