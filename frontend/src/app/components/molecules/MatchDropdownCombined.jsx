@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
-import MatchCard from '../molecules/MatchCard';
+import MatchCardCombined from '../molecules/MatchCardCombined';
 import { getMatchesLeagueDate } from '../../services/matchService';
 import { useDate } from '../../context/DateContext';
 import { formatDate } from '../../utils/dateUtils';
 
-export default function MatchDropdown({ competitionInfo }) {
+export default function MatchDropdownCombined({
+  competitionInfo,
+  handleSelectMatch,
+}) {
   const [matches, setMatches] = useState([]);
   const [activeLeague, setActiveLeague] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -113,7 +116,11 @@ export default function MatchDropdown({ competitionInfo }) {
               <p className="p-5 text-center">{error}</p>
             ) : (
               matches.map((match) => (
-                <MatchCard key={match.id} matchData={match} />
+                <MatchCardCombined
+                  key={match.id}
+                  matchData={match}
+                  handleSelectMatch={handleSelectMatch}
+                />
               ))
             )}
           </>

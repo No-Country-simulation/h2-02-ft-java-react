@@ -4,7 +4,7 @@ import { useModal } from '../../context/ModalContext';
 import { Link } from 'react-router-dom';
 import { MdOutlineSignalCellularAlt } from 'react-icons/md';
 
-export default function MatchCard({ matchData }) {
+export default function MatchCardCombined({ matchData, handleSelectMatch }) {
   const { selectMatch } = useMatch();
   const { openModal, setSelectedOption } = useModal();
   const { localTeam, visitorTeam, score, odds, startTime, status } = matchData;
@@ -36,18 +36,19 @@ export default function MatchCard({ matchData }) {
     return () => clearInterval(interval);
   }, [startTime]);
 
-  const handleClickDetails = () => {
-    selectMatch(matchData);
-  };
   const handleClickPay = (option) => {
     selectMatch(matchData);
     setSelectedOption(option);
+  };
+  const handleClickDetails = () => {
+    selectMatch(matchData);
+    handleSelectMatch();
   };
 
   return (
     <div className="relative grid grid-rows-[1fr_auto_auto] gap-2 bg-grayCard px-4 py-5">
       {/* Fila 1: Escudos y marcador */}
-      <Link to="/match/details" onClick={handleClickDetails}>
+      <button onClick={handleClickDetails}>
         <div className="grid grid-cols-3 items-center">
           {/* Escudo local */}
           <figure className="h-14">
@@ -81,7 +82,7 @@ export default function MatchCard({ matchData }) {
             />
           </figure>
         </div>
-      </Link>
+      </button>
       {/* Fila 2: Nombres y estado del partido */}
       <div className="grid grid-cols-3 items-center">
         {/* Nombre del equipo local */}

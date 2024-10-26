@@ -3,10 +3,12 @@ import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext();
 
+export const useAuth = () => useContext(AuthContext);
+
 export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [userId, setUserId] = useState(null);
+  const [userId, setUserId] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -38,8 +40,4 @@ export function AuthProvider({ children }) {
       {children}
     </AuthContext.Provider>
   );
-}
-
-export function useAuth() {
-  return useContext(AuthContext);
 }
