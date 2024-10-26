@@ -40,19 +40,36 @@ public class FixtureController {
         }
     }
 
-    //Que me traiga solo la fecha
     @GetMapping("/getFixtureDate")
-    public ResponseEntity<?> getFixturesByDateAndLeague(@RequestParam Long leagueId, @RequestParam String date) {
+    public ResponseEntity<?> getFixturesByDate(@RequestParam String date) {
         try {
             OffsetDateTime startDate = OffsetDateTime.parse(date + "T00:00:00Z");
             OffsetDateTime endDate = OffsetDateTime.parse(date + "T23:59:59Z");
-            List<Fixture> fixtures = fixtureService.getFixturesByLeagueAndDate(leagueId, startDate, endDate);
+
+            // 1. Obtener todos los fixtures por fecha, sin restricción de liga
+            List<Fixture> fixtures = fixtureService.getFixturesByDate(startDate, endDate);
             if (fixtures.isEmpty()) {
-                return ResponseEntity.ok("No hay partidos para esta día");
+                return ResponseEntity.ok("No hay partidos");
             }
-            return ResponseEntity.ok(fixtures);
+
+            // 2. Obtener los fixtureIds de los partidos
+            List<Long> fixtureIds = fixtures.stream()
+                    .map(Fixture::getId)
+                    .collect(Collectors.toList());
+
+            // 3. Obtener los odds correspondientes a los fixtureIds
+            Map<Long, List<Odds>> oddsByFixtureId = oddsService.getOddsByFixtureIds(fixtureIds);
+
+            // 4. Combinar los fixtures con sus odds
+            List<FixtureWithOddsDTO> fixturesWithOdds = fixtures.stream()
+                    .map(fixture -> new FixtureWithOddsDTO(fixture, oddsByFixtureId.getOrDefault(fixture.getId(), List.of())))
+                    .collect(Collectors.toList());
+
+            // 5. Devolver la respuesta
+            return ResponseEntity.ok(fixturesWithOdds);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching fixtures: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error fetching fixtures and odds: " + e.getMessage());
         }
     }
 

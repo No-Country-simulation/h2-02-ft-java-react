@@ -1,0 +1,21 @@
+@startuml
+set separator none
+title Prediction
+
+top to bottom direction
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Component>
+
+Container_Boundary("WakiApplication.WakiApplication_boundary", "WakiApplication", $tags="") {
+  Component(WakiApplication.WakiApplication.Common, "Common", $techn="Module", $descr="", $tags="", $link="")
+  Component(WakiApplication.WakiApplication.Match, "Match", $techn="Module", $descr="", $tags="", $link="")
+  Component(WakiApplication.WakiApplication.Prediction, "Prediction", $techn="Module", $descr="", $tags="", $link="")
+}
+
+Rel(WakiApplication.WakiApplication.Prediction, WakiApplication.WakiApplication.Match, "listens to", $techn="", $tags="", $link="")
+Rel(WakiApplication.WakiApplication.Prediction, WakiApplication.WakiApplication.Common, "listens to", $techn="", $tags="", $link="")
+
+SHOW_LEGEND(true)
+@enduml

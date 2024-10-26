@@ -34,13 +34,13 @@ public class OddsServiceImpl implements OddsService {
     @Override
     public void fetchAndSaveOdds() throws IOException, InterruptedException {
         // Lista de IDs de ligas
-        List<Long> leagueIds = List.of(39L, 140L);
+        List<Long> leagueIds = List.of(39L, 140L, 2L, 78L, 13L, 128L);
 
         // Itera sobre cada ID de liga
         for (Long leagueId : leagueIds) {
             // Construye la solicitud para la liga actual
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://v3.football.api-sports.io/odds?season=2024&bet=1&page=2&league=" + leagueId))
+                    .uri(URI.create("https://v3.football.api-sports.io/odds?season=2024&bet=1&page=2&bookmaker=27&league=" + leagueId))
                     .header("x-rapidapi-key", apiToken)
                     .method("GET", HttpRequest.BodyPublishers.noBody())
                     .build();
