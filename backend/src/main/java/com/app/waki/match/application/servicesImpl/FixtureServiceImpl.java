@@ -36,7 +36,7 @@ public class FixtureServiceImpl implements FixtureService {
     @Override
     public void fetchAndSaveFixtures() throws IOException, InterruptedException {
         // Lista de IDs de ligas
-        List<Long> leagueIds = List.of(39L, 140L, 2L, 78L, 13L, 128L);
+        List<Long> leagueIds = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L);
 
         // Procesa cada liga individualmente
         for (Long leagueId : leagueIds) {
