@@ -31,26 +31,25 @@ public class SecurityConfig {
             new AntPathRequestMatcher("/v3/api-docs/**"),
             new AntPathRequestMatcher("/swagger-ui/**"),
             new AntPathRequestMatcher("/profile/validatePrediction/{profileId}"),
-            new AntPathRequestMatcher("/division/userRanking/{userRankingId}"),
+            new AntPathRequestMatcher("/division/userRanking/{userRankingId}")
+    );
 
+    RequestMatcher UserUrls = new OrRequestMatcher(
             //PROFILE
             new AntPathRequestMatcher("/profile/{profileId}"),
             new AntPathRequestMatcher("/profile/predictionByDate/{profileId}"),
             new AntPathRequestMatcher("/profile/validatePrediction/{profileId}"),
-    //DIVISION
+            //DIVISION
             new AntPathRequestMatcher("/division/update"),
-    //PREDICTION
+            //PREDICTION
             new AntPathRequestMatcher("/prediction/{profileId}"),
             new AntPathRequestMatcher("/prediction/byDate/{profileId}"),
             new AntPathRequestMatcher("/prediction/byCompetition/{profileId}"),
             new AntPathRequestMatcher("/prediction/byMatchId/{profileId}"),
-    //NOTIFICATION
+            //NOTIFICATION
             new AntPathRequestMatcher("/notification/{profileId}"),
-    //MATCH-TEST
-            new AntPathRequestMatcher("/test/match/finalize")
-    );
-
-    RequestMatcher UserUrls = new OrRequestMatcher(
+            //MATCH-TEST
+            new AntPathRequestMatcher("/test/match/finalize"),
             //MATCH
             new AntPathRequestMatcher("/league/fetch-league", "GET"),
             new AntPathRequestMatcher("/fixture/fetch-fixture", "Get"),
