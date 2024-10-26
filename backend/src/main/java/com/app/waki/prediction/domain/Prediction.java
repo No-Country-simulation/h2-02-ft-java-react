@@ -32,6 +32,8 @@ public class Prediction {
             @AttributeOverride(name = "team", column = @Column(name = "away_team"))
     })
     private Team awayTeam;
+    private String homeShield;
+    private String awayShield;
     private HomeGoals homeGoals;
     private AwayGoals awayGoals;
     private LocalDate matchDay;
@@ -46,7 +48,7 @@ public class Prediction {
     public Prediction(){}
 
     private Prediction(PredictionDetails predictionDetails, String matchId, ExpectedResult expectedResult,
-                       Team homeTeam, Team awayTeam, LocalDate matchDay,
+                       Team homeTeam, Team awayTeam, String homeShield, String awayShield, LocalDate matchDay,
                        Double odds, String competition, Boolean combined) {
         this.predictionId = new PredictionId();
         this.predictionDetails = predictionDetails;
@@ -54,6 +56,8 @@ public class Prediction {
         this.expectedResult = expectedResult;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
+        this.homeShield = homeShield;
+        this.awayShield = awayShield;
         this.matchResult = MatchResult.PENDING;
         this.matchDay = matchDay;
         this.odds = odds;
@@ -74,6 +78,8 @@ public class Prediction {
                 expectedResult,
                 homeTeam,
                 awayTeam,
+                predictionRequest.homeShield(),
+                predictionRequest.awayShield(),
                 predictionRequest.matchDay(),
                 predictionRequest.pay(),
                 predictionRequest.competition(),

@@ -2,16 +2,21 @@ package com.app.waki.division.application;
 
 import com.app.waki.common.events.UserCreatedEvent;
 import com.app.waki.common.exceptions.EntityNotFoundException;
+import com.app.waki.division.application.dto.UserRankingDto;
 import com.app.waki.division.domain.Division;
 import com.app.waki.division.domain.DivisionRepository;
 import com.app.waki.division.domain.UserRanking;
 import com.app.waki.division.domain.valueObject.DivisionLevel;
+import com.app.waki.division.domain.valueObject.UserRankingId;
 import com.app.waki.profile.domain.Profile;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 
 @Service
@@ -31,5 +36,14 @@ public class DivisionServiceImpl {
         limboDivision.createUserRanking(event.id(), event.username());
 
         repository.save(limboDivision);
+    }
+
+    @Transactional(readOnly = true)
+    public UserRankingDto getUserRanking(UUID userRankingId){
+
+        UserRanking findUser = repository.findUserRankingByUserId(new UserRankingId(userRankingId))
+                .orElseThrow(() -> new EntityNotFoundException("User ranking not found with id: " + userRankingId));
+
+        return new UserRankingDto(findUser.getPosition(),findUser.getDivisionLevel().name());
     }
 }

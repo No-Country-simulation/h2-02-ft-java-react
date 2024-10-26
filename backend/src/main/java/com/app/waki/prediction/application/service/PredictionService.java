@@ -1,5 +1,6 @@
 package com.app.waki.prediction.application.service;
 
+import com.app.waki.prediction.application.dto.PredictionActiveDto;
 import com.app.waki.prediction.application.dto.PredictionDetailsDto;
 import com.app.waki.prediction.application.dto.PredictionDto;
 import com.app.waki.prediction.domain.Prediction;
@@ -10,7 +11,7 @@ import java.util.UUID;
 
 public interface PredictionService {
 
-    List<PredictionDetailsDto> getAllPredictionDetailsByProfileId(UUID profileId);
+    List<PredictionActiveDto> getAllPredictionDetailsByProfileId(UUID profileId);
     List<PredictionDetailsDto> getAllPredictionDetailsByDate(UUID profileId, LocalDate date);
     List<PredictionDetailsDto> getAllPredictionDetailsByCompetition(UUID profileId, String competition);
 
