@@ -108,4 +108,12 @@ public class Prediction {
     public void setMatchResult(MatchResult matchResult){
         this.matchResult = matchResult;
     }
+
+    public String getFinalResult() {
+        return switch (this.matchResult) {
+            case LOCAL -> homeTeam.team();
+            case AWAY -> awayTeam.team();
+            default -> matchResult.name();
+        };
+    }
 }

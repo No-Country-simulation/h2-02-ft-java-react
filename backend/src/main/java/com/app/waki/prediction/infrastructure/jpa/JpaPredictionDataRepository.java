@@ -1,5 +1,6 @@
 package com.app.waki.prediction.infrastructure.jpa;
 
+import com.app.waki.prediction.domain.Prediction;
 import com.app.waki.prediction.domain.PredictionDetails;
 import com.app.waki.prediction.domain.valueObject.MatchId;
 import com.app.waki.prediction.domain.valueObject.PredictionDetailsId;
@@ -12,6 +13,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface JpaPredictionDataRepository extends JpaRepository<PredictionDetails, PredictionDetailsId> {
 
@@ -36,5 +38,14 @@ public interface JpaPredictionDataRepository extends JpaRepository<PredictionDet
     List<PredictionDetails> findPredictionDetailsWithPendingPredictionByMatchId(
             @Param("matchId") String matchId,
             @Param("status") PredictionStatus status
+    );
+
+    @Query("SELECT p FROM Prediction p " +
+            "JOIN p.predictionDetails pd " +
+            "WHERE pd.profileId = :profileId " +
+            "AND p.matchId = :matchId")
+    Optional<Prediction> findPredictionByProfileIdAndMatchId(
+            @Param("profileId") ProfileId profileId,
+            @Param("matchId") String matchId
     );
 }

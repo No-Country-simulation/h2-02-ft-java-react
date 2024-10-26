@@ -1,5 +1,6 @@
 package com.app.waki.prediction.infrastructure.jpa;
 
+import com.app.waki.prediction.domain.Prediction;
 import com.app.waki.prediction.domain.PredictionDetails;
 import com.app.waki.prediction.domain.valueObject.MatchId;
 import com.app.waki.prediction.domain.valueObject.PredictionDetailsId;
@@ -49,6 +50,11 @@ public class JpaPredictionRepositoryImpl implements PredictionRepository {
     @Override
     public List<PredictionDetails> findPredictionDetailsWithPendingPredictionByMatchId(String matchId, PredictionStatus status) {
         return repository.findPredictionDetailsWithPendingPredictionByMatchId(matchId,status);
+    }
+
+    @Override
+    public Optional<Prediction> findPredictionByProfileIdAndMatchId(ProfileId profileId, String matchId) {
+        return repository.findPredictionByProfileIdAndMatchId(profileId, matchId);
     }
 
 

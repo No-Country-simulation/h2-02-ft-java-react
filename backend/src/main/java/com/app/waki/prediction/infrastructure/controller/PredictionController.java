@@ -1,7 +1,9 @@
 package com.app.waki.prediction.infrastructure.controller;
 
 import com.app.waki.prediction.application.dto.PredictionDetailsDto;
+import com.app.waki.prediction.application.dto.PredictionDto;
 import com.app.waki.prediction.application.service.PredictionService;
+import com.app.waki.prediction.domain.Prediction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,5 +37,11 @@ public class PredictionController {
     public ResponseEntity<List<PredictionDetailsDto>> getAllPredictionDetailsByCompetition(@PathVariable UUID profileId, String competition) {
 
         return ResponseEntity.ok(service.getAllPredictionDetailsByCompetition(profileId, competition));
+    }
+
+    @GetMapping("/byMatchId/{profileId}")
+    public ResponseEntity<PredictionDto> getPredictionByProfileIdAndMatchId(@PathVariable UUID profileId, String matchId) {
+
+        return ResponseEntity.ok(service.getPredictionByProfileIdAndMatchId(profileId, matchId));
     }
 }

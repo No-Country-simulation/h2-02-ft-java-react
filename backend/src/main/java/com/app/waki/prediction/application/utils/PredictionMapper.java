@@ -4,6 +4,7 @@ import com.app.waki.common.events.EstablishedPredictionEvent;
 import com.app.waki.common.events.FinishCorrectPredictionEvent;
 import com.app.waki.common.events.FinishFailedPredictionEvent;
 import com.app.waki.prediction.application.dto.PredictionDetailsDto;
+import com.app.waki.prediction.application.dto.PredictionDto;
 import com.app.waki.prediction.domain.Prediction;
 import com.app.waki.prediction.domain.PredictionDetails;
 import com.app.waki.prediction.domain.PredictionRequest;
@@ -85,5 +86,12 @@ public class PredictionMapper {
                 pd.getCreationTime(),
                 pd.getEarnablePoints().points()
         );
+    }
+
+    public static PredictionDto mapPredictionToDto(Prediction prediction){
+
+        return new PredictionDto(prediction.getFinalResult(),
+                (int) (prediction.getOdds() * 10),
+                prediction.getStatus().name());
     }
 }

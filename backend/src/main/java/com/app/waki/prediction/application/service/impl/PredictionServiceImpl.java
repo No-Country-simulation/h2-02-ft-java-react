@@ -3,6 +3,7 @@ package com.app.waki.prediction.application.service.impl;
 import com.app.waki.common.exceptions.EntityNotFoundException;
 import com.app.waki.match.matchtest.MatchFinalizedEvent;
 import com.app.waki.prediction.application.dto.PredictionDetailsDto;
+import com.app.waki.prediction.application.dto.PredictionDto;
 import com.app.waki.prediction.application.service.PredictionService;
 import com.app.waki.prediction.application.utils.PredictionMapper;
 import com.app.waki.common.events.CorrectPredictionEvent;
@@ -172,6 +173,15 @@ public class PredictionServiceImpl implements PredictionService {
         checkIfPredictionsAreEmpty(predictionsByCompetition);
 
         return mapPredictionDetailsToDto(predictionsByCompetition);
+    }
+
+    @Override
+    public PredictionDto getPredictionByProfileIdAndMatchId(UUID profileId, String matchId) {
+
+        Prediction findPrediction = repository.findPredictionByProfileIdAndMatchId(new ProfileId(profileId), matchId)
+                .orElseThrow(() -> new EntityNotFoundException("Not prediction found."));
+
+        return PredictionMapper.mapPredictionToDto(findPrediction);
     }
 
     private void checkIfPredictionsAreEmpty(List<PredictionDetails> predictions){

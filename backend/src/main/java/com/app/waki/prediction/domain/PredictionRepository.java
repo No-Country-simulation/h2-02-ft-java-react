@@ -20,4 +20,6 @@ public interface PredictionRepository {
 
     List<PredictionDetails> findPredictionDetailsWithPendingPredictionByMatchId(String matchId, PredictionStatus status
     );
+
+    Optional<Prediction> findPredictionByProfileIdAndMatchId(ProfileId profileId, String matchId);
 }
