@@ -19,7 +19,7 @@ export default function PredictionsSummary({
   const toggleSummary = () => {
     setIsOpen(!isOpen);
   };
-  const finalPoints = points + 10;
+  const finalPoints = parseFloat(points) * 10;
 
   return (
     <section className="flex w-full flex-col items-center divide-y pb-14 pt-5">

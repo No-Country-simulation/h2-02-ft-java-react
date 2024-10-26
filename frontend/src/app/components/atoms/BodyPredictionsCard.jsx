@@ -31,9 +31,9 @@ export function BodyPredictionsCard({
 }) {
   const pointsClass = pointsClasses(status);
   const userSelected = getTeamName(selected, team1, team2);
-
+  const goals = false;
   return (
-    <div className="grid grid-rows-2 items-center px-4 py-1">
+    <div className="grid grid-rows-2 items-center gap-2 px-4 py-3">
       {/* Equipos */}
       <div className="grid grid-cols-[1fr,auto,1fr] items-center justify-center gap-1 text-regular-12 text-grayWaki">
         <div className="flex items-center justify-end gap-2">
@@ -59,17 +59,19 @@ export function BodyPredictionsCard({
             {points}
           </p>
         </div>
-        <div className="grid grid-cols-[1fr,50px]">
-          <p className="text-regular-12 text-grayWaki">
-            Goles:{' '}
-            <span className="text-regular-14 text-label">Lionel Messi</span>
-          </p>
-          <p
-            className={`text-center text-regular-16 font-medium ${pointsClass}`}
-          >
-            {points}
-          </p>
-        </div>
+        {goals && (
+          <div className="grid grid-cols-[1fr,50px]">
+            <p className="text-regular-12 text-grayWaki">
+              Goles:{' '}
+              <span className="text-regular-14 text-label">Lionel Messi</span>
+            </p>
+            <p
+              className={`text-center text-regular-16 font-medium ${pointsClass}`}
+            >
+              {points}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

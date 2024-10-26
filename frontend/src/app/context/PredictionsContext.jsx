@@ -12,10 +12,6 @@ export const PredictionsProvider = ({ children }) => {
       setPredictions([...predictions, newPrediction]);
     } else {
       setPredictions([...predictions, newPrediction]);
-
-      setTimeout(() => {
-        setPredictions([]);
-      }, 3000);
     }
   };
   // console.log('predictions ', predictions);

@@ -32,6 +32,10 @@ export const validatePrediction = async (profileId, predictions) => {
     );
     return response.data;
   } catch (error) {
+    console.error(
+      'Error detallado:',
+      error.response ? error.response.data : error.message
+    );
     throw new Error('Error al validar la predicción');
   }
 };

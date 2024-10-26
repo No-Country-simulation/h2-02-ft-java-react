@@ -11,7 +11,7 @@ export default function PredictionsSections() {
   return (
     <div className="flex flex-col gap-6 px-5 py-6">
       <YourPredictions />
-      {selectedMatch && (
+      {selectedMatch.status !== 'FT' && (
         <Button className="mx-auto" onClick={() => openModal()}>
           Hacer predicción
         </Button>

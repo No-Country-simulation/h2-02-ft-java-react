@@ -52,7 +52,8 @@ export default function PredictionsMatch() {
 
         {/* Columna 2: Estado del partido */}
         <div className="flex flex-col items-center">
-          {status === 'TIMED' && !hasStarted ? (
+          {status === 'NS' ? (
+            // Estado de "No comenzado" (mostrar fecha y hora de inicio)
             <>
               <p className="text-medium-18 font-medium text-grayWaki">
                 {new Date(startTime).toLocaleDateString('en-US', {
@@ -67,7 +68,8 @@ export default function PredictionsMatch() {
                 })}
               </p>
             </>
-          ) : status === 'FINISHED' ? (
+          ) : status === 'FT' ? (
+            // Estado "Finalizado" (mostrar marcador final)
             <>
               <p className="text-medium-18 font-medium text-grayWaki">
                 Finalizado
@@ -77,10 +79,9 @@ export default function PredictionsMatch() {
               </p>
             </>
           ) : (
+            // Estado "En juego" (mostrar el tiempo transcurrido o marcador)
             <p className="text-medium-18 font-medium text-grayWaki">
-              {elapsedTime !== 'FT' && (
-                <span className="mr-1 h-3 w-3 rounded-full bg-redWaki"></span>
-              )}
+              <span className="mr-1 h-3 w-3 animate-blink rounded-full bg-redWaki"></span>
               {elapsedTime || '0 - 0'}
             </p>
           )}
@@ -102,7 +103,7 @@ export default function PredictionsMatch() {
       <div className="grid grid-cols-[1fr_100px_1fr] items-center gap-4">
         {/* Columna 1: Nombre del equipo local */}
         <p className="text-balance text-center text-regular-12 text-grayWaki">
-          {localTeam.name.replace(' FC', '')}
+          {localTeam.name}
         </p>
 
         {/* Columna 2: Espacio en blanco */}
@@ -110,7 +111,7 @@ export default function PredictionsMatch() {
 
         {/* Columna 3: Nombre del equipo visitante */}
         <p className="text-balance text-center text-regular-12 text-grayWaki">
-          {visitorTeam.name.replace(' FC', '')}
+          {visitorTeam.name}
         </p>
       </div>
     </div>

@@ -2,13 +2,15 @@ import { useMatch } from '../../context/MatchContext';
 import Searchbar from '../molecules/Searchbar';
 import SelectMatchTabs from './SelectMatchTabs';
 import { BodySelectPredictionsCard } from '../atoms/BodyPredictionsCard';
+import { getMatchesDate } from '../../services/matchService';
+import MatchListCombined from '../organisms/MatchListCombined';
 
 export default function Step4SelectMatch({ setStep }) {
   const { selectedMatch, selectMatch } = useMatch();
 
   const handleSelectMatch = (match) => {
+    // selectMatch(match); // En realidad acá iría el partido seleccionado de la lista
     setStep(1);
-    selectMatch(match); // En realidad acá iría el partido seleccionado de la lista
   };
 
   return (
@@ -25,7 +27,7 @@ export default function Step4SelectMatch({ setStep }) {
         <SelectMatchTabs />
         <Searchbar />
         {/* Lista de partidos, se podría hacer dinámica */}
-        <button
+        {/* <button
           className="mx-5 flex flex-col items-center divide-y overflow-hidden rounded-large bg-white text-center text-regular-12 text-grayWaki shadow-custom"
           onClick={() => handleSelectMatch(selectedMatch)}
         >
@@ -34,7 +36,8 @@ export default function Step4SelectMatch({ setStep }) {
             team1={selectedMatch.localTeam}
             team2={selectedMatch.visitorTeam}
           />
-        </button>
+        </button> */}
+        <MatchListCombined handleSelectMatch={handleSelectMatch} />
       </div>
     </section>
   );

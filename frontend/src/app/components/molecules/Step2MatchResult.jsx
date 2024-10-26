@@ -1,8 +1,11 @@
 import { useMatch } from '../../context/MatchContext';
+import { useAuth } from '../../context/AuthContext';
 import { usePredictions } from '../../context/PredictionsContext';
 import Button from '../atoms/Button';
 import PredictionsSummary from '../atoms/PredictionsSummary';
 import { calculatePoints } from '../../utils/predictionUtils';
+import { formatDate } from '../../utils/dateUtils';
+import { validatePrediction } from '../../services/profileService';
 
 export default function Step2MatchResult({
   selectedOption,
@@ -11,14 +14,16 @@ export default function Step2MatchResult({
   handleMakeCombinedPrediction,
 }) {
   const { selectedMatch } = useMatch();
-  const { addPrediction } = usePredictions();
+  const { userId } = useAuth();
+  const { predictions, addPrediction } = usePredictions();
 
   const {
     id,
     localTeam,
     visitorTeam,
     startTime,
-    predictions: matchPredictions,
+    odds: matchPredictions,
+    league,
   } = selectedMatch;
 
   const points = calculatePoints(selectedOption, matchPredictions);
@@ -26,16 +31,36 @@ export default function Step2MatchResult({
   const handleAddPrediction = (isCombined) => {
     addPrediction(
       {
-        matchId: id,
+        matchId: `${id}`,
         expectedResult: selectedOption,
         homeTeam: localTeam.name,
         awayTeam: visitorTeam.name,
-        matchDay: startTime,
-        pay: points,
-        competitionCode: 'CLI',
+        matchDay: formatDate(startTime),
+        pay: parseFloat(points),
+        competition: league,
       },
       isCombined
     );
+  };
+
+  const handleAddOnePrediction = () => {
+    const newPrediction = [
+      {
+        matchId: `${id}`,
+        expectedResult: selectedOption,
+        homeTeam: localTeam.name,
+        awayTeam: visitorTeam.name,
+        matchDay: formatDate(startTime),
+        pay: parseFloat(points),
+        competition: league,
+      },
+    ];
+
+    if (predictions.length > 0) {
+      newPrediction.push(...predictions);
+      console.log('newPrediction ', newPrediction);
+    }
+    validatePrediction(userId, newPrediction);
   };
 
   return (
@@ -69,7 +94,7 @@ export default function Step2MatchResult({
               />
             </figure>
             <p className="text-balance text-medium-18 font-medium text-label">
-              {localTeam.name.replace(' FC', '')}
+              {localTeam.name}
             </p>
             <p className="text-balance text-center text-regular-12 text-grayLightWaki">
               {matchPredictions.localWin}
@@ -106,7 +131,7 @@ export default function Step2MatchResult({
               />
             </figure>
             <p className="text-balance text-medium-18 font-medium text-label">
-              {visitorTeam.name.replace(' FC', '')}
+              {visitorTeam.name}
             </p>
             <p className="text-balance text-center text-regular-12 text-grayLightWaki">
               {matchPredictions.visitorWin}
@@ -119,7 +144,7 @@ export default function Step2MatchResult({
           <Button
             className="w-full"
             onClick={() => {
-              handleAddPrediction(false);
+              handleAddOnePrediction();
               handleSubmitPrediction();
             }}
             disabled={selectedOption === 'Resultado'}
