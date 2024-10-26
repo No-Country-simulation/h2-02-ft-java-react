@@ -45,7 +45,7 @@ public class ProfileBatchService {
                 // Preparar los datos para el evento
                 List<ProfilePointsData> updates = unprocessedProfiles.stream()
                         .map(profile -> new ProfilePointsData(
-                                profile.getProfileUserId().id().toString(),
+                                profile.getProfileUserId().id(),
                                 profile.getTotalPoints().points()
                         ))
                         .collect(Collectors.toList());

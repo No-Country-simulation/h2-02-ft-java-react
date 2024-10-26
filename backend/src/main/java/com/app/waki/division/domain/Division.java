@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@EqualsAndHashCode(exclude = {"rankings", "prizes"})  // Excluimos las colecciones
+@EqualsAndHashCode(exclude = {"rankings", "prizes"})
 @ToString(exclude = {"rankings", "prizes"})
 @Getter
 public class Division {
@@ -45,5 +45,10 @@ public class Division {
     public void createUserRanking(UUID id, String username) {
         UserRanking newUser = UserRanking.createUserRanking(this, id, username);
         this.rankings.add(newUser);
+    }
+
+    public void addUserRanking(UserRanking ranking) {
+        this.rankings.add(ranking);
+        ranking.updateDivision(this.division);
     }
 }

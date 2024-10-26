@@ -42,8 +42,8 @@ export default function LoginForm() {
     }
 
     try {
-      const token = await loginUser(email, password); // Llama al servicio
-      login(token); // Guarda el token en el contexto
+      const { token } = await loginUser(email, password);
+      login({ token });
       navigate('/match');
     } catch (error) {
       setErrorMessage(error.message || 'Error al iniciar sesión');
@@ -85,7 +85,9 @@ export default function LoginForm() {
         </a>
       </div>
 
-      <Button className="mx-auto mt-6">Iniciar sesión</Button>
+      <Button type="submit" className="mx-auto mt-6">
+        Iniciar sesión
+      </Button>
 
       {/* O inicia sesión con */}
       <div className="relative my-8 flex items-center justify-center">

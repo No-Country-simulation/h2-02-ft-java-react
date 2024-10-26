@@ -6,6 +6,7 @@ import com.app.waki.division.domain.valueObject.UserRankingId;
 import com.app.waki.profile.domain.Profile;
 import com.app.waki.profile.domain.valueObject.ProfileUserId;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,5 +22,5 @@ public interface DivisionRepository {
 
     void saveAll(List<Division> divisions);
 
-//    List<UserRanking> getAllUsersPoints();
+    List<UserRanking> findUserRankingsByUserIds(Collection<UserRankingId> userIds);
 }

@@ -11,7 +11,7 @@ import lombok.ToString;
 import java.time.LocalDate;
 
 @Entity
-@EqualsAndHashCode(exclude = "division")  // Excluimos la referencia a Division
+@EqualsAndHashCode(exclude = "division")
 @ToString(exclude = "division")
 @Getter
 @Setter

@@ -7,6 +7,7 @@ import { PiMedalThin } from 'react-icons/pi';
 import { FiHelpCircle } from 'react-icons/fi';
 import { IoIosNotificationsOutline } from 'react-icons/io';
 import { LuLogOut } from 'react-icons/lu';
+import { useAuth } from '../../context/AuthContext';
 
 const iconSize = 20;
 
@@ -38,10 +39,7 @@ const options = [
 ];
 
 export default function ProfileList() {
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    window.location.reload();
-  };
+  const { logout } = useAuth();
 
   return (
     <div className="flex w-full flex-col p-5">
@@ -49,7 +47,7 @@ export default function ProfileList() {
         <a
           key={index}
           href={option.link || '#'}
-          onClick={option.action === 'logout' ? handleLogout : null}
+          onClick={option.action === 'logout' ? logout : null}
           className={`flex h-14 w-full items-center justify-between bg-white px-5 text-[#181818] shadow-custom ${
             index === 0 ? 'rounded-t-lg' : ''
           } ${index === options.length - 1 ? 'rounded-b-lg' : ''}`}

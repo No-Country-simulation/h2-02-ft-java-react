@@ -1,9 +1,22 @@
+import { useState, useEffect } from 'react';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { IoPersonCircle } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import { getProfile } from '../../services/profileService';
 
-export default function ProfileHeader({ photo, firstName, lastName }) {
+export default function ProfileHeader() {
+  const { userId } = useAuth();
   const navigate = useNavigate();
+  const [profile, setProfile] = useState({});
+
+  useEffect(() => {
+    if (userId) {
+      getProfile(userId)
+        .then((data) => setProfile(data))
+        .catch((error) => console.error('Error al obtener el perfil:', error));
+    }
+  }, [userId]);
 
   const handleSettingsClick = () => {
     navigate('/profile/setting');
@@ -17,9 +30,9 @@ export default function ProfileHeader({ photo, firstName, lastName }) {
       />
       <div className="flex flex-col items-center justify-center">
         <div className="flex h-[89px] w-[89px] items-center justify-center overflow-hidden rounded-full bg-black bg-opacity-50">
-          {photo ? (
+          {profile.photo ? (
             <img
-              src={photo}
+              src={profile.photo}
               alt="Profile"
               className="h-full w-full object-cover"
             />
@@ -30,7 +43,7 @@ export default function ProfileHeader({ photo, firstName, lastName }) {
           )}
         </div>
         <div className="mt-[30px] text-[18px] text-[#FFFFFF]">
-          {firstName || lastName ? `${firstName} ${lastName}` : 'Undefined'}
+          {profile.username || 'Undefined'}
         </div>
       </div>
     </div>

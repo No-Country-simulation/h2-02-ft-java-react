@@ -26,7 +26,7 @@ import java.util.List;
 @Slf4j
 public class StandingServiceImpl implements StandingService {
 
-    private static final String API_URL = "https://v3.football.api-sports.io/standings?league=39&season=2024";
+    private static final List<Long> LEAGUE_IDS = List.of(39L, 140L);
 
     @Value("${API_TOKEN}")
     private String apiToken;
@@ -36,72 +36,77 @@ public class StandingServiceImpl implements StandingService {
     @Override
     public void fetchAndSaveStandings() throws IOException, InterruptedException {
 
-        // Crea la solicitud HTTP
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(API_URL))
-                .header("x-rapidapi-key", apiToken)
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
+        // Itera sobre cada ID de liga
+        for (Long leagueId : LEAGUE_IDS) {
+            String apiUrl = "https://v3.football.api-sports.io/standings?league=" + leagueId + "&season=2024";
 
-        // Envía la solicitud y recibe la respuesta
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        log.info("API Response: {}", response.body());
+            // Crea la solicitud HTTP para la liga actual
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(apiUrl))
+                    .header("x-rapidapi-key", apiToken)
+                    .method("GET", HttpRequest.BodyPublishers.noBody())
+                    .build();
 
-        // Procesa el JSON
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode rootNode = objectMapper.readTree(response.body());
+            // Envía la solicitud y recibe la respuesta
+            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+            log.info("API Response for League {}: {}", leagueId, response.body());
 
-        // Nodo que contiene los standings
-        JsonNode standingsNode = rootNode.path("response");
+            // Procesa el JSON
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode rootNode = objectMapper.readTree(response.body());
 
-        // Inicializa la lista para almacenar los standings
-        List<Standing> standingsList = new ArrayList<>();
+            // Nodo que contiene los standings
+            JsonNode standingsNode = rootNode.path("response");
 
-        // Itera sobre cada elemento del array 'response'
-        standingsNode.forEach(standingGroupNode -> {
-            standingGroupNode.path("league").path("standings").forEach(standingNode -> {
-                standingNode.forEach(teamStandingNode -> {
-                    Standing standing = new Standing();
-                    standing.setPosition(teamStandingNode.path("rank").asInt());
-                    standing.setPoints(teamStandingNode.path("points").asInt());
-                    standing.setGoalsDiff(teamStandingNode.path("goalsDiff").asInt());
-                    standing.setTeamId(teamStandingNode.path("team").path("id").asInt());
-                    standing.setTeamName(teamStandingNode.path("team").path("name").asText());
-                    standing.setTeamLogo(teamStandingNode.path("team").path("logo").asText());
+            // Inicializa la lista para almacenar los standings
+            List<Standing> standingsList = new ArrayList<>();
 
-                    // Establece los detalles de la liga
-                    LeagueStanding league = new LeagueStanding();
-                    league.setLeagueId(standingGroupNode.path("league").path("id").asLong());
-                    league.setLeagueName(standingGroupNode.path("league").path("name").asText());
-                    league.setCountry(standingGroupNode.path("league").path("country").asText());
-                    league.setLeagueLogo(standingGroupNode.path("league").path("logo").asText());
-                    league.setSeason(standingGroupNode.path("league").path("season").asInt());
-                    standing.setLeague(league);
+            // Itera sobre cada elemento del array 'response'
+            standingsNode.forEach(standingGroupNode -> {
+                standingGroupNode.path("league").path("standings").forEach(standingNode -> {
+                    standingNode.forEach(teamStandingNode -> {
+                        Standing standing = new Standing();
+                        standing.setPosition(teamStandingNode.path("rank").asInt());
+                        standing.setPoints(teamStandingNode.path("points").asInt());
+                        standing.setGoalsDiff(teamStandingNode.path("goalsDiff").asInt());
+                        standing.setTeamId(teamStandingNode.path("team").path("id").asInt());
+                        standing.setTeamName(teamStandingNode.path("team").path("name").asText());
+                        standing.setTeamLogo(teamStandingNode.path("team").path("logo").asText());
 
-                    // Establece las estadísticas del equipo
-                    TeamStatistics teamStats = new TeamStatistics();
-                    JsonNode allStats = teamStandingNode.path("all");
-                    teamStats.setPlayed(allStats.path("played").asInt());
-                    teamStats.setWin(allStats.path("win").asInt());
-                    teamStats.setDraw(allStats.path("draw").asInt());
-                    teamStats.setLose(allStats.path("lose").asInt());
-                    standing.setAll(teamStats);  // Asegúrate de tener 'setAll' en 'Standing'
+                        // Establece los detalles de la liga
+                        LeagueStanding league = new LeagueStanding();
+                        league.setLeagueId(standingGroupNode.path("league").path("id").asLong());
+                        league.setLeagueName(standingGroupNode.path("league").path("name").asText());
+                        league.setCountry(standingGroupNode.path("league").path("country").asText());
+                        league.setLeagueLogo(standingGroupNode.path("league").path("logo").asText());
+                        league.setSeason(standingGroupNode.path("league").path("season").asInt());
+                        standing.setLeague(league);
 
-                    // Establece la fecha de última actualización
-                    String update = teamStandingNode.path("update").asText();
-                    if (!update.isEmpty()) { // Verifica que no esté vacío antes de parsear
-                        standing.setLastUpdate(OffsetDateTime.parse(update));
-                    }
+                        // Establece las estadísticas del equipo
+                        TeamStatistics teamStats = new TeamStatistics();
+                        JsonNode allStats = teamStandingNode.path("all");
+                        teamStats.setPlayed(allStats.path("played").asInt());
+                        teamStats.setWin(allStats.path("win").asInt());
+                        teamStats.setDraw(allStats.path("draw").asInt());
+                        teamStats.setLose(allStats.path("lose").asInt());
+                        standing.setAll(teamStats);
 
-                    // Agrega el objeto Standing a la lista
-                    standingsList.add(standing);
+                        // Establece la fecha de última actualización
+                        String update = teamStandingNode.path("update").asText();
+                        if (!update.isEmpty()) {
+                            standing.setLastUpdate(OffsetDateTime.parse(update));
+                        }
+
+                        // Agrega el objeto Standing a la lista
+                        standingsList.add(standing);
+                    });
                 });
             });
-        });
 
-        // Guarda todos los standings en la base de datos
-        standingRepository.saveAll(standingsList);
-        log.info("Standings saved successfully.");
+            // Guarda todos los standings en la base de datos
+            standingRepository.saveAll(standingsList);
+            log.info("Standings for League {} saved successfully.", leagueId);
+        }
     }
 
     @Override

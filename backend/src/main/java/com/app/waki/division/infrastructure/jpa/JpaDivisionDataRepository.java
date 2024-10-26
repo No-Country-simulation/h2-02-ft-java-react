@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ public interface JpaDivisionDataRepository extends JpaRepository<Division, Divis
     @Query("SELECT d FROM Division d JOIN d.rankings r WHERE r.userId = :userId")
     Optional<Division> findByUserRankings_UserId(@Param("userId") UserRankingId userId);
 
-//    @Query("SELECT new com.app.waki.division.domain.UserPoints(r.userId, r.points) " +
-//            "FROM UserRanking r GROUP BY r.userId")
-//    List<UserRanking> getAllUsersPoints();
+    @Query("SELECT r FROM Division d JOIN d.rankings r WHERE r.userId IN :userIds")
+    List<UserRanking> findUserRankingsByUserIds(@Param("userIds") Collection<UserRankingId> userIds);
+
 }

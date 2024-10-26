@@ -9,6 +9,7 @@ import com.app.waki.division.domain.valueObject.UserRankingId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,6 +52,11 @@ public class JpaDivisionRepositoryImpl implements DivisionRepository {
     @Override
     public void saveAll(List<Division> divisions) {
         repository.saveAll(divisions);
+    }
+
+    @Override
+    public List<UserRanking> findUserRankingsByUserIds(Collection<UserRankingId> userIds) {
+        return repository.findUserRankingsByUserIds(userIds);
     }
 
 //    @Override

@@ -17,17 +17,18 @@ export default function MatchList() {
 
     fetchCompetitions();
   }, []);
+  console.log(competitions);
 
   return (
     <div className="flex w-full flex-col p-5">
       <div className="w-full divide-y overflow-hidden rounded-large shadow-custom">
         {competitions.map((competition) => (
           <MatchDropdown
-            key={competition.competitionCode}
+            key={competition.id}
             competitionInfo={{
-              code: competition.competitionCode,
-              name: competition.competitionName,
-              emblem: competition.competitionEmblem,
+              code: competition.id,
+              name: competition.name,
+              logo: competition.logo,
             }}
           />
         ))}
