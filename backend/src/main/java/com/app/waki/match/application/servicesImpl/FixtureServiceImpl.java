@@ -36,13 +36,13 @@ public class FixtureServiceImpl implements FixtureService {
     @Override
     public void fetchAndSaveFixtures() throws IOException, InterruptedException {
         // Lista de IDs de ligas
-        List<Long> leagueIds = List.of(39L, 140L);
+        List<Long> leagueIds = List.of(39L, 140L, 2L, 78L, 13L, 128L);
 
         // Procesa cada liga individualmente
         for (Long leagueId : leagueIds) {
             // Construye la solicitud para la liga actual
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://v3.football.api-sports.io/fixtures?season=2024&league=" + leagueId))
+                    .uri(URI.create("https://v3.football.api-sports.io/fixtures?season=2024&from=2024-10-01&to=2024-12-31&league=" + leagueId))
                     .header("x-rapidapi-key", apiToken)
                     .method("GET", HttpRequest.BodyPublishers.noBody())
                     .build();
@@ -138,6 +138,13 @@ public class FixtureServiceImpl implements FixtureService {
     @Transactional
     public List<Fixture> getFixturesByLeagueAndDate(Long leagueId, OffsetDateTime startDate, OffsetDateTime endDate) {
         return fixtureRepository.findByLeagueAndDateBetween(leagueId, startDate, endDate);
+    }
+
+    @Override
+    @Transactional
+    public List<Fixture> getFixturesByDate(OffsetDateTime startDate, OffsetDateTime endDate) {
+        // Llama al repositorio para obtener los fixtures en la fecha especificada
+        return fixtureRepository.findByDateBetween(startDate, endDate);
     }
 
 }

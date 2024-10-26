@@ -26,7 +26,7 @@ import java.util.List;
 @Slf4j
 public class StandingServiceImpl implements StandingService {
 
-    private static final List<Long> LEAGUE_IDS = List.of(39L, 140L);
+    private static final List<Long> LEAGUE_IDS = List.of(39L, 140L, 2L, 78L, 13L, 128L);
 
     @Value("${API_TOKEN}")
     private String apiToken;

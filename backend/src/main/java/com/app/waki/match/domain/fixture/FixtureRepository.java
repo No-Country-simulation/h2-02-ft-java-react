@@ -15,4 +15,6 @@ public interface FixtureRepository extends JpaRepository<Fixture, Long> {
     List<Fixture> findByLeagueAndDateBetween(@Param("leagueId") Long leagueId,
                                              @Param("startDate") OffsetDateTime startDate,
                                              @Param("endDate") OffsetDateTime endDate);
+
+    List<Fixture> findByDateBetween(OffsetDateTime startDate, OffsetDateTime endDate);
 }

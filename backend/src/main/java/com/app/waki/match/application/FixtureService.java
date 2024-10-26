@@ -11,5 +11,7 @@ public interface FixtureService {
 
     List<Fixture> getFixturesByLeagueAndDate(Long leagueId, OffsetDateTime startDate, OffsetDateTime endDate);
 
+    List<Fixture> getFixturesByDate(OffsetDateTime startDate, OffsetDateTime endDate);
+
 //    List<FixtureWithOddsDTO> getFixturesAndOddsByLeagueAndDate(Long leagueId, OffsetDateTime startDate, OffsetDateTime endDate);
 }
