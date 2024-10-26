@@ -14,7 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.*;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -78,7 +81,16 @@ public class OddsServiceImpl implements OddsService {
                     FixtureOdds fixture = new FixtureOdds();
                     fixture.setFixtureId(fixtureId);
                     fixture.setTimezone(oddNode.path("fixture").path("timezone").asText());
-                    fixture.setDate(oddNode.path("fixture").path("date").asText());
+                    //fixture.setDate(oddNode.path("fixture").path("date").asText());
+                    // Extrae la fecha en formato UTC desde el JSON
+                    String dateString = oddNode.path("fixture").path("date").asText();
+                    // Parsea la fecha en UTC a ZonedDateTime
+                    ZonedDateTime utcDateTime = ZonedDateTime.parse(dateString);
+                    // Convierte a la zona horaria de Buenos Aires (UTC-3)
+                    ZonedDateTime argDateTime = utcDateTime.withZoneSameInstant(ZoneId.of("America/Argentina/Buenos_Aires"));
+                    LocalDateTime localDateTime = argDateTime.toLocalDateTime();
+                    fixture.setDate(localDateTime);
+
                     fixture.setTimestamp(oddNode.path("fixture").path("timestamp").asLong());
                     odds.setFixture(fixture);
 
