@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Map;
@@ -43,8 +44,9 @@ public class FixtureController {
     @GetMapping("/getFixtureDate")
     public ResponseEntity<?> getFixturesByDate(@RequestParam String date) {
         try {
-            OffsetDateTime startDate = OffsetDateTime.parse(date + "T00:00:00Z");
-            OffsetDateTime endDate = OffsetDateTime.parse(date + "T23:59:59Z");
+            // Convertir la cadena de fecha a LocalDateTime
+            LocalDateTime startDate = LocalDateTime.parse(date + "T00:00:00");
+            LocalDateTime endDate = LocalDateTime.parse(date + "T23:59:59");
 
             // 1. Obtener todos los fixtures por fecha, sin restricción de liga
             List<Fixture> fixtures = fixtureService.getFixturesByDate(startDate, endDate);
@@ -76,8 +78,9 @@ public class FixtureController {
     @GetMapping("/getFixtureCodeDate")
     public ResponseEntity<?> getFixturesAndOddsByDateAndLeague(@RequestParam Long leagueId, @RequestParam String date) {
         try {
-            OffsetDateTime startDate = OffsetDateTime.parse(date + "T00:00:00Z");
-            OffsetDateTime endDate = OffsetDateTime.parse(date + "T23:59:59Z");
+            // Convertir la cadena de fecha a LocalDateTime
+            LocalDateTime startDate = LocalDateTime.parse(date + "T00:00:00");
+            LocalDateTime endDate = LocalDateTime.parse(date + "T23:59:59");
 
             // 1. Obtener los fixtures por liga y fecha
             List<Fixture> fixtures = fixtureService.getFixturesByLeagueAndDate(leagueId, startDate, endDate);

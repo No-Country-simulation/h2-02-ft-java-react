@@ -4,6 +4,7 @@ import com.app.waki.match.domain.league.League;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 @Entity
@@ -14,7 +15,7 @@ public class Fixture {
 
     private String referee;
     private String timezone;
-    private OffsetDateTime date;
+    private LocalDateTime date;
     private Long timestamp;
 
     @Embedded

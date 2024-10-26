@@ -18,7 +18,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.time.OffsetDateTime;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +65,16 @@ public class FixtureServiceImpl implements FixtureService {
                 fixture.setId(fixtureNode.path("fixture").path("id").asLong());
                 fixture.setReferee(fixtureNode.path("fixture").path("referee").asText());
                 fixture.setTimezone(fixtureNode.path("fixture").path("timezone").asText());
-                fixture.setDate(OffsetDateTime.parse(fixtureNode.path("fixture").path("date").asText()));
+                //fixture.setDate(OffsetDateTime.parse(fixtureNode.path("fixture").path("date").asText()));
+                // Extrae la fecha en formato UTC desde el JSON
+                String dateString = fixtureNode.path("fixture").path("date").asText();
+                // Parsea la fecha en UTC a ZonedDateTime
+                ZonedDateTime utcDateTime = ZonedDateTime.parse(dateString);
+                // Convierte a la zona horaria de Buenos Aires (UTC-3)
+                ZonedDateTime argDateTime = utcDateTime.withZoneSameInstant(ZoneId.of("America/Argentina/Buenos_Aires"));
+                LocalDateTime localDateTime = argDateTime.toLocalDateTime();
+                fixture.setDate(localDateTime);
+
                 fixture.setTimestamp(fixtureNode.path("fixture").path("timestamp").asLong());
 
                 // Mapea Periods
@@ -136,13 +145,13 @@ public class FixtureServiceImpl implements FixtureService {
 
     @Override
     @Transactional
-    public List<Fixture> getFixturesByLeagueAndDate(Long leagueId, OffsetDateTime startDate, OffsetDateTime endDate) {
+    public List<Fixture> getFixturesByLeagueAndDate(Long leagueId, LocalDateTime startDate, LocalDateTime endDate) {
         return fixtureRepository.findByLeagueAndDateBetween(leagueId, startDate, endDate);
     }
 
     @Override
     @Transactional
-    public List<Fixture> getFixturesByDate(OffsetDateTime startDate, OffsetDateTime endDate) {
+    public List<Fixture> getFixturesByDate(LocalDateTime startDate, LocalDateTime endDate) {
         // Llama al repositorio para obtener los fixtures en la fecha especificada
         return fixtureRepository.findByDateBetween(startDate, endDate);
     }
