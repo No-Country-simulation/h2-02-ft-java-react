@@ -40,6 +40,7 @@ public class Prediction {
     private LocalDate matchDay;
     private Double odds;
     private String competition;
+    private String competitionShield;
     private Boolean combined;
     @Enumerated(EnumType.STRING)
     private PredictionStatus status;
@@ -50,7 +51,7 @@ public class Prediction {
 
     private Prediction(PredictionDetails predictionDetails, String matchId, ExpectedResult expectedResult,
                        Team homeTeam, Team awayTeam, String homeShield, String awayShield, LocalDate matchDay,
-                       Double odds, String competition, Boolean combined) {
+                       Double odds, String competition, String competitionShield, Boolean combined) {
         this.predictionId = new PredictionId();
         this.predictionDetails = predictionDetails;
         this.matchId = matchId;
@@ -63,6 +64,7 @@ public class Prediction {
         this.matchDay = matchDay;
         this.odds = odds;
         this.competition = competition;
+        this.competitionShield = competitionShield;
         this.combined = combined;
         this.status = PredictionStatus.PENDING;
     }
@@ -84,6 +86,7 @@ public class Prediction {
                 predictionRequest.matchDay(),
                 predictionRequest.pay(),
                 predictionRequest.competition(),
+                predictionRequest.competitionShield(),
                 combined
         );
     }
@@ -124,16 +127,25 @@ public class Prediction {
         };
     }
 
+    public String getExpectedResult() {
+        return switch (this.expectedResult) {
+            case LOCAL -> homeTeam.team();
+            case AWAY -> awayTeam.team();
+            default -> matchResult.name();
+        };
+    }
+
     public PredictionMatchDto toMatchDto() {
         return new PredictionMatchDto(
                 this.competition,
                 this.combined,
                 calculatePoints(),
-                this.getFinalResult(),
+                this.getExpectedResult(),
                 this.homeTeam.team(),
                 this.awayTeam.team(),
                 this.homeShield,
-                this.awayShield
+                this.awayShield,
+                this.competitionShield
         );
     }
 
