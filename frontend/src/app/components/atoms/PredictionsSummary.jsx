@@ -8,8 +8,8 @@ import {
 
 export default function PredictionsSummary({
   selected,
-  team1,
-  team2,
+  homeTeam,
+  awayTeam,
   points,
   status,
 }) {
@@ -41,8 +41,8 @@ export default function PredictionsSummary({
       >
         <BodyPredictionsCard
           selected={selected}
-          team1={team1}
-          team2={team2}
+          homeTeam={homeTeam}
+          awayTeam={awayTeam}
           points={points}
           status={status}
         />
@@ -50,8 +50,8 @@ export default function PredictionsSummary({
           <BodyPredictionsCard
             key={index}
             selected={prediction.expectedResult}
-            team1={prediction.homeTeam}
-            team2={prediction.awayTeam}
+            homeTeam={prediction.homeTeam}
+            awayTeam={prediction.awayTeam}
             points={prediction.pay}
             status="pending"
           />

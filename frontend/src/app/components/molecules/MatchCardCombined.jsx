@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useMatch } from '../../context/MatchContext';
 import { useModal } from '../../context/ModalContext';
-import { Link } from 'react-router-dom';
 import { MdOutlineSignalCellularAlt } from 'react-icons/md';
 
 export default function MatchCardCombined({ matchData, handleSelectMatch }) {

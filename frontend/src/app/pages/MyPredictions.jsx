@@ -7,11 +7,11 @@ const myPredictionsActivas = [
   {
     league: 'Liga española',
     selected: 'DRAW',
-    team1: {
+    homeTeam: {
       logoUrl: LogoBarcelona,
       name: 'Barcelona',
     },
-    team2: {
+    awayTeam: {
       logoUrl: LogoOsasuna,
       name: 'Osasuna',
     },
@@ -21,11 +21,11 @@ const myPredictionsActivas = [
   {
     league: 'Liga española',
     selected: 'AWAY',
-    team1: {
+    homeTeam: {
       logoUrl: LogoBarcelona,
       name: 'Barcelona',
     },
-    team2: {
+    awayTeam: {
       logoUrl: LogoOsasuna,
       name: 'Osasuna',
     },
@@ -35,11 +35,11 @@ const myPredictionsActivas = [
   {
     league: 'Liga española',
     selected: 'LOCAL',
-    team1: {
+    homeTeam: {
       logoUrl: LogoBarcelona,
       name: 'Barcelona',
     },
-    team2: {
+    awayTeam: {
       logoUrl: LogoOsasuna,
       name: 'Osasuna',
     },
@@ -53,16 +53,16 @@ const myPredictionsPasadas = [
   {
     league: 'La Liga',
     selected: 'Resultado final:',
-    team1: 'Barcelona',
-    team2: 'Osasuna',
+    homeTeam: 'Barcelona',
+    awayTeam: 'Osasuna',
     points: 13,
     status: 'ganado',
   },
   {
     league: 'La Liga',
     selected: 'Resultado final:',
-    team1: 'Barcelona',
-    team2: 'Osasuna',
+    homeTeam: 'Barcelona',
+    awayTeam: 'Osasuna',
     points: 13,
     status: 'perdido',
   },
@@ -73,7 +73,7 @@ export default function MyPredictions() {
   return (
     <div className="flex flex-col bg-gradientWaki">
       <MyPredictionsHeader />
-      {/* <MyPredictionSection /> */}
+      <MyPredictionSection />
     </div>
   );
 }

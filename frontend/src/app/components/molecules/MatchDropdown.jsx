@@ -49,7 +49,10 @@ export default function MatchDropdown({ competitionInfo }) {
           },
           startTime: match.fixture.date,
           status: match.fixture.status.shortStatus,
-          league: match.fixture.league.name,
+          league: {
+            name: match.fixture.league.name,
+            logo: match.fixture.league.logo,
+          },
         }))
       );
     } catch (error) {

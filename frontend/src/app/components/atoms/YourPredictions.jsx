@@ -25,7 +25,7 @@ export default function YourPredictions() {
           points={points}
           status={'win'}
         />
-        {points > 0 && <StatusPredictionsCard points={points} status={'win'} />}
+        {points > 0 && <StatusPredictionsCard points={points} status={'WIN'} />}
       </div>
     </section>
   );

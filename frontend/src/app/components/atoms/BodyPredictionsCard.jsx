@@ -24,26 +24,30 @@ const getTeamName = (selectedOption, localTeam, visitorTeam) => {
 
 export function BodyPredictionsCard({
   selected,
-  team1,
-  team2,
+  homeTeam,
+  awayTeam,
   points,
   status,
 }) {
   const pointsClass = pointsClasses(status);
-  const userSelected = getTeamName(selected, team1, team2);
+  const userSelected = getTeamName(selected, homeTeam, awayTeam);
   const goals = false;
   return (
     <div className="grid grid-rows-2 items-center gap-2 px-4 py-3">
       {/* Equipos */}
       <div className="grid grid-cols-[1fr,auto,1fr] items-center justify-center gap-1 text-regular-12 text-grayWaki">
         <div className="flex items-center justify-end gap-2">
-          <p className="font-medium text-label">{team1.name}</p>
-          <img src={team1.logoUrl || LogoBarcelona} alt="Logo" width={'18px'} />
+          <p className="font-medium text-label">{homeTeam.name}</p>
+          <img
+            src={homeTeam.shield || LogoBarcelona}
+            alt="Logo"
+            width={'18px'}
+          />
         </div>
         <p className="text-grayLightWaki">vs.</p>
         <div className="flex items-center gap-2">
-          <img src={team2.logoUrl || LogoOsasuna} alt="Logo" width={'18px'} />
-          <p className="font-medium text-label">{team2.name}</p>
+          <img src={awayTeam.shield || LogoOsasuna} alt="Logo" width={'18px'} />
+          <p className="font-medium text-label">{awayTeam.name}</p>
         </div>
       </div>
       {/* Resultado */}
@@ -103,17 +107,21 @@ export function BodyYourPredictionsCard({ result, points, status }) {
   );
 }
 
-export function BodySelectPredictionsCard({ team1, team2 }) {
+export function BodySelectPredictionsCard({ homeTeam, awayTeam }) {
   return (
     <div className="grid w-full grid-cols-[1fr,auto,1fr] items-center justify-center gap-2 px-4 py-5 text-regular-14 text-grayWaki">
       <div className="flex items-center justify-end gap-2">
-        <p className="text-balance text-grayWaki">{team1.name}</p>
-        <img src={team1.logoUrl || LogoBarcelona} alt="Logo" width={'28px'} />
+        <p className="text-balance text-grayWaki">{homeTeam.name}</p>
+        <img
+          src={homeTeam.logoUrl || LogoBarcelona}
+          alt="Logo"
+          width={'28px'}
+        />
       </div>
       <p className="text-regular-16 text-purpleWaki">vs.</p>
       <div className="flex items-center gap-2">
-        <img src={team2.logoUrl || LogoOsasuna} alt="Logo" width={'28px'} />
-        <p className="text-balance text-grayWaki">{team2.name}</p>
+        <img src={awayTeam.logoUrl || LogoOsasuna} alt="Logo" width={'28px'} />
+        <p className="text-balance text-grayWaki">{awayTeam.name}</p>
       </div>
     </div>
   );

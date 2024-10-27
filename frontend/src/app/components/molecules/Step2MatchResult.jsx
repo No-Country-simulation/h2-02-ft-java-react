@@ -39,7 +39,8 @@ export default function Step2MatchResult({
         homeShield: localTeam.logoUrl,
         awayShield: visitorTeam.logoUrl,
         pay: parseFloat(points),
-        competition: league,
+        competition: league.name,
+        competition: league.logo,
       },
       isCombined
     );
@@ -56,7 +57,8 @@ export default function Step2MatchResult({
         homeShield: localTeam.logoUrl,
         awayShield: visitorTeam.logoUrl,
         pay: parseFloat(points),
-        competition: league,
+        competition: league.name,
+        competition: league.logo,
       },
     ];
 
@@ -173,8 +175,8 @@ export default function Step2MatchResult({
       {selectedOption !== 'Resultado' && (
         <PredictionsSummary
           selected={selectedOption}
-          team1={localTeam}
-          team2={visitorTeam}
+          homeTeam={localTeam}
+          awayTeam={visitorTeam}
           points={points}
           status="pending"
         />

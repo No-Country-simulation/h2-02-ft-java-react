@@ -8,10 +8,10 @@ import { formatDate } from '../../utils/dateUtils';
 
 export default function MyPredictionsHeader() {
   const { remainingPredictions, fetchRemainingPredictions } = usePredictions();
-  const today = formatDate(new Date()); // Obtiene la fecha actual en formato adecuado
+  const today = formatDate(new Date());
 
   useEffect(() => {
-    fetchRemainingPredictions(today); // Llama al fetch al montar el componente
+    fetchRemainingPredictions(today);
   }, [fetchRemainingPredictions, today]);
 
   return (

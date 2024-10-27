@@ -8,7 +8,7 @@ export default function PredictionSection() {
 
   useEffect(() => {
     fetchAllPredictions();
-  }, [fetchAllPredictions]);
+  }, []);
 
   return (
     <div className="rounded-t-large bg-white p-5">
