@@ -23,4 +23,6 @@ public interface DivisionRepository {
     void saveAll(List<Division> divisions);
 
     List<UserRanking> findUserRankingsByUserIds(Collection<UserRankingId> userIds);
+
+    Optional<UserRanking> findUserRankingByUserId(UserRankingId userRankingId);
 }

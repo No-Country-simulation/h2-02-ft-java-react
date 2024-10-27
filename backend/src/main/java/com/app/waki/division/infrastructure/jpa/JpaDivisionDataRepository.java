@@ -23,4 +23,9 @@ public interface JpaDivisionDataRepository extends JpaRepository<Division, Divis
     @Query("SELECT r FROM Division d JOIN d.rankings r WHERE r.userId IN :userIds")
     List<UserRanking> findUserRankingsByUserIds(@Param("userIds") Collection<UserRankingId> userIds);
 
+    @Query("SELECT ur FROM UserRanking ur " +
+            "JOIN ur.division d " +
+            "WHERE ur.userId = :userRankingId")
+    Optional<UserRanking> findUserRankingByUserId(@Param("userRankingId") UserRankingId userRankingId);
+
 }

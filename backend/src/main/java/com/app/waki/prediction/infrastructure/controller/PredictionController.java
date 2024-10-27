@@ -1,5 +1,6 @@
 package com.app.waki.prediction.infrastructure.controller;
 
+import com.app.waki.prediction.application.dto.PredictionActiveDto;
 import com.app.waki.prediction.application.dto.PredictionDetailsDto;
 import com.app.waki.prediction.application.dto.PredictionDto;
 import com.app.waki.prediction.application.service.PredictionService;
@@ -22,7 +23,7 @@ public class PredictionController {
 
     private final PredictionService service;
     @GetMapping("/{profileId}")
-    public ResponseEntity<List<PredictionDetailsDto>> getAllPredictionsByProfileId(@PathVariable UUID profileId) {
+    public ResponseEntity<List<PredictionActiveDto>> getAllPredictionsByProfileId(@PathVariable UUID profileId) {
 
         return ResponseEntity.ok(service.getAllPredictionDetailsByProfileId(profileId));
     }

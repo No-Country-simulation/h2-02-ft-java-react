@@ -2,6 +2,7 @@ package com.app.waki.prediction.application.service.impl;
 
 import com.app.waki.common.exceptions.EntityNotFoundException;
 import com.app.waki.match.matchtest.MatchFinalizedEvent;
+import com.app.waki.prediction.application.dto.PredictionActiveDto;
 import com.app.waki.prediction.application.dto.PredictionDetailsDto;
 import com.app.waki.prediction.application.dto.PredictionDto;
 import com.app.waki.prediction.application.service.PredictionService;
@@ -148,12 +149,11 @@ public class PredictionServiceImpl implements PredictionService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<PredictionDetailsDto> getAllPredictionDetailsByProfileId(UUID profileId) {
+    public List<PredictionActiveDto> getAllPredictionDetailsByProfileId(UUID profileId) {
 
         List<PredictionDetails> predictionsByProfileId = repository.getAllPredictionDetailsByProfileId(new ProfileId(profileId));
         checkIfPredictionsAreEmpty(predictionsByProfileId);
-
-        return mapPredictionDetailsToDto(predictionsByProfileId);
+        return PredictionMapper.predictionToPredictionActiveDto(predictionsByProfileId);
     }
 
     @Transactional(readOnly = true)

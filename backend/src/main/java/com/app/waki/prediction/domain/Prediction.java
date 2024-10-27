@@ -1,5 +1,6 @@
 package com.app.waki.prediction.domain;
 
+import com.app.waki.prediction.application.dto.PredictionMatchDto;
 import com.app.waki.prediction.domain.valueObject.*;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -32,6 +33,8 @@ public class Prediction {
             @AttributeOverride(name = "team", column = @Column(name = "away_team"))
     })
     private Team awayTeam;
+    private String homeShield;
+    private String awayShield;
     private HomeGoals homeGoals;
     private AwayGoals awayGoals;
     private LocalDate matchDay;
@@ -46,7 +49,7 @@ public class Prediction {
     public Prediction(){}
 
     private Prediction(PredictionDetails predictionDetails, String matchId, ExpectedResult expectedResult,
-                       Team homeTeam, Team awayTeam, LocalDate matchDay,
+                       Team homeTeam, Team awayTeam, String homeShield, String awayShield, LocalDate matchDay,
                        Double odds, String competition, Boolean combined) {
         this.predictionId = new PredictionId();
         this.predictionDetails = predictionDetails;
@@ -54,6 +57,8 @@ public class Prediction {
         this.expectedResult = expectedResult;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
+        this.homeShield = homeShield;
+        this.awayShield = awayShield;
         this.matchResult = MatchResult.PENDING;
         this.matchDay = matchDay;
         this.odds = odds;
@@ -74,6 +79,8 @@ public class Prediction {
                 expectedResult,
                 homeTeam,
                 awayTeam,
+                predictionRequest.homeShield(),
+                predictionRequest.awayShield(),
                 predictionRequest.matchDay(),
                 predictionRequest.pay(),
                 predictionRequest.competition(),
@@ -115,5 +122,23 @@ public class Prediction {
             case AWAY -> awayTeam.team();
             default -> matchResult.name();
         };
+    }
+
+    public PredictionMatchDto toMatchDto() {
+        return new PredictionMatchDto(
+                this.competition,
+                this.combined,
+                calculatePoints(),
+                this.getFinalResult(),
+                this.homeTeam.team(),
+                this.awayTeam.team(),
+                this.homeShield,
+                this.awayShield
+        );
+    }
+
+    private int calculatePoints() {
+        final int IND_PREDICTION_MULTI = 10;
+        return (int)(this.odds * IND_PREDICTION_MULTI);
     }
 }

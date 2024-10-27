@@ -59,8 +59,9 @@ public class JpaDivisionRepositoryImpl implements DivisionRepository {
         return repository.findUserRankingsByUserIds(userIds);
     }
 
-//    @Override
-//    public List<UserRanking> getAllUsersPoints() {
-//        return repository.getAllUsersPoints();
-//    }
+    @Override
+    public Optional<UserRanking> findUserRankingByUserId(UserRankingId userRankingId) {
+        return repository.findUserRankingByUserId(userRankingId);
+    }
+
 }

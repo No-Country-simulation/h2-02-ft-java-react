@@ -2,6 +2,7 @@ package com.app.waki.prediction.domain;
 
 
 import com.app.waki.common.exceptions.ValidationException;
+import com.app.waki.prediction.application.dto.PredictionActiveDto;
 import com.app.waki.prediction.domain.valueObject.*;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -112,5 +113,16 @@ public class PredictionDetails {
 
     public void setPendingPredictions(Integer pendingPredictions){
         this.pendingPredictions = pendingPredictions;
+    }
+
+    public PredictionActiveDto toActiveDto() {
+        return new PredictionActiveDto(
+                this.predictionDetailsId.detailsId().toString(),
+                this.earnablePoints.points(),
+                this.status.name(),
+                this.predictions.stream()
+                        .map(Prediction::toMatchDto)
+                        .toList()
+        );
     }
 }
