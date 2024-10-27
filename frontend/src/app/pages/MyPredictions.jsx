@@ -73,10 +73,7 @@ export default function MyPredictions() {
   return (
     <div className="flex flex-col bg-gradientWaki">
       <MyPredictionsHeader />
-      <MyPredictionSection
-        title={'Activas'}
-        predictions={myPredictionsActivas}
-      />
+      {/* <MyPredictionSection /> */}
     </div>
   );
 }

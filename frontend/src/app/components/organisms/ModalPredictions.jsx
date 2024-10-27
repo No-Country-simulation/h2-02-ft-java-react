@@ -91,7 +91,7 @@ export default function ModalPredictions({ isOpen, onClose }) {
 
         {step === 4 && <Step4SelectMatch setStep={setStep} />}
 
-        <PredictionsProgress usedPredictions={3} />
+        <PredictionsProgress cantCircles={5} />
 
         {/* Mostrar el componente PredictionAdded si showPredictionAdded es true */}
         {showPredictionAdded && (

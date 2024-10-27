@@ -1,9 +1,19 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AnchorButton from '../atoms/AnchorButton';
 import { BsArrowLeft } from 'react-icons/bs';
 import MyPredictionTabs from '../molecules/MyPredictionTabs';
+import { usePredictions } from '../../context/PredictionsContext';
+import { formatDate } from '../../utils/dateUtils';
 
 export default function MyPredictionsHeader() {
+  const { remainingPredictions, fetchRemainingPredictions } = usePredictions();
+  const today = formatDate(new Date()); // Obtiene la fecha actual en formato adecuado
+
+  useEffect(() => {
+    fetchRemainingPredictions(today); // Llama al fetch al montar el componente
+  }, [fetchRemainingPredictions, today]);
+
   return (
     <div className="w-full text-white">
       <div className="p-5 pt-8">
@@ -20,7 +30,9 @@ export default function MyPredictionsHeader() {
           <h1 className="mb-2 text-semibold-22 font-semibold">
             Tus predicciones
           </h1>
-          <p className="text-[59px] font-medium leading-[70.8px]">5</p>
+          <p className="text-[59px] font-medium leading-[70.8px]">
+            {remainingPredictions}
+          </p>
           <p className="text-regular-16 text-white/75">
             Predicciones disponibles hoy
           </p>

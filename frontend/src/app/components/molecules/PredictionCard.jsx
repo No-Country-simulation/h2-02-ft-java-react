@@ -10,6 +10,8 @@ export function PredictionCard({
   points,
   status,
 }) {
+  console.log(league, selected, team1, team2, points, status);
+
   return (
     <div className="flex flex-col divide-y overflow-hidden rounded-large shadow-[0_0_14.6px_0_rgba(0,0,0,0.2)]">
       <HeaderLeague league={league} />

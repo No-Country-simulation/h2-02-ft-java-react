@@ -13,6 +13,10 @@ export const getProfile = async (profileId) => {
     });
     return response.data;
   } catch (error) {
+    console.error(
+      'Error detallado:',
+      error.response ? error.response.data : error.message
+    );
     throw new Error('Error al obtener el perfil');
   }
 };
@@ -41,11 +45,11 @@ export const validatePrediction = async (profileId, predictions) => {
 };
 
 // Obtener predicciones por fecha e ID de perfil
-export const getPredictionByDate = async (profileId, date) => {
+export const getRemainingPredictionByDate = async (profileId, date) => {
   try {
     const token = localStorage.getItem('token');
     const response = await axios.get(
-      `${API_URL}/profile/predictionByDate/${profileId}`,
+      `${API_URL}/profile/predictionByDate/${profileId}?date=${date}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -57,6 +61,10 @@ export const getPredictionByDate = async (profileId, date) => {
     );
     return response.data;
   } catch (error) {
+    console.error(
+      'Error detallado:',
+      error.response ? error.response.data : error.message
+    );
     throw new Error('Error al obtener las predicciones por fecha');
   }
 };
