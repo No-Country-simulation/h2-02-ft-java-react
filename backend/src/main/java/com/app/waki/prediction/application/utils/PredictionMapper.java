@@ -99,7 +99,7 @@ public class PredictionMapper {
 
         final int IND_PREDICTION_MULTI = 10;
 
-        return new PredictionDto(prediction.getFinalResult(),
+        return new PredictionDto(prediction.getExpectedResult(),
                 (int) (prediction.getOdds() * IND_PREDICTION_MULTI),
                 prediction.getStatus().name());
     }

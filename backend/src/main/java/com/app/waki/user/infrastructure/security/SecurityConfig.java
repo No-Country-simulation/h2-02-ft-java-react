@@ -29,18 +29,18 @@ public class SecurityConfig {
             // SWAGGER
             new AntPathRequestMatcher("/swagger-ui.html"),
             new AntPathRequestMatcher("/v3/api-docs/**"),
-            new AntPathRequestMatcher("/swagger-ui/**"),
-            new AntPathRequestMatcher("/profile/validatePrediction/{profileId}"),
-            new AntPathRequestMatcher("/division/userRanking/{userRankingId}")
+            new AntPathRequestMatcher("/swagger-ui/**")
     );
 
     RequestMatcher UserUrls = new OrRequestMatcher(
             //PROFILE
             new AntPathRequestMatcher("/profile/{profileId}"),
+            new AntPathRequestMatcher("/profile/validatePrediction/{profileId}"),
             new AntPathRequestMatcher("/profile/predictionByDate/{profileId}"),
             new AntPathRequestMatcher("/profile/validatePrediction/{profileId}"),
             //DIVISION
             new AntPathRequestMatcher("/division/update"),
+            new AntPathRequestMatcher("/division/userRanking/{userRankingId}"),
             //PREDICTION
             new AntPathRequestMatcher("/prediction/{profileId}"),
             new AntPathRequestMatcher("/prediction/byDate/{profileId}"),
