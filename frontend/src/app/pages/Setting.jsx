@@ -52,6 +52,7 @@ export default function Setting() {
             iconColor={button.iconColor}
             toggle={button.toggle}
             onToggle={button.onToggle}
+            className="h-14"
           />
         ))}
       </div>

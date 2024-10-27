@@ -16,6 +16,10 @@ export const getMatchesDate = async (date) => {
     );
     return response.data;
   } catch (error) {
+    console.error(
+      'Error detallado:',
+      error.response ? error.response.data : error.message
+    );
     throw new Error('Error al obtener los partidos de una fecha determinada');
   }
 };
@@ -34,6 +38,10 @@ export const getMatchesLeagueDate = async (competitionCode, date) => {
     );
     return response.data;
   } catch (error) {
+    console.error(
+      'Error detallado:',
+      error.response ? error.response.data : error.message
+    );
     throw new Error(
       'Error al obtener los partidos de una liga y fecha determinadas'
     );
@@ -51,6 +59,10 @@ export const getCompetitions = async () => {
     });
     return response.data;
   } catch (error) {
+    console.error(
+      'Error detallado:',
+      error.response ? error.response.data : error.message
+    );
     throw new Error('Error al obtener las competiciones');
   }
 };
@@ -66,6 +78,10 @@ export const getStanding = async (competitionCode) => {
     });
     return response.data;
   } catch (error) {
+    console.error(
+      'Error detallado:',
+      error.response ? error.response.data : error.message
+    );
     throw new Error('Error al obtener las posiciones de la competencia');
   }
 };

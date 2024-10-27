@@ -6,9 +6,12 @@ export default function ButtonWakiWhite({
   iconColor,
   toggle,
   onToggle,
+  className,
 }) {
   return (
-    <button className="flex h-14 w-full items-center rounded-lg pl-5 pr-3 shadow-custom">
+    <button
+      className={`flex w-full items-center rounded-lg pl-5 pr-3 shadow-custom ${className}`}
+    >
       <div
         className={`mr-5 flex h-8 w-8 items-center justify-center ${iconColor}`}
       >

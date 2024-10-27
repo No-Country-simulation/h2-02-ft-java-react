@@ -32,6 +32,7 @@ export default function Help() {
             icon={button.icon}
             text={button.text}
             iconColor={button.iconColor}
+            className="h-14"
           />
         ))}
       </div>
