@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { createUser } from '../../services/userService';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import InputField from '../atoms/InputField';
-import PasswordInput from '../molecules/PasswordInput';
 import Button from '../atoms/Button';
+import PasswordInput from '../molecules/PasswordInput';
 
-export default function RegisterForm() {
+export default function RegisterForm({ onRegisterSuccess }) {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -13,7 +12,6 @@ export default function RegisterForm() {
     confirmPassword: '',
   });
   const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate(); // Inicializa useNavigate para redirigir
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,7 +54,7 @@ export default function RegisterForm() {
     try {
       const response = await createUser(username, email, password);
       console.log('Usuario creado:', response);
-      navigate('/login'); // Redirige al login después del registro exitoso
+      onRegisterSuccess();
     } catch (error) {
       setErrorMessage(error.message || 'Error al crear el usuario');
     }

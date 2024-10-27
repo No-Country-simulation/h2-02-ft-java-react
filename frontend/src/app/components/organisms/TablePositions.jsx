@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 
-export default function TablePositions({ standings }) {
+export default function TablePositions({ standings, localName, visitorName }) {
   return (
     <div className="flex flex-col divide-y overflow-hidden rounded-large shadow-custom">
       <table className="w-full divide-y bg-grayCard text-left font-medium">
         <thead>
-          <tr className="text-regularTable-11 space-x-1 bg-white text-center font-medium text-grayLightWaki">
-            <th className="py-2 ps-4 text-left">Team</th>
+          <tr className="bg-white text-center">
+            <th className="py-2 ps-4 text-left">Equipo</th>
             <th className="w-[28px] py-2">P</th>
             <th className="w-[50px] py-2">Goles</th>
-            <th className="w-[40px] py-2">GD</th>
+            <th className="w-[40px] py-2">DG</th>
             <th className="w-[40px] py-2 pe-4">PTS</th>
           </tr>
         </thead>
@@ -17,7 +17,11 @@ export default function TablePositions({ standings }) {
           {standings.map((team) => (
             <tr
               key={team.teamId}
-              className="text-regularTable-14 text-center font-normal text-grayWaki hover:bg-gray-50"
+              className={`text-center text-regularTable-14 font-normal text-grayWaki hover:bg-gray-50 ${
+                team.teamName === localName || team.teamName === visitorName
+                  ? 'bg-inputBorder'
+                  : ''
+              }`}
             >
               <td className="flex items-center gap-1 py-3 ps-4">
                 <span className="w-5 text-blueWaki">{team.position}</span>

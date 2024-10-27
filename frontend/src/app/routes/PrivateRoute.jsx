@@ -11,7 +11,7 @@ export default function PrivateRoute({ children }) {
 
   // Si no está autenticado, redirige al login
   if (!isAuthenticated) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/auth" />;
   }
 
   // Si está autenticado, renderiza el componente hijo

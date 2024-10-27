@@ -1,8 +1,7 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import Login from '../pages/Login';
-import Register from '../pages/Register';
 import Home from '../pages/Home';
+import AuthPage from '../pages/AuthPage';
 import Profile from '../pages/Profile';
 import Match from '../pages/Match';
 import ScoutPlayers from '../pages/ScoutPlayers';
@@ -17,42 +16,30 @@ import Help from '../pages/Help';
 import Setting from '../pages/Setting';
 
 export default function AppRouter() {
-  const location = useLocation(); // Detectamos el cambio de ruta
+  const location = useLocation();
 
   return (
     <AnimatePresence mode="wait">
-      {' '}
-      {/* Usamos mode="wait" para gestionar las transiciones */}
       <Routes location={location} key={location.pathname}>
         {/* Rutas públicas */}
         <Route
-          path="/login"
+          path="/"
           element={
             <PageWrapper>
-              <Login />
+              <Home />
             </PageWrapper>
           }
         />
         <Route
-          path="/register"
+          path="/auth"
           element={
             <PageWrapper>
-              <Register />
+              <AuthPage />
             </PageWrapper>
           }
         />
 
         {/* Rutas privadas */}
-        <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <PageWrapper>
-                <Home />
-              </PageWrapper>
-            </PrivateRoute>
-          }
-        />
         <Route
           path="/match"
           element={
@@ -162,10 +149,10 @@ export default function AppRouter() {
 function PageWrapper({ children }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }} // La vista aparece con opacidad 0 y desplazada hacia abajo
-      animate={{ opacity: 1, y: 0 }} // Transición suave al mostrar la vista
-      exit={{ opacity: 0, y: -10 }} // La vista desaparece con un desvanecimiento y desplazamiento hacia arriba
-      transition={{ duration: 0.5 }} // Duración de la animación
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
     >
       {children}
     </motion.div>

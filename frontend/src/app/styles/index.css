@@ -10,10 +10,13 @@ body {
   width: 100%;
 }
 
-/* Media query personalizada para pantallas de mínimo 540px */
-@media (min-width: 540px) {
+@media (min-width: 640px) {
   body {
     display: grid;
     place-content: center;
   }
+}
+
+th {
+  @apply text-regularTable-11 font-medium text-grayLightWaki;
 }

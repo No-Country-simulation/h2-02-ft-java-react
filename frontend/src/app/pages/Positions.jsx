@@ -9,7 +9,7 @@ export default function Positions() {
   const [standings, setStandings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  console.log(standings);
+  console.log(selectedMatch);
 
   useEffect(() => {
     const fetchStandings = async () => {
@@ -46,7 +46,11 @@ export default function Positions() {
           {standings[0].league.leagueName}
         </h2>
       </div>
-      <TablePositions standings={standings} />
+      <TablePositions
+        standings={standings}
+        localName={selectedMatch.localTeam.name}
+        visitorName={selectedMatch.visitorTeam.name}
+      />
     </section>
   );
 }

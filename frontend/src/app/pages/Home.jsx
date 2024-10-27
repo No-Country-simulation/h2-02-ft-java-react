@@ -1,18 +1,23 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export default function Home() {
+  const { isAuthenticated, loading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Redirigir al usuario a /match después de 2 segundos
     const timer = setTimeout(() => {
-      navigate('/match');
+      if (!loading) {
+        if (isAuthenticated) {
+          navigate('/match');
+        } else {
+          navigate('/auth');
+        }
+      }
     }, 2000);
-
-    // Limpiar el temporizador si el componente se desmonta
     return () => clearTimeout(timer);
-  }, [navigate]);
+  }, [isAuthenticated, loading, navigate]);
 
   return (
     <main className="flex min-h-svh w-svw items-center justify-center bg-gradientWaki">
