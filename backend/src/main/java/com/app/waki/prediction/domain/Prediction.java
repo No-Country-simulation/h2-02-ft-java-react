@@ -1,5 +1,6 @@
 package com.app.waki.prediction.domain;
 
+import com.app.waki.prediction.application.dto.PredictionMatchDto;
 import com.app.waki.prediction.domain.valueObject.*;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -121,5 +122,23 @@ public class Prediction {
             case AWAY -> awayTeam.team();
             default -> matchResult.name();
         };
+    }
+
+    public PredictionMatchDto toMatchDto() {
+        return new PredictionMatchDto(
+                this.competition,
+                this.combined,
+                calculatePoints(),
+                this.getFinalResult(),
+                this.homeTeam.team(),
+                this.awayTeam.team(),
+                this.homeShield,
+                this.awayShield
+        );
+    }
+
+    private int calculatePoints() {
+        final int IND_PREDICTION_MULTI = 10;
+        return (int)(this.odds * IND_PREDICTION_MULTI);
     }
 }

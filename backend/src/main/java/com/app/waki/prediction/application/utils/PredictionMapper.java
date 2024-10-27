@@ -105,34 +105,8 @@ public class PredictionMapper {
 
     public static List<PredictionActiveDto> predictionToPredictionActiveDto(List<PredictionDetails> details){
 
-        List<PredictionActiveDto> allPredictionsActive = new ArrayList<>();
-
-        for (PredictionDetails pd : details){
-
-            List<PredictionMatchDto> matchDto = pd.getPredictions().stream()
-                    .map(mt -> new PredictionMatchDto(
-                            mt.getCompetition(),
-                            mt.getCombined(),
-                            (int) (mt.getOdds() * 10),
-                            mt.getFinalResult(),
-                            mt.getHomeTeam().team(),
-                            mt.getAwayTeam().team(),
-                            mt.getHomeShield(),
-                            mt.getAwayShield()
-                            ))
-                    .toList();
-
-
-            PredictionActiveDto newPrediction = new PredictionActiveDto(
-                    pd.getPredictionDetailsId().detailsId().toString(),
-                    pd.getEarnablePoints().points(),
-                    pd.getStatus().name(),
-                    matchDto
-            );
-
-            allPredictionsActive.add(newPrediction);
-        }
-
-        return allPredictionsActive;
+        return details.stream()
+                .map(PredictionDetails::toActiveDto)
+                .toList();
     }
 }
