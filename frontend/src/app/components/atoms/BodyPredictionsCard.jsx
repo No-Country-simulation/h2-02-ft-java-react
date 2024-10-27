@@ -30,32 +30,36 @@ export function BodyPredictionsCard({
   status,
 }) {
   const pointsClass = pointsClasses(status);
-  const userSelected = getTeamName(selected, homeTeam, awayTeam);
+
   const goals = false;
   return (
-    <div className="grid grid-rows-2 items-center gap-2 px-4 py-3">
+    <div className="grid grid-rows-2 items-center gap-2 divide-y divide-grayCard px-4 py-3">
       {/* Equipos */}
-      <div className="grid grid-cols-[1fr,auto,1fr] items-center justify-center gap-1 text-regular-12 text-grayWaki">
+      <div className="grid grid-cols-[1fr,auto,1fr] items-center justify-center gap-1 text-xs text-grayWaki">
         <div className="flex items-center justify-end gap-2">
-          <p className="font-medium text-label">{homeTeam.name}</p>
+          <p className="text-end font-medium text-label">{homeTeam.name}</p>
           <img
-            src={homeTeam.shield || LogoBarcelona}
+            src={homeTeam.logoUrl || LogoBarcelona}
             alt="Logo"
             width={'18px'}
           />
         </div>
         <p className="text-grayLightWaki">vs.</p>
         <div className="flex items-center gap-2">
-          <img src={awayTeam.shield || LogoOsasuna} alt="Logo" width={'18px'} />
+          <img
+            src={awayTeam.logoUrl || LogoOsasuna}
+            alt="Logo"
+            width={'18px'}
+          />
           <p className="font-medium text-label">{awayTeam.name}</p>
         </div>
       </div>
       {/* Resultado */}
-      <div className="flex flex-col">
+      <div className="flex flex-col pt-3">
         <div className="grid grid-cols-[1fr,50px]">
           <p className="text-regular-12 text-grayWaki">
-            Resultado final:{' '}
-            <span className="text-regular-14 text-label">{userSelected}</span>
+            Mi predicción:{' '}
+            <span className="text-regular-14 text-label">{selected}</span>
           </p>
           <p
             className={`text-center text-regular-16 font-medium ${pointsClass}`}
@@ -81,7 +85,12 @@ export function BodyPredictionsCard({
   );
 }
 
-export function BodyYourPredictionsCard({ result, points, status }) {
+export function BodyYourPredictionsCard({
+  result,
+  points,
+  status,
+  matchStatus,
+}) {
   const pointsClass = pointsClasses(status);
 
   return (
@@ -94,8 +103,14 @@ export function BodyYourPredictionsCard({ result, points, status }) {
         </div>
       ) : (
         <div className="flex flex-col text-regular-14">
-          <p className="text-label">No hiciste predicciones</p>
-          <p className="text-grayLightWaki">Suerte la próxima</p>
+          {matchStatus !== 'FT' ? (
+            <p className="text-label">Aún hiciste predicciones</p>
+          ) : (
+            <>
+              <p className="text-label">No hiciste predicciones</p>
+              <p className="text-grayLightWaki">Suerte la próxima</p>
+            </>
+          )}
         </div>
       )}
 
@@ -103,26 +118,6 @@ export function BodyYourPredictionsCard({ result, points, status }) {
       <p className={`text-center text-regular-16 font-medium ${pointsClass}`}>
         {points} puntos
       </p>
-    </div>
-  );
-}
-
-export function BodySelectPredictionsCard({ homeTeam, awayTeam }) {
-  return (
-    <div className="grid w-full grid-cols-[1fr,auto,1fr] items-center justify-center gap-2 px-4 py-5 text-regular-14 text-grayWaki">
-      <div className="flex items-center justify-end gap-2">
-        <p className="text-balance text-grayWaki">{homeTeam.name}</p>
-        <img
-          src={homeTeam.logoUrl || LogoBarcelona}
-          alt="Logo"
-          width={'28px'}
-        />
-      </div>
-      <p className="text-regular-16 text-purpleWaki">vs.</p>
-      <div className="flex items-center gap-2">
-        <img src={awayTeam.logoUrl || LogoOsasuna} alt="Logo" width={'28px'} />
-        <p className="text-balance text-grayWaki">{awayTeam.name}</p>
-      </div>
     </div>
   );
 }

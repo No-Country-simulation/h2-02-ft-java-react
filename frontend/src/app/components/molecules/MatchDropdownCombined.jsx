@@ -53,6 +53,7 @@ export default function MatchDropdownCombined({
           startTime: match.fixture.date,
           status: match.fixture.status.shortStatus,
           league: {
+            id: match.fixture.league.id,
             name: match.fixture.league.name,
             logo: match.fixture.league.logo,
           },

@@ -40,7 +40,7 @@ export default function Step2MatchResult({
         awayShield: visitorTeam.logoUrl,
         pay: parseFloat(points),
         competition: league.name,
-        competition: league.logo,
+        competitionShield: league.logo,
       },
       isCombined
     );
@@ -58,7 +58,7 @@ export default function Step2MatchResult({
         awayShield: visitorTeam.logoUrl,
         pay: parseFloat(points),
         competition: league.name,
-        competition: league.logo,
+        competitionShield: league.logo,
       },
     ];
 

@@ -4,7 +4,6 @@ import { BiLoaderCircle } from 'react-icons/bi';
 
 export default function StatusPredictionsCard({ status, points }) {
   let statusContent;
-  console.log('entre');
 
   // Lógica para mostrar el contenido según el estado
   switch (status) {

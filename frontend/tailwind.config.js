@@ -9,8 +9,16 @@ module.exports = {
         sans: ['Poppins', 'sans-serif'],
       },
       fontSize: {
+        'regularTable-11': [
+          '11px',
+          { lineHeight: '16px', letterSpacing: '-0.24px' },
+        ],
         'regular-12': ['12px', { lineHeight: '18px' }],
         'regular-13': ['13px', { lineHeight: '19.5px' }],
+        'regularTable-14': [
+          '14px',
+          { lineHeight: '21px', letterSpacing: '-0.24px' },
+        ],
         'regular-14': ['14px', { lineHeight: '21px' }],
         'regular-15': ['15px', { lineHeight: '20px' }],
         'regular-16': ['16px', { lineHeight: '19.2px' }],

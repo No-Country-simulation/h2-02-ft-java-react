@@ -14,17 +14,21 @@ export function PredictionCard({
       awayTeam,
       homeShield,
       awayShield,
+      competitionShield,
     },
   ],
 }) {
   return (
-    <div className="flex flex-col divide-y overflow-hidden rounded-large shadow-[0_0_14.6px_0_rgba(0,0,0,0.2)]">
-      <HeaderLeague league={competition} />
+    <div className="flex flex-col divide-y overflow-hidden rounded-large shadow-custom">
+      <HeaderLeague
+        league={competition}
+        competitionShield={competitionShield}
+      />
 
       <BodyPredictionsCard
         selected={finalResult}
-        homeTeam={{ name: homeTeam, shield: homeShield }}
-        awayTeam={{ name: awayTeam, shield: awayShield }}
+        homeTeam={{ name: homeTeam, logoUrl: homeShield }}
+        awayTeam={{ name: awayTeam, logoUrl: awayShield }}
         points={points}
         status={status}
       />

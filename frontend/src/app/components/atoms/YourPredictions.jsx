@@ -3,8 +3,10 @@ import { BsArrowRight } from 'react-icons/bs';
 import { BodyYourPredictionsCard } from './BodyPredictionsCard';
 import StatusPredictionsCard from './StatusPredictionsCard';
 
-export default function YourPredictions() {
-  const points = 10;
+export default function YourPredictions({ predictionData, matchStatus }) {
+  const points = predictionData?.points ?? 0;
+  const status = predictionData?.status ?? 'PENDING';
+
   return (
     <section className="flex w-full flex-col gap-3">
       <div className="flex items-center justify-between">
@@ -23,9 +25,12 @@ export default function YourPredictions() {
         <BodyYourPredictionsCard
           result={'Barcelona'}
           points={points}
-          status={'win'}
+          status={status.toLowerCase()}
+          matchStatus={matchStatus}
         />
-        {points > 0 && <StatusPredictionsCard points={points} status={'WIN'} />}
+        {points > 0 && (
+          <StatusPredictionsCard points={points} status={status} />
+        )}
       </div>
     </section>
   );
