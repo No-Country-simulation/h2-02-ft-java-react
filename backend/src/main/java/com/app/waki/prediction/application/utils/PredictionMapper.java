@@ -32,7 +32,8 @@ public class PredictionMapper {
                         pd.awayShield(),
                         pd.matchDay(),
                         pd.pay(),
-                        pd.competition()))
+                        pd.competition(),
+                        pd.competitionShield()))
                 .toList();
     }
 
