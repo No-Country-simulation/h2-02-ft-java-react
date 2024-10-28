@@ -14,35 +14,32 @@ export default function ButtonWakiWhite({
 }) {
   return (
     <button
-      className={`flex w-full ${isNotification ? 'flex-col' : 'items-center'} rounded-lg p-5 shadow-custom ${className}`}
+      className={`relative flex w-full ${isNotification ? 'flex-col' : 'items-center'} rounded-lg ${isNotification ? 'px-5 py-1' : 'p-5'} shadow-custom ${className}`}
     >
       <div className={`flex items-center ${iconColor}`}>
         <div className="mr-5 flex h-8 w-8 items-center justify-center">
           {icon}
         </div>
         {isNotification ? (
-          <span className="text-[12px] text-[#555555]">Predicciones</span>
+          <div className="flex flex-col text-left">
+            <span className="text-[12px] text-[#555555]">Predicciones</span>
+            <span className="text-[16px] text-[#181818]">{text}</span>
+            <span className="text-[12px] text-[#555555]">{result}</span>
+            <span className="text-[12px] text-[#555555]">{message}</span>
+          </div>
         ) : (
           <span className="text-[16px] text-[#181818]">{text}</span>
         )}
       </div>
       {isNotification && (
-        <>
-          <span className="mt-2 text-[16px] text-[#181818]">{text}</span>
-          <span className="mt-2 text-[12px] text-[#555555]">{result}</span>
-          <span className="mt-2 text-[12px] text-[#555555]">{message}</span>
-        </>
-      )}
-      {isNotification ? (
-        <div className="ml-auto mt-2">
+        <div className="absolute right-2 top-2">
           <IoIosNotificationsOutline size={24} />
         </div>
-      ) : (
-        toggle !== undefined && (
-          <div className="ml-auto">
-            <ToggleSwitch isChecked={toggle} onToggle={onToggle} />
-          </div>
-        )
+      )}
+      {!isNotification && toggle !== undefined && (
+        <div className="ml-auto">
+          <ToggleSwitch isChecked={toggle} onToggle={onToggle} />
+        </div>
       )}
     </button>
   );
