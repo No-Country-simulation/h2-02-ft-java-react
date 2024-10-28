@@ -32,7 +32,7 @@ export default function Divisions() {
         currentView={selectedView}
         onViewChange={setSelectedView}
       />
-      <div className="flex-grow">{renderContent()}</div>
+      <div className="flex-grow mb-[90px]">{renderContent()}</div>
       <FooterNavbar />
     </main>
   );

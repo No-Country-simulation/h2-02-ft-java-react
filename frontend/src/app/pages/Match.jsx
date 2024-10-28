@@ -23,7 +23,9 @@ export default function Match() {
               Mis predicciones
             </AnchorButton>
           </div>
-          <MatchList />
+          <div className="mb-[90px]">
+            <MatchList />
+          </div>
         </>
       )}
 
