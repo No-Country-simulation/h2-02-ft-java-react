@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +33,9 @@ public class LeagueServiceImpl implements LeagueService {
     // Lista de IDs de ligas que quieres obtener
     private static final List<Long> LEAGUE_IDS = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L); // Premier League = 39, La Liga = 140
 
+    @Override
+    @Transactional
+    @Scheduled(cron = "0 0 0 * * *") // Todos los días a las 00:00
     public void fetchAndSaveLeague() throws IOException, InterruptedException {
         for (Long leagueId : LEAGUE_IDS) {
             // Construye la solicitud para cada ID de liga
