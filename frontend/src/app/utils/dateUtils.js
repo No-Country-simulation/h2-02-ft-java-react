@@ -17,3 +17,12 @@ export const adjustDate = (days) => {
   date.setDate(date.getDate() + days);
   return date;
 };
+
+// Función para obtener un arreglo de fechas ajustadas para los próximos días
+export const getUpcomingDays = () => {
+  const daysArray = ['Todas'];
+  for (let i = 0; i <= 5; i++) {
+    daysArray.push(adjustDate(i));
+  }
+  return daysArray;
+};

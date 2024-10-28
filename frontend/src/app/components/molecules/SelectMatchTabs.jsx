@@ -1,19 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDate } from '../../context/DateContext';
-import { adjustDate, formatDate, formatDateNav } from '../../utils/dateUtils';
+import {
+  getUpcomingDays,
+  formatDate,
+  formatDateNav,
+} from '../../utils/dateUtils';
 import PredictionsProgress from '../atoms/PredictionsProgress';
 
 export default function SelectMatchTabs() {
   const { updateSelectedDate } = useDate();
-  const today = adjustDate(0);
-  const day1 = adjustDate(1);
-  const day2 = adjustDate(2);
-  const day3 = adjustDate(3);
-  const day4 = adjustDate(4);
+  const tabs = getUpcomingDays();
+  const today = tabs[1];
   const [activeTab, setActiveTab] = useState(formatDateNav(today));
 
-  const tabs = [today, day1, day2, day3, day4];
-  // console.log('tabs', tabs);
+  useEffect(() => {
+    updateSelectedDate(today);
+  }, []);
 
   const handleTabClick = (tab) => {
     console.log(formatDateNav(tab));
@@ -24,7 +26,7 @@ export default function SelectMatchTabs() {
   return (
     <nav className="w-full overflow-x-auto">
       <div className="flex w-full justify-between space-x-4 whitespace-nowrap">
-        {tabs.map((tab) => (
+        {tabs.slice(1).map((tab) => (
           <div className="flex flex-col items-center gap-2" key={tab}>
             {tab !== today ? (
               <PredictionsProgress

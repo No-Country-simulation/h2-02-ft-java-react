@@ -1,36 +1,40 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDate } from '../../context/DateContext';
+import { getUpcomingDays, formatDateNav } from '../../utils/dateUtils';
 
 export default function MyPredictionTabs() {
-  const [activeTab, setActiveTab] = useState('Todas');
+  const { updateSelectedDate } = useDate();
+  const tabs = getUpcomingDays();
+  const [activeTab, setActiveTab] = useState(tabs[0]);
 
-  const tabs = [
-    'Todas',
-    'Hoy',
-    '26 Sep',
-    '27 Sep',
-    '28 Sep',
-    '29 Sep',
-    '30 Sep',
-  ];
+  useEffect(() => {
+    updateSelectedDate(tabs[0]);
+  }, []);
 
   const handleTabClick = (tab) => {
-    setActiveTab(tab);
+    setActiveTab(tab !== 'Todas' ? formatDateNav(tab) : tab);
+    updateSelectedDate(tab);
   };
 
   return (
     <div className="w-full overflow-x-auto">
       <div className="flex w-full justify-between space-x-4 whitespace-nowrap">
-        {tabs.map((tab) => (
+        {tabs.map((tab, index) => (
           <button
-            key={tab}
+            key={index}
             onClick={() => handleTabClick(tab)}
             className={`px-4 py-3 text-regularNav-16 transition-colors duration-300 ${
-              activeTab === tab
+              (index === 0 && activeTab === 'Todas') ||
+              (index !== 0 && activeTab === formatDateNav(tab))
                 ? 'border-b-[3px] border-white font-medium text-white'
                 : 'text-[rgba(255,255,255,0.65)]'
             }`}
           >
-            {tab}
+            {tab === 'Todas'
+              ? 'Todas'
+              : index === 1
+                ? 'Hoy'
+                : formatDateNav(tab)}
           </button>
         ))}
       </div>

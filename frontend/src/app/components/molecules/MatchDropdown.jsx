@@ -11,8 +11,8 @@ export default function MatchDropdown({ competitionInfo }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { selectedDate } = useDate();
+  const today = new Date();
 
-  // Función para obtener los partidos
   const fetchMatches = async () => {
     setLoading(true);
     setError(null);
@@ -20,7 +20,7 @@ export default function MatchDropdown({ competitionInfo }) {
     try {
       const fetchedMatches = await getMatchesLeagueDate(
         competitionInfo.code,
-        formatDate(selectedDate)
+        formatDate(selectedDate === null ? today : selectedDate)
       );
       // console.log(fetchedMatches);
 
