@@ -1,78 +1,82 @@
 import { useEffect, useState } from 'react';
-import clsx from 'clsx';
+import AnchorButton from '../atoms/AnchorButton';
+import { PredictionCard } from '../molecules/PredictionCard';
 import { usePredictions } from '../../context/PredictionsContext';
 import { useAuth } from '../../context/AuthContext';
-import { formatDate } from '../../utils/dateUtils';
-import { getRemainingPredictionByDate } from '../../services/profileService';
 import { fetchProfileAndCheckPredictions } from '../../utils/profileUtils';
 
-export default function PredictionsProgress({
-  totalPredictions = 5,
-  date = formatDate(new Date()),
-  cantCircles,
-}) {
-  const { remainingPredictions, fetchRemainingPredictions } = usePredictions();
+export default function PredictionSection() {
+  const { allPredictions, fetchAllPredictions } = usePredictions();
   const { userId } = useAuth();
   const [shouldFetch, setShouldFetch] = useState(false);
-  const [remainingPredictionsForTwo, setRemainingPredictionsForTwo] = useState(
-    totalPredictions === 2 ? 0 : null
+  const pastPredictions = allPredictions.filter(
+    (prediction) => prediction.status !== 'PENDING'
   );
+  console.log('allPredictions ', allPredictions);
 
-  // Verifica si se deben obtener las predicciones restantes
+  // Verifica si se deben obtener las predicciones
   useEffect(() => {
-    const checkRemainingPredictions = async () => {
-      const canFetch = await fetchProfileAndCheckPredictions(userId, date);
-      setShouldFetch(canFetch);
+    const checkPredictions = async () => {
+      const canFetchPredictions = await fetchProfileAndCheckPredictions(userId);
+      setShouldFetch(canFetchPredictions);
     };
-    checkRemainingPredictions();
-  }, [userId, date]);
+    checkPredictions();
+  }, []);
 
+  // Solo llama a fetchAllPredictions si `shouldFetch` es true
   useEffect(() => {
-    if (totalPredictions === 5 && shouldFetch) {
-      fetchRemainingPredictions(date);
-    } else if (totalPredictions === 2 && shouldFetch) {
-      // Fetch adicional solo para totalPredictions de 2
-      const fetchForTwo = async () => {
-        const { remainingPredictions } = await getRemainingPredictionByDate(
-          userId,
-          date
-        );
-        setRemainingPredictionsForTwo(remainingPredictions);
-      };
-      fetchForTwo();
+    if (!shouldFetch) {
+      fetchAllPredictions();
     }
-  }, [fetchRemainingPredictions, date, totalPredictions, shouldFetch]);
-
-  const usedPredictions =
-    totalPredictions === 5
-      ? 5 - remainingPredictions
-      : 5 - remainingPredictionsForTwo;
-
-  const circles = [];
-
-  for (let i = 0; i < cantCircles; i++) {
-    circles.push(
-      <span
-        key={i}
-        className={clsx(
-          'rounded-full border-[1.11px] border-purpleWaki',
-          i < usedPredictions ? 'bg-purpleWaki' : 'bg-transparent',
-          totalPredictions !== 5 ? 'h-[10px] w-[10px]' : 'h-3 w-3'
-        )}
-      />
-    );
-  }
-
-  if (totalPredictions !== 5) {
-    return <div className="flex space-x-1">{circles}</div>;
-  }
+  }, []);
 
   return (
-    <div className="fixed inset-x-0 bottom-0 flex h-14 items-center justify-between rounded-t-xl bg-white px-10 py-4 shadow-[0_0_11.8px_0_rgba(0,0,0,0.2)]">
-      <p className="text-regular-14 font-medium text-purpleWaki">
-        Predicciones utilizadas de hoy:
-      </p>
-      <div className="flex space-x-1">{circles}</div>
+    <div className="min-h-72 rounded-t-large bg-white p-5">
+      {shouldFetch ? (
+        <div className="mb-5 flex flex-col items-center gap-5">
+          <h3 className="text-medium-18 font-medium text-blueWaki">
+            Aún no has hecho predicciones
+          </h3>
+          <AnchorButton to="/match">Hacer predicción</AnchorButton>
+        </div>
+      ) : (
+        <>
+          {/* Predicciones activas */}
+          <div className="mb-5 flex items-center justify-between">
+            <h3 className="text-medium-18 font-medium text-blueWaki">
+              Activas
+            </h3>
+            <AnchorButton to="/match">Hacer predicción</AnchorButton>
+          </div>
+          <ul className="mb-2 grid grid-cols-[1fr_1fr_50px] items-center rounded-large px-4 py-2 shadow-custom">
+            <li className="text-regular-12 text-grayLightWaki">Predicción</li>
+            <li className="text-regular-12 text-grayLightWaki">Partido</li>
+            <li className="text-center text-regular-12 text-grayLightWaki">
+              Puntos
+            </li>
+          </ul>
+          <div className="flex flex-col gap-2">
+            {allPredictions
+              .filter((prediction) => prediction.status === 'PENDING')
+              .map((prediction, index) => (
+                <PredictionCard key={index} {...prediction} />
+              ))}
+          </div>
+          {/* Predicciones pasadas */}
+          {pastPredictions.length > 0 && (
+            <>
+              <h3 className="my-5 text-medium-18 font-medium text-blueWaki">
+                Pasadas
+              </h3>
+              <div className="flex flex-col gap-2">
+                {pastPredictions.map((prediction, index) => (
+                  <PredictionCard key={index} {...prediction} />
+                ))}
+              </div>
+            </>
+          )}
+        </>
+      )}
     </div>
   );
 }

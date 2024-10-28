@@ -10,7 +10,6 @@ export default function MatchCard({ matchData }) {
   const { localTeam, visitorTeam, score, odds, startTime, status } = matchData;
   const [elapsedTime, setElapsedTime] = useState('');
   const [hasStarted, setHasStarted] = useState(false);
-  console.log('visitorTeam.name ', visitorTeam.name);
 
   useEffect(() => {
     const interval = setInterval(() => {
