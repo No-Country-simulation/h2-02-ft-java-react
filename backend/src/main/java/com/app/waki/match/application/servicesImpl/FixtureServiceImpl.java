@@ -121,12 +121,14 @@ public class FixtureServiceImpl implements FixtureService {
                 JsonNode homeTeamNode = teamsNode.path("home");
                 Team homeTeam = new Team();
                 homeTeam.setId(homeTeamNode.path("id").asLong());
+
                 // Aplica la lógica de renombrar antes de establecer el nombre
                 String homeTeamName = homeTeamNode.path("name").asText();
                 if ("Central Cordoba de Santiago".equals(homeTeamName)) {
                     homeTeamName = "Central Crodoba (SdE)";
                 }
                 homeTeam.setTeamName(homeTeamName);
+
                 //homeTeam.setTeamName(homeTeamNode.path("name").asText());
                 homeTeam.setTeamLogo(homeTeamNode.path("logo").asText());
                 homeTeam.setWinner(homeTeamNode.path("winner").asBoolean());
@@ -135,12 +137,14 @@ public class FixtureServiceImpl implements FixtureService {
                 JsonNode awayTeamNode = teamsNode.path("away");
                 Team awayTeam = new Team();
                 awayTeam.setId(awayTeamNode.path("id").asLong());
+
                 // Aplica la lógica de renombrar antes de establecer el nombre
                 String awayTeamName = awayTeamNode.path("name").asText();
                 if ("Central Cordoba de Santiago".equals(awayTeamName)) {
                     awayTeamName = "Central Crodoba (SdE)";
                 }
                 awayTeam.setTeamName(awayTeamName);
+                
                 //awayTeam.setTeamName(awayTeamNode.path("name").asText());
                 awayTeam.setTeamLogo(awayTeamNode.path("logo").asText());
                 awayTeam.setWinner(awayTeamNode.path("winner").asBoolean());
