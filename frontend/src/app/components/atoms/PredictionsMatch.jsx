@@ -103,7 +103,9 @@ export default function PredictionsMatch() {
       <div className="grid grid-cols-[1fr_100px_1fr] items-center gap-4">
         {/* Columna 1: Nombre del equipo local */}
         <p className="text-balance text-center text-regular-12 text-grayWaki">
-          {localTeam.name}
+          {localTeam.name === 'Central Cordoba de Santiago'
+            ? 'Central Cba (SdE)'
+            : localTeam.name}
         </p>
 
         {/* Columna 2: Espacio en blanco */}
@@ -111,7 +113,9 @@ export default function PredictionsMatch() {
 
         {/* Columna 3: Nombre del equipo visitante */}
         <p className="text-balance text-center text-regular-12 text-grayWaki">
-          {visitorTeam.name}
+          {visitorTeam.name === 'Central Cordoba de Santiago'
+            ? 'Central Cba (SdE)'
+            : visitorTeam.name}
         </p>
       </div>
     </div>

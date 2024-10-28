@@ -22,7 +22,6 @@ export default function MatchDropdown({ competitionInfo }) {
         competitionInfo.code,
         formatDate(selectedDate === null ? today : selectedDate)
       );
-      // console.log(fetchedMatches);
 
       setMatches(
         fetchedMatches.map((match) => ({

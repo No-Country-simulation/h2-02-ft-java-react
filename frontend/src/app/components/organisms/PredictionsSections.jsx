@@ -14,7 +14,6 @@ export default function PredictionsSections() {
   const { userId } = useAuth();
   const [predictionData, setPredictionData] = useState(null);
   const [predictionExists, setPredictionExists] = useState(false);
-  console.log(selectedMatch);
 
   useEffect(() => {
     const fetchPredictionData = async () => {

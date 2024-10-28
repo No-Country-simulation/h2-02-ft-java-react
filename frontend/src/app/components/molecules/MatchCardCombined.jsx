@@ -86,7 +86,9 @@ export default function MatchCardCombined({ matchData, handleSelectMatch }) {
       <div className="grid grid-cols-3 items-center">
         {/* Nombre del equipo local */}
         <p className="text-balance text-center text-regular-12 text-grayWaki">
-          {localTeam.name}
+          {localTeam.name === 'Central Cordoba de Santiago'
+            ? 'Central Cba (SdE)'
+            : localTeam.name}
         </p>
 
         {/* Estado del partido (Finalizado, Tiempo, Horario) */}
@@ -113,7 +115,9 @@ export default function MatchCardCombined({ matchData, handleSelectMatch }) {
 
         {/* Nombre del equipo visitante */}
         <p className="text-balance text-center text-regular-12 text-grayWaki">
-          {visitorTeam.name}
+          {visitorTeam.name === 'Central Cordoba de Santiago'
+            ? 'Central Cba (SdE)'
+            : visitorTeam.name}
         </p>
       </div>
 

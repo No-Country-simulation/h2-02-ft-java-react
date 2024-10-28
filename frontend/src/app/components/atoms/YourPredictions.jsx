@@ -6,7 +6,8 @@ import StatusPredictionsCard from './StatusPredictionsCard';
 export default function YourPredictions({ predictionData, matchStatus }) {
   const points = predictionData?.points ?? 0;
   const status = predictionData?.status ?? 'PENDING';
-  console.log(predictionData);
+  const result = predictionData?.status ?? 'Barcelona';
+  // console.log('predictionData', predictionData);
 
   return (
     <section className="flex w-full flex-col gap-3">
@@ -24,7 +25,7 @@ export default function YourPredictions({ predictionData, matchStatus }) {
       </div>
       <div className="flex flex-col divide-y overflow-hidden rounded-large bg-white text-regular-12 text-grayWaki shadow-custom">
         <BodyYourPredictionsCard
-          result={'Barcelona'}
+          result={result}
           points={points}
           status={status.toLowerCase()}
           matchStatus={matchStatus}

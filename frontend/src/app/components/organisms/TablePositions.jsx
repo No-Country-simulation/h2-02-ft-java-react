@@ -32,7 +32,11 @@ export default function TablePositions({ standings, localName, visitorName }) {
                     className="h-5"
                   />
                 </figure>
-                <span className="text-label">{team.teamName}</span>
+                <span className="text-label">
+                  {team.teamName === 'Central Cordoba de Santiago'
+                    ? 'Central Cba (SdE)'
+                    : team.teamName}
+                </span>
               </td>
               <td className="py-3">{team.all.played}</td>
               <td className="py-3">{`${team.all.win}-${team.all.lose}`}</td>

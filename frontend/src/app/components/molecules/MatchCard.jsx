@@ -10,6 +10,7 @@ export default function MatchCard({ matchData }) {
   const { localTeam, visitorTeam, score, odds, startTime, status } = matchData;
   const [elapsedTime, setElapsedTime] = useState('');
   const [hasStarted, setHasStarted] = useState(false);
+  console.log('visitorTeam.name ', visitorTeam.name);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -86,7 +87,9 @@ export default function MatchCard({ matchData }) {
       <div className="grid grid-cols-3 items-center">
         {/* Nombre del equipo local */}
         <p className="text-balance text-center text-regular-12 text-grayWaki">
-          {localTeam.name}
+          {localTeam.name === 'Central Cordoba de Santiago'
+            ? 'Central Cba (SdE)'
+            : localTeam.name}
         </p>
 
         {/* Estado del partido (Finalizado, Tiempo, Horario) */}
@@ -113,7 +116,9 @@ export default function MatchCard({ matchData }) {
 
         {/* Nombre del equipo visitante */}
         <p className="text-balance text-center text-regular-12 text-grayWaki">
-          {visitorTeam.name}
+          {visitorTeam.name === 'Central Cordoba de Santiago'
+            ? 'Central Cba (SdE)'
+            : visitorTeam.name}
         </p>
       </div>
 

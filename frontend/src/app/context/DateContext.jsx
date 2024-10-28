@@ -6,7 +6,7 @@ export const useDate = () => useContext(DateContext);
 
 export const DateProvider = ({ children }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  console.log('selectedDate ', selectedDate);
+  // console.log('selectedDate ', selectedDate);
 
   const updateSelectedDate = (newDate) => {
     setSelectedDate(newDate === 'Todas' ? null : newDate);

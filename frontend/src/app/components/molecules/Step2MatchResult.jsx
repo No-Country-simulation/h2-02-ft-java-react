@@ -100,7 +100,9 @@ export default function Step2MatchResult({
               />
             </figure>
             <p className="text-balance text-medium-18 font-medium text-label">
-              {localTeam.name}
+              {localTeam.name === 'Central Cordoba de Santiago'
+                ? 'Central Cba (SdE)'
+                : localTeam.name}
             </p>
             <p className="text-balance text-center text-regular-12 text-grayLightWaki">
               {matchPredictions.localWin}
@@ -137,7 +139,9 @@ export default function Step2MatchResult({
               />
             </figure>
             <p className="text-balance text-medium-18 font-medium text-label">
-              {visitorTeam.name}
+              {visitorTeam.name === 'Central Cordoba de Santiago'
+                ? 'Central Cba (SdE)'
+                : visitorTeam.name}
             </p>
             <p className="text-balance text-center text-regular-12 text-grayLightWaki">
               {matchPredictions.visitorWin}
