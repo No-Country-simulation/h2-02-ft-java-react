@@ -16,7 +16,7 @@ public interface DivisionRepository {
     List<Division> findAll();
 
     Optional<Division> findByLevel(DivisionLevel level);
-    Optional<Division> findByUserRankings_UserId(UserRankingId userId);
+    List<UserRanking> findByUserRankings_UserId(UserRankingId userId);
 
     boolean isDivisionsTableEmpty();
 

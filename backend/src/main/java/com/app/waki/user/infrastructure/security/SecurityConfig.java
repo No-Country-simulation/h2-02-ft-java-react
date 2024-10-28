@@ -41,6 +41,7 @@ public class SecurityConfig {
             //DIVISION
             new AntPathRequestMatcher("/division/update"),
             new AntPathRequestMatcher("/division/userRanking/{userRankingId}"),
+            new AntPathRequestMatcher("/division/userRankingList/{userRankingId}"),
             //PREDICTION
             new AntPathRequestMatcher("/prediction/{profileId}"),
             new AntPathRequestMatcher("/prediction/byDate/{profileId}"),
