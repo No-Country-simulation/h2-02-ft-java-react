@@ -1,4 +1,4 @@
 package com.app.waki.division.application.dto;
 
-public record UserRankingDto(Integer position, String division) {
+public record UserRankingDto(Integer position, String division, Integer points, String username) {
 }

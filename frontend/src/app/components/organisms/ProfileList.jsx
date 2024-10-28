@@ -83,7 +83,7 @@ export default function ProfileList() {
             </span>
           </div>
           {option.name === 'Notificaciones' && notificationCount > 0 && (
-            <span className="absolute right-0 flex h-12 w-12 items-center justify-center rounded-full bg-red-500 text-lg text-white">
+            <span className="absolute right-5 flex h-6 w-6 items-center justify-center rounded-full bg-blueWaki text-lg text-white">
               {notificationCount}
             </span>
           )}

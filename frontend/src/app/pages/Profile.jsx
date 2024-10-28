@@ -16,7 +16,7 @@ export default function Profile() {
     <main className="flex min-h-screen w-full flex-col overflow-hidden sm:min-w-[570px]">
       {isProfilePage && <ProfileHeader />}
       {isProfilePage && <ProfileList />}
-      <div className="flex-grow">
+      <div className="mb-[90px] flex-grow">
         <Outlet />
       </div>
       {isProfilePage && <FooterNavbar />}
