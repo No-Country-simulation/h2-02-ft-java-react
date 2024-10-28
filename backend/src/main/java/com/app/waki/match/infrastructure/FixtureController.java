@@ -4,6 +4,7 @@ import com.app.waki.match.application.FixtureService;
 import com.app.waki.match.application.FixtureWithOddsDTO;
 import com.app.waki.match.application.OddsService;
 import com.app.waki.match.domain.fixture.Fixture;
+import com.app.waki.match.domain.fixture.Team;
 import com.app.waki.match.domain.odds.Odds;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -108,4 +109,11 @@ public class FixtureController {
                     .body("Error fetching fixtures and odds: " + e.getMessage());
         }
     }
+
+    @GetMapping("/getAllTeams")
+    public ResponseEntity<Set<Team>> getAllTeams() {
+        Set<Team> allTeams = fixtureService.getAllTeams();
+        return ResponseEntity.ok(allTeams);
+    }
+
 }
