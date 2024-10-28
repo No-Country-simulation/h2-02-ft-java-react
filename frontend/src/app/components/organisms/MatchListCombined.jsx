@@ -19,7 +19,7 @@ export default function MatchListCombined({ handleSelectMatch }) {
   }, []);
 
   return (
-    <div className="flex w-full flex-col p-5">
+    <div className="mb-14 flex w-full flex-col p-5">
       <div className="w-full divide-y overflow-hidden rounded-large shadow-custom">
         {competitions.map((competition) => (
           <MatchDropdownCombined
