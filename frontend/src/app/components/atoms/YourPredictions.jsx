@@ -6,6 +6,7 @@ import StatusPredictionsCard from './StatusPredictionsCard';
 export default function YourPredictions({ predictionData, matchStatus }) {
   const points = predictionData?.points ?? 0;
   const status = predictionData?.status ?? 'PENDING';
+  console.log(predictionData);
 
   return (
     <section className="flex w-full flex-col gap-3">
