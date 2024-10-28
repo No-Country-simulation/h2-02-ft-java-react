@@ -12,6 +12,19 @@ export default function ButtonWakiWhite({
   className,
   isNotification = false,
 }) {
+  let messageColor = 'text-[#555555]';
+  let translatedText = text;
+
+  if (isNotification) {
+    if (text === 'Correct') {
+      messageColor = 'text-green-700';
+      translatedText = 'Correcto';
+    } else if (text === 'Fail') {
+      messageColor = 'text-red-700';
+      translatedText = 'Fallido';
+    }
+  }
+
   return (
     <button
       className={`relative flex w-full ${isNotification ? 'flex-col' : 'items-center'} rounded-lg ${isNotification ? 'px-5 py-1' : 'p-5'} shadow-custom ${className}`}
@@ -23,9 +36,11 @@ export default function ButtonWakiWhite({
         {isNotification ? (
           <div className="flex flex-col text-left">
             <span className="text-[12px] text-[#555555]">Predicciones</span>
-            <span className="text-[16px] text-[#181818]">{text}</span>
-            <span className="text-[12px] text-[#555555]">{result}</span>
-            <span className="text-[12px] text-[#555555]">{message}</span>
+            <span className="text-[16px] text-[#181818]">{translatedText}</span>
+            <span className={`whitespace-nowrap text-[12px] ${messageColor}`}>
+              {result}
+            </span>
+            <span className={`text-[12px] ${messageColor}`}>{message}</span>
           </div>
         ) : (
           <span className="text-[16px] text-[#181818]">{text}</span>
