@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import React from 'react';
 import { RxPerson } from 'react-icons/rx';
 import { MdBarChart } from 'react-icons/md';
@@ -8,6 +9,7 @@ import { FiHelpCircle } from 'react-icons/fi';
 import { IoIosNotificationsOutline } from 'react-icons/io';
 import { LuLogOut } from 'react-icons/lu';
 import { useAuth } from '../../context/AuthContext';
+import { getNotifications } from '../../services/notificationService';
 
 const iconSize = 20;
 
@@ -40,7 +42,27 @@ const options = [
 
 export default function ProfileList() {
   const { logout } = useAuth();
+  const { userId } = useAuth();
+  const [notifications, setNotifications] = useState([]);
 
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        if (userId) {
+          const data = await getNotifications(userId);
+          setNotifications(data);
+        }
+      } catch (error) {
+        console.error('Error fetching notifications:', error);
+      }
+    };
+
+    fetchNotifications();
+  }, [userId]);
+
+  const notificationCount = notifications.length;
+
+  console.log('total: ', notificationCount);
   return (
     <div className="flex w-full flex-col p-5">
       {options.map((option, index) => (
@@ -48,7 +70,7 @@ export default function ProfileList() {
           key={index}
           href={option.link || '#'}
           onClick={option.action === 'logout' ? logout : null}
-          className={`flex h-14 w-full items-center justify-between bg-white px-5 text-[#181818] shadow-custom ${
+          className={`relative flex h-14 w-full items-center justify-between bg-white px-5 text-[#181818] shadow-custom ${
             index === 0 ? 'rounded-t-lg' : ''
           } ${index === options.length - 1 ? 'rounded-b-lg' : ''}`}
         >
@@ -60,6 +82,11 @@ export default function ProfileList() {
               {option.name}
             </span>
           </div>
+          {option.name === 'Notificaciones' && notificationCount > 0 && (
+            <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+              {notificationCount}
+            </span>
+          )}
         </a>
       ))}
     </div>

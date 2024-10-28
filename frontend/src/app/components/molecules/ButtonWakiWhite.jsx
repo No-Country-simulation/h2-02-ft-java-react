@@ -34,10 +34,10 @@ export default function ButtonWakiWhite({
           {icon}
         </div>
         {isNotification ? (
-          <div className="flex flex-col text-left">
+          <div className="flex flex-shrink flex-grow flex-col text-left">
             <span className="text-[12px] text-[#555555]">Predicciones</span>
             <span className="text-[16px] text-[#181818]">{translatedText}</span>
-            <span className={`whitespace-nowrap text-[12px] ${messageColor}`}>
+            <span className="overflow-hidden truncate overflow-ellipsis whitespace-nowrap text-[12px] text-[#555555]">
               {result}
             </span>
             <span className={`text-[12px] ${messageColor}`}>{message}</span>
