@@ -57,6 +57,7 @@ public class SecurityConfig {
             new AntPathRequestMatcher("/league/allLeagues", "Get"),
             new AntPathRequestMatcher("/fixture/getFixtureDate", "Get"),
             new AntPathRequestMatcher("/fixture/getFixtureCodeDate", "Get"),
+            new AntPathRequestMatcher("/fixture/getAllTeams", "Get"),
             new AntPathRequestMatcher("/odd/allOdds", "Get"),
             new AntPathRequestMatcher("/odd/{id}", "Get"),
             new AntPathRequestMatcher("/standing/fetch-standings", "Get"),
