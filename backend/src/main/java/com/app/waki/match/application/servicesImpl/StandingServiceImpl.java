@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +37,8 @@ public class StandingServiceImpl implements StandingService {
 
     @Override
     @Transactional
-    @Scheduled(cron = "0 3 0 * * *") // Todos los días a las 00:03
+    @Async
+    @Scheduled(cron = "0 54 23 * * *") // Todos los días a las 23:54
     public void fetchAndSaveStandings() throws IOException, InterruptedException {
 
         // Itera sobre cada ID de liga

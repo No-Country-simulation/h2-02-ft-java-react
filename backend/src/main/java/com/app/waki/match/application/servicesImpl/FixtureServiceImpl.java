@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,24 +41,24 @@ public class FixtureServiceImpl implements FixtureService {
     private String apiToken;
 
     @Override
+    @Async
     @Transactional
-    @Scheduled(cron = "0 1 0 * * *") // Todos los días a las 00:01
+    @Scheduled(cron = "0 50 23 * * *") // Todos los días a las 23:50
     public void fetchAndSaveFixtures() throws IOException, InterruptedException {
-        // Lista de IDs de ligas
+        LocalDate fromDate = LocalDate.now();
+        LocalDate toDate = fromDate.plusDays(5);
+
         List<Long> leagueIds = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L);
 
-        // Procesa cada liga individualmente
         for (Long leagueId : leagueIds) {
-            // Construye la solicitud para la liga actual
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://v3.football.api-sports.io/fixtures?season=2024&from=2024-10-01&to=2024-12-31&league=" + leagueId))
+                    .uri(URI.create("https://v3.football.api-sports.io/fixtures?season=2024&from=" + fromDate + "&to=" + toDate + "&league=" + leagueId))
                     .header("x-rapidapi-key", apiToken)
                     .method("GET", HttpRequest.BodyPublishers.noBody())
                     .build();
 
-            // Envía la solicitud y recibe la respuesta
             HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println("API Response for League " + leagueId + ": " + response.body()); // Imprime la respuesta
+            System.out.println("API Response for League " + leagueId + ": " + response.body());
 
             // Procesa el JSON
             ObjectMapper objectMapper = new ObjectMapper();
@@ -165,7 +166,7 @@ public class FixtureServiceImpl implements FixtureService {
     }
 
     @Override
-    @Scheduled(cron = "0 16 23 * * *") // Todos los días a las 00:04
+    @Scheduled(cron = "0 56 23 * * *") // Todos los días a las 23:56
     @Transactional
     public void getMatchFinalizedEvent() {
         // Define el inicio y fin del día actual
@@ -203,6 +204,7 @@ public class FixtureServiceImpl implements FixtureService {
         }
     }
 
+    @Override
     public Set<Team> getAllTeams() {
         // Obtiene todos los fixtures de la base de datos
         List<Fixture> fixtures = fixtureRepository.findAll();

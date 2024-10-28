@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +36,8 @@ public class LeagueServiceImpl implements LeagueService {
 
     @Override
     @Transactional
-    @Scheduled(cron = "0 0 0 * * *") // Todos los días a las 00:00
+    @Async
+    @Scheduled(cron = "0 48 23 * * *") // Todos los días a las 23:48
     public void fetchAndSaveLeague() throws IOException, InterruptedException {
         for (Long leagueId : LEAGUE_IDS) {
             // Construye la solicitud para cada ID de liga
