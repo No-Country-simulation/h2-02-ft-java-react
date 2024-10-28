@@ -125,7 +125,7 @@ public class FixtureServiceImpl implements FixtureService {
                 // Aplica la lógica de renombrar antes de establecer el nombre
                 String homeTeamName = homeTeamNode.path("name").asText();
                 if ("Central Cordoba de Santiago".equals(homeTeamName)) {
-                    homeTeamName = "Central Crodoba (SdE)";
+                    homeTeamName = "Central Cordoba (SdE)";
                 }
                 homeTeam.setTeamName(homeTeamName);
 
@@ -141,10 +141,10 @@ public class FixtureServiceImpl implements FixtureService {
                 // Aplica la lógica de renombrar antes de establecer el nombre
                 String awayTeamName = awayTeamNode.path("name").asText();
                 if ("Central Cordoba de Santiago".equals(awayTeamName)) {
-                    awayTeamName = "Central Crodoba (SdE)";
+                    awayTeamName = "Central Cordoba (SdE)";
                 }
                 awayTeam.setTeamName(awayTeamName);
-                
+
                 //awayTeam.setTeamName(awayTeamNode.path("name").asText());
                 awayTeam.setTeamLogo(awayTeamNode.path("logo").asText());
                 awayTeam.setWinner(awayTeamNode.path("winner").asBoolean());
