@@ -40,7 +40,7 @@ public class JpaDivisionRepositoryImpl implements DivisionRepository {
     }
 
     @Override
-    public Optional<Division> findByUserRankings_UserId(UserRankingId userId) {
+    public List<UserRanking> findByUserRankings_UserId(UserRankingId userId) {
         return repository.findByUserRankings_UserId(userId);
     }
 

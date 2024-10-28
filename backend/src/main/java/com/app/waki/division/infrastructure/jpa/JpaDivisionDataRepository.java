@@ -17,8 +17,18 @@ public interface JpaDivisionDataRepository extends JpaRepository<Division, Divis
     @Query("SELECT d FROM Division d WHERE d.division = :level")
     Optional<Division> findByLevel(@Param("level") DivisionLevel level);
 
-    @Query("SELECT d FROM Division d JOIN d.rankings r WHERE r.userId = :userId")
-    Optional<Division> findByUserRankings_UserId(@Param("userId") UserRankingId userId);
+    @Query("""
+            SELECT r FROM Division d 
+            JOIN d.rankings r 
+            WHERE r.divisionLevel = (
+                SELECT ur.divisionLevel 
+                FROM Division div 
+                JOIN div.rankings ur 
+                WHERE ur.userId = :userId
+            )
+            ORDER BY r.points DESC
+            """)
+    List<UserRanking> findByUserRankings_UserId(@Param("userId") UserRankingId userId);
 
     @Query("SELECT r FROM Division d JOIN d.rankings r WHERE r.userId IN :userIds")
     List<UserRanking> findUserRankingsByUserIds(@Param("userIds") Collection<UserRankingId> userIds);

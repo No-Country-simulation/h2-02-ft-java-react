@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -26,5 +27,10 @@ public class DivisionController {
     @GetMapping("/userRanking/{userRankingId}")
     public ResponseEntity<UserRankingDto> getUserRankingById(@PathVariable UUID userRankingId){
         return ResponseEntity.ok(divisionService.getUserRanking(userRankingId));
+    }
+
+    @GetMapping("/userRankingList/{userRankingId}")
+    public ResponseEntity<List<UserRankingDto>> getUserRankingListById(@PathVariable UUID userRankingId){
+        return ResponseEntity.ok(divisionService.getUserRankingList(userRankingId));
     }
 }
