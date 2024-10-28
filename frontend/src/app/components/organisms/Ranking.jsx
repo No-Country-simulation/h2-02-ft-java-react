@@ -28,15 +28,15 @@ export default function Ranking({ divisionData }) {
   }, [userId]);
 
   const divisions = {
-    bronce: DivisionBronce,
-    plata: DivisionPlata,
-    oro: DivisionOro,
+    BRONZE: DivisionBronce,
+    SILVER: DivisionPlata,
+    GOLD: DivisionOro,
   };
 
   const divisionTitles = {
-    bronce: 'División Bronce',
-    plata: 'División Plata',
-    oro: 'División Oro',
+    BORNZE: 'División Bronce',
+    SILVER: 'División Plata',
+    GOLD: 'División Oro',
   };
 
   return (
@@ -67,7 +67,7 @@ export default function Ranking({ divisionData }) {
           <div className="text-left">Nombre de usuario</div>
           <div className="text-right">Puntos</div>
         </div>
-        {rankingList.length === 1 && division === 'LIMBO' ? (
+        {division === 'LIMBO' ? (
           <div className="flex w-full flex-col items-center justify-center p-4">
             <p className="text-center text-[18px] text-[#181818]">
               Debes ganar puntos para clasificarte.

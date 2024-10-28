@@ -8,15 +8,15 @@ export default function Rewards({ divisionData }) {
   const { division, points, username } = divisionData;
 
   const divisions = {
-    bronce: DivisionBronce,
-    plata: DivisionPlata,
-    oro: DivisionOro,
+    BRONZE: DivisionBronce,
+    SILVER: DivisionPlata,
+    GOLD: DivisionOro,
   };
 
   const divisionTitles = {
-    bronce: 'División Bronce',
-    plata: 'División Plata',
-    oro: 'División Oro',
+    BRONZE: 'División Bronce',
+    SILVER: 'División Plata',
+    GOLD: 'División Oro',
   };
 
   const necessaryPoints = 300;
