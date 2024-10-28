@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,8 @@ public class OddsServiceImpl implements OddsService {
     private final OddsRepository oddsRepository;
 
     @Override
+    @Transactional
+    @Scheduled(cron = "0 2 0 * * *") // Todos los días a las 00:02
     public void fetchAndSaveOdds() throws IOException, InterruptedException {
         // Lista de IDs de ligas y páginas
         List<Long> leagueIds = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L);

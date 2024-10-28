@@ -1,6 +1,7 @@
 package com.app.waki.match.application.servicesImpl;
 
 
+import com.app.waki.common.events.FinishedMatchEvent;
 import com.app.waki.match.application.FixtureService;
 import com.app.waki.match.domain.fixture.*;
 import com.app.waki.match.domain.league.League;
@@ -10,6 +11,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +24,8 @@ import java.net.http.HttpResponse;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,11 +34,14 @@ public class FixtureServiceImpl implements FixtureService {
     private final FixtureRepository fixtureRepository;
     private final LeagueRepository leagueRepository;
     private final OddsRepository oddsRepository;
+    private final ApplicationEventPublisher publisher;
 
     @Value("${API_TOKEN}")
     private String apiToken;
 
     @Override
+    @Transactional
+    @Scheduled(cron = "0 1 0 * * *") // Todos los días a las 00:01
     public void fetchAndSaveFixtures() throws IOException, InterruptedException {
         // Lista de IDs de ligas
         List<Long> leagueIds = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L);
@@ -154,6 +162,55 @@ public class FixtureServiceImpl implements FixtureService {
     public List<Fixture> getFixturesByDate(LocalDateTime startDate, LocalDateTime endDate) {
         // Llama al repositorio para obtener los fixtures en la fecha especificada
         return fixtureRepository.findByDateBetween(startDate, endDate);
+    }
+
+    @Override
+    @Scheduled(cron = "0 16 23 * * *") // Todos los días a las 00:04
+    @Transactional
+    public void getMatchFinalizedEvent() {
+        // Define el inicio y fin del día actual
+        LocalDate today = LocalDate.now();
+        LocalDateTime startOfDay = today.atStartOfDay();
+        LocalDateTime endOfDay = today.atTime(LocalTime.MAX);
+
+        // 1. Obtener los partidos finalizados en la fecha actual
+        List<Fixture> fixtures = fixtureRepository.findByDateBetween(startOfDay, endOfDay);
+
+        for (Fixture fixture : fixtures) {
+            Teams teams = fixture.getTeams();
+
+            String result;
+
+            // 2. Determina el resultado basado en el equipo ganador
+            if (teams.getHome().isWinner()) {
+                result = "LOCAL";
+            } else if (teams.getAway().isWinner()) {
+                result = "AWAY";
+            } else {
+                result = "DRAW";
+            }
+
+            // 3. Crea el evento FinishedMatchEvent
+            FinishedMatchEvent finishedMatchEvent = new FinishedMatchEvent(
+                    fixture.getId(),
+                    result,
+                    fixture.getGoals().getHomeGoals(),
+                    fixture.getGoals().getAwayGoals()
+            );
+
+            // 4. Publica el evento
+            publisher.publishEvent(finishedMatchEvent);
+        }
+    }
+
+    public Set<Team> getAllTeams() {
+        // Obtiene todos los fixtures de la base de datos
+        List<Fixture> fixtures = fixtureRepository.findAll();
+        // Extrae y agrupa los equipos locales y visitantes sin duplicados
+        Set<Team> teams = fixtures.stream()
+                .flatMap(fixture -> List.of(fixture.getTeams().getHome(), fixture.getTeams().getAway()).stream())
+                .collect(Collectors.toSet());
+        return teams;
     }
 
 }
