@@ -31,7 +31,7 @@ export default function PredictionSection() {
   }, []);
 
   return (
-    <div className="min-h-72 rounded-t-large bg-white p-5">
+    <div className="mb-[90px] min-h-72 rounded-t-large bg-white p-5">
       {shouldFetch ? (
         <div className="mb-5 flex flex-col items-center gap-5">
           <h3 className="text-medium-18 font-medium text-blueWaki">

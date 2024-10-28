@@ -6,7 +6,7 @@ import InputField from '../atoms/InputField';
 import PasswordInput from '../molecules/PasswordInput';
 import Button from '../atoms/Button';
 import GoogleLoginButton from '../molecules/GoogleLoginButton';
-import Modal from '../atoms/Modal'; // Asumiendo que tienes un componente Modal
+import Modal from '../atoms/Modal';
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({ email: '', password: '' });

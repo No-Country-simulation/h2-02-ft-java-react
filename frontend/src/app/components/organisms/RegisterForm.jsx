@@ -3,7 +3,7 @@ import { createUser } from '../../services/userService';
 import InputField from '../atoms/InputField';
 import Button from '../atoms/Button';
 import PasswordInput from '../molecules/PasswordInput';
-import Modal from '../atoms/Modal'; // Asumiendo que tienes un componente Modal
+import Modal from '../atoms/Modal';
 
 export default function RegisterForm({ onRegisterSuccess }) {
   const [formData, setFormData] = useState({
@@ -58,12 +58,12 @@ export default function RegisterForm({ onRegisterSuccess }) {
     } else if (username.length <= 2) {
       setErrors((prev) => ({
         ...prev,
-        username: 'El nombre de usuario debe tener más de dos caracteres',
+        username: 'Formato de nombre de usuario incorrecto',
       }));
     } else if (/^\s/.test(username)) {
       setErrors((prev) => ({
         ...prev,
-        username: 'El nombre de usuario no puede empezar con un espacio',
+        username: 'Formato de nombre de usuario incorrecto',
       }));
     } else {
       setErrors((prev) => ({ ...prev, username: '' }));
