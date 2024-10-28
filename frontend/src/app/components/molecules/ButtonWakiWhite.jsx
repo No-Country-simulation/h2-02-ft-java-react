@@ -27,17 +27,17 @@ export default function ButtonWakiWhite({
 
   return (
     <button
-      className={`relative flex w-full ${isNotification ? 'flex-col' : 'items-center'} rounded-lg ${isNotification ? 'px-5 py-1' : 'p-5'} shadow-custom ${className}`}
+      className={`relative flex w-full ${isNotification ? 'flex-col' : 'items-center'} rounded-lg ${isNotification ? 'px-2 py-1' : 'p-5'} shadow-custom ${className}`}
     >
       <div className={`flex items-center ${iconColor}`}>
         <div className="mr-5 flex h-8 w-8 items-center justify-center">
           {icon}
         </div>
         {isNotification ? (
-          <div className="flex flex-col text-left">
+          <div className="flex flex-shrink flex-grow flex-col text-left">
             <span className="text-[12px] text-[#555555]">Predicciones</span>
             <span className="text-[16px] text-[#181818]">{translatedText}</span>
-            <span className={`whitespace-nowrap text-[12px] ${messageColor}`}>
+            <span className="overflow-hidden truncate overflow-ellipsis whitespace-nowrap text-[12px] text-[#555555]">
               {result}
             </span>
             <span className={`text-[12px] ${messageColor}`}>{message}</span>
