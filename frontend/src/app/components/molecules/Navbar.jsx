@@ -11,7 +11,7 @@ const navItems = [
     label: 'Scout players',
   },
   { to: '/match', icon: <RiFootballLine size={28} />, label: 'Partidos' },
-  { to: '/divisiones', icon: <BsTrophy size={28} />, label: 'Divisiones' },
+  { to: '/divisions', icon: <BsTrophy size={28} />, label: 'Divisiones' },
   { to: '/profile', icon: <RxPerson size={28} />, label: 'Perfil' },
 ];
 

@@ -5,7 +5,7 @@ import AuthPage from '../pages/AuthPage';
 import Profile from '../pages/Profile';
 import Match from '../pages/Match';
 import ScoutPlayers from '../pages/ScoutPlayers';
-import Divisiones from '../pages/Divisiones';
+import Divisions from '../pages/Divisions';
 import MyPredictions from '../pages/MyPredictions';
 import Details from '../pages/Details';
 import NotFound from '../pages/NotFound';
@@ -78,11 +78,11 @@ export default function AppRouter() {
           }
         />
         <Route
-          path="/divisiones"
+          path="/divisions"
           element={
             <PrivateRoute>
               <PageWrapper>
-                <Divisiones />
+                <Divisions />
               </PageWrapper>
             </PrivateRoute>
           }
