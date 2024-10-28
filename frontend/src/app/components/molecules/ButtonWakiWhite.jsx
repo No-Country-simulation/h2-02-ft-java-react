@@ -15,9 +15,9 @@ export default function ButtonWakiWhite({
   let messageColor = 'text-[#555555]';
 
   if (isNotification) {
-    if (text === 'Correcto') {
+    if (text === 'Correcta') {
       messageColor = 'text-green-700';
-    } else if (text === 'Fallido') {
+    } else if (text === 'Incorrecta') {
       messageColor = 'text-red-700';
     }
   }
