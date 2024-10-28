@@ -27,7 +27,7 @@ export default function ButtonWakiWhite({
 
   return (
     <button
-      className={`relative flex w-full ${isNotification ? 'flex-col' : 'items-center'} rounded-lg ${isNotification ? 'px-5 py-1' : 'p-5'} shadow-custom ${className}`}
+      className={`relative flex w-full ${isNotification ? 'flex-col' : 'items-center'} rounded-lg ${isNotification ? 'px-2 py-1' : 'p-5'} shadow-custom ${className}`}
     >
       <div className={`flex items-center ${iconColor}`}>
         <div className="mr-5 flex h-8 w-8 items-center justify-center">
