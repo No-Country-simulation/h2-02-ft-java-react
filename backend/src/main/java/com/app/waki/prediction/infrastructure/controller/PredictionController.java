@@ -7,10 +7,7 @@ import com.app.waki.prediction.application.service.PredictionService;
 import com.app.waki.prediction.domain.Prediction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -29,9 +26,9 @@ public class PredictionController {
     }
 
     @GetMapping("/byDate/{profileId}")
-    public ResponseEntity<List<PredictionDetailsDto>> getAllPredictionByDate(@PathVariable UUID profileId, LocalDate date) {
+    public ResponseEntity<List<PredictionActiveDto>> getAllPredictionByDate(@PathVariable UUID profileId, @RequestParam LocalDate matchDay) {
 
-        return ResponseEntity.ok(service.getAllPredictionDetailsByDate(profileId, date));
+        return ResponseEntity.ok(service.getAllPredictionDetailsByDate(profileId, matchDay));
     }
 
     @GetMapping("/byCompetition/{profileId}")

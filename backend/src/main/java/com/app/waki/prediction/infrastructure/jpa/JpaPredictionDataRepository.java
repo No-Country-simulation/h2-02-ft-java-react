@@ -21,9 +21,11 @@ public interface JpaPredictionDataRepository extends JpaRepository<PredictionDet
     @Query("SELECT pd FROM PredictionDetails pd WHERE pd.profileId = :profileId")
     List<PredictionDetails> getAllPredictionDetailsByProfileId(@Param("profileId") ProfileId profileId);
 
-    @EntityGraph(attributePaths = {"predictionDetailsId", "profileId", "creationTime", "combined", "earnablePoints", "status", "version"})
-    @Query("SELECT pd FROM PredictionDetails pd WHERE pd.profileId = :profileId AND pd.creationTime = :creationTime")
-    List<PredictionDetails> getAllPredictionDetailsByDate(@Param("profileId") ProfileId profileId, @Param("creationTime") LocalDate creationTime);
+    @Query("SELECT DISTINCT pd FROM PredictionDetails pd " +
+            "LEFT JOIN FETCH pd.predictions p " +
+            "WHERE pd.profileId = :profileId " +
+            "AND p.matchDay = :matchDay")
+    List<PredictionDetails> getAllPredictionDetailsByDate(@Param("profileId") ProfileId profileId, @Param("matchDay") LocalDate matchDay);
 
     @Query("SELECT DISTINCT pd FROM PredictionDetails pd " +
             "JOIN FETCH pd.predictions p " +

@@ -15,7 +15,7 @@ public interface PredictionRepository {
     Optional<PredictionDetails> getPredictionDetailsById(PredictionDetailsId id);
 
     List<PredictionDetails> getAllPredictionDetailsByProfileId(ProfileId profileId);
-    List<PredictionDetails> getAllPredictionDetailsByDate(ProfileId profileId, LocalDate creationTime);
+    List<PredictionDetails> getAllPredictionDetailsByDate(ProfileId profileId, LocalDate matchDay);
     List<PredictionDetails> getAllPredictionDetailsByCompetition(ProfileId profileId, String competition);
 
     List<PredictionDetails> findPredictionDetailsWithPendingPredictionByMatchId(String matchId, PredictionStatus status

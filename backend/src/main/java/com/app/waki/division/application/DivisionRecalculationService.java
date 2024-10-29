@@ -67,7 +67,7 @@ public class DivisionRecalculationService {
             List<UserRanking> silverUsers = new ArrayList<>();
             List<UserRanking> bronzeUsers = new ArrayList<>();
 
-            // 5. Distribuir usuarios y asignar posiciones
+            // 6. Distribuir usuarios y asignar posiciones
             for (int i = 0; i < totalActive; i++) {
                 UserRanking ranking = activeRankings.get(i);
                 if (i < goldLimit) {
@@ -85,7 +85,7 @@ public class DivisionRecalculationService {
             assignPositionsAndAddToDivision(bronzeUsers, divisionMap.get(DivisionLevel.BRONZE));
 
 
-            // 6. Guardar cambios
+            // 8. Guardar cambios
             divisionRepository.saveAll(allDivisions);
 
             log.info("Division recalculation completed. Distributed {} users across divisions", totalActive);
@@ -99,7 +99,7 @@ public class DivisionRecalculationService {
     private void assignPositionsAndAddToDivision(List<UserRanking> users, Division division) {
         for (int i = 0; i < users.size(); i++) {
             UserRanking ranking = users.get(i);
-            ranking.updatePosition(i + 1); // La posición comienza en 1 para cada división
+            ranking.updatePosition(i + 1);
             division.addUserRanking(ranking);
         }
     }
