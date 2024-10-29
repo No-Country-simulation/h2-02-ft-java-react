@@ -3,6 +3,7 @@ import DivisionBronce from '../../../assets/bronce.png';
 import DivisionPlata from '../../../assets/plata.png';
 import DivisionOro from '../../../assets/oro.png';
 import { IoMdLock } from 'react-icons/io';
+import { FaUserCircle } from 'react-icons/fa';
 import { getUserRankingList } from '../../services/divisionService';
 import { useAuth } from '../../context/AuthContext';
 
@@ -82,7 +83,8 @@ export default function Ranking({ divisionData }) {
               <div className="text-left text-[24px] text-[#317EF4]">
                 {user.position}
               </div>
-              <div className="text-left text-[16px] text-[#181818]">
+              <div className="text-left text-[16px] text-[#181818] flex items-center">
+                <FaUserCircle color="#B1B1B1" size={42} className="mr-2" />
                 {user.username}
               </div>
               <div className="text-right text-[14px] text-[#616161]">
