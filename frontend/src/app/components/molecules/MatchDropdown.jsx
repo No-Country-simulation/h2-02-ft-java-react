@@ -5,7 +5,11 @@ import { getMatchesLeagueDate } from '../../services/matchService';
 import { useDate } from '../../context/DateContext';
 import { formatDate } from '../../utils/dateUtils';
 
-export default function MatchDropdown({ competitionInfo }) {
+export default function MatchDropdown({
+  competitionInfo,
+  handleSelectMatch,
+  isCombined,
+}) {
   const [matches, setMatches] = useState([]);
   const [activeLeague, setActiveLeague] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -62,12 +66,11 @@ export default function MatchDropdown({ competitionInfo }) {
     }
   };
 
-  // useEffect para actualizar los partidos cuando cambie la fecha o se abra la liga
   useEffect(() => {
     if (activeLeague) {
       fetchMatches();
     }
-  }, [selectedDate, activeLeague]); // Se ejecuta cuando cambia selectedDate o activeLeague
+  }, [selectedDate, activeLeague]);
 
   const toggleLeague = () => {
     setActiveLeague(!activeLeague);
@@ -90,7 +93,6 @@ export default function MatchDropdown({ competitionInfo }) {
           </span>
         </div>
         <div className="flex-shrink-0 transform transition-transform duration-300">
-          {/* Giramos la flecha según el estado */}
           <IoIosArrowDown
             className={`text-blueWaki transition-transform duration-300 ${
               activeLeague ? 'rotate-180' : 'rotate-0'
@@ -100,23 +102,24 @@ export default function MatchDropdown({ competitionInfo }) {
         </div>
       </button>
 
-      {/* Mostrar los partidos si la liga está activa con transición */}
       <div
         className={`transition-max-height divide-y overflow-scroll duration-500 ease-in-out ${
           activeLeague ? 'max-h-screen' : 'max-h-0'
         }`}
       >
-        {/* Mostrar solo el mensaje de carga mientras se está cargando */}
         {loading && <p className="p-5 text-center">Cargando partidos...</p>}
-
-        {/* Mostrar los partidos o el mensaje de "No hay partidos" solo cuando no esté cargando */}
         {!loading && (
           <>
             {error ? (
               <p className="p-5 text-center">{error}</p>
             ) : (
               matches.map((match) => (
-                <MatchCard key={match.id} matchData={match} />
+                <MatchCard
+                  key={match.id}
+                  matchData={match}
+                  handleSelectMatch={handleSelectMatch}
+                  isCombined={isCombined}
+                />
               ))
             )}
           </>

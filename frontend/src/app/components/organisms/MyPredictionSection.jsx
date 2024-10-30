@@ -22,6 +22,7 @@ export default function MyPredictionSection() {
   useEffect(() => {
     updateSelectedDate('Todas');
   }, []);
+  // console.log(allPredictions);
 
   const datePredictions = usePredictionsByDate(userId, selectedDate);
 

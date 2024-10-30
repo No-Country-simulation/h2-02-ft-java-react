@@ -12,6 +12,7 @@ export const PredictionsProvider = ({ children }) => {
   const [remainingPredictions, setRemainingPredictions] = useState(5);
   const [allPredictions, setAllPredictions] = useState([]); // Todas las predicciones
   const { userId } = useAuth();
+  console.log('predictions', predictions);
 
   // Actualizar el número de predicciones restantes por fecha
   const fetchRemainingPredictions = async (date) => {

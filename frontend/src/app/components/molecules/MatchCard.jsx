@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { MdOutlineSignalCellularAlt } from 'react-icons/md';
 import { useMatch } from '../../context/MatchContext';
 import { useModal } from '../../context/ModalContext';
 import { useAuth } from '../../context/AuthContext';
 import { getPredictionByMatchId } from '../../services/predictionService';
-import { Link } from 'react-router-dom';
-import { MdOutlineSignalCellularAlt } from 'react-icons/md';
 
-export default function MatchCard({ matchData }) {
+export default function MatchCard({
+  matchData,
+  handleSelectMatch,
+  isCombined,
+}) {
   const { selectMatch } = useMatch();
   const { openModal, setSelectedOption } = useModal();
   const { userId } = useAuth();
@@ -50,11 +54,13 @@ export default function MatchCard({ matchData }) {
       }
     };
     fetchPredictionData();
-  }, []);
+  }, [userId, matchData.id]);
 
   const handleClickDetails = () => {
     selectMatch(matchData);
+    handleSelectMatch?.(); // Solo llama a handleSelectMatch si está definido
   };
+
   const handleClickPay = (option) => {
     selectMatch(matchData);
     setSelectedOption(option);
@@ -63,121 +69,162 @@ export default function MatchCard({ matchData }) {
   return (
     <div className="relative grid grid-rows-[1fr_auto_auto] gap-2 bg-grayCard px-4 py-5">
       {/* Fila 1: Escudos y marcador */}
-      <Link to="/match/details" onClick={handleClickDetails}>
-        <div className="grid grid-cols-3 items-center">
-          {/* Escudo local */}
-          <figure className="h-14">
-            <img
-              src={localTeam.logoUrl}
-              alt={`${localTeam.name} Logo`}
-              className="h-full w-full object-contain"
-            />
-          </figure>
+      {isCombined ? (
+        <button
+          onClick={handleClickDetails}
+          disabled={predictionExists || status === 'FT'}
+          className="disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          <TeamScoreSection
+            localTeam={localTeam}
+            visitorTeam={visitorTeam}
+            score={score}
+            status={status}
+            hasStarted={hasStarted}
+            elapsedTime={elapsedTime}
+          />
+        </button>
+      ) : (
+        <Link to="/match/details" onClick={handleClickDetails}>
+          <TeamScoreSection
+            localTeam={localTeam}
+            visitorTeam={visitorTeam}
+            score={score}
+            status={status}
+            hasStarted={hasStarted}
+            elapsedTime={elapsedTime}
+          />
+        </Link>
+      )}
 
-          {/* Marcador o VS */}
-          <div className="flex flex-col items-center">
-            {hasStarted || status === 'IN_PLAY' ? (
-              <>
-                <MdOutlineSignalCellularAlt className="h-5 w-5 font-semibold text-purpleWaki" />
-                <p className="text-semibold-22 font-semibold text-label">
-                  {score ? score : '0 - 0'}
-                </p>
-              </>
-            ) : (
-              <p className="text-semibold-22 font-semibold text-label">vs</p>
-            )}
-          </div>
-
-          {/* Escudo visitante */}
-          <figure className="h-14">
-            <img
-              src={visitorTeam.logoUrl}
-              alt={`${visitorTeam.name} Logo`}
-              className="h-full w-full object-contain"
-            />
-          </figure>
-        </div>
-      </Link>
       {/* Fila 2: Nombres y estado del partido */}
-      <div className="grid grid-cols-3 items-center">
-        {/* Nombre del equipo local */}
-        <p className="text-balance text-center text-regular-12 text-grayWaki">
-          {localTeam.name === 'Central Cordoba de Santiago'
-            ? 'Central Cba (SdE)'
-            : localTeam.name}
-        </p>
+      <TeamNamesStatusSection
+        localTeam={localTeam}
+        visitorTeam={visitorTeam}
+        status={status}
+        startTime={startTime}
+        elapsedTime={elapsedTime}
+      />
 
-        {/* Estado del partido (Finalizado, Tiempo, Horario) */}
-        <div className="flex flex-col items-center">
-          {status === 'NS' ? (
-            // Mostrar hora de inicio si el partido no ha comenzado
-            <p className="text-[10.35px] text-grayWaki">
-              {new Date(startTime).toLocaleTimeString([], {
-                hour: '2-digit',
-                minute: '2-digit',
-              })}
-            </p>
-          ) : status === 'FT' ? (
-            // Mostrar 'FT' si el partido ha finalizado
-            <p className="text-[10.35px] text-grayWaki">FT</p>
-          ) : (
-            // Mostrar "En juego" con un punto parpadeante si el partido está en progreso
-            <p className="flex items-center text-[10.35px]">
-              <span className="mr-1 h-2 w-2 animate-blink rounded-full bg-redWaki"></span>
-              {elapsedTime}
-            </p>
-          )}
-        </div>
-
-        {/* Nombre del equipo visitante */}
-        <p className="text-balance text-center text-regular-12 text-grayWaki">
-          {visitorTeam.name === 'Central Cordoba de Santiago'
-            ? 'Central Cba (SdE)'
-            : visitorTeam.name}
-        </p>
-      </div>
       {/* Fila 3: Botones de predicción */}
-      <div className="grid grid-cols-3 justify-center">
-        <div className="flex w-full justify-center">
-          <button
-            onClick={() => {
-              openModal(2);
-              handleClickPay('LOCAL');
-            }}
-            disabled={predictionExists || status === 'FT'}
-            className="flex h-[27px] w-[83px] items-center justify-center rounded-[6.21px] border border-black border-opacity-5 bg-white text-regular-12 shadow-[0_0_4px_0_rgba(0,0,0,0.15)] disabled:opacity-50"
-            style={{ borderWidth: '0.52px' }}
-          >
-            {odds.localWin}
-          </button>
-        </div>
-        <div className="flex w-full justify-center">
-          <button
-            onClick={() => {
-              openModal(2);
-              handleClickPay('DRAW');
-            }}
-            disabled={predictionExists || status === 'FT'}
-            className="flex h-[27px] w-[83px] items-center justify-center rounded-[6.21px] border border-black border-opacity-5 bg-white text-regular-12 shadow-[0_0_4px_0_rgba(0,0,0,0.15)] disabled:opacity-50"
-            style={{ borderWidth: '0.52px' }}
-          >
-            {odds.draw}
-          </button>
-        </div>
-        <div className="flex w-full justify-center">
-          <button
-            onClick={() => {
-              openModal(2);
-              handleClickPay('AWAY');
-            }}
-            disabled={predictionExists || status === 'FT'}
-            className="flex h-[27px] w-[83px] items-center justify-center rounded-[6.21px] border border-black border-opacity-5 bg-white text-regular-12 shadow-[0_0_4px_0_rgba(0,0,0,0.15)] disabled:opacity-50"
-            style={{ borderWidth: '0.52px' }}
-          >
-            {odds.visitorWin}
-          </button>
-        </div>
+      <PredictionButtons
+        odds={odds}
+        onClick={handleClickPay}
+        openModal={openModal}
+        disabled={predictionExists || status === 'FT'}
+      />
+    </div>
+  );
+}
+
+// Componente para el escudo y marcador
+function TeamScoreSection({
+  localTeam,
+  visitorTeam,
+  score,
+  status,
+  hasStarted,
+  elapsedTime,
+}) {
+  return (
+    <div className="grid grid-cols-3 items-center">
+      <TeamLogo logoUrl={localTeam.logoUrl} alt={localTeam.name} />
+      <div className="flex flex-col items-center">
+        {hasStarted || status === 'IN_PLAY' ? (
+          <>
+            <MdOutlineSignalCellularAlt className="h-5 w-5 font-semibold text-purpleWaki" />
+            <p className="text-semibold-22 font-semibold text-label">
+              {score ? score : '0 - 0'}
+            </p>
+          </>
+        ) : (
+          <p className="text-semibold-22 font-semibold text-label">vs</p>
+        )}
       </div>
+      <TeamLogo logoUrl={visitorTeam.logoUrl} alt={visitorTeam.name} />
+    </div>
+  );
+}
+
+// Componente para el nombre y estado del partido
+function TeamNamesStatusSection({
+  localTeam,
+  visitorTeam,
+  status,
+  startTime,
+  elapsedTime,
+}) {
+  return (
+    <div className="grid grid-cols-3 items-center">
+      <p className="text-balance text-center text-regular-12 text-grayWaki">
+        {localTeam.name === 'Central Cordoba de Santiago'
+          ? 'Central Cba (SdE)'
+          : localTeam.name}
+      </p>
+      <div className="flex flex-col items-center">
+        {status === 'NS' ? (
+          <p className="text-[10.35px] text-grayWaki">
+            {new Date(startTime).toLocaleTimeString([], {
+              hour: '2-digit',
+              minute: '2-digit',
+            })}
+          </p>
+        ) : status === 'FT' ? (
+          <p className="text-[10.35px] text-grayWaki">FT</p>
+        ) : (
+          <p className="flex items-center text-[10.35px]">
+            <span className="mr-1 h-2 w-2 animate-blink rounded-full bg-redWaki"></span>
+            {elapsedTime}
+          </p>
+        )}
+      </div>
+      <p className="text-balance text-center text-regular-12 text-grayWaki">
+        {visitorTeam.name === 'Central Cordoba de Santiago'
+          ? 'Central Cba (SdE)'
+          : visitorTeam.name}
+      </p>
+    </div>
+  );
+}
+
+// Componente para los logos
+function TeamLogo({ logoUrl, alt }) {
+  return (
+    <figure className="h-14">
+      <img
+        src={logoUrl}
+        alt={`${alt} Logo`}
+        className="h-full w-full object-contain"
+      />
+    </figure>
+  );
+}
+
+// Componente para los botones de predicción
+function PredictionButtons({ odds, onClick, openModal, disabled }) {
+  const buttons = [
+    { label: odds.localWin, option: 'LOCAL' },
+    { label: odds.draw, option: 'DRAW' },
+    { label: odds.visitorWin, option: 'AWAY' },
+  ];
+
+  return (
+    <div className="grid grid-cols-3 justify-center">
+      {buttons.map(({ label, option }) => (
+        <div key={option} className="flex w-full justify-center">
+          <button
+            onClick={() => {
+              openModal(2);
+              onClick(option);
+            }}
+            disabled={disabled}
+            className="flex h-[27px] w-[83px] items-center justify-center rounded-[6.21px] border border-black border-opacity-5 bg-white text-regular-12 shadow-[0_0_4px_0_rgba(0,0,0,0.15)] disabled:cursor-not-allowed disabled:opacity-50"
+            style={{ borderWidth: '0.52px' }}
+          >
+            {label}
+          </button>
+        </div>
+      ))}
     </div>
   );
 }

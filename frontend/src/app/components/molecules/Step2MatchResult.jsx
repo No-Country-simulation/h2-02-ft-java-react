@@ -16,6 +16,7 @@ export default function Step2MatchResult({
   const { selectedMatch } = useMatch();
   const { userId } = useAuth();
   const { predictions, addPrediction } = usePredictions();
+  console.log('selectedOption', selectedOption);
 
   const {
     id,
