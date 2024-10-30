@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useMatch } from '../../context/MatchContext';
 import { useModal } from '../../context/ModalContext';
+import { useAuth } from '../../context/AuthContext';
+import { getPredictionByMatchId } from '../../services/predictionService';
 import { Link } from 'react-router-dom';
 import { MdOutlineSignalCellularAlt } from 'react-icons/md';
 
 export default function MatchCard({ matchData }) {
   const { selectMatch } = useMatch();
   const { openModal, setSelectedOption } = useModal();
+  const { userId } = useAuth();
   const { localTeam, visitorTeam, score, odds, startTime, status } = matchData;
   const [elapsedTime, setElapsedTime] = useState('');
   const [hasStarted, setHasStarted] = useState(false);
+  const [predictionExists, setPredictionExists] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -35,6 +39,18 @@ export default function MatchCard({ matchData }) {
 
     return () => clearInterval(interval);
   }, [startTime]);
+
+  useEffect(() => {
+    const fetchPredictionData = async () => {
+      try {
+        const data = await getPredictionByMatchId(userId, matchData.id);
+        if (data) setPredictionExists(true);
+      } catch (error) {
+        console.error('Error al obtener la predicción:', error);
+      }
+    };
+    fetchPredictionData();
+  }, []);
 
   const handleClickDetails = () => {
     selectMatch(matchData);
@@ -120,7 +136,6 @@ export default function MatchCard({ matchData }) {
             : visitorTeam.name}
         </p>
       </div>
-
       {/* Fila 3: Botones de predicción */}
       <div className="grid grid-cols-3 justify-center">
         <div className="flex w-full justify-center">
@@ -129,7 +144,8 @@ export default function MatchCard({ matchData }) {
               openModal(2);
               handleClickPay('LOCAL');
             }}
-            className="flex h-[27px] w-[83px] items-center justify-center rounded-[6.21px] border border-black border-opacity-5 bg-white text-regular-12 shadow-[0_0_4px_0_rgba(0,0,0,0.15)]"
+            disabled={predictionExists || status === 'FT'}
+            className="flex h-[27px] w-[83px] items-center justify-center rounded-[6.21px] border border-black border-opacity-5 bg-white text-regular-12 shadow-[0_0_4px_0_rgba(0,0,0,0.15)] disabled:opacity-50"
             style={{ borderWidth: '0.52px' }}
           >
             {odds.localWin}
@@ -141,7 +157,8 @@ export default function MatchCard({ matchData }) {
               openModal(2);
               handleClickPay('DRAW');
             }}
-            className="flex h-[27px] w-[83px] items-center justify-center rounded-[6.21px] border border-black border-opacity-5 bg-white text-regular-12 shadow-[0_0_4px_0_rgba(0,0,0,0.15)]"
+            disabled={predictionExists || status === 'FT'}
+            className="flex h-[27px] w-[83px] items-center justify-center rounded-[6.21px] border border-black border-opacity-5 bg-white text-regular-12 shadow-[0_0_4px_0_rgba(0,0,0,0.15)] disabled:opacity-50"
             style={{ borderWidth: '0.52px' }}
           >
             {odds.draw}
@@ -153,7 +170,8 @@ export default function MatchCard({ matchData }) {
               openModal(2);
               handleClickPay('AWAY');
             }}
-            className="flex h-[27px] w-[83px] items-center justify-center rounded-[6.21px] border border-black border-opacity-5 bg-white text-regular-12 shadow-[0_0_4px_0_rgba(0,0,0,0.15)]"
+            disabled={predictionExists || status === 'FT'}
+            className="flex h-[27px] w-[83px] items-center justify-center rounded-[6.21px] border border-black border-opacity-5 bg-white text-regular-12 shadow-[0_0_4px_0_rgba(0,0,0,0.15)] disabled:opacity-50"
             style={{ borderWidth: '0.52px' }}
           >
             {odds.visitorWin}

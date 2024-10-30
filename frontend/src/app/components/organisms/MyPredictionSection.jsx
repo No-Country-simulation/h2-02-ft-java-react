@@ -11,7 +11,7 @@ import {
   ListActivePredictions,
   ListPastPredictions,
 } from '../molecules/ListPredictions';
-import { usePredictionsByDate } from '../../utils/predictionUtils';
+import { usePredictionsByDate } from '../../hooks/usePredictionsByDate';
 
 export default function MyPredictionSection() {
   const { allPredictions, fetchAllPredictions } = usePredictions();
