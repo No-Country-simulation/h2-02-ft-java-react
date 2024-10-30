@@ -131,7 +131,7 @@ public class Prediction {
         return switch (this.expectedResult) {
             case LOCAL -> homeTeam.team();
             case AWAY -> awayTeam.team();
-            default -> matchResult.name();
+            default -> ExpectedResult.DRAW.name();
         };
     }
 
