@@ -1,10 +1,7 @@
 import { IoFootballOutline } from 'react-icons/io5';
 import { IoShirtOutline } from 'react-icons/io5';
 
-export default function Step3CombinedPrediction({
-  handleNextStep,
-  handlePrediction,
-}) {
+export default function Step3CombinedPrediction({ handleNextStep }) {
   return (
     <section className="flex flex-col divide-y">
       <div className="flex flex-col px-5 pb-5">

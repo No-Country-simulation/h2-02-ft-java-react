@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react';
 import MatchDropdown from '../molecules/MatchDropdown';
 import { getCompetitions } from '../../services/matchService';
+import { useDate } from '../../context/DateContext';
 
 export default function MatchList({ handleSelectMatch, isCombined = false }) {
+  const { updateSelectedDate } = useDate();
   const [competitions, setCompetitions] = useState([]);
+  const today = new Date();
+  useEffect(() => {
+    updateSelectedDate(today);
+  }, []);
 
   useEffect(() => {
     const fetchCompetitions = async () => {
