@@ -57,9 +57,6 @@ export const getPredictionByMatchId = async (profileId, matchId) => {
     );
     return response.data;
   } catch (error) {
-    if (error.response && error.response.status === 404) {
-      return null; // Devuelve null en lugar de lanzar una excepción
-    }
     console.error(
       'Error detallado:',
       error.response ? error.response.data : error.message
