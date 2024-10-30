@@ -20,7 +20,7 @@ export default function Details() {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mb-[90px]">
       <PredictionsHeader
         underlinePosition={underlinePosition}
         setUnderlinePosition={setUnderlinePosition}

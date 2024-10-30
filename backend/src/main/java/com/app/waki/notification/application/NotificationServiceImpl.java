@@ -31,9 +31,9 @@ public class NotificationServiceImpl implements NotificationService{
                 event.profileId(),
                 NotificationType.PREDICTION_ESTABLISHED,
                 event.creationTime(),
-                "Created successfully",
-                "Not yet contested",
-                "Possible reward " + event.points()
+                "Creada con éxito",
+                "Aun no finalizado",
+                "Posible recompensa " + event.points() + " puntos"
         );
 
         repository.saveNotification(notification);
@@ -48,9 +48,9 @@ public class NotificationServiceImpl implements NotificationService{
                 event.profileId(),
                 NotificationType.PREDICTION_CORRECT,
                 event.creationTime(),
-                "Correct",
+                "Correcta",
                 event.result(),
-                "You won " + event.points() + " points"
+                "Ganaste " + event.points() + " puntos"
         );
 
         repository.saveNotification(notification);
@@ -65,9 +65,9 @@ public class NotificationServiceImpl implements NotificationService{
                 event.profileId(),
                 NotificationType.PREDICTION_FAILED,
                 event.creationTime(),
-                "Fail",
+                "Incorrecta",
                 event.result(),
-                "You have not earned any points"
+                "No ganaste puntos"
         );
 
         repository.saveNotification(notification);

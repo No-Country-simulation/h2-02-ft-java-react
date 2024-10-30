@@ -13,15 +13,12 @@ export default function ButtonWakiWhite({
   isNotification = false,
 }) {
   let messageColor = 'text-[#555555]';
-  let translatedText = text;
 
   if (isNotification) {
-    if (text === 'Correct') {
+    if (text === 'Correcta') {
       messageColor = 'text-green-700';
-      translatedText = 'Correcto';
-    } else if (text === 'Fail') {
+    } else if (text === 'Incorrecta') {
       messageColor = 'text-red-700';
-      translatedText = 'Fallido';
     }
   }
 
@@ -36,7 +33,7 @@ export default function ButtonWakiWhite({
         {isNotification ? (
           <div className="flex flex-shrink flex-grow flex-col text-left">
             <span className="text-[12px] text-[#555555]">Predicciones</span>
-            <span className="text-[16px] text-[#181818]">{translatedText}</span>
+            <span className="text-[16px] text-[#181818]">{text}</span>
             <span className="overflow-hidden truncate overflow-ellipsis whitespace-nowrap text-[12px] text-[#555555]">
               {result}
             </span>

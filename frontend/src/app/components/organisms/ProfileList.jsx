@@ -8,8 +8,10 @@ import { PiMedalThin } from 'react-icons/pi';
 import { FiHelpCircle } from 'react-icons/fi';
 import { IoIosNotificationsOutline } from 'react-icons/io';
 import { LuLogOut } from 'react-icons/lu';
+import { IoIosArrowDown } from 'react-icons/io';
 import { useAuth } from '../../context/AuthContext';
 import { getNotifications } from '../../services/notificationService';
+import { getUserRanking } from '../../services/divisionService';
 
 const iconSize = 20;
 
@@ -44,6 +46,8 @@ export default function ProfileList() {
   const { logout } = useAuth();
   const { userId } = useAuth();
   const [notifications, setNotifications] = useState([]);
+  const [activeRanking, setActiveRanking] = useState(false);
+  const [divisionData, setDivisionData] = useState(null);
 
   useEffect(() => {
     const fetchNotifications = async () => {
@@ -57,37 +61,94 @@ export default function ProfileList() {
       }
     };
 
+    const fetchUserRanking = async () => {
+      try {
+        if (userId) {
+          const data = await getUserRanking(userId);
+          setDivisionData(data);
+        }
+      } catch (error) {
+        console.error('Error fetching user ranking:', error);
+      }
+    };
+
     fetchNotifications();
+    fetchUserRanking();
   }, [userId]);
 
   const notificationCount = notifications.length;
 
-  console.log('total: ', notificationCount);
+  const toggleRanking = () => {
+    setActiveRanking(!activeRanking);
+  };
+
+  const divisionTitles = {
+    BRONZE: 'Bronce',
+    SILVER: 'Plata',
+    GOLD: 'Oro',
+  };
+
   return (
     <div className="flex w-full flex-col p-5">
       {options.map((option, index) => (
-        <a
-          key={index}
-          href={option.link || '#'}
-          onClick={option.action === 'logout' ? logout : null}
-          className={`relative flex h-14 w-full items-center justify-between bg-white px-5 text-[#181818] shadow-custom ${
-            index === 0 ? 'rounded-t-lg' : ''
-          } ${index === options.length - 1 ? 'rounded-b-lg' : ''}`}
-        >
-          <div className="grid grid-cols-[24px_1fr] items-center gap-2">
-            <div className="flex h-6 w-6 items-center justify-center">
-              {option.icon}
+        <div key={index} className="relative">
+          <a
+            href={option.link || '#'}
+            onClick={
+              option.action === 'logout'
+                ? logout
+                : option.name === 'Mi ranking'
+                  ? toggleRanking
+                  : null
+            }
+            className={`relative flex h-14 w-full items-center justify-between bg-white px-5 text-[#181818] shadow-custom ${
+              index === 0 ? 'rounded-t-lg' : ''
+            } ${index === options.length - 1 ? 'rounded-b-lg' : ''}`}
+          >
+            <div className="grid grid-cols-[24px_1fr] items-center gap-2">
+              <div className="flex h-6 w-6 items-center justify-center">
+                {option.icon}
+              </div>
+              <span className="text-regularNav-14 whitespace-nowrap">
+                {option.name}
+              </span>
             </div>
-            <span className="text-regularNav-14 whitespace-nowrap">
-              {option.name}
-            </span>
-          </div>
-          {option.name === 'Notificaciones' && notificationCount > 0 && (
-            <span className="absolute right-0 flex h-12 w-12 items-center justify-center rounded-full bg-red-500 text-lg text-white">
-              {notificationCount}
-            </span>
+            {option.name === 'Notificaciones' && notificationCount > 0 && (
+              <span className="absolute right-5 flex h-6 w-6 items-center justify-center rounded-full bg-blueWaki text-lg text-white">
+                {notificationCount}
+              </span>
+            )}
+            {option.name === 'Mi ranking' && (
+              <IoIosArrowDown
+                className={`text-blueWaki transition-transform duration-300 ${
+                  activeRanking ? 'rotate-180' : 'rotate-0'
+                }`}
+                size={18}
+              />
+            )}
+          </a>
+          {option.name === 'Mi ranking' && activeRanking && divisionData && (
+            <div className="bg-white p-5 shadow-custom">
+              {divisionData.division === 'LIMBO' ? (
+                <p className="text-center text-[18px] text-[#181818]">
+                  Debes ganar puntos para clasificarte.
+                </p>
+              ) : (
+                <div>
+                  <p className="text-[18px] text-[#181818]">
+                    División: {divisionTitles[divisionData.division]}
+                  </p>
+                  <p className="text-[16px] text-[#555555]">
+                    Posición: {divisionData.position}
+                  </p>
+                  <p className="text-[16px] text-[#555555]">
+                    Puntos: {divisionData.points}
+                  </p>
+                </div>
+              )}
+            </div>
           )}
-        </a>
+        </div>
       ))}
     </div>
   );

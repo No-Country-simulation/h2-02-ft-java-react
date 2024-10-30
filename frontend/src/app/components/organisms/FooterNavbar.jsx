@@ -2,7 +2,7 @@ import Navbar from '../molecules/Navbar';
 
 export default function FooterNavbar() {
   return (
-    <footer className="mt-auto bg-white">
+    <footer className="fixed bottom-0 w-full bg-white">
       <Navbar />
     </footer>
   );

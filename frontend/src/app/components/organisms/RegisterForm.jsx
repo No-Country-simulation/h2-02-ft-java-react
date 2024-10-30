@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createUser } from '../../services/userService';
 import InputField from '../atoms/InputField';
 import Button from '../atoms/Button';
 import PasswordInput from '../molecules/PasswordInput';
+import Modal from '../atoms/Modal';
 
 export default function RegisterForm({ onRegisterSuccess }) {
   const [formData, setFormData] = useState({
@@ -11,43 +12,127 @@ export default function RegisterForm({ onRegisterSuccess }) {
     password: '',
     confirmPassword: '',
   });
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errors, setErrors] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+  const [touched, setTouched] = useState({
+    username: false,
+    email: false,
+    password: false,
+    confirmPassword: false,
+  });
+  const [modalMessage, setModalMessage] = useState('');
+
+  useEffect(() => {
+    if (touched.username) validateUsername(formData.username);
+    if (touched.email) validateEmail(formData.email);
+    if (touched.password) validatePassword(formData.password);
+    if (touched.confirmPassword)
+      validateConfirmPassword(formData.confirmPassword);
+  }, [formData, touched]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    setTouched({ ...touched, [name]: true });
+    if (name === 'username') validateUsername(formData.username);
+    if (name === 'email') validateEmail(formData.email);
+    if (name === 'password') validatePassword(formData.password);
+    if (name === 'confirmPassword')
+      validateConfirmPassword(formData.confirmPassword);
+  };
+
+  const validateUsername = (username) => {
+    if (!username) {
+      setErrors((prev) => ({
+        ...prev,
+        username: 'El nombre de usuario no puede estar vacío',
+      }));
+    } else if (username.length <= 2) {
+      setErrors((prev) => ({
+        ...prev,
+        username: 'Formato de nombre de usuario incorrecto',
+      }));
+    } else if (/^\s/.test(username)) {
+      setErrors((prev) => ({
+        ...prev,
+        username: 'Formato de nombre de usuario incorrecto',
+      }));
+    } else {
+      setErrors((prev) => ({ ...prev, username: '' }));
+    }
+  };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail|outlook)\.com$/;
+    if (!email) {
+      setErrors((prev) => ({
+        ...prev,
+        email: 'El correo no puede estar vacío',
+      }));
+    } else if (!emailRegex.test(email)) {
+      setErrors((prev) => ({ ...prev, email: 'Formato de correo inválido' }));
+    } else {
+      setErrors((prev) => ({ ...prev, email: '' }));
+    }
+  };
+
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if (!password) {
+      setErrors((prev) => ({
+        ...prev,
+        password: 'La contraseña no puede estar vacía',
+      }));
+    } else if (!passwordRegex.test(password)) {
+      setErrors((prev) => ({
+        ...prev,
+        password: 'Formato de contraseña inválido',
+      }));
+    } else {
+      setErrors((prev) => ({ ...prev, password: '' }));
+    }
+  };
+
+  const validateConfirmPassword = (confirmPassword) => {
+    if (!confirmPassword) {
+      setErrors((prev) => ({
+        ...prev,
+        confirmPassword:
+          'La confirmación de la contraseña no puede estar vacía',
+      }));
+    } else if (confirmPassword !== formData.password) {
+      setErrors((prev) => ({
+        ...prev,
+        confirmPassword: 'Las contraseñas no coinciden',
+      }));
+    } else {
+      setErrors((prev) => ({ ...prev, confirmPassword: '' }));
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { username, email, password, confirmPassword } = formData;
 
-    // Validaciones
     if (!username || !email || !password || !confirmPassword) {
-      setErrorMessage('Todos los campos son obligatorios');
+      setModalMessage('Todos los campos son obligatorios');
       return;
     }
 
-    if (username.startsWith(' ')) {
-      setErrorMessage('El nombre de usuario no puede empezar con un espacio');
-      return;
-    }
-
-    if (/\s/.test(password)) {
-      setErrorMessage('La contraseña no puede contener espacios');
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      setErrorMessage('Las contraseñas no coinciden');
-      return;
-    }
-
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail|outlook)\.com$/;
-    if (!emailRegex.test(email)) {
-      setErrorMessage(
-        'El correo electrónico debe ser de gmail, hotmail o outlook'
-      );
+    if (
+      errors.username ||
+      errors.email ||
+      errors.password ||
+      errors.confirmPassword
+    ) {
       return;
     }
 
@@ -56,7 +141,7 @@ export default function RegisterForm({ onRegisterSuccess }) {
       console.log('Usuario creado:', response);
       onRegisterSuccess();
     } catch (error) {
-      setErrorMessage(error.message || 'Error al crear el usuario');
+      setModalMessage('Error al crear el usuario');
     }
   };
 
@@ -70,40 +155,78 @@ export default function RegisterForm({ onRegisterSuccess }) {
       </h2>
       <p className="mb-8 text-grayWaki">Crea tu cuenta completando los datos</p>
 
-      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-
-      <div className="flex flex-col gap-3">
-        <InputField
-          label="Nombre de usuario"
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-        />
-        <InputField
-          label="Ingresa tu email"
-          type="text"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <PasswordInput
-          label="Contraseña"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <PasswordInput
-          label="Repetir contraseña"
-          name="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-        />
+      <div className="relative flex flex-col gap-6">
+        <div className="relative">
+          <InputField
+            label="Nombre de usuario"
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className="relative"
+          />
+          {touched.username && errors.username && (
+            <p className="absolute mt-1 text-xs text-red-500">
+              {errors.username}
+            </p>
+          )}
+        </div>
+        <div className="relative">
+          <InputField
+            label="Ingresa tu email"
+            type="text"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className="relative"
+          />
+          {touched.email && errors.email && (
+            <p className="absolute mt-1 text-xs text-red-500">{errors.email}</p>
+          )}
+        </div>
+        <div className="relative">
+          <PasswordInput
+            label="Contraseña"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className="relative"
+          />
+          {touched.password && errors.password && (
+            <p className="absolute mt-1 text-xs text-red-500">
+              {errors.password}
+            </p>
+          )}
+        </div>
+        <div className="relative">
+          <PasswordInput
+            label="Repetir contraseña"
+            name="confirmPassword"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className="relative"
+          />
+          {touched.confirmPassword && errors.confirmPassword && (
+            <p className="absolute mt-1 text-xs text-red-500">
+              {errors.confirmPassword}
+            </p>
+          )}
+        </div>
       </div>
 
       <Button type="submit" className="mx-auto mt-8">
         Registrarse
       </Button>
+
+      {modalMessage && (
+        <Modal onClose={() => setModalMessage('')}>
+          <p>{modalMessage}</p>
+        </Modal>
+      )}
     </form>
   );
 }

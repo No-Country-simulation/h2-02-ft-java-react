@@ -37,9 +37,9 @@ public class JpaPredictionRepositoryImpl implements PredictionRepository {
     }
 
     @Override
-    public List<PredictionDetails> getAllPredictionDetailsByDate(ProfileId profileId, LocalDate creationTime) {
+    public List<PredictionDetails> getAllPredictionDetailsByDate(ProfileId profileId, LocalDate matchDay) {
 
-        return repository.getAllPredictionDetailsByDate(profileId, creationTime);
+        return repository.getAllPredictionDetailsByDate(profileId, matchDay);
     }
 
     @Override

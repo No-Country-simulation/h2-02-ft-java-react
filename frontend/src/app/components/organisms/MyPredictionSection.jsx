@@ -47,7 +47,7 @@ export default function MyPredictionSection() {
   }, []);
 
   return (
-    <div className="min-h-72 rounded-t-large bg-white p-5">
+    <div className="mb-[90px] min-h-72 rounded-t-large bg-white p-5">
       {shouldFetch ? (
         <NoPredictions />
       ) : (

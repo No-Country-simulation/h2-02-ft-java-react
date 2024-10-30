@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -61,21 +62,30 @@ public class DivisionRecalculationService {
             divisionMap.get(DivisionLevel.SILVER).clearRankings();
             divisionMap.get(DivisionLevel.BRONZE).clearRankings();
 
-            // 5. Distribuir usuarios y asignar posiciones
+            // 5. Crear listas separadas para cada división
+            List<UserRanking> goldUsers = new ArrayList<>();
+            List<UserRanking> silverUsers = new ArrayList<>();
+            List<UserRanking> bronzeUsers = new ArrayList<>();
+
+            // 6. Distribuir usuarios y asignar posiciones
             for (int i = 0; i < totalActive; i++) {
                 UserRanking ranking = activeRankings.get(i);
-                ranking.updatePosition(i + 1);
-
                 if (i < goldLimit) {
-                    divisionMap.get(DivisionLevel.GOLD).addUserRanking(ranking);
+                    goldUsers.add(ranking);
                 } else if (i < silverLimit) {
-                    divisionMap.get(DivisionLevel.SILVER).addUserRanking(ranking);
+                    silverUsers.add(ranking);
                 } else {
-                    divisionMap.get(DivisionLevel.BRONZE).addUserRanking(ranking);
+                    bronzeUsers.add(ranking);
                 }
             }
 
-            // 6. Guardar cambios
+            // 7. Asignar posiciones y agregar usuarios a cada división
+            assignPositionsAndAddToDivision(goldUsers, divisionMap.get(DivisionLevel.GOLD));
+            assignPositionsAndAddToDivision(silverUsers, divisionMap.get(DivisionLevel.SILVER));
+            assignPositionsAndAddToDivision(bronzeUsers, divisionMap.get(DivisionLevel.BRONZE));
+
+
+            // 8. Guardar cambios
             divisionRepository.saveAll(allDivisions);
 
             log.info("Division recalculation completed. Distributed {} users across divisions", totalActive);
@@ -83,6 +93,14 @@ public class DivisionRecalculationService {
         } catch (Exception e) {
             log.error("Error during division recalculation", e);
             throw new RuntimeException("Failed to recalculate divisions", e);
+        }
+    }
+
+    private void assignPositionsAndAddToDivision(List<UserRanking> users, Division division) {
+        for (int i = 0; i < users.size(); i++) {
+            UserRanking ranking = users.get(i);
+            ranking.updatePosition(i + 1);
+            division.addUserRanking(ranking);
         }
     }
 }

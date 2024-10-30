@@ -158,12 +158,12 @@ public class PredictionServiceImpl implements PredictionService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<PredictionDetailsDto> getAllPredictionDetailsByDate(UUID profileId, LocalDate date) {
+    public List<PredictionActiveDto> getAllPredictionDetailsByDate(UUID profileId, LocalDate matchDay) {
 
-        List<PredictionDetails> predictionsByDate = repository.getAllPredictionDetailsByDate(new ProfileId(profileId), date);
+        List<PredictionDetails> predictionsByDate = repository.getAllPredictionDetailsByDate(new ProfileId(profileId), matchDay);
         checkIfPredictionsAreEmpty(predictionsByDate);
 
-        return mapPredictionDetailsToDto(predictionsByDate);
+        return PredictionMapper.predictionToPredictionActiveDto(predictionsByDate);
     }
 
     @Transactional(readOnly = true)
