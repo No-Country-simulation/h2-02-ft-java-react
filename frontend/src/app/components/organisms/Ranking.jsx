@@ -1,35 +1,44 @@
+import { useState, useEffect } from 'react';
 import DivisionBronce from '../../../assets/bronce.png';
 import DivisionPlata from '../../../assets/plata.png';
 import DivisionOro from '../../../assets/oro.png';
 import { IoMdLock } from 'react-icons/io';
+import { FaUserCircle } from 'react-icons/fa';
+import { getUserRankingList } from '../../services/divisionService';
+import { useAuth } from '../../context/AuthContext';
 
 export default function Ranking({ divisionData }) {
-  const { division, points } = divisionData;
+  const [rankingList, setRankingList] = useState([]);
+  const { division, points, username } = divisionData;
+  const { userId } = useAuth();
+
+  useEffect(() => {
+    const fetchUserRankingList = async () => {
+      try {
+        const list = await getUserRankingList(userId);
+        setRankingList(list);
+      } catch (error) {
+        console.error(
+          'Error al obtener la lista de rankings de usuario:',
+          error
+        );
+      }
+    };
+
+    fetchUserRankingList();
+  }, [userId]);
 
   const divisions = {
-    bronce: DivisionBronce,
-    plata: DivisionPlata,
-    oro: DivisionOro,
+    BRONZE: DivisionBronce,
+    SILVER: DivisionPlata,
+    GOLD: DivisionOro,
   };
 
   const divisionTitles = {
-    bronce: 'División Bronce',
-    plata: 'División Plata',
-    oro: 'División Oro',
+    BORNZE: 'División Bronce',
+    SILVER: 'División Plata',
+    GOLD: 'División Oro',
   };
-
-  const users = [
-    { position: 1, username: 'usuario1', points: 1500 },
-    { position: 2, username: 'usuario2', points: 1450 },
-    { position: 3, username: 'usuario3', points: 1400 },
-    { position: 4, username: 'usuario4', points: 1350 },
-    { position: 5, username: 'usuario5', points: 1300 },
-    { position: 6, username: 'usuario6', points: 1250 },
-    { position: 7, username: 'usuario7', points: 1200 },
-    { position: 8, username: 'usuario8', points: 1150 },
-    { position: 9, username: 'usuario9', points: 1100 },
-    { position: 10, username: 'usuario10', points: 1050 },
-  ];
 
   return (
     <main className="flex w-full flex-col overflow-hidden sm:min-w-[570px]">
@@ -59,22 +68,31 @@ export default function Ranking({ divisionData }) {
           <div className="text-left">Nombre de usuario</div>
           <div className="text-right">Puntos</div>
         </div>
-        {users.map((user, index) => (
-          <div
-            key={index}
-            className="grid h-[59px] grid-cols-[1fr_3fr_2fr] items-center border-b border-[#8D8D8D] px-6 text-[12px]"
-          >
-            <div className="text-left text-[24px] text-[#317EF4]">
-              {user.position}
-            </div>
-            <div className="text-left text-[16px] text-[#181818]">
-              {user.username}
-            </div>
-            <div className="text-right text-[14px] text-[#616161]">
-              {user.points}
-            </div>
+        {division === 'LIMBO' ? (
+          <div className="flex w-full flex-col items-center justify-center p-4">
+            <p className="text-center text-[18px] text-[#181818]">
+              Debes ganar puntos para clasificarte.
+            </p>
           </div>
-        ))}
+        ) : (
+          rankingList.map((user, index) => (
+            <div
+              key={index}
+              className="grid h-[59px] grid-cols-[1fr_3fr_2fr] items-center border-b border-[#8D8D8D] px-6 text-[12px]"
+            >
+              <div className="text-left text-[24px] text-[#317EF4]">
+                {user.position}
+              </div>
+              <div className="text-left text-[16px] text-[#181818] flex items-center">
+                <FaUserCircle color="#B1B1B1" size={42} className="mr-2" />
+                {user.username}
+              </div>
+              <div className="text-right text-[14px] text-[#616161]">
+                {user.points}
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </main>
   );

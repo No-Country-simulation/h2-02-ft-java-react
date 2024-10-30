@@ -33,7 +33,7 @@ public class NotificationServiceImpl implements NotificationService{
                 event.creationTime(),
                 "Creada con éxito",
                 "Aun no finalizado",
-                "Posible recompensa " + event.points()
+                "Posible recompensa " + event.points() + " puntos"
         );
 
         repository.saveNotification(notification);

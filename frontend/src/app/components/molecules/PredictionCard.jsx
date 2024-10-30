@@ -9,7 +9,7 @@ export function PredictionCard({
     {
       competition,
       points,
-      finalResult,
+      expectedResult,
       homeTeam,
       awayTeam,
       homeShield,
@@ -26,7 +26,7 @@ export function PredictionCard({
       />
 
       <BodyPredictionsCard
-        selected={finalResult}
+        selected={expectedResult}
         homeTeam={{ name: homeTeam, logoUrl: homeShield }}
         awayTeam={{ name: awayTeam, logoUrl: awayShield }}
         points={points}

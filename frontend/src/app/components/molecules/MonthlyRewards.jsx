@@ -6,7 +6,7 @@ export default function MonthlyRewards({ divisions, divisionTitles }) {
       <div className="text-[22px] font-semibold text-blueWaki">
         ¡Premios todos los meses!
       </div>
-      {['oro', 'plata', 'bronce'].map((div) => (
+      {['GOLD', 'SILVER', 'BRONZE'].map((div) => (
         <div
           key={div}
           className="mt-4 flex h-[112.14px] items-center rounded-lg bg-[#F3F4F5] p-4"
@@ -21,12 +21,12 @@ export default function MonthlyRewards({ divisions, divisionTitles }) {
               {divisionTitles[div]}
             </div>
             <div className="text-[14px] text-[#555555]">
-              {div === 'bronce'
+              {div === 'BRONZE'
                 ? 'Esta división no ofrece recompensas. Sube a la división plata para participar por premios.'
                 : 'Descubre las recompensas de esta división.'}
             </div>
           </div>
-          {div !== 'bronce' && (
+          {div !== 'BRONZE' && (
             <MdKeyboardArrowRight className="text-blueWaki" size={24} />
           )}
         </div>

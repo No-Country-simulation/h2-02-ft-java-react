@@ -31,9 +31,6 @@ export const getPredictionByDate = async (profileId, date) => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        params: {
-          date,
-        },
       }
     );
     return response.data;
@@ -61,7 +58,6 @@ export const getPredictionByMatchId = async (profileId, matchId) => {
     return response.data;
   } catch (error) {
     if (error.response && error.response.status === 404) {
-      console.warn('Predicción no encontrada para el matchId:', matchId);
       return null; // Devuelve null en lugar de lanzar una excepción
     }
     console.error(

@@ -106,7 +106,7 @@ export function BodyYourPredictionsCard({
       {/* Resultado */}
       {points > 0 ? (
         <div className="flex flex-col">
-          <p className="text-regular-12 text-grayWaki">Resultado final:</p>
+          <p className="text-regular-12 text-grayWaki">Mi predicción:</p>
           <p className="text-regular-16 text-label">{result}</p>
         </div>
       ) : (
