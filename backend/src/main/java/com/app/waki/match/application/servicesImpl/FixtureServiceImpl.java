@@ -48,7 +48,7 @@ public class FixtureServiceImpl implements FixtureService {
         LocalDate fromDate = LocalDate.now();
         LocalDate toDate = fromDate.plusDays(5);
 
-        List<Long> leagueIds = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L);
+        List<Long> leagueIds = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L, 135L);
 
         for (Long leagueId : leagueIds) {
             HttpRequest request = HttpRequest.newBuilder()
@@ -144,7 +144,7 @@ public class FixtureServiceImpl implements FixtureService {
                     awayTeamName = "Central Cordoba (SdE)";
                 }
                 awayTeam.setTeamName(awayTeamName);
-                
+
                 //awayTeam.setTeamName(awayTeamNode.path("name").asText());
                 awayTeam.setTeamLogo(awayTeamNode.path("logo").asText());
                 awayTeam.setWinner(awayTeamNode.path("winner").asBoolean());
