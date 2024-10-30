@@ -182,7 +182,7 @@ export default function Step2MatchResult({
           homeTeam={localTeam}
           awayTeam={visitorTeam}
           points={points}
-          status="pending"
+          status="PENDING"
         />
       )}
     </section>

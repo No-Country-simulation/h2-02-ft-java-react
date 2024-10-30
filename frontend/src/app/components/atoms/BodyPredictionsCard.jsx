@@ -3,11 +3,11 @@ import LogoOsasuna from '../../../assets/osasuna.png';
 
 function pointsClasses(status) {
   switch (status) {
-    case 'lose':
+    case 'FAILED':
       return 'text-grayWaki line-through';
-    case 'win':
+    case 'CORRECT':
       return 'text-blueWaki';
-    case 'pending':
+    case 'PENDING':
       return 'text-purpleWaki';
     default:
       return 'text-blueWaki';

@@ -54,7 +54,7 @@ export default function PredictionsSummary({
             homeTeam={prediction.homeTeam}
             awayTeam={prediction.awayTeam}
             points={prediction.pay}
-            status="pending"
+            status={status}
           />
         ))}
       </div>

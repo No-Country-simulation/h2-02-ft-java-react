@@ -18,7 +18,7 @@ export default function StatusPredictionsCard({ status, points }) {
         </div>
       );
       break;
-    case 'LOSE':
+    case 'FAILED':
       statusContent = (
         <div className="flex items-center gap-2 px-4 py-2">
           <CgCloseO className="text-redWaki" size={18} />
@@ -28,7 +28,7 @@ export default function StatusPredictionsCard({ status, points }) {
         </div>
       );
       break;
-    case 'WIN':
+    case 'CORRECT':
       statusContent = (
         <div className="flex items-center gap-2 px-4 py-2">
           <FaCheck className="text-greenWaki" size={18} />

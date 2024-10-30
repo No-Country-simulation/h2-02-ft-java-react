@@ -89,7 +89,8 @@ module.exports = {
         fadeOut: 'fadeOut 0.5s forwards',
       },
       boxShadow: {
-        custom: '0 0 14.6px rgba(0, 0, 0, 0.2)',
+        custom: '0 0 14.6px 0 rgba(0, 0, 0, 0.2)',
+        navbar: '0 0 10.2px 0 rgba(0, 0, 0, 0.2)',
       },
     },
     borderRadius: {
