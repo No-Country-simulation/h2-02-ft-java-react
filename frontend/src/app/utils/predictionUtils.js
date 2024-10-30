@@ -1,13 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useDate } from '../context/DateContext';
 import { getPredictionByDate } from '../services/predictionService';
 import { formatDate } from './dateUtils';
 
-export function PredictionsByDate(userId) {
-  const { selectedDate } = useDate();
+export function usePredictionsByDate(userId, selectedDate) {
   const [datePredictions, setDatePredictions] = useState([]);
-  console.log('date PredictionDetailsId ', datePredictions);
-  console.log('selectedDate ', formatDate(selectedDate));
 
   useEffect(() => {
     setDatePredictions([]);
@@ -24,10 +20,8 @@ export function PredictionsByDate(userId) {
         }
       }
     };
-    if (selectedDate !== null) {
-      fetchPredictionsByDate();
-    }
-  }, [selectedDate]);
+    fetchPredictionsByDate();
+  }, [userId, selectedDate]);
 
   return datePredictions;
 }
@@ -39,4 +33,12 @@ export const calculatePoints = (selectedOption, matchPredictions) => {
     : selectedOption === 'DRAW'
       ? matchPredictions.draw
       : matchPredictions.visitorWin;
+};
+
+export const getTeamName = (selectedOption, localTeam, visitorTeam) => {
+  return selectedOption === 'LOCAL'
+    ? localTeam.name
+    : selectedOption === 'AWAY'
+      ? visitorTeam.name
+      : 'Empate';
 };

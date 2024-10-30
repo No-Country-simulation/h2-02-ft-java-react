@@ -14,14 +14,6 @@ function pointsClasses(status) {
   }
 }
 
-const getTeamName = (selectedOption, localTeam, visitorTeam) => {
-  return selectedOption === 'LOCAL'
-    ? localTeam.name
-    : selectedOption === 'AWAY'
-      ? visitorTeam.name
-      : 'Empate';
-};
-
 export function BodyPredictionsCard({
   selected,
   homeTeam,

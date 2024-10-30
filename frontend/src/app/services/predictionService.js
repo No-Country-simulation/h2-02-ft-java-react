@@ -26,7 +26,7 @@ export const getPredictionByDate = async (profileId, date) => {
   try {
     const token = localStorage.getItem('token');
     const response = await axios.get(
-      `${API_URL}/prediction/byDate/${profileId}?date=${date}`,
+      `${API_URL}/prediction/byDate/${profileId}?matchDay=${date}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

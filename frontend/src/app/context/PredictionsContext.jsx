@@ -27,7 +27,7 @@ export const PredictionsProvider = ({ children }) => {
   const fetchAllPredictions = async () => {
     try {
       const data = await getPredictions(userId);
-      setAllPredictions(data); // Almacena todas las predicciones
+      setAllPredictions(data);
     } catch (error) {
       console.error('Error al obtener todas las predicciones:', error);
     }
