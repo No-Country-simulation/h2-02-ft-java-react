@@ -32,7 +32,7 @@ public class LeagueServiceImpl implements LeagueService {
     private String apiToken;
 
     // Lista de IDs de ligas que quieres obtener
-    private static final List<Long> LEAGUE_IDS = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L); // Premier League = 39, La Liga = 140
+    private static final List<Long> LEAGUE_IDS = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L, 135L); // Premier League = 39, La Liga = 140
 
     @Override
     @Transactional
@@ -63,7 +63,20 @@ public class LeagueServiceImpl implements LeagueService {
             // Mapea el JSON a la entidad League
             League league = new League();
             league.setId(leagueNode.path("id").asLong());
-            league.setName(leagueNode.path("name").asText());
+            //league.setName(leagueNode.path("name").asText());
+
+            // Establece el nombre de la liga dependiendo del país
+            String countryName = countryNode.path("name").asText();
+            String leagueName = leagueNode.path("name").asText();
+
+            if ("Brazil".equalsIgnoreCase(countryName) && "Serie A".equalsIgnoreCase(leagueName)) {
+                league.setName("Campeonato Brasileño");
+            } else if ("Italy".equalsIgnoreCase(countryName) && "Serie A".equalsIgnoreCase(leagueName)) {
+                league.setName("Serie A");
+            } else {
+                league.setName(leagueName);
+            }
+
             league.setType(leagueNode.path("type").asText());
             league.setLogo(leagueNode.path("logo").asText());
 

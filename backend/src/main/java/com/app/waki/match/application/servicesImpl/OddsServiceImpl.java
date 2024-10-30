@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URI;
 import java.net.http.*;
 import java.time.LocalDateTime;
@@ -42,7 +44,7 @@ public class OddsServiceImpl implements OddsService {
     @Scheduled(cron = "0 52 23 * * *") // Todos los días a las 23:52
     public void fetchAndSaveOdds() throws IOException, InterruptedException {
         // Lista de IDs de ligas y páginas
-        List<Long> leagueIds = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L);
+        List<Long> leagueIds = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L, 135L);
         List<Integer> pages = List.of(1, 2, 3);
 
         for (Long leagueId : leagueIds) {
@@ -119,15 +121,19 @@ public class OddsServiceImpl implements OddsService {
                     // Setea los valores de odds
                     OddValue values = new OddValue();
                     betNode.path("values").forEach(value -> {
+                        BigDecimal roundedOdd = new BigDecimal(value.path("odd").asText()).setScale(1, RoundingMode.HALF_UP);
                         switch (value.path("value").asText()) {
                             case "Home":
-                                values.setHomeOdd(value.path("odd").asText());
+                                //values.setHomeOdd(value.path("odd").asText());
+                                values.setHomeOdd(roundedOdd.toString());
                                 break;
                             case "Draw":
-                                values.setDrawOdd(value.path("odd").asText());
+                                //values.setDrawOdd(value.path("odd").asText());
+                                values.setDrawOdd(roundedOdd.toString());
                                 break;
                             case "Away":
-                                values.setAwayOdd(value.path("odd").asText());
+                                //values.setAwayOdd(value.path("odd").asText());
+                                values.setAwayOdd(roundedOdd.toString());
                                 break;
                         }
                     });
