@@ -12,7 +12,7 @@ export default function Match() {
   const { isModalOpen, closeModal } = useModal();
 
   return (
-    <main className="relative flex min-h-screen w-full flex-col sm:min-w-[570px] sm:overflow-hidden">
+    <main className="relative flex min-h-screen w-full flex-col sm:w-[570px] sm:overflow-hidden">
       {location.pathname === '/match' && (
         <>
           <HeaderMatch />

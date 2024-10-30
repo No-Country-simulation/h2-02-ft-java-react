@@ -41,7 +41,7 @@ export default function Divisions() {
   };
 
   return (
-    <main className="relative flex min-h-screen w-full flex-col sm:min-w-[570px] sm:overflow-hidden">
+    <main className="relative flex min-h-screen w-full flex-col sm:w-[570px] sm:overflow-hidden">
       <HeaderDivision
         currentView={selectedView}
         onViewChange={setSelectedView}
