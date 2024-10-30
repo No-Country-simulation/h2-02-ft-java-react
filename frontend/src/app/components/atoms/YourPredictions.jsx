@@ -6,8 +6,7 @@ import StatusPredictionsCard from './StatusPredictionsCard';
 export default function YourPredictions({ predictionData, matchStatus }) {
   const points = predictionData?.points ?? 0;
   const status = predictionData?.status ?? 'PENDING';
-  const result = predictionData?.status ?? 'Barcelona';
-  // console.log('predictionData', predictionData);
+  const result = predictionData?.expectedResult ?? 'Barcelona';
 
   return (
     <section className="flex w-full flex-col gap-3">

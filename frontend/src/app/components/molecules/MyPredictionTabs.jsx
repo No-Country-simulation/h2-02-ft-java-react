@@ -6,6 +6,7 @@ export default function MyPredictionTabs() {
   const { updateSelectedDate } = useDate();
   const tabs = getUpcomingDays();
   const [activeTab, setActiveTab] = useState(tabs[0]);
+  // console.log('activeTab', activeTab);
 
   useEffect(() => {
     updateSelectedDate(tabs[0]);

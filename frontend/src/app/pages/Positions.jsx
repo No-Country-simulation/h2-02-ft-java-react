@@ -9,7 +9,6 @@ export default function Positions() {
   const [standings, setStandings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  console.log(selectedMatch);
 
   useEffect(() => {
     const fetchStandings = async () => {
