@@ -9,7 +9,6 @@ import Button from '../atoms/Button';
 
 export default function PredictionsSections() {
   const { selectedMatch } = useMatch();
-
   const { openModal } = useModal();
   const { userId } = useAuth();
   const [predictionData, setPredictionData] = useState(null);
@@ -25,11 +24,8 @@ export default function PredictionsSections() {
         console.error('Error al obtener la predicción:', error);
       }
     };
-
-    if (selectedMatch.id) {
-      fetchPredictionData();
-    }
-  }, []);
+    fetchPredictionData();
+  }, [userId, selectedMatch.id]);
 
   return (
     <div className="flex flex-col gap-6 px-5 py-6">
