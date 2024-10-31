@@ -1,14 +1,20 @@
 package com.app.waki.match.domain.fixture;
 
+import com.app.waki.match.domain.FinalResult;
 import com.app.waki.match.domain.league.League;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@EqualsAndHashCode
 public class Fixture {
     @Id
     private Long id;
@@ -39,4 +45,22 @@ public class Fixture {
 
 //    @Embedded
 //    private Score score;
+
+    public void setNewGoals(Goals goals){
+
+        this.goals = goals;
+    }
+
+    public void setFinalResult(FinalResult result){
+
+        if (result.name().equals("LOCAL")){
+
+            this.teams.getHome().setWinner(true);
+        } else if(result.name().equals("AWAY")){
+            this.teams.getAway().setWinner(true);
+        } else {
+            this.teams.getHome().setWinner(false);
+            this.teams.getAway().setWinner(false);
+        }
+    }
 }
