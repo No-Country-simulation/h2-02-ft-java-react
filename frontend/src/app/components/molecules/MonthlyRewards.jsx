@@ -28,7 +28,7 @@ export default function MonthlyRewards({ divisions, divisionTitles }) {
             </div>
           </div>
           {div !== 'BRONZE' && (
-            <Link to={`/rewardsDivision?division=${div}`}>
+            <Link to={`/divisions/rewards-division?division=${div}`}>
               <MdKeyboardArrowRight className="text-blueWaki" size={24} />
             </Link>
           )}

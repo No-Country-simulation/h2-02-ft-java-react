@@ -134,7 +134,7 @@ export default function AppRouter() {
 
         {/* Rutas para las páginas de recompensas */}
         <Route
-          path="/rewardsDivision"
+          path="/divisions/rewards-division"
           element={
             <PageWrapper>
               <RewardsDivision />
