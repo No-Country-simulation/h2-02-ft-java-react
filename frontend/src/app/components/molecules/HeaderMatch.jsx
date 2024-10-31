@@ -20,7 +20,7 @@ export default function HeaderMatch() {
   };
 
   return (
-    <header className="shadow-navbar relative w-full">
+    <header className="relative w-full shadow-navbar">
       <div className="relative flex w-full items-center justify-center pt-[60px] text-[22px] font-semibold normal-case text-blueWaki">
         <button
           className="absolute right-2 h-9 w-9 p-1"
@@ -37,7 +37,10 @@ export default function HeaderMatch() {
             isClosing ? 'animate-fadeOut' : 'animate-fadeIn'
           }`}
         >
-          <CalendarWaki closeModal={toggleCalendar} isClosing={isClosing} />
+          <CalendarWaki
+            closeModalCalendar={toggleCalendar}
+            isClosing={isClosing}
+          />
         </div>
       )}
     </header>

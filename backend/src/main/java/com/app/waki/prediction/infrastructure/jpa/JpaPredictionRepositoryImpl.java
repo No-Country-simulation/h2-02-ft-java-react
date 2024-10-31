@@ -57,5 +57,10 @@ public class JpaPredictionRepositoryImpl implements PredictionRepository {
         return repository.findPredictionByProfileIdAndMatchId(profileId, matchId);
     }
 
+    @Override
+    public boolean existsPredictionByProfileIdAndMatchId(ProfileId profileId, String matchId) {
+        return repository.existsPredictionByProfileIdAndMatchId(profileId, matchId);
+    }
+
 
 }

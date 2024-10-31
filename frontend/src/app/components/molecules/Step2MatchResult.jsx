@@ -82,7 +82,7 @@ export default function Step2MatchResult({
       </div>
 
       {/* Opciones de predicción */}
-      <div className="flex h-full max-h-[calc(100%-110px)] flex-col justify-between gap-4 px-10 py-7">
+      <div className="flex h-full max-h-[calc(100%-130px)] flex-col justify-between gap-4 px-10 py-7">
         <div className="grid shrink grid-cols-2 grid-rows-[1fr_auto] gap-4 hover:shrink-0">
           {/* Local */}
           <button

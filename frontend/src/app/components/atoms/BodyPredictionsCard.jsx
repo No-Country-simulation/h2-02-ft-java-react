@@ -1,5 +1,5 @@
-import LogoBarcelona from '../../../assets/barcelona.png';
-import LogoOsasuna from '../../../assets/osasuna.png';
+import EscudoPurple from '../../../assets/escudoPurple.svg';
+import EscudoBlue from '../../../assets/escudoBlue.svg';
 
 function pointsClasses(status) {
   switch (status) {
@@ -27,7 +27,7 @@ export function BodyPredictionsCard({
   return (
     <div className="grid grid-rows-2 items-center gap-2 divide-y divide-grayCard px-4 py-3">
       {/* Equipos */}
-      <div className="grid grid-cols-[1fr,auto,1fr] items-center justify-center gap-1 text-xs text-grayWaki">
+      <div className="grid grid-cols-[1fr,auto,1fr] items-center justify-center gap-1 text-xs text-grayWaki sm:text-base">
         <div className="flex items-center justify-end gap-2">
           <p className="text-end font-medium text-label">
             {homeTeam.name === 'Central Cordoba de Santiago'
@@ -35,18 +35,15 @@ export function BodyPredictionsCard({
               : homeTeam.name}
           </p>
           <img
-            src={homeTeam.logoUrl || LogoBarcelona}
+            src={homeTeam.logoUrl || EscudoPurple}
             alt="Logo"
             width={'18px'}
+            className="sm:w-6"
           />
         </div>
         <p className="text-grayLightWaki">vs.</p>
         <div className="flex items-center gap-2">
-          <img
-            src={awayTeam.logoUrl || LogoOsasuna}
-            alt="Logo"
-            width={'18px'}
-          />
+          <img src={awayTeam.logoUrl || EscudoBlue} alt="Logo" width={'18px'} />
           <p className="font-medium text-label">
             {awayTeam.name === 'Central Cordoba de Santiago'
               ? 'Central Cba (SdE)'
@@ -59,7 +56,9 @@ export function BodyPredictionsCard({
         <div className="grid grid-cols-[1fr,50px]">
           <p className="text-regular-12 text-grayWaki">
             Mi predicción:{' '}
-            <span className="text-regular-14 text-label">{selected}</span>
+            <span className="text-regular-14 text-label">
+              {selected === 'DRAW' ? 'Empate' : selected}
+            </span>
           </p>
           <p
             className={`text-center text-regular-16 font-medium ${pointsClass}`}
@@ -99,7 +98,9 @@ export function BodyYourPredictionsCard({
       {points > 0 ? (
         <div className="flex flex-col">
           <p className="text-regular-12 text-grayWaki">Mi predicción:</p>
-          <p className="text-regular-16 text-label">{result}</p>
+          <p className="text-regular-16 text-label">
+            {result === 'DRAW' ? 'Empate' : result}
+          </p>
         </div>
       ) : (
         <div className="flex flex-col text-regular-14">
