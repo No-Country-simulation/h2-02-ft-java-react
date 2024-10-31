@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import ButtonWakiWhite from '../components/molecules/ButtonWakiWhite';
-import ProfileNavbar from '../components/molecules/ProfileNavbar';
+import PageNavbar from '../components/molecules/PageNavbar';
 import { RiFootballLine } from 'react-icons/ri';
 import { getNotifications } from '../services/notificationService';
 import { useAuth } from '../context/AuthContext';
@@ -29,7 +29,7 @@ export default function Notifications() {
 
   return (
     <main className="flex min-h-screen w-full flex-col overflow-hidden sm:min-w-[570px]">
-      <ProfileNavbar beforePage={'Perfil'} titlePage={'Notificaciones'} />
+      <PageNavbar beforePage={'Perfil'} titlePage={'Notificaciones'} />
       <div className="flex flex-col items-center space-y-4 p-10">
         {notifications.length > 0 ? (
           notifications.map((notification, index) => (
