@@ -14,6 +14,7 @@ import PersonalData from '../pages/PersonalData';
 import Notifications from '../pages/Notifications';
 import Help from '../pages/Help';
 import Setting from '../pages/Setting';
+import RewardsDivision from '../pages/RewardsDivision';
 
 export default function AppRouter() {
   const location = useLocation();
@@ -130,6 +131,16 @@ export default function AppRouter() {
             }
           />
         </Route>
+
+        {/* Rutas para las páginas de recompensas */}
+        <Route
+          path="/rewardsDivision"
+          element={
+            <PageWrapper>
+              <RewardsDivision />
+            </PageWrapper>
+          }
+        />
 
         {/* Ruta para la página de error 404 */}
         <Route

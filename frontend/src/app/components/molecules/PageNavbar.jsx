@@ -1,8 +1,20 @@
 import { FaArrowLeftLong } from 'react-icons/fa6';
 
-export default function ProfileNavbar({ beforePage, titlePage }) {
+export default function PageNavbar({ beforePage, titlePage }) {
   const handleBack = () => {
-    window.location.href = '/profile';
+    let url;
+    switch (beforePage) {
+      case 'Perfil':
+        url = '/profile';
+        break;
+      case 'Divisiones':
+        url = '/divisions';
+        break;
+      default:
+        url = '/';
+        break;
+    }
+    window.location.href = url;
   };
 
   return (

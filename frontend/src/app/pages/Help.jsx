@@ -1,5 +1,5 @@
 import ButtonWakiWhite from '../components/molecules/ButtonWakiWhite';
-import ProfileNavbar from '../components/molecules/ProfileNavbar';
+import PageNavbar from '../components/molecules/PageNavbar';
 import { IoMdPhonePortrait } from 'react-icons/io';
 import { FiHelpCircle } from 'react-icons/fi';
 import { FaPhoneAlt } from 'react-icons/fa';
@@ -24,7 +24,7 @@ export default function Help() {
 
   return (
     <main className="flex min-h-screen w-full flex-col overflow-hidden sm:min-w-[570px]">
-      <ProfileNavbar beforePage={'Perfil'} titlePage={'Ayuda'} />
+      <PageNavbar beforePage={'Perfil'} titlePage={'Ayuda'} />
       <div className="flex flex-col items-center space-y-4 p-10">
         {buttons.map((button, index) => (
           <ButtonWakiWhite
