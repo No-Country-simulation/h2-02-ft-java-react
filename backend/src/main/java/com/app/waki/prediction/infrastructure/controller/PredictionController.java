@@ -42,4 +42,10 @@ public class PredictionController {
 
         return ResponseEntity.ok(service.getPredictionByProfileIdAndMatchId(profileId, matchId));
     }
+
+    @GetMapping("/existence/{profileId}")
+    public ResponseEntity<Boolean> existsPredictionByProfileIdAndMatchId(@PathVariable UUID profileId, String matchId) {
+
+        return ResponseEntity.ok(service.existsPredictionByProfileIdAndMatchId(profileId,matchId));
+    }
 }

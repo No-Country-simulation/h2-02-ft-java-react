@@ -22,4 +22,5 @@ public interface PredictionRepository {
     );
 
     Optional<Prediction> findPredictionByProfileIdAndMatchId(ProfileId profileId, String matchId);
+    boolean existsPredictionByProfileIdAndMatchId(ProfileId profileId, String matchId);
 }

@@ -50,4 +50,13 @@ public interface JpaPredictionDataRepository extends JpaRepository<PredictionDet
             @Param("profileId") ProfileId profileId,
             @Param("matchId") String matchId
     );
+
+    @Query("SELECT COUNT(p) > 0 FROM Prediction p " +
+            "JOIN p.predictionDetails pd " +
+            "WHERE pd.profileId = :profileId " +
+            "AND p.matchId = :matchId")
+    boolean existsPredictionByProfileIdAndMatchId(
+            @Param("profileId") ProfileId profileId,
+            @Param("matchId") String matchId
+    );
 }
