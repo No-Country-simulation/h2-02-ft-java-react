@@ -1,5 +1,5 @@
-import LogoBarcelona from '../../../assets/barcelona.png';
-import LogoOsasuna from '../../../assets/osasuna.png';
+import EscudoPurple from '../../../assets/escudoPurple.svg';
+import EscudoBlue from '../../../assets/escudoBlue.svg';
 
 function pointsClasses(status) {
   switch (status) {
@@ -35,7 +35,7 @@ export function BodyPredictionsCard({
               : homeTeam.name}
           </p>
           <img
-            src={homeTeam.logoUrl || LogoBarcelona}
+            src={homeTeam.logoUrl || EscudoPurple}
             alt="Logo"
             width={'18px'}
             className="sm:w-6"
@@ -43,11 +43,7 @@ export function BodyPredictionsCard({
         </div>
         <p className="text-grayLightWaki">vs.</p>
         <div className="flex items-center gap-2">
-          <img
-            src={awayTeam.logoUrl || LogoOsasuna}
-            alt="Logo"
-            width={'18px'}
-          />
+          <img src={awayTeam.logoUrl || EscudoBlue} alt="Logo" width={'18px'} />
           <p className="font-medium text-label">
             {awayTeam.name === 'Central Cordoba de Santiago'
               ? 'Central Cba (SdE)'
