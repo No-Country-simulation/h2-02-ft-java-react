@@ -14,6 +14,8 @@ export const PredictionsProvider = ({ children }) => {
   const { userId } = useAuth();
   console.log('predictions', predictions);
 
+  const resetPredictions = () => setPredictions([]);
+
   // Actualizar el número de predicciones restantes por fecha
   const fetchRemainingPredictions = async (date) => {
     try {
@@ -51,6 +53,7 @@ export const PredictionsProvider = ({ children }) => {
         fetchRemainingPredictions,
         allPredictions,
         fetchAllPredictions,
+        resetPredictions,
       }}
     >
       {children}
