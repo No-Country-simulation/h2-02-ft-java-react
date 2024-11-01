@@ -1,18 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AnchorButton from '../atoms/AnchorButton';
 import { BsArrowLeft } from 'react-icons/bs';
 import MyPredictionTabs from '../molecules/MyPredictionTabs';
 import { usePredictions } from '../../context/PredictionsContext';
-import { formatDate } from '../../utils/dateUtils';
+import { useDate } from '../../context/DateContext';
+import { formatDate, formatDateNav } from '../../utils/dateUtils';
 
 export default function MyPredictionsHeader() {
   const { remainingPredictions, fetchRemainingPredictions } = usePredictions();
+  const { selectedDate } = useDate();
   const today = formatDate(new Date());
 
   useEffect(() => {
-    fetchRemainingPredictions(today);
-  }, [fetchRemainingPredictions, today]);
+    if (selectedDate === null) {
+      fetchRemainingPredictions(today);
+    } else {
+      fetchRemainingPredictions(formatDate(selectedDate));
+    }
+  }, [selectedDate]);
 
   return (
     <div className="w-full text-white">
@@ -34,7 +40,10 @@ export default function MyPredictionsHeader() {
             {remainingPredictions}
           </p>
           <p className="text-regular-16 text-white/75">
-            Predicciones disponibles hoy
+            Predicciones disponibles{' '}
+            {formatDate(selectedDate) === today || selectedDate === null
+              ? 'hoy'
+              : `el ${formatDateNav(selectedDate)}`}
           </p>
         </div>
       </div>

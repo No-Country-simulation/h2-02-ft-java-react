@@ -14,7 +14,7 @@ export default function AuthNavbar({ onTabClick, isLogin }) {
 
   return (
     <div className="relative">
-      <nav className="grid grid-cols-2 pt-10 text-center shadow-[0_0_10.2px_0_rgba(0,0,0,0.2)]">
+      <nav className="shadow-navbar grid grid-cols-2 pt-10 text-center">
         <button
           onClick={() => handleTabClick('login')}
           className={`px-4 py-2 text-regularNav-16 transition-colors duration-300 ${

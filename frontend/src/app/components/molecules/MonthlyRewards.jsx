@@ -1,4 +1,5 @@
 import { MdKeyboardArrowRight } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 export default function MonthlyRewards({ divisions, divisionTitles }) {
   return (
@@ -27,7 +28,9 @@ export default function MonthlyRewards({ divisions, divisionTitles }) {
             </div>
           </div>
           {div !== 'BRONZE' && (
-            <MdKeyboardArrowRight className="text-blueWaki" size={24} />
+            <Link to={`/divisions/rewards-division?division=${div}`}>
+              <MdKeyboardArrowRight className="text-blueWaki" size={24} />
+            </Link>
           )}
         </div>
       ))}

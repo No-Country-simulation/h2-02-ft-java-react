@@ -20,3 +20,27 @@ body {
 th {
   @apply text-regularTable-11 font-medium text-grayLightWaki;
 }
+
+*::-webkit-scrollbar {
+  background: transparent;
+  width: 8px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar:horizontal {
+  width: 8px;
+}
+
+*::-webkit-scrollbar:vertical {
+  height: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #317ff423;
+  border-radius: 10px;
+  border: 3px solid transparent;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #317ff4ea;
+}

@@ -8,7 +8,7 @@ export default function PredictionsHeader({
   setUnderlinePosition,
 }) {
   return (
-    <div className="relative w-full shadow-[0_0_10.2px_0_rgba(0,0,0,0.2)]">
+    <header className="shadow-navbar relative w-full">
       <div className="px-5 pb-4 pt-8">
         {/* Botón de volver */}
         <Link to="/match">
@@ -27,6 +27,6 @@ export default function PredictionsHeader({
         underlinePosition={underlinePosition}
         setUnderlinePosition={setUnderlinePosition}
       />
-    </div>
+    </header>
   );
 }

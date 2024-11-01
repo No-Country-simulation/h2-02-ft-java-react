@@ -16,4 +16,6 @@ public interface PredictionService {
     List<PredictionDetailsDto> getAllPredictionDetailsByCompetition(UUID profileId, String competition);
 
     PredictionDto getPredictionByProfileIdAndMatchId(UUID profileId, String matchId);
+
+    boolean existsPredictionByProfileIdAndMatchId(UUID profileId, String matchId);
 }

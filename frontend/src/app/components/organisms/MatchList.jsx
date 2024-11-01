@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react';
 import MatchDropdown from '../molecules/MatchDropdown';
 import { getCompetitions } from '../../services/matchService';
+import { useDate } from '../../context/DateContext';
 
-export default function MatchList() {
+export default function MatchList({ handleSelectMatch, isCombined = false }) {
+  const { updateSelectedDate } = useDate();
   const [competitions, setCompetitions] = useState([]);
+  const today = new Date();
+  useEffect(() => {
+    updateSelectedDate(today);
+  }, []);
 
   useEffect(() => {
     const fetchCompetitions = async () => {
@@ -19,18 +25,24 @@ export default function MatchList() {
   }, []);
 
   return (
-    <div className="flex w-full flex-col p-5">
+    <div className={`flex w-full flex-col p-5 ${isCombined && 'mb-14'}`}>
       <div className="w-full divide-y overflow-hidden rounded-large shadow-custom">
-        {competitions.map((competition) => (
-          <MatchDropdown
-            key={competition.id}
-            competitionInfo={{
-              code: competition.id,
-              name: competition.name,
-              logo: competition.logo,
-            }}
-          />
-        ))}
+        {competitions.map((competition) => {
+          const competitionInfo = {
+            code: competition.id,
+            name: competition.name,
+            logo: competition.logo,
+          };
+
+          return (
+            <MatchDropdown
+              key={competition.id}
+              competitionInfo={competitionInfo}
+              handleSelectMatch={handleSelectMatch}
+              isCombined={isCombined}
+            />
+          );
+        })}
       </div>
     </div>
   );

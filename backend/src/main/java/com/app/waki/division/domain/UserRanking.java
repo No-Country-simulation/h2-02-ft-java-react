@@ -42,7 +42,7 @@ public class UserRanking {
     }
 
     public void updatePoints(Integer points){
-        this.points += points;
+        this.points = points;
     }
 
     public void updatePosition(Integer position){

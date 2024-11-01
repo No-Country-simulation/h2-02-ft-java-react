@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { FaDollarSign } from 'react-icons/fa';
 import { RiFootballLine } from 'react-icons/ri';
 import { BsTrophy } from 'react-icons/bs';
-import { RxPerson } from "react-icons/rx";
+import { RxPerson } from 'react-icons/rx';
 
 const navItems = [
   {
@@ -17,7 +17,7 @@ const navItems = [
 
 export default function Navbar() {
   return (
-    <nav className="grid h-[90px] w-full grid-cols-4 items-center justify-evenly rounded-t-large bg-blueWaki px-4 xs:px-8 sm:min-w-[500px]">
+    <nav className="grid h-[90px] grid-cols-4 items-center justify-evenly rounded-t-large bg-blueWaki px-4 xs:px-8">
       {navItems.map((item, index) => (
         <NavLink
           key={index}

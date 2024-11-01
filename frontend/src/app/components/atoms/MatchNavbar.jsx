@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDate } from '../../context/DateContext';
 import { adjustDate, formatDateNav } from '../../utils/dateUtils';
 
 export default function MatchNavbar() {
   const { updateSelectedDate } = useDate();
-
   const today = adjustDate(0);
   const yesterday = adjustDate(-1);
   const tomorrow = adjustDate(1);
+
+  useEffect(() => {
+    updateSelectedDate(new Date());
+  }, []);
 
   const [underlinePosition, setUnderlinePosition] = useState('center');
 

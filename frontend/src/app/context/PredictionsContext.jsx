@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { getRemainingPredictionByDate } from '../services/profileService';
 import { getPredictions } from '../services/predictionService';
 import { useAuth } from '../context/AuthContext';
@@ -8,10 +8,14 @@ const PredictionsContext = createContext();
 export const usePredictions = () => useContext(PredictionsContext);
 
 export const PredictionsProvider = ({ children }) => {
+  const { userId } = useAuth();
   const [predictions, setPredictions] = useState([]); // Predicciones parciales (para combinadas)
   const [remainingPredictions, setRemainingPredictions] = useState(5);
   const [allPredictions, setAllPredictions] = useState([]); // Todas las predicciones
-  const { userId } = useAuth();
+  // console.log('allPredictions', allPredictions);
+  // console.log('predictions', predictions);
+
+  const resetPredictions = () => setPredictions([]);
 
   // Actualizar el número de predicciones restantes por fecha
   const fetchRemainingPredictions = async (date) => {
@@ -27,7 +31,7 @@ export const PredictionsProvider = ({ children }) => {
   const fetchAllPredictions = async () => {
     try {
       const data = await getPredictions(userId);
-      setAllPredictions(data); // Almacena todas las predicciones
+      setAllPredictions(data);
     } catch (error) {
       console.error('Error al obtener todas las predicciones:', error);
     }
@@ -41,6 +45,10 @@ export const PredictionsProvider = ({ children }) => {
     }
   };
 
+  const removeLastPrediction = () => {
+    setPredictions((prevPredictions) => prevPredictions.slice(0, -1));
+  };
+
   return (
     <PredictionsContext.Provider
       value={{
@@ -49,7 +57,9 @@ export const PredictionsProvider = ({ children }) => {
         remainingPredictions,
         fetchRemainingPredictions,
         allPredictions,
+        removeLastPrediction,
         fetchAllPredictions,
+        resetPredictions,
       }}
     >
       {children}

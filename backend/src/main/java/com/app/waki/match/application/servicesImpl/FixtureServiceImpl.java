@@ -212,7 +212,9 @@ public class FixtureServiceImpl implements FixtureService {
                     fixture.getId(),
                     result,
                     fixture.getGoals().getHomeGoals(),
-                    fixture.getGoals().getAwayGoals()
+                    fixture.getGoals().getAwayGoals(),
+                    fixture.getStatus().getLongStatus(),
+                    fixture.getStatus().getShortStatus()
             );
 
             // 4. Publica el evento

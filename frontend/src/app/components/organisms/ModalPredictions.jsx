@@ -11,33 +11,36 @@ import { CgClose } from 'react-icons/cg';
 import PredictionsProgress from '../atoms/PredictionsProgress';
 import PredictionAdded from '../atoms/PredictionAdded';
 
-export default function ModalPredictions({ isOpen, onClose }) {
-  const { modalStep, selectedOption, setSelectedOption } = useModal();
-  const [step, setStep] = useState(modalStep);
-  const [predictions, setPredictions] = useState([]);
+export default function ModalPredictions({ isOpen }) {
+  const {
+    modalStep,
+    handlePrevStep,
+    handleNextStep,
+    closeModal,
+    stepHistory,
+    selectedOption,
+    setSelectedOption,
+    journeyCount,
+    startNewJourney,
+  } = useModal();
+
   const [showPredictionAdded, setShowPredictionAdded] = useState(false);
-
   const navigate = useNavigate();
-
-  const handleNextStep = () => setStep(step + 1);
-  const handlePrevStep = () => setStep(step - 1);
 
   const handlePrediction = (prediction) => {
     setSelectedOption(prediction);
-    handleNextStep();
+    handleNextStep(2);
   };
 
   const handleMakeCombinedPrediction = () => {
-    setPredictions([...predictions, selectedOption]);
-    handleNextStep();
+    handleNextStep(3);
   };
 
   const handleSubmitPrediction = () => {
-    console.log('Predicción enviada:', selectedOption);
     setShowPredictionAdded(true);
     setTimeout(() => {
       setShowPredictionAdded(false);
-      onClose();
+      closeModal();
       navigate('/match');
     }, 3000);
   };
@@ -48,32 +51,29 @@ export default function ModalPredictions({ isOpen, onClose }) {
     <div className="fixed inset-0 z-50 flex h-full min-h-screen items-center justify-center overflow-y-auto bg-black bg-opacity-50">
       <div className="relative h-full max-h-[844px] w-full max-w-md overflow-y-auto bg-white">
         <div className="flex items-center justify-between p-5">
-          {/* Botón "Volver" */}
           <button
             onClick={() => {
-              if (step > 1) {
+              if (stepHistory.length > 1 || journeyCount > 1) {
                 handlePrevStep();
               } else {
-                onClose();
+                closeModal();
               }
             }}
+            disabled={modalStep === 1 && journeyCount === 1}
             className="text-purpleWaki"
           >
             <HiArrowLeft size={24} />
           </button>
 
-          {/* Botón para cerrar el modal */}
-          <button onClick={onClose} className="text-purpleWaki">
+          <button onClick={closeModal} className="text-purpleWaki">
             <CgClose size={24} />
           </button>
         </div>
 
-        {/* Renderizar los pasos */}
-        {step === 1 && (
+        {modalStep === 1 && (
           <Step1PredictionType handlePrediction={handlePrediction} />
         )}
-
-        {step === 2 && (
+        {modalStep === 2 && (
           <Step2MatchResult
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
@@ -81,19 +81,15 @@ export default function ModalPredictions({ isOpen, onClose }) {
             handleMakeCombinedPrediction={handleMakeCombinedPrediction}
           />
         )}
-
-        {step === 3 && (
-          <Step3CombinedPrediction
-            handleNextStep={handleNextStep}
-            handlePrediction={handlePrediction}
-          />
+        {modalStep === 3 && (
+          <Step3CombinedPrediction handleNextStep={() => handleNextStep(4)} />
         )}
-
-        {step === 4 && <Step4SelectMatch setStep={setStep} />}
+        {modalStep === 4 && (
+          <Step4SelectMatch startNewJourney={startNewJourney} />
+        )}
 
         <PredictionsProgress cantCircles={5} />
 
-        {/* Mostrar el componente PredictionAdded si showPredictionAdded es true */}
         {showPredictionAdded && (
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}

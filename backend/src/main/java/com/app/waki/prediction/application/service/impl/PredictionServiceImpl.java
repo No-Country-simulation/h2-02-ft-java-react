@@ -184,6 +184,13 @@ public class PredictionServiceImpl implements PredictionService {
         return PredictionMapper.mapPredictionToDto(findPrediction);
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public boolean existsPredictionByProfileIdAndMatchId(UUID profileId, String matchId) {
+
+        return repository.existsPredictionByProfileIdAndMatchId(new ProfileId(profileId), matchId);
+    }
+
     private void checkIfPredictionsAreEmpty(List<PredictionDetails> predictions){
         if (predictions.isEmpty()){
             throw new EntityNotFoundException("No prediction was found with that reference");

@@ -47,6 +47,7 @@ public class SecurityConfig {
             new AntPathRequestMatcher("/prediction/byDate/{profileId}"),
             new AntPathRequestMatcher("/prediction/byCompetition/{profileId}"),
             new AntPathRequestMatcher("/prediction/byMatchId/{profileId}"),
+            new AntPathRequestMatcher("/prediction/existence/{profileId}"),
             //NOTIFICATION
             new AntPathRequestMatcher("/notification/{profileId}"),
             //MATCH-TEST

@@ -5,6 +5,7 @@ import {
   MdKeyboardDoubleArrowUp,
   MdKeyboardDoubleArrowDown,
 } from 'react-icons/md';
+import { getTeamName } from '../../utils/predictionUtils';
 
 export default function PredictionsSummary({
   selected,
@@ -40,7 +41,7 @@ export default function PredictionsSummary({
         }`}
       >
         <BodyPredictionsCard
-          selected={selected}
+          selected={getTeamName(selected, homeTeam, awayTeam)}
           homeTeam={homeTeam}
           awayTeam={awayTeam}
           points={points}
@@ -53,7 +54,7 @@ export default function PredictionsSummary({
             homeTeam={prediction.homeTeam}
             awayTeam={prediction.awayTeam}
             points={prediction.pay}
-            status="pending"
+            status={status}
           />
         ))}
       </div>
