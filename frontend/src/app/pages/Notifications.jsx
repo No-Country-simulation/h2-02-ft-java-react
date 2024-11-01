@@ -8,9 +8,9 @@ import { useAuth } from '../context/AuthContext';
 export default function Notifications() {
   const { userId } = useAuth();
   const [notifications, setNotifications] = useState([]);
-  const iconSize = 24;
-  const iconColorInactive = 'text-gray-400';
-  const iconColorActive = 'text-blue-500';
+  const iconSize = 32;
+  const iconColorInactive = 'text-grayWaki';
+  const iconColorActive = 'text-blueWaki';
 
   useEffect(() => {
     const fetchNotifications = async () => {
@@ -30,7 +30,7 @@ export default function Notifications() {
   return (
     <main className="flex min-h-screen w-full flex-col overflow-hidden sm:min-w-[570px]">
       <PageNavbar beforePage={'Perfil'} titlePage={'Notificaciones'} />
-      <div className="flex flex-col items-center space-y-4 p-10">
+      <div className="flex flex-col items-center space-y-4 px-5 py-10">
         {notifications.length > 0 ? (
           notifications.map((notification, index) => (
             <ButtonWakiWhite
@@ -48,7 +48,7 @@ export default function Notifications() {
           ))
         ) : (
           <div className="flex flex-grow items-center justify-center">
-            <p className="text-lg text-gray-500">
+            <p className="text-lg text-grayLightWaki">
               No hay notificaciones disponibles
             </p>
           </div>

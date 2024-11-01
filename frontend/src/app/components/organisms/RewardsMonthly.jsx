@@ -74,17 +74,15 @@ export default function RewardsMonthly({ isGold }) {
               key={index}
               className="flex w-full flex-shrink-0 justify-center"
             >
-              <div className="relative flex h-[211.02px] w-[294.82px] items-center rounded-lg bg-gradient-to-r from-[#317EF4] to-[#8E2BFF] p-2">
+              <div className="relative flex h-[211.02px] w-[294.82px] items-center rounded-lg bg-gradient-to-r from-blueWaki to-purpleWaki p-2">
                 <img
                   src={reward.img}
                   alt="Camiseta"
                   className="h-[150px] object-contain"
                 />
                 <div className="ml-1 mt-10 flex flex-col justify-center">
-                  <span className="text-[18px] text-[#FFFFFF]">
-                    {reward.title}
-                  </span>
-                  <span className="text-[14px] text-[#181818]">
+                  <span className="text-[18px] text-white">{reward.title}</span>
+                  <span className="text-regular-14 text-label">
                     {reward.subtitle}
                   </span>
                 </div>

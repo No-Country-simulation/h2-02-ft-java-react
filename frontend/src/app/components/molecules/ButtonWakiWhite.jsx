@@ -12,35 +12,33 @@ export default function ButtonWakiWhite({
   className,
   isNotification = false,
 }) {
-  let messageColor = 'text-[#555555]';
+  let messageColor = 'text-grayWaki';
 
   if (isNotification) {
     if (text === 'Correcta') {
-      messageColor = 'text-green-700';
+      messageColor = 'text-greenWaki';
     } else if (text === 'Incorrecta') {
-      messageColor = 'text-red-700';
+      messageColor = 'text-redWaki';
     }
   }
 
   return (
     <button
-      className={`relative flex w-full ${isNotification ? 'flex-col' : 'items-center'} rounded-lg ${isNotification ? 'px-2 py-1' : 'p-5'} shadow-custom ${className}`}
+      className={`relative flex w-full ps-4 ${isNotification ? 'p-2' : 'items-center p-5'} rounded-large shadow-custom ${className}`}
     >
-      <div className={`flex items-center ${iconColor}`}>
-        <div className="mr-5 flex h-8 w-8 items-center justify-center">
-          {icon}
-        </div>
+      <div className={`flex h-full w-full items-center gap-4 ${iconColor}`}>
+        <div className="flex h-8 w-8 items-center justify-center">{icon}</div>
         {isNotification ? (
-          <div className="flex flex-shrink flex-grow flex-col text-left">
-            <span className="text-[12px] text-[#555555]">Predicciones</span>
-            <span className="text-[16px] text-[#181818]">{text}</span>
-            <span className="overflow-hidden truncate overflow-ellipsis whitespace-nowrap text-[12px] text-[#555555]">
+          <div className="flex flex-shrink flex-grow flex-col overflow-hidden text-left text-regular-12">
+            <span className="text-grayWaki">Predicciones</span>
+            <span className="text-regularNav-16 text-label">{text}</span>
+            <span className="overflow-hidden truncate overflow-ellipsis whitespace-nowrap text-grayWaki">
               {result}
             </span>
-            <span className={`text-[12px] ${messageColor}`}>{message}</span>
+            <span className={`${messageColor}`}>{message}</span>
           </div>
         ) : (
-          <span className="text-[16px] text-[#181818]">{text}</span>
+          <span className="text-regularNav-16 text-label">{text}</span>
         )}
       </div>
       {isNotification && (

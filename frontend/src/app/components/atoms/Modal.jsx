@@ -22,13 +22,13 @@ export default function Modal({ onClose, children }) {
       <div className="relative flex h-52 w-52 flex-col items-center justify-center rounded-lg bg-white p-6 shadow-lg">
         <button
           onClick={onClose}
-          className="absolute right-2 top-2 text-gray-500 hover:text-gray-700"
+          className="absolute right-2 top-2 text-grayLightWaki hover:text-grayWaki"
         >
           <IoMdClose size={24} />
         </button>
         <IoIosWarning size={70} color="red" />
         <div
-          className="mt-4 text-center text-red-500"
+          className="mt-4 text-center text-redWaki"
           style={{ fontSize: '16px' }}
         >
           {children}

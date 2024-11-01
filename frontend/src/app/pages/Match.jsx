@@ -24,7 +24,7 @@ export default function Match() {
             <AnchorButton
               to="/match/mypredictions"
               onClick={() => {
-                updateSelectedDate('Todas');
+                updateSelectedDate(null);
               }}
             >
               Mis predicciones

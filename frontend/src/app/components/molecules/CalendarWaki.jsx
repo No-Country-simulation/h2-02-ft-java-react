@@ -78,14 +78,14 @@ export default function CalendarWaki({ closeModalCalendar, isClosing }) {
   return (
     <div
       ref={modalRef}
-      className={`relative w-full max-w-md rounded-t-lg bg-white p-8 shadow-lg shadow-gray-500 ${
+      className={`relative w-full max-w-md rounded-t-lg bg-white p-8 shadow-lg shadow-grayLightWaki ${
         isClosing ? 'animate-slideOut' : 'animate-slideIn'
       }`}
     >
       <h2 className="mb-4 text-center text-semibold-22 font-semibold text-label">
         Selecciona una fecha
       </h2>
-      <div className="mb-4 flex items-center justify-between text-[14px]">
+      <div className="mb-4 flex items-center justify-between text-regular-14">
         <span
           className="flex cursor-pointer items-center text-lg font-medium"
           onClick={() => setShowMonths(!showMonths)}

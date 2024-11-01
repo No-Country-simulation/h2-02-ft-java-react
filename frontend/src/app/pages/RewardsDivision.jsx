@@ -29,15 +29,15 @@ export default function RewardsDivision() {
         </div>
       </div>
       <div className="w-full rounded-t-lg bg-[#F7F7F7] shadow-custom">
-        <div className="m-7 text-[18px] font-semibold text-[#181818]">
+        <div className="m-7 text-[18px] font-semibold text-label">
           Recompensas
         </div>
         <RewardsDivisions isGold={isGold} />
-        <div className="m-7 text-[18px] font-semibold text-[#181818]">
+        <div className="m-7 text-[18px] font-semibold text-label">
           Premios del mes
         </div>
         <RewardsMonthly isGold={isGold} />
-        <div className="m-7 text-[18px] font-semibold text-[#181818]">
+        <div className="m-7 text-[18px] font-semibold text-label">
           Tokens {divisionTitle}
         </div>
         <div className="mb-[90px]">**Aqui la lista de los jugadores</div>

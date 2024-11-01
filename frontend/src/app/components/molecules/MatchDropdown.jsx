@@ -103,7 +103,7 @@ export default function MatchDropdown({
       </button>
 
       <div
-        className={`transition-max-height divide-y overflow-scroll duration-500 ease-in-out ${
+        className={`transition-max-height divide-y overflow-y-scroll duration-500 ease-in-out ${
           activeLeague ? 'max-h-screen' : 'max-h-0'
         }`}
       >

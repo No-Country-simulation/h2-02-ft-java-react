@@ -37,6 +37,12 @@ export const PredictionsProvider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    if (userId) {
+      fetchAllPredictions();
+    }
+  }, [userId]);
+
   const addPrediction = (newPrediction, isCombined) => {
     if (isCombined) {
       setPredictions([...predictions, newPrediction]);

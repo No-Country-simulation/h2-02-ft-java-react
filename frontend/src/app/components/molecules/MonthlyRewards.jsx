@@ -10,7 +10,7 @@ export default function MonthlyRewards({ divisions, divisionTitles }) {
       {['GOLD', 'SILVER', 'BRONZE'].map((div) => (
         <div
           key={div}
-          className="mt-4 flex h-[112.14px] items-center rounded-lg bg-[#F3F4F5] p-4"
+          className="mt-4 flex h-[112.14px] items-center rounded-lg bg-grayCard p-4"
         >
           <img
             src={divisions[div]}
@@ -18,10 +18,10 @@ export default function MonthlyRewards({ divisions, divisionTitles }) {
             className="mr-4 h-[65px]"
           />
           <div className="flex-grow">
-            <div className="text-[16px] text-[#181818]">
+            <div className="text-regularNav-16 text-label">
               {divisionTitles[div]}
             </div>
-            <div className="text-[14px] text-[#555555]">
+            <div className="text-regular-14 text-grayWaki">
               {div === 'BRONZE'
                 ? 'Esta división no ofrece recompensas. Sube a la división plata para participar por premios.'
                 : 'Descubre las recompensas de esta división.'}
