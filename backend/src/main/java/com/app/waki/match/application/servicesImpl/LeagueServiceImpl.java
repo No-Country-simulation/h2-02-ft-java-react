@@ -37,7 +37,7 @@ public class LeagueServiceImpl implements LeagueService {
     @Override
     @Transactional
     @Async
-    @Scheduled(cron = "0 48 23 * * *") // Todos los días a las 23:48
+    @Scheduled(cron = "0 46 23 * * *") // Todos los días a las 23:48
     public void fetchAndSaveLeague() throws IOException, InterruptedException {
         for (Long leagueId : LEAGUE_IDS) {
             // Construye la solicitud para cada ID de liga

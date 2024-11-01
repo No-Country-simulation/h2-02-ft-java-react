@@ -43,7 +43,7 @@ public class FixtureServiceImpl implements FixtureService {
     @Override
     @Async
     @Transactional
-    @Scheduled(cron = "0 50 23 * * *") // Todos los días a las 23:50
+    @Scheduled(cron = "0 48 23 * * *") // Todos los días a las 23:50
     public void fetchAndSaveFixtures() throws IOException, InterruptedException {
         LocalDate fromDate = LocalDate.now();
         LocalDate toDate = fromDate.plusDays(5);
@@ -182,7 +182,7 @@ public class FixtureServiceImpl implements FixtureService {
     }
 
     @Override
-    @Scheduled(cron = "0 56 23 * * *") // Todos los días a las 23:56
+    @Scheduled(cron = "0 58 23 * * *") // Todos los días a las 23:56
     @Transactional
     public void getMatchFinalizedEvent() {
         // Define el inicio y fin del día actual
