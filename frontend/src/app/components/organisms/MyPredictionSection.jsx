@@ -3,6 +3,7 @@ import { usePredictions } from '../../context/PredictionsContext';
 import { useDate } from '../../context/DateContext';
 import { useAuth } from '../../context/AuthContext';
 import { fetchProfileAndCheckPredictions } from '../../utils/profileUtils';
+import { motion } from 'framer-motion';
 import {
   ActivePredictions,
   NoPredictions,
@@ -14,7 +15,7 @@ import {
 import { usePredictionsByDate } from '../../hooks/usePredictionsByDate';
 
 export default function MyPredictionSection() {
-  const { allPredictions, fetchAllPredictions } = usePredictions();
+  const { allPredictions } = usePredictions();
   const { selectedDate, updateSelectedDate } = useDate();
   const { userId } = useAuth();
   const [shouldFetch, setShouldFetch] = useState(false);
@@ -22,10 +23,8 @@ export default function MyPredictionSection() {
   useEffect(() => {
     updateSelectedDate('Todas');
   }, []);
-  console.log('allPredictions', allPredictions);
 
   const datePredictions = usePredictionsByDate(userId, selectedDate);
-
   const myPredictions =
     selectedDate !== null ? datePredictions : allPredictions;
 
@@ -45,24 +44,24 @@ export default function MyPredictionSection() {
     checkPredictions();
   }, []);
 
-  useEffect(() => {
-    if (shouldFetch) {
-      fetchAllPredictions();
-    }
-  }, [shouldFetch]);
-
   return (
     <div className="mb-[90px] min-h-[calc(100vh-460px)] rounded-t-large bg-white p-5">
       {!shouldFetch ? (
         <NoPredictions />
       ) : (
-        <>
+        <motion.div
+          key={selectedDate}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 10 }}
+          transition={{ duration: 0.3 }}
+        >
           <ActivePredictions />
           <ListActivePredictions activePredictions={myPredictions} />
           {pastPredictions.length > 0 && (
             <ListPastPredictions pastPredictions={pastPredictions} />
           )}
-        </>
+        </motion.div>
       )}
     </div>
   );

@@ -13,6 +13,7 @@ export default function Step3CombinedPrediction({ handleNextStep }) {
         </p>
       </div>
       <div className="flex flex-col gap-4 px-10 py-7">
+        {/* Botón Goles - actualmente deshabilitado */}
         <button
           className="flex items-center gap-2 rounded-large border border-transparent bg-white p-5 text-medium-18 font-medium text-label shadow-[0_0_9.2px_0_rgba(0,0,0,0.25)] transition-all duration-300 hover:border-blueWaki disabled:border-transparent disabled:bg-gray-200"
           disabled
@@ -20,9 +21,11 @@ export default function Step3CombinedPrediction({ handleNextStep }) {
           <IoShirtOutline size={36} className="text-blueWaki" />
           Goles (Próximamente)
         </button>
+
+        {/* Botón Otro partido - Avanza al paso 4 */}
         <button
           className="flex items-center gap-2 rounded-large border border-transparent bg-white p-5 text-medium-18 font-medium text-label shadow-[0_0_9.2px_0_rgba(0,0,0,0.25)] transition-all duration-300 hover:border-blueWaki"
-          onClick={handleNextStep}
+          onClick={() => handleNextStep(4)}
         >
           <IoFootballOutline size={36} className="text-blueWaki" />
           Otro partido

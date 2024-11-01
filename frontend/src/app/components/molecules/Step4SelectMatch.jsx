@@ -2,9 +2,9 @@ import Searchbar from '../molecules/Searchbar';
 import SelectMatchTabs from './SelectMatchTabs';
 import MatchList from '../organisms/MatchList';
 
-export default function Step4SelectMatch({ setStep }) {
+export default function Step4SelectMatch({ startNewJourney }) {
   const handleSelectMatch = () => {
-    setStep(1);
+    startNewJourney();
   };
 
   return (

@@ -4,7 +4,7 @@ import { MdOutlineSignalCellularAlt } from 'react-icons/md';
 import { useMatch } from '../../context/MatchContext';
 import { useModal } from '../../context/ModalContext';
 import { useAuth } from '../../context/AuthContext';
-import { getPredictionByMatchId } from '../../services/predictionService';
+import { getPredictionExistenceByMatchId } from '../../services/predictionService';
 
 export default function MatchCard({
   matchData,
@@ -47,8 +47,11 @@ export default function MatchCard({
   useEffect(() => {
     const fetchPredictionData = async () => {
       try {
-        const data = await getPredictionByMatchId(userId, matchData.id);
-        if (data) setPredictionExists(true);
+        const data = await getPredictionExistenceByMatchId(
+          userId,
+          matchData.id
+        );
+        setPredictionExists(data);
       } catch (error) {
         console.error('Error al obtener la predicción:', error);
       }
@@ -72,7 +75,9 @@ export default function MatchCard({
       {isCombined ? (
         <button
           onClick={handleClickDetails}
-          disabled={predictionExists || status === 'FT'}
+          disabled={
+            predictionExists || status === 'FT' || odds.localWin === 'N/A'
+          }
           className="disabled:cursor-not-allowed disabled:opacity-50"
         >
           <TeamScoreSection
@@ -111,7 +116,9 @@ export default function MatchCard({
         odds={odds}
         onClick={handleClickPay}
         openModal={openModal}
-        disabled={predictionExists || status === 'FT'}
+        disabled={
+          predictionExists || status === 'FT' || odds.localWin === 'N/A'
+        }
       />
     </div>
   );

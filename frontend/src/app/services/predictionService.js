@@ -64,3 +64,25 @@ export const getPredictionByMatchId = async (profileId, matchId) => {
     throw new Error('Error al obtener las predicciones por matchId');
   }
 };
+
+// Obtenemos un booleano true o false dependiendo si existe la predicción de un matchId
+export const getPredictionExistenceByMatchId = async (profileId, matchId) => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.get(
+      `${API_URL}/prediction/existence/${profileId}?matchId=${matchId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(
+      'Error detallado:',
+      error.response ? error.response.data : error.message
+    );
+    throw new Error('Error al obtener las predicciones por matchId');
+  }
+};

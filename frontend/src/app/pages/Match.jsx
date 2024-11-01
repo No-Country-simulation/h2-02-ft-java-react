@@ -10,7 +10,7 @@ import ModalPredictions from '../components/organisms/ModalPredictions';
 
 export default function Match() {
   const location = useLocation();
-  const { isModalOpen, closeModal } = useModal();
+  const { isModalOpen } = useModal();
   const { updateSelectedDate } = useDate();
 
   return (
@@ -40,9 +40,7 @@ export default function Match() {
 
       <FooterNavbar />
 
-      {isModalOpen && (
-        <ModalPredictions isOpen={isModalOpen} onClose={closeModal} />
-      )}
+      {isModalOpen && <ModalPredictions isOpen={isModalOpen} />}
     </main>
   );
 }
