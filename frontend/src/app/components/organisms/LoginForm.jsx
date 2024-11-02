@@ -108,7 +108,7 @@ export default function LoginForm() {
             className="relative"
           />
           {touched.email && errors.email && (
-            <p className="absolute mt-1 text-xs text-red-500">{errors.email}</p>
+            <p className="absolute mt-1 text-xs text-redWaki">{errors.email}</p>
           )}
         </div>
         <div className="relative">
@@ -121,7 +121,7 @@ export default function LoginForm() {
             className="relative"
           />
           {touched.password && errors.password && (
-            <p className="absolute mt-1 text-xs text-red-500">
+            <p className="absolute mt-1 text-xs text-redWaki">
               {errors.password}
             </p>
           )}

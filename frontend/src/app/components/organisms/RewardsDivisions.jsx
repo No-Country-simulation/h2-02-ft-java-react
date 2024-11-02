@@ -41,7 +41,7 @@ export default function RewardsDivisions({ isGold }) {
     <div className="m-7 rounded-lg shadow-custom">
       {options.map((option, index) => (
         <div key={index}>
-          <div className="flex h-[80px] items-center p-5 text-[12px] text-[#181818]">
+          <div className="flex h-[80px] items-center p-5 text-regular-12 text-label">
             {option.icon}
             <span className="ml-2">{option.text}</span>
           </div>

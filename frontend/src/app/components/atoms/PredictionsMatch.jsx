@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
 import { useMatch } from '../../context/MatchContext';
+import { MdOutlineSignalCellularAlt } from 'react-icons/md';
+import { formatDateNav } from '../../utils/dateUtils';
 
 export default function PredictionsMatch() {
   const { selectedMatch } = useMatch();
@@ -7,33 +8,6 @@ export default function PredictionsMatch() {
     return <p className="text-center">No hay datos del partido.</p>;
 
   const { localTeam, visitorTeam, score, startTime, status } = selectedMatch;
-  const [elapsedTime, setElapsedTime] = useState('');
-  const [hasStarted, setHasStarted] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const start = new Date(startTime);
-      const now = new Date();
-      const diff = Math.floor((now - start) / 1000);
-
-      if (now >= start) {
-        setHasStarted(true);
-        const minutes = Math.floor(diff / 60);
-        const seconds = diff % 60;
-
-        if (minutes >= 90) {
-          setElapsedTime('FT');
-          clearInterval(interval);
-        } else {
-          setElapsedTime(`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`);
-        }
-      } else {
-        setHasStarted(false);
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [startTime]);
 
   return (
     <div className="grid grid-rows-[1fr_auto] gap-1">
@@ -41,25 +15,15 @@ export default function PredictionsMatch() {
       <div className="grid grid-cols-[1fr_100px_1fr] items-center gap-4">
         {/* Columna 1: Escudo del equipo local */}
         <div className="flex flex-col items-center">
-          <figure className="h-20">
-            <img
-              src={localTeam.logoUrl}
-              alt={`${localTeam.name} Logo`}
-              className="h-full w-full object-contain"
-            />
-          </figure>
+          <TeamLogo logoUrl={localTeam.logoUrl} alt={localTeam.name} />
         </div>
 
         {/* Columna 2: Estado del partido */}
         <div className="flex flex-col items-center">
           {status === 'NS' ? (
-            // Estado de "No comenzado" (mostrar fecha y hora de inicio)
             <>
               <p className="text-medium-18 font-medium text-grayWaki">
-                {new Date(startTime).toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
-                })}
+                {formatDateNav(startTime)}
               </p>
               <p className="text-medium-39 font-medium text-label">
                 {new Date(startTime).toLocaleTimeString([], {
@@ -69,7 +33,6 @@ export default function PredictionsMatch() {
               </p>
             </>
           ) : status === 'FT' ? (
-            // Estado "Finalizado" (mostrar marcador final)
             <>
               <p className="text-medium-18 font-medium text-grayWaki">
                 Finalizado
@@ -78,46 +41,71 @@ export default function PredictionsMatch() {
                 {score || '0 - 0'}
               </p>
             </>
+          ) : status === 'PST' ? (
+            <>
+              <p className="text-medium-18 font-medium text-grayWaki">
+                Postergado
+              </p>
+              <p className="text-medium-39 font-medium text-label">
+                {score || '0 - 0'}
+              </p>
+            </>
           ) : (
-            // Estado "En juego" (mostrar el tiempo transcurrido o marcador)
-            <p className="text-medium-18 font-medium text-grayWaki">
-              <span className="mr-1 h-3 w-3 animate-blink rounded-full bg-redWaki"></span>
-              {elapsedTime || '0 - 0'}
-            </p>
+            <>
+              <p className="text-medium-18 font-medium text-grayWaki">
+                En juego
+              </p>
+              <p className="text-medium-39 font-medium text-label">
+                {score || '0 - 0'}
+              </p>
+            </>
           )}
         </div>
 
         {/* Columna 3: Escudo del equipo visitante */}
         <div className="flex flex-col items-center">
-          <figure className="h-20">
-            <img
-              src={visitorTeam.logoUrl}
-              alt={`${visitorTeam.name} Logo`}
-              className="h-full w-full object-contain"
-            />
-          </figure>
+          <TeamLogo logoUrl={visitorTeam.logoUrl} alt={visitorTeam.name} />
         </div>
       </div>
 
       {/* Fila 2: Nombres de los equipos */}
       <div className="grid grid-cols-[1fr_100px_1fr] items-center gap-4">
-        {/* Columna 1: Nombre del equipo local */}
-        <p className="text-balance text-center text-regular-12 text-grayWaki">
-          {localTeam.name === 'Central Cordoba de Santiago'
-            ? 'Central Cba (SdE)'
-            : localTeam.name}
-        </p>
-
-        {/* Columna 2: Espacio en blanco */}
-        <div></div>
-
-        {/* Columna 3: Nombre del equipo visitante */}
-        <p className="text-balance text-center text-regular-12 text-grayWaki">
-          {visitorTeam.name === 'Central Cordoba de Santiago'
-            ? 'Central Cba (SdE)'
-            : visitorTeam.name}
-        </p>
+        <TeamName name={localTeam.name} />
+        <div className="flex justify-center">
+          {status === 'NS' ? (
+            <MdOutlineSignalCellularAlt className="h-5 w-5 text-grayWaki" />
+          ) : status === 'FT' ? (
+            <MdOutlineSignalCellularAlt className="h-5 w-5 text-purpleWaki" />
+          ) : status === 'PST' ? (
+            <MdOutlineSignalCellularAlt className="h-5 w-5 text-redWaki" />
+          ) : (
+            <MdOutlineSignalCellularAlt className="h-5 w-5 animate-blink text-blueWaki" />
+          )}
+        </div>
+        <TeamName name={visitorTeam.name} />
       </div>
     </div>
+  );
+}
+
+// Subcomponente para mostrar el logo del equipo
+function TeamLogo({ logoUrl, alt }) {
+  return (
+    <figure className="h-20">
+      <img
+        src={logoUrl}
+        alt={`${alt} Logo`}
+        className="h-full w-full object-contain"
+      />
+    </figure>
+  );
+}
+
+// Subcomponente para mostrar el nombre del equipo
+function TeamName({ name }) {
+  return (
+    <p className="text-balance text-center text-regular-12 text-grayWaki">
+      {name === 'Central Cordoba de Santiago' ? 'Central Cba (SdE)' : name}
+    </p>
   );
 }

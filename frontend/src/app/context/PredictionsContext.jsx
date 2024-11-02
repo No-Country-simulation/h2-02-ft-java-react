@@ -12,7 +12,7 @@ export const PredictionsProvider = ({ children }) => {
   const [predictions, setPredictions] = useState([]); // Predicciones parciales (para combinadas)
   const [remainingPredictions, setRemainingPredictions] = useState(5);
   const [allPredictions, setAllPredictions] = useState([]); // Todas las predicciones
-  // console.log('allPredictions', allPredictions);
+  console.log('userId', userId);
   // console.log('predictions', predictions);
 
   const resetPredictions = () => setPredictions([]);
@@ -36,6 +36,12 @@ export const PredictionsProvider = ({ children }) => {
       console.error('Error al obtener todas las predicciones:', error);
     }
   };
+
+  useEffect(() => {
+    if (userId) {
+      fetchAllPredictions();
+    }
+  }, [userId]);
 
   const addPrediction = (newPrediction, isCombined) => {
     if (isCombined) {

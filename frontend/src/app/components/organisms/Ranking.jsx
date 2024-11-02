@@ -59,18 +59,18 @@ export default function Ranking({ divisionData }) {
           </div>
         ))}
       </div>
-      <div className="mt-4 text-center text-[18px] text-[#181818]">
+      <div className="mt-4 text-center text-[18px] text-label">
         {divisionTitles[division]}
       </div>
       <div className="rounded-2xl m-6 shadow-custom">
-        <div className="grid h-[34.91px] grid-cols-[1fr_3fr_2fr] items-center border-b border-[#8D8D8D] px-6 text-[12px] text-[#8D8D8D]">
+        <div className="grid h-[34.91px] grid-cols-[1fr_3fr_2fr] items-center border-b border-grayLightWaki px-6 text-regular-12 text-grayLightWaki">
           <div className="text-left">#</div>
           <div className="text-left">Nombre de usuario</div>
           <div className="text-right">Puntos</div>
         </div>
         {division === 'LIMBO' ? (
           <div className="flex w-full flex-col items-center justify-center p-4">
-            <p className="text-center text-[18px] text-[#181818]">
+            <p className="text-center text-[18px] text-label">
               Debes ganar puntos para clasificarte.
             </p>
           </div>
@@ -78,16 +78,16 @@ export default function Ranking({ divisionData }) {
           rankingList.map((user, index) => (
             <div
               key={index}
-              className="grid h-[59px] grid-cols-[1fr_3fr_2fr] items-center border-b border-[#8D8D8D] px-6 text-[12px]"
+              className="grid h-[59px] grid-cols-[1fr_3fr_2fr] items-center border-b border-grayLightWaki px-6 text-regular-12"
             >
-              <div className="text-left text-[24px] text-[#317EF4]">
+              <div className="text-left text-[24px] text-blueWaki">
                 {user.position}
               </div>
-              <div className="text-left text-[16px] text-[#181818] flex items-center">
+              <div className="flex items-center text-left text-regularNav-16 text-label">
                 <FaUserCircle color="#B1B1B1" size={42} className="mr-2" />
                 {user.username}
               </div>
-              <div className="text-right text-[14px] text-[#616161]">
+              <div className="text-right text-regular-14 text-grayWaki">
                 {user.points}
               </div>
             </div>

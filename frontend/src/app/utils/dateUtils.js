@@ -11,9 +11,15 @@ export const formatDateNav = (date) => {
   return formattedDate.replace('.', '');
 };
 
-// Función para ajustar la fecha actual según un número de días
-export const adjustDate = (days) => {
-  const date = new Date();
+export const formatMatchTime = (date) => {
+  return new Date(date).toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+};
+
+export const adjustDate = (baseDate, days) => {
+  const date = new Date(baseDate);
   date.setDate(date.getDate() + days);
   return date;
 };
@@ -22,7 +28,7 @@ export const adjustDate = (days) => {
 export const getUpcomingDays = () => {
   const daysArray = ['Todas'];
   for (let i = 0; i <= 5; i++) {
-    daysArray.push(adjustDate(i));
+    daysArray.push(adjustDate(new Date(), i));
   }
   return daysArray;
 };

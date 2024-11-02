@@ -1,75 +1,82 @@
 import { useState, useEffect } from 'react';
+import { Tabs, TabsHeader, Tab } from '@material-tailwind/react';
 import { useDate } from '../../context/DateContext';
 import { adjustDate, formatDateNav } from '../../utils/dateUtils';
 
 export default function MatchNavbar() {
-  const { updateSelectedDate } = useDate();
-  const today = adjustDate(0);
-  const yesterday = adjustDate(-1);
-  const tomorrow = adjustDate(1);
+  const { updateSelectedDate, selectedDate } = useDate();
+
+  // Inicializa con selectedDate como "hoy", junto con ayer y mañana relativos
+  const [dates, setDates] = useState({
+    today: selectedDate,
+    yesterday: adjustDate(selectedDate, -1),
+    tomorrow: adjustDate(selectedDate, 1),
+  });
 
   useEffect(() => {
-    updateSelectedDate(new Date());
-  }, []);
+    // Actualiza las fechas relativas cada vez que cambia selectedDate
+    setDates({
+      today: selectedDate,
+      yesterday: adjustDate(selectedDate, -1),
+      tomorrow: adjustDate(selectedDate, 1),
+    });
+  }, [selectedDate]);
 
-  const [underlinePosition, setUnderlinePosition] = useState('center');
-
-  const handleTabClick = (tab) => {
-    const tabData = {
-      yesterday: { position: 'left', date: yesterday },
-      today: { position: 'center', date: today },
-      tomorrow: { position: 'right', date: tomorrow },
+  const handleTabChange = (tab) => {
+    const dateMap = {
+      yesterday: dates.yesterday,
+      today: dates.today,
+      tomorrow: dates.tomorrow,
     };
 
-    const { position, date } = tabData[tab];
+    // Actualiza el contexto y la fecha seleccionada
+    const newSelectedDate = dateMap[tab];
+    updateSelectedDate(newSelectedDate);
 
-    setUnderlinePosition(position);
-    updateSelectedDate(date);
+    // Reajusta las fechas en torno a la nueva fecha "hoy"
+    setDates({
+      today: newSelectedDate,
+      yesterday: adjustDate(newSelectedDate, -1),
+      tomorrow: adjustDate(newSelectedDate, 1),
+    });
   };
 
   return (
-    <>
-      <nav className="grid grid-cols-3 pt-5 text-center">
-        <button
-          onClick={() => handleTabClick('yesterday')}
-          className={`px-4 py-2 text-regularNav-16 transition-colors duration-300 ${
-            underlinePosition === 'left'
-              ? 'font-medium text-blueWaki'
-              : 'text-grayWaki'
-          }`}
+    <Tabs value="today" className="w-full">
+      <TabsHeader
+        className="grid grid-cols-3 whitespace-nowrap rounded-none bg-transparent p-0 pt-5"
+        indicatorProps={{
+          className: 'bg-transparent shadow-none rounded-none',
+        }}
+      >
+        <Tab
+          value="yesterday"
+          onClick={() => handleTabChange('yesterday')}
+          className={`px-4 pb-[5px] pt-2 text-regularNav-16 text-grayWaki transition-colors duration-300`}
         >
-          {formatDateNav(yesterday)}
-        </button>
-        <button
-          onClick={() => handleTabClick('today')}
-          className={`px-4 py-2 text-regularNav-16 transition-colors duration-300 ${
-            underlinePosition === 'center'
-              ? 'font-medium text-blueWaki'
-              : 'text-grayWaki'
-          }`}
+          {formatDateNav(dates.yesterday) === formatDateNav(new Date())
+            ? 'Hoy'
+            : formatDateNav(dates.yesterday)}
+        </Tab>
+        <Tab
+          value="today"
+          onClick={() => handleTabChange('today')}
+          className={`border-b-[3px] border-blueWaki px-4 pb-[5px] pt-2 text-regularNav-16 font-medium text-blueWaki transition-colors duration-300`}
         >
-          Hoy
-        </button>
-        <button
-          onClick={() => handleTabClick('tomorrow')}
-          className={`px-4 py-2 text-regularNav-16 transition-colors duration-300 ${
-            underlinePosition === 'right'
-              ? 'font-medium text-blueWaki'
-              : 'text-grayWaki'
-          }`}
+          {formatDateNav(dates.today) === formatDateNav(new Date())
+            ? 'Hoy'
+            : formatDateNav(dates.today)}
+        </Tab>
+        <Tab
+          value="tomorrow"
+          onClick={() => handleTabChange('tomorrow')}
+          className={`px-4 pb-[5px] pt-2 text-regularNav-16 text-grayWaki transition-colors duration-300`}
         >
-          {formatDateNav(tomorrow)}
-        </button>
-      </nav>
-      <span
-        className={`absolute bottom-0 h-[3px] w-1/3 transform bg-blueWaki transition-all duration-500 ease-in-out ${
-          underlinePosition === 'left'
-            ? 'translate-x-0'
-            : underlinePosition === 'center'
-              ? 'translate-x-full'
-              : 'translate-x-[200%]'
-        }`}
-      ></span>
-    </>
+          {formatDateNav(dates.tomorrow) === formatDateNav(new Date())
+            ? 'Hoy'
+            : formatDateNav(dates.tomorrow)}
+        </Tab>
+      </TabsHeader>
+    </Tabs>
   );
 }

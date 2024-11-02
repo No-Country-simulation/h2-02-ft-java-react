@@ -4,10 +4,10 @@ import PredictionsSections from '../components/organisms/PredictionsSections';
 import Positions from './Positions';
 
 export default function Details() {
-  const [underlinePosition, setUnderlinePosition] = useState('left');
+  const [activeTab, setActiveTab] = useState('left');
 
   const renderSection = () => {
-    switch (underlinePosition) {
+    switch (activeTab) {
       case 'left':
         return <PredictionsSections />;
       case 'center':
@@ -20,11 +20,8 @@ export default function Details() {
   };
 
   return (
-    <div className="flex flex-col mb-[90px]">
-      <PredictionsHeader
-        underlinePosition={underlinePosition}
-        setUnderlinePosition={setUnderlinePosition}
-      />
+    <div className="mb-[90px] flex flex-col">
+      <PredictionsHeader activeTab={activeTab} setActiveTab={setActiveTab} />
       {renderSection()}
     </div>
   );

@@ -46,9 +46,7 @@ export default function MyPredictionSection() {
 
   return (
     <div className="mb-[90px] min-h-[calc(100vh-460px)] rounded-t-large bg-white p-5">
-      {!shouldFetch ? (
-        <NoPredictions />
-      ) : (
+      {shouldFetch ? (
         <motion.div
           key={selectedDate}
           initial={{ opacity: 0, y: -10 }}
@@ -62,6 +60,8 @@ export default function MyPredictionSection() {
             <ListPastPredictions pastPredictions={pastPredictions} />
           )}
         </motion.div>
+      ) : (
+        <NoPredictions />
       )}
     </div>
   );

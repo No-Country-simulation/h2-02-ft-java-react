@@ -24,7 +24,7 @@ export default function Rewards({ divisionData }) {
   return (
     <main className="flex w-full flex-col items-center overflow-hidden p-4 sm:min-w-[570px]">
       {division === 'LIMBO' ? (
-        <p className="text-center text-[18px] text-[#181818]">
+        <p className="text-center text-[18px] text-label">
           Debes ganar puntos para clasificarte.
         </p>
       ) : (
@@ -34,7 +34,7 @@ export default function Rewards({ divisionData }) {
             alt={`Division ${division}`}
             className="mb-4 h-[105.33px]"
           />
-          <div className="text-center text-[18px] text-[#555555]">
+          <div className="text-center text-[18px] text-grayWaki">
             Estás en la
           </div>
           <div className="pb-7 text-center text-[22px] font-semibold text-blueWaki">

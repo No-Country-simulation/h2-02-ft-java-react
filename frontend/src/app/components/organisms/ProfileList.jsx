@@ -89,67 +89,69 @@ export default function ProfileList() {
   };
 
   return (
-    <div className="flex w-full flex-col p-5">
-      {options.map((option, index) => (
-        <div key={index} className="relative">
-          <a
-            href={option.link || '#'}
-            onClick={
-              option.action === 'logout'
-                ? logout
-                : option.name === 'Mi ranking'
-                  ? toggleRanking
-                  : null
-            }
-            className={`relative flex h-14 w-full items-center justify-between bg-white px-5 text-[#181818] shadow-custom ${
-              index === 0 ? 'rounded-t-lg' : ''
-            } ${index === options.length - 1 ? 'rounded-b-lg' : ''}`}
-          >
-            <div className="grid grid-cols-[24px_1fr] items-center gap-2">
-              <div className="flex h-6 w-6 items-center justify-center">
-                {option.icon}
-              </div>
-              <span className="text-regularNav-14 whitespace-nowrap">
-                {option.name}
-              </span>
-            </div>
-            {option.name === 'Notificaciones' && notificationCount > 0 && (
-              <span className="absolute right-5 flex h-6 w-6 items-center justify-center rounded-full bg-blueWaki text-lg text-white">
-                {notificationCount}
-              </span>
-            )}
-            {option.name === 'Mi ranking' && (
-              <IoIosArrowDown
-                className={`text-blueWaki transition-transform duration-300 ${
-                  activeRanking ? 'rotate-180' : 'rotate-0'
-                }`}
-                size={18}
-              />
-            )}
-          </a>
-          {option.name === 'Mi ranking' && activeRanking && divisionData && (
-            <div className="bg-white p-5 shadow-custom">
-              {divisionData.division === 'LIMBO' ? (
-                <p className="text-center text-[18px] text-[#181818]">
-                  Debes ganar puntos para clasificarte.
-                </p>
-              ) : (
-                <div>
-                  <p className="text-[18px] text-[#181818]">
-                    División: {divisionTitles[divisionData.division]}
-                  </p>
-                  <p className="text-[16px] text-[#555555]">
-                    Posición: {divisionData.position}
-                  </p>
-                  <p className="text-[16px] text-[#555555]">
-                    Puntos: {divisionData.points}
-                  </p>
+    <section className="p-5">
+      <div className="flex flex-col divide-y-2 overflow-hidden rounded-large shadow-custom">
+        {options.map((option, index) => (
+          <div key={index} className="relative">
+            <a
+              href={option.link || '#'}
+              onClick={
+                option.action === 'logout'
+                  ? logout
+                  : option.name === 'Mi ranking'
+                    ? toggleRanking
+                    : null
+              }
+              className={`relative flex h-14 w-full items-center justify-between bg-white px-5 text-label ${
+                index === 0 ? 'rounded-t-lg' : ''
+              } ${index === options.length - 1 ? 'rounded-b-lg' : ''}`}
+            >
+              <div className="grid grid-cols-[24px_1fr] items-center gap-2">
+                <div className="flex h-6 w-6 items-center justify-center">
+                  {option.icon}
                 </div>
+                <span className="text-regularNav-14 whitespace-nowrap">
+                  {option.name}
+                </span>
+              </div>
+              {option.name === 'Notificaciones' && notificationCount > 0 && (
+                <span className="regular-12 absolute right-5 flex h-6 w-6 items-center justify-center rounded-full bg-blueWaki font-medium text-white">
+                  {notificationCount}
+                </span>
               )}
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
+              {option.name === 'Mi ranking' && (
+                <IoIosArrowDown
+                  className={`text-blueWaki transition-transform duration-300 ${
+                    activeRanking ? 'rotate-180' : 'rotate-0'
+                  }`}
+                  size={18}
+                />
+              )}
+            </a>
+            {option.name === 'Mi ranking' && activeRanking && divisionData && (
+              <div className="bg-white p-5 shadow-custom">
+                {divisionData.division === 'LIMBO' ? (
+                  <p className="text-center text-[18px] text-label">
+                    Debes ganar puntos para clasificarte.
+                  </p>
+                ) : (
+                  <div>
+                    <p className="text-[18px] text-label">
+                      División: {divisionTitles[divisionData.division]}
+                    </p>
+                    <p className="text-regularNav-16 text-grayWaki">
+                      Posición: {divisionData.position}
+                    </p>
+                    <p className="text-regularNav-16 text-grayWaki">
+                      Puntos: {divisionData.points}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }

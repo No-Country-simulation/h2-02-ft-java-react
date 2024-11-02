@@ -1,6 +1,6 @@
 export default function IconButton({ icon: Icon, ...props }) {
   return (
-    <button className="text-gray-500" {...props}>
+    <button className="text-grayLightWaki" {...props}>
       <Icon size={20} />
     </button>
   );
