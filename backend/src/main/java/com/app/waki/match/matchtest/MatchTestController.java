@@ -2,9 +2,7 @@ package com.app.waki.match.matchtest;
 
 import com.app.waki.common.exceptions.EntityNotFoundException;
 import com.app.waki.match.domain.FinalResult;
-import com.app.waki.match.domain.fixture.Fixture;
-import com.app.waki.match.domain.fixture.FixtureRepository;
-import com.app.waki.match.domain.fixture.Goals;
+import com.app.waki.match.domain.fixture.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -36,8 +34,17 @@ public class MatchTestController {
         Goals newGoals = new Goals();
         newGoals.setHomeGoals(matchResultDto.homeGoals());
         newGoals.setAwayGoals(matchResultDto.awayGoals());
+
+        Status newStatus = new Status();
+        newStatus.setLongStatus(matchResultDto.longStatus());
+        newStatus.setShortStatus(matchResultDto.shortStatus());
+
+        findFixture.setNewStatus(newStatus);
+
         findFixture.setNewGoals(newGoals);
+
         findFixture.setFinalResult(FinalResult.valueOf(matchResultDto.result()));
+
         repository.save(findFixture);
 
         log.info("fixture actualizado" + findFixture.getId());

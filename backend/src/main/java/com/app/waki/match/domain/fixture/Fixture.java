@@ -47,8 +47,11 @@ public class Fixture {
 //    private Score score;
 
     public void setNewGoals(Goals goals){
-
         this.goals = goals;
+    }
+
+    public void setNewStatus(Status status){
+        this.status = status;
     }
 
     public void setFinalResult(FinalResult result){

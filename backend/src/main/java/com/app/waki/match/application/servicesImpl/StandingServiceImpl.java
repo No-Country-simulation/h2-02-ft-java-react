@@ -38,7 +38,7 @@ public class StandingServiceImpl implements StandingService {
     @Override
     @Transactional
     @Async
-    @Scheduled(cron = "0 54 23 * * *") // Todos los días a las 23:54
+    @Scheduled(cron = "0 52 23 * * *") // Todos los días a las 23:54
     public void fetchAndSaveStandings() throws IOException, InterruptedException {
 
         // Itera sobre cada ID de liga

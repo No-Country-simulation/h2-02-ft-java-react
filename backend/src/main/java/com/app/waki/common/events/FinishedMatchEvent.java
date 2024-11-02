@@ -1,4 +1,4 @@
 package com.app.waki.common.events;
 
-public record FinishedMatchEvent(Long matchId, String result, int homeGoals, int awayGoals) {
+public record FinishedMatchEvent(Long matchId, String result, int homeGoals, int awayGoals, String longStatus, String shortStatus) {
 }

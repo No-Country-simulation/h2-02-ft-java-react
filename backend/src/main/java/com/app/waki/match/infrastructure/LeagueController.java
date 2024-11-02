@@ -30,7 +30,5 @@ public class LeagueController {
 
     // Nuevo endpoint para obtener todas las ligas
     @GetMapping("/allLeagues")
-    public List<League> getAllLeagues() {
-        return leagueService.getAllLeagues();
-    }
+    public List<League> getAllLeagues() {return leagueService.getAllLeagues();}
 }

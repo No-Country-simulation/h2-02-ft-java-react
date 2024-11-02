@@ -56,14 +56,23 @@ public class SecurityConfig {
             new AntPathRequestMatcher("/league/fetch-league", "GET"),
             new AntPathRequestMatcher("/fixture/fetch-fixture", "Get"),
             new AntPathRequestMatcher("/odd/fetch-odds", "Get"),
+            new AntPathRequestMatcher("/standing/fetch-standings", "Get"),
             new AntPathRequestMatcher("/league/allLeagues", "Get"),
             new AntPathRequestMatcher("/fixture/getFixtureDate", "Get"),
             new AntPathRequestMatcher("/fixture/getFixtureCodeDate", "Get"),
             new AntPathRequestMatcher("/fixture/getAllTeams", "Get"),
             new AntPathRequestMatcher("/odd/allOdds", "Get"),
             new AntPathRequestMatcher("/odd/{id}", "Get"),
-            new AntPathRequestMatcher("/standing/fetch-standings", "Get"),
-            new AntPathRequestMatcher("/standing/{leagueId}", "Get")
+            new AntPathRequestMatcher("/standing/{leagueId}", "Get"),
+            //PLAYER
+            new AntPathRequestMatcher("/player/fetch-player", "Get"),
+            new AntPathRequestMatcher("/player/allPlayersProfiles", "Get"),
+            new AntPathRequestMatcher("/player/allPlayerProfilesWithStats", "Get"),
+            new AntPathRequestMatcher("/player/playerProfileWithStat/{id}", "Get"),
+            new AntPathRequestMatcher("/player/playerProfileWithStat/{id}/{season}", "Get"),
+            new AntPathRequestMatcher("/trophie/fetch-trophie", "Get"),
+            new AntPathRequestMatcher("/trophie/playerTrophie/{id}", "Get"),
+            new AntPathRequestMatcher("/trophie/playerTrophie/{id}/{season}", "Get")
         );
     RequestMatcher adminUrls = new OrRequestMatcher(
                 new AntPathRequestMatcher("/user/admin")
