@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MdOutlineSignalCellularAlt } from 'react-icons/md';
+import { formatDateNav, formatMatchTime } from '../../utils/dateUtils';
 import { useMatch } from '../../context/MatchContext';
 import { useModal } from '../../context/ModalContext';
 import { useAuth } from '../../context/AuthContext';
@@ -15,35 +16,10 @@ export default function MatchCard({
   const { openModal, setSelectedOption } = useModal();
   const { userId } = useAuth();
   const { localTeam, visitorTeam, score, odds, startTime, status } = matchData;
-  const [elapsedTime, setElapsedTime] = useState('');
   const [hasStarted, setHasStarted] = useState(false);
   const [predictionExists, setPredictionExists] = useState(false);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const start = new Date(startTime);
-      const now = new Date();
-      const diff = Math.floor((now - start) / 1000);
-
-      if (now >= start) {
-        setHasStarted(true);
-        const minutes = Math.floor(diff / 60);
-        const seconds = diff % 60;
-
-        if (minutes >= 90) {
-          setElapsedTime('FT');
-          clearInterval(interval);
-        } else {
-          setElapsedTime(`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`);
-        }
-      } else {
-        setHasStarted(false);
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [startTime]);
-
+  // Verificación de existencia de predicción
   useEffect(() => {
     const fetchPredictionData = async () => {
       try {
@@ -59,9 +35,16 @@ export default function MatchCard({
     fetchPredictionData();
   }, [userId, matchData.id]);
 
+  // Determina si el partido ha comenzado
+  useEffect(() => {
+    const now = new Date();
+    const start = new Date(startTime);
+    setHasStarted(now >= start);
+  }, [startTime]);
+
   const handleClickDetails = () => {
     selectMatch(matchData);
-    handleSelectMatch?.(); // Solo llama a handleSelectMatch si está definido
+    handleSelectMatch?.(); // Llama a handleSelectMatch si está definido
   };
 
   const handleClickPay = (option) => {
@@ -69,15 +52,16 @@ export default function MatchCard({
     setSelectedOption(option);
   };
 
+  const isDisabled =
+    predictionExists || status === 'FT' || odds.localWin === 'N/A';
+
   return (
     <div className="relative grid grid-rows-[1fr_auto_auto] gap-2 bg-grayCard px-4 py-5">
       {/* Fila 1: Escudos y marcador */}
       {isCombined ? (
         <button
           onClick={handleClickDetails}
-          disabled={
-            predictionExists || status === 'FT' || odds.localWin === 'N/A'
-          }
+          disabled={isDisabled}
           className="disabled:cursor-not-allowed disabled:opacity-50"
         >
           <TeamScoreSection
@@ -85,8 +69,7 @@ export default function MatchCard({
             visitorTeam={visitorTeam}
             score={score}
             status={status}
-            hasStarted={hasStarted}
-            elapsedTime={elapsedTime}
+            startTime={startTime}
           />
         </button>
       ) : (
@@ -96,8 +79,7 @@ export default function MatchCard({
             visitorTeam={visitorTeam}
             score={score}
             status={status}
-            hasStarted={hasStarted}
-            elapsedTime={elapsedTime}
+            startTime={startTime}
           />
         </Link>
       )}
@@ -108,7 +90,6 @@ export default function MatchCard({
         visitorTeam={visitorTeam}
         status={status}
         startTime={startTime}
-        elapsedTime={elapsedTime}
       />
 
       {/* Fila 3: Botones de predicción */}
@@ -116,9 +97,7 @@ export default function MatchCard({
         odds={odds}
         onClick={handleClickPay}
         openModal={openModal}
-        disabled={
-          predictionExists || status === 'FT' || odds.localWin === 'N/A'
-        }
+        disabled={isDisabled}
       />
     </div>
   );
@@ -130,22 +109,29 @@ function TeamScoreSection({
   visitorTeam,
   score,
   status,
-  hasStarted,
-  elapsedTime,
+  startTime,
 }) {
   return (
     <div className="grid grid-cols-3 items-center">
       <TeamLogo logoUrl={localTeam.logoUrl} alt={localTeam.name} />
       <div className="flex flex-col items-center">
-        {hasStarted || status === 'IN_PLAY' ? (
+        {status === 'NS' ? (
           <>
-            <MdOutlineSignalCellularAlt className="h-5 w-5 font-semibold text-purpleWaki" />
+            <MdOutlineSignalCellularAlt className="h-5 w-5 text-grayWaki" />
             <p className="text-semibold-22 font-semibold text-label">
-              {score ? score : '0 - 0'}
+              {formatMatchTime(startTime)}
             </p>
           </>
+        ) : status === 'FT' ? (
+          <>
+            <MdOutlineSignalCellularAlt className="h-5 w-5 text-purpleWaki" />
+            <p className="text-semibold-22 font-semibold text-label">{score}</p>
+          </>
         ) : (
-          <p className="text-semibold-22 font-semibold text-label">vs</p>
+          <>
+            <MdOutlineSignalCellularAlt className="h-5 w-5 animate-blink text-blueWaki" />
+            <p className="text-semibold-22 font-semibold text-label">{score}</p>
+          </>
         )}
       </div>
       <TeamLogo logoUrl={visitorTeam.logoUrl} alt={visitorTeam.name} />
@@ -154,41 +140,25 @@ function TeamScoreSection({
 }
 
 // Componente para el nombre y estado del partido
-function TeamNamesStatusSection({
-  localTeam,
-  visitorTeam,
-  status,
-  startTime,
-  elapsedTime,
-}) {
+function TeamNamesStatusSection({ localTeam, visitorTeam, status, startTime }) {
   return (
     <div className="grid grid-cols-3 items-center">
       <p className="text-balance text-center text-regular-12 text-grayWaki">
-        {localTeam.name === 'Central Cordoba de Santiago'
-          ? 'Central Cba (SdE)'
-          : localTeam.name}
+        {localTeam.name}
       </p>
       <div className="flex flex-col items-center">
         {status === 'NS' ? (
           <p className="text-[10.35px] text-grayWaki">
-            {new Date(startTime).toLocaleTimeString([], {
-              hour: '2-digit',
-              minute: '2-digit',
-            })}
+            {formatDateNav(startTime)}
           </p>
         ) : status === 'FT' ? (
           <p className="text-[10.35px] text-grayWaki">FT</p>
         ) : (
-          <p className="flex items-center text-[10.35px]">
-            <span className="mr-1 h-2 w-2 animate-blink rounded-full bg-redWaki"></span>
-            {elapsedTime}
-          </p>
+          <p className="text-[10.35px] text-grayWaki">En juego</p>
         )}
       </div>
       <p className="text-balance text-center text-regular-12 text-grayWaki">
-        {visitorTeam.name === 'Central Cordoba de Santiago'
-          ? 'Central Cba (SdE)'
-          : visitorTeam.name}
+        {visitorTeam.name}
       </p>
     </div>
   );

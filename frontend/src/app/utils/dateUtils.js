@@ -11,6 +11,13 @@ export const formatDateNav = (date) => {
   return formattedDate.replace('.', '');
 };
 
+export const formatMatchTime = (date) => {
+  return new Date(date).toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+};
+
 export const adjustDate = (baseDate, days) => {
   const date = new Date(baseDate);
   date.setDate(date.getDate() + days);

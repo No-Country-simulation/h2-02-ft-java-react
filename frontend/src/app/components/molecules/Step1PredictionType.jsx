@@ -1,5 +1,5 @@
-import { PiCourtBasketball } from 'react-icons/pi';
-import { IoShirtOutline } from 'react-icons/io5';
+import { TbSoccerField } from 'react-icons/tb';
+import { TbPlayFootball } from 'react-icons/tb';
 
 export default function Step1PredictionType({ handlePrediction }) {
   return (
@@ -17,14 +17,14 @@ export default function Step1PredictionType({ handlePrediction }) {
           className="flex items-center gap-2 rounded-large border border-transparent bg-white p-5 text-medium-18 font-medium text-label shadow-[0_0_9.2px_0_rgba(0,0,0,0.25)] transition-all duration-300 hover:border-blueWaki"
           onClick={() => handlePrediction('')}
         >
-          <PiCourtBasketball size={36} className="text-blueWaki" />
+          <TbSoccerField size={36} className="text-blueWaki" />
           Resultado final
         </button>
         <button
           className="flex items-center gap-2 rounded-large border border-transparent bg-white p-5 text-medium-18 font-medium text-label shadow-[0_0_9.2px_0_rgba(0,0,0,0.25)] transition-all duration-300 hover:border-blueWaki disabled:border-transparent disabled:bg-gray-200"
           disabled
         >
-          <IoShirtOutline size={36} className="text-blueWaki" />
+          <TbPlayFootball size={36} className="text-blueWaki" />
           Goles (Próximamente)
         </button>
       </div>

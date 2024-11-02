@@ -40,11 +40,10 @@ export default function MatchDropdown({
           },
           score:
             match.fixture.status.shortStatus === 'FT'
-              ? match.fixture.goals.homeGoals !== null &&
-                match.fixture.goals.awayGoals !== null
-                ? `${match.fixture.goals.homeGoals} - ${match.fixture.goals.awayGoals}`
-                : '? - ?'
-              : 'vs',
+              ? `${match.fixture.goals.homeGoals} - ${match.fixture.goals.awayGoals}`
+              : match.fixture.status.shortStatus === 'NS'
+                ? 'vs'
+                : `${match.fixture.goals.homeGoals || 0} - ${match.fixture.goals.awayGoals || 0}`,
           odds: {
             localWin: match.odds[0]?.bookmaker?.bet?.values.homeOdd || 'N/A',
             draw: match.odds[0]?.bookmaker?.bet?.values.drawOdd || 'N/A',
