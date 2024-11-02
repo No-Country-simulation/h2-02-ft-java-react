@@ -16,7 +16,6 @@ export default function MatchCard({
   const { openModal, setSelectedOption } = useModal();
   const { userId } = useAuth();
   const { localTeam, visitorTeam, score, odds, startTime, status } = matchData;
-  const [hasStarted, setHasStarted] = useState(false);
   const [predictionExists, setPredictionExists] = useState(false);
 
   // Verificación de existencia de predicción
@@ -34,13 +33,6 @@ export default function MatchCard({
     };
     fetchPredictionData();
   }, [userId, matchData.id]);
-
-  // Determina si el partido ha comenzado
-  useEffect(() => {
-    const now = new Date();
-    const start = new Date(startTime);
-    setHasStarted(now >= start);
-  }, [startTime]);
 
   const handleClickDetails = () => {
     selectMatch(matchData);
@@ -127,6 +119,11 @@ function TeamScoreSection({
             <MdOutlineSignalCellularAlt className="h-5 w-5 text-purpleWaki" />
             <p className="text-semibold-22 font-semibold text-label">{score}</p>
           </>
+        ) : status === 'PST' ? (
+          <>
+            <MdOutlineSignalCellularAlt className="h-5 w-5 text-redWaki" />
+            <p className="text-semibold-22 font-semibold text-label">{score}</p>
+          </>
         ) : (
           <>
             <MdOutlineSignalCellularAlt className="h-5 w-5 animate-blink text-blueWaki" />
@@ -146,15 +143,15 @@ function TeamNamesStatusSection({ localTeam, visitorTeam, status, startTime }) {
       <p className="text-balance text-center text-regular-12 text-grayWaki">
         {localTeam.name}
       </p>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center text-[10.35px] text-grayWaki">
         {status === 'NS' ? (
-          <p className="text-[10.35px] text-grayWaki">
-            {formatDateNav(startTime)}
-          </p>
+          <p className="">{formatDateNav(startTime)}</p>
         ) : status === 'FT' ? (
-          <p className="text-[10.35px] text-grayWaki">FT</p>
+          <p className="">FT</p>
+        ) : status === 'PST' ? (
+          <p className="">Postergado</p>
         ) : (
-          <p className="text-[10.35px] text-grayWaki">En juego</p>
+          <p className="">En juego</p>
         )}
       </div>
       <p className="text-balance text-center text-regular-12 text-grayWaki">
