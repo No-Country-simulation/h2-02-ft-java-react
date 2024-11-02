@@ -2,10 +2,7 @@ package com.app.waki.match.matchtest;
 
 import com.app.waki.common.exceptions.EntityNotFoundException;
 import com.app.waki.match.domain.FinalResult;
-import com.app.waki.match.domain.fixture.Fixture;
-import com.app.waki.match.domain.fixture.FixtureRepository;
-import com.app.waki.match.domain.fixture.Goals;
-import com.app.waki.match.domain.fixture.Status;
+import com.app.waki.match.domain.fixture.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
