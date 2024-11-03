@@ -6,6 +6,7 @@ import com.app.waki.profile.domain.valueObject.ProfileUserId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -37,6 +38,16 @@ public class JpaProfileRepositoryImpl implements ProfileRepository {
     @Override
     public void markProfilesAsProcessed(List<ProfileUserId> profileIds) {
         jpaRepository.markProfilesAsProcessed(profileIds);
+    }
+
+    @Override
+    public List<Profile> updateAvailablePrediction(LocalDate yesterday) {
+        return jpaRepository.findProfilesToUpdateAvailablePredictions(yesterday);
+    }
+
+    @Override
+    public void saveAll(List<Profile> profiles) {
+        jpaRepository.saveAll(profiles);
     }
 
 }

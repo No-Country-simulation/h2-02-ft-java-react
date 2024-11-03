@@ -9,9 +9,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -70,5 +72,40 @@ public class ProfileBatchService {
         } while (!unprocessedProfiles.isEmpty());
 
         log.info("Batch processing completed. Total profiles processed: {}", processedTotal);
+    }
+
+
+    @Transactional
+    public void updatePredictionProfile() {
+        int processedTotal = 0;
+        LocalDate yesterday = LocalDate.now().minusDays(1);
+        List<Profile> profilesBatch;
+
+        // Procesar en lotes del tamaño configurado
+        do {
+            // Obtener un lote de perfiles que tienen availablePredictions del dia anterior
+            profilesBatch = profileRepository.updateAvailablePrediction(yesterday)
+                    .stream()
+                    .limit(batchSize)
+                    .collect(Collectors.toList());
+
+            if (!profilesBatch.isEmpty()) {
+                // Actualizar las predicciones disponibles de cada perfil en el lote eliminamos las de ayer y agregamos una 5 dias en el futuro
+                profilesBatch.forEach(Profile::updateAvailablePrediction);
+
+                // Guardar el lote de perfiles con las predicciones actualizadas
+                profileRepository.saveAll(profilesBatch);
+
+                processedTotal += profilesBatch.size();
+                log.info("Updated batch of {} profiles. Total profiles updated: {}", profilesBatch.size(), processedTotal);
+            }
+        } while (!profilesBatch.isEmpty());
+
+        log.info("Prediction profile update completed. Total profiles updated: {}", processedTotal);
+    }
+
+    @Scheduled(cron = "0 1 0 * * ?")  // Ejecuta todos los días a las 00:01
+    public void scheduleUpdatePredictionProfile() {
+        updatePredictionProfile();  // Método que llama a la lógica de actualización de predicciones disponibles
     }
 }

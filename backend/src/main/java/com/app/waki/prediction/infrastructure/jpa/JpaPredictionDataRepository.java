@@ -17,7 +17,7 @@ import java.util.Optional;
 
 public interface JpaPredictionDataRepository extends JpaRepository<PredictionDetails, PredictionDetailsId> {
 
-    @EntityGraph(attributePaths = {"predictionDetailsId", "profileId", "creationTime", "combined", "earnablePoints", "status", "version"})
+    @EntityGraph(attributePaths = {"predictions"})
     @Query("SELECT pd FROM PredictionDetails pd WHERE pd.profileId = :profileId")
     List<PredictionDetails> getAllPredictionDetailsByProfileId(@Param("profileId") ProfileId profileId);
 

@@ -86,4 +86,11 @@ public class Profile {
         this.totalPoints = new TotalPoints(this.totalPoints.points() + points);
         this.pointsProcessed = false;
     }
+
+    public void updateAvailablePrediction() {
+        LocalDate yesterday = LocalDate.now().minusDays(1);
+        this.availablePredictions.removeIf(prediction -> prediction.getPredictionDate().equals(yesterday));
+        AvailablePrediction newPrediction = AvailablePrediction.create(this, LocalDate.now().plusDays(5), 5);
+        this.availablePredictions.add(newPrediction);
+    }
 }
