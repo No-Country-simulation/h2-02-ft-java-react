@@ -1,11 +1,16 @@
 import { PredictionCard } from './PredictionCard';
+import { PredictionCarrousel } from './PredictionCarrousel';
 
 export function ListActivePredictions({ activePredictions }) {
   return (
     <div className="flex flex-col gap-2">
-      {activePredictions.map((prediction, index) => (
-        <PredictionCard key={index} {...prediction} />
-      ))}
+      {activePredictions.map((prediction, index) =>
+        prediction.match.length > 1 ? (
+          <PredictionCarrousel key={index} {...prediction} />
+        ) : (
+          <PredictionCard key={index} {...prediction} />
+        )
+      )}
     </div>
   );
 }

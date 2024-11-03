@@ -9,7 +9,7 @@ export default function StatusPredictionsCard({ status, points }) {
   switch (status) {
     case 'PENDING':
       statusContent = (
-        <div className="flex items-center gap-2 px-4 py-2">
+        <div className="flex h-9 items-center gap-2 px-4 py-2">
           <BiLoaderCircle
             className="animate-spin-slow text-purpleWaki"
             size={18}
@@ -20,7 +20,7 @@ export default function StatusPredictionsCard({ status, points }) {
       break;
     case 'FAILED':
       statusContent = (
-        <div className="flex items-center gap-2 px-4 py-2">
+        <div className="flex h-9 items-center gap-2 px-4 py-2">
           <CgCloseO className="text-redWaki" size={18} />
           <p className="text-regular-12 text-grayWaki">
             No ganaste puntos con esta predicción
@@ -30,7 +30,7 @@ export default function StatusPredictionsCard({ status, points }) {
       break;
     case 'CORRECT':
       statusContent = (
-        <div className="flex items-center gap-2 px-4 py-2">
+        <div className="flex h-9 items-center gap-2 px-4 py-2">
           <FaCheck className="text-greenWaki" size={18} />
           <p className="text-regular-12 text-grayWaki">
             Ganaste {points} puntos con esta predicción
