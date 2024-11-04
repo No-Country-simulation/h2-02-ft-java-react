@@ -1,11 +1,5 @@
-import { useState, useEffect } from 'react';
-import {
-  Tabs,
-  TabsHeader,
-  TabsBody,
-  Tab,
-  TabPanel,
-} from '@material-tailwind/react';
+import { useState } from 'react';
+import { Tabs, TabsHeader, Tab } from '@material-tailwind/react';
 import { useDate } from '../../context/DateContext';
 import {
   getUpcomingDays,
