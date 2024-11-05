@@ -48,7 +48,7 @@ public class FixtureServiceImpl implements FixtureService {
         LocalDate fromDate = LocalDate.now();
         LocalDate toDate = fromDate.plusDays(5);
 
-        List<Long> leagueIds = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L, 135L);
+        List<Long> leagueIds = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L, 135L, 137L, 66L, 45L, 143L);
 
         for (Long leagueId : leagueIds) {
             HttpRequest request = HttpRequest.newBuilder()
