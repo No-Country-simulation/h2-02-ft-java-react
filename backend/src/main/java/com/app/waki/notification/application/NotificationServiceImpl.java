@@ -13,6 +13,7 @@ import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -30,7 +31,6 @@ public class NotificationServiceImpl implements NotificationService{
                 event.predictionId(),
                 event.profileId(),
                 NotificationType.PREDICTION_ESTABLISHED,
-                event.creationTime(),
                 "Creada con éxito",
                 "Aun no finalizado",
                 "Posible recompensa " + event.points() + " puntos"
@@ -47,7 +47,6 @@ public class NotificationServiceImpl implements NotificationService{
                 event.predictionId(),
                 event.profileId(),
                 NotificationType.PREDICTION_CORRECT,
-                event.creationTime(),
                 "Correcta",
                 event.result(),
                 "Ganaste " + event.points() + " puntos"
@@ -64,7 +63,6 @@ public class NotificationServiceImpl implements NotificationService{
                 event.predictionId(),
                 event.profileId(),
                 NotificationType.PREDICTION_FAILED,
-                event.creationTime(),
                 "Incorrecta",
                 event.result(),
                 "No ganaste puntos"

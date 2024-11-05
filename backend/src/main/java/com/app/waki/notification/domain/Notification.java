@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -22,7 +23,7 @@ public class Notification {
     private String profileId;
     @Enumerated(EnumType.STRING)
     private NotificationType type;
-    private LocalDate createAt;
+    private LocalDateTime createAt;
     private String tittle;
     private String result;
     private String message;
@@ -32,26 +33,25 @@ public class Notification {
     public Notification(){
     }
 
-    private Notification(String predictionId, String profileId, NotificationType type,
-                        LocalDate createAt, String tittle, String result, String message){
+    private Notification(String predictionId, String profileId, NotificationType type, String tittle, String result, String message){
         this.notificationId = new NotificationId();
         this.predictionId = predictionId;
         this.profileId = profileId;
         this.type = type;
-        this.createAt = createAt;
+        this.createAt = LocalDateTime.now();
         this.tittle = tittle;
         this.result = result;
         this.message = message;
         this.seen = false;
     }
 
-    public static Notification createNotification(String predictionId, String profileId, NotificationType type,
-                                                  LocalDate createAt, String tittle, String result, String message){
+    public static Notification createNotification(String predictionId, String profileId,
+                                                  NotificationType type,
+                                                  String tittle, String result, String message){
         return new Notification(
                 predictionId,
                 profileId,
                 type,
-                createAt,
                 tittle,
                 result,
                 message
