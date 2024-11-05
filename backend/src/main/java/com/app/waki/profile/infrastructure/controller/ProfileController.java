@@ -45,4 +45,10 @@ public class ProfileController {
         profileBatchService.processProfilesBatch();
         return ResponseEntity.ok("Batch processing triggered successfully.");
     }
+
+    @PostMapping("/update")
+    public ResponseEntity<String> updateBatchProcessing() {
+        profileBatchService.updatePredictionProfile();
+        return ResponseEntity.ok("Batch processing updated successfully.");
+    }
 }

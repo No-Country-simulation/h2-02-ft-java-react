@@ -38,6 +38,8 @@ public class SecurityConfig {
             new AntPathRequestMatcher("/profile/validatePrediction/{profileId}"),
             new AntPathRequestMatcher("/profile/predictionByDate/{profileId}"),
             new AntPathRequestMatcher("/profile/validatePrediction/{profileId}"),
+            new AntPathRequestMatcher("/profile/process"),
+            new AntPathRequestMatcher("/profile/update"),
             //DIVISION
             new AntPathRequestMatcher("/division/update"),
             new AntPathRequestMatcher("/division/userRanking/{userRankingId}"),
