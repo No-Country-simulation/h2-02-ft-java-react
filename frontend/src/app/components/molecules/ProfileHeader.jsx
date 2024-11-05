@@ -23,7 +23,7 @@ export default function ProfileHeader() {
   };
 
   return (
-    <div className="relative flex h-[230px] items-center justify-center rounded-b-[25px] bg-gradient-to-b from-purpleWaki to-blueWaki">
+    <div className="relative h-[300px] justify-center rounded-b-[25px] bg-gradient-to-b from-purpleWaki to-blueWaki p-[70px]">
       <IoSettingsOutline
         className="absolute right-8 top-2.5 h-9 w-9 cursor-pointer text-[#F8F8F8]"
         onClick={handleSettingsClick}
