@@ -1,21 +1,22 @@
-import { useMatch } from '../../context/MatchContext';
+import { useModal } from '../../context/ModalContext';
 import { useAuth } from '../../context/AuthContext';
 import { usePredictions } from '../../context/PredictionsContext';
+import { validatePrediction } from '../../services/profileService';
+import { getPoints } from '../../utils/predictionUtils';
+import { formatDate } from '../../utils/dateUtils';
 import Button from '../atoms/Button';
 import PredictionsSummary from '../atoms/PredictionsSummary';
-import { calculatePoints } from '../../utils/predictionUtils';
-import { formatDate } from '../../utils/dateUtils';
-import { validatePrediction } from '../../services/profileService';
 
-export default function Step2MatchResult({
-  selectedOption,
-  setSelectedOption,
-  handleSubmitPrediction,
-  handleMakeCombinedPrediction,
-}) {
-  const { selectedMatch } = useMatch();
+export default function Step2MatchResult({ handleSubmitPrediction }) {
+  const {
+    selectedOption,
+    setSelectedOption,
+    handleNextStep,
+    startNewJourney,
+    selectedPredictionMatch,
+  } = useModal();
   const { userId } = useAuth();
-  const { predictions, addPrediction, fetchAllPredictions } = usePredictions();
+  const { predictions, fetchAllPredictions } = usePredictions();
 
   const {
     id,
@@ -24,9 +25,14 @@ export default function Step2MatchResult({
     startTime,
     odds: matchPredictions,
     league,
-  } = selectedMatch;
+  } = selectedPredictionMatch;
 
-  const points = calculatePoints(selectedOption, matchPredictions);
+  const points = getPoints(selectedOption, matchPredictions);
+
+  // Maneja el inicio de la predicción combinada
+  const handleMakeCombinedPrediction = () => {
+    handleNextStep(3);
+  };
 
   // Maneja la adición de una predicción única
   const handleAddOnePrediction = async () => {
@@ -46,16 +52,18 @@ export default function Step2MatchResult({
     ];
 
     if (predictions.length > 0) {
-      newPrediction.push(...predictions);
+      const matchesPredictions = predictions.map(
+        (prediction) => prediction.match
+      );
+      newPrediction.push(...matchesPredictions);
     }
 
     try {
       // Llamada a validatePrediction y espera su finalización
       await validatePrediction(userId, newPrediction);
-      console.log('Predicción validada con éxito');
-
       // Llamar a fetchAllPredictions si validatePrediction fue exitosa
       await fetchAllPredictions();
+      console.log('Predicción validada con éxito');
     } catch (error) {
       console.error('Error al validar la predicción:', error);
     }
@@ -63,21 +71,18 @@ export default function Step2MatchResult({
 
   // Maneja la predicción combinada
   const handleAddPrediction = () => {
-    addPrediction(
-      {
-        matchId: `${id}`,
-        expectedResult: selectedOption,
-        homeTeam: localTeam.name,
-        awayTeam: visitorTeam.name,
-        matchDay: formatDate(startTime),
-        homeShield: localTeam.logoUrl,
-        awayShield: visitorTeam.logoUrl,
-        pay: parseFloat(points),
-        competition: league.name,
-        competitionShield: league.logo,
-      },
-      true
-    );
+    startNewJourney({
+      matchId: `${id}`,
+      expectedResult: selectedOption,
+      homeTeam: localTeam.name,
+      awayTeam: visitorTeam.name,
+      matchDay: formatDate(startTime),
+      homeShield: localTeam.logoUrl,
+      awayShield: visitorTeam.logoUrl,
+      pay: parseFloat(points),
+      competition: league.name,
+      competitionShield: league.logo,
+    });
     handleMakeCombinedPrediction();
   };
 
@@ -167,7 +172,9 @@ export default function Step2MatchResult({
               handleAddOnePrediction();
               handleSubmitPrediction();
             }}
-            disabled={!selectedOption}
+            disabled={
+              selectedOption === 'RESULTADO_FINAL' || selectedOption === 'GOLES'
+            }
           >
             Predecir
           </Button>
@@ -176,14 +183,16 @@ export default function Step2MatchResult({
             size="large"
             className="w-full"
             onClick={handleAddPrediction}
-            disabled={!selectedOption}
+            disabled={
+              selectedOption === 'RESULTADO_FINAL' || selectedOption === 'GOLES'
+            }
           >
             Hacer combinada
           </Button>
         </div>
       </div>
 
-      {selectedOption && (
+      {selectedOption !== 'RESULTADO_FINAL' && selectedOption !== 'GOLES' && (
         <PredictionsSummary
           selected={selectedOption}
           homeTeam={localTeam}

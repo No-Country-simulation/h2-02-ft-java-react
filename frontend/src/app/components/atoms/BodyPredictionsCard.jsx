@@ -25,14 +25,16 @@ export function BodyPredictionsCard({
 
   const goals = false;
   return (
-    <div className="grid grid-rows-2 items-center gap-2 divide-y divide-grayCard px-4 py-3">
+    <div className="grid grid-rows-2 items-center gap-2 px-4 py-3">
       {/* Equipos */}
       <div className="grid grid-cols-[1fr,auto,1fr] items-center justify-center gap-1 text-xs text-grayWaki sm:text-base">
         <div className="flex items-center justify-end gap-2">
           <p className="text-end font-medium text-label">
-            {homeTeam.name === 'Central Cordoba de Santiago'
-              ? 'Central Cba (SdE)'
-              : homeTeam.name}
+            {homeTeam?.name
+              ? homeTeam.name === 'Central Cordoba de Santiago'
+                ? 'Central Cba (SdE)'
+                : homeTeam.name
+              : 'TeamPurple'}
           </p>
           <img
             src={homeTeam.logoUrl || EscudoPurple}
@@ -45,9 +47,11 @@ export function BodyPredictionsCard({
         <div className="flex items-center gap-2">
           <img src={awayTeam.logoUrl || EscudoBlue} alt="Logo" width={'18px'} />
           <p className="font-medium text-label">
-            {awayTeam.name === 'Central Cordoba de Santiago'
-              ? 'Central Cba (SdE)'
-              : awayTeam.name}
+            {awayTeam?.name
+              ? awayTeam.name === 'Central Cordoba de Santiago'
+                ? 'Central Cba (SdE)'
+                : awayTeam.name
+              : 'TeamBlue'}
           </p>
         </div>
       </div>

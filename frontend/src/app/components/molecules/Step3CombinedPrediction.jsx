@@ -1,7 +1,10 @@
+import { useModal } from '../../context/ModalContext';
 import { IoFootballOutline } from 'react-icons/io5';
 import { TbPlayFootball } from 'react-icons/tb';
 
-export default function Step3CombinedPrediction({ handleNextStep }) {
+export default function Step3CombinedPrediction() {
+  const { handleNextStep } = useModal();
+
   return (
     <section className="flex flex-col divide-y">
       <div className="flex flex-col px-5 pb-5">

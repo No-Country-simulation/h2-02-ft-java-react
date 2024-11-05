@@ -1,12 +1,8 @@
-import Searchbar from '../molecules/Searchbar';
-import SelectMatchTabs from './SelectMatchTabs';
 import MatchList from '../organisms/MatchList';
+import Searchbar from './Searchbar';
+import SelectMatchTabs from './SelectMatchTabs';
 
-export default function Step4SelectMatch({ startNewJourney }) {
-  const handleSelectMatch = () => {
-    startNewJourney();
-  };
-
+export default function Step4SelectMatch() {
   return (
     <section className="flex h-full flex-col divide-y overflow-y-auto">
       <div className="flex flex-col px-5 pb-5">
@@ -20,7 +16,7 @@ export default function Step4SelectMatch({ startNewJourney }) {
       <div className="flex flex-col pt-5">
         <SelectMatchTabs />
         <Searchbar />
-        <MatchList handleSelectMatch={handleSelectMatch} isCombined={true} />
+        <MatchList isCombined={true} />
       </div>
     </section>
   );

@@ -9,16 +9,13 @@ export const usePredictions = () => useContext(PredictionsContext);
 
 export const PredictionsProvider = ({ children }) => {
   const { userId } = useAuth();
-  const [predictions, setPredictions] = useState([]); // Predicciones parciales (para combinadas)
+  const [predictions, setPredictions] = useState([]);
   const [remainingPredictions, setRemainingPredictions] = useState(5);
-  const [allPredictions, setAllPredictions] = useState([]); // Todas las predicciones
-  // console.log('allPredictions', allPredictions);
+  const [allPredictions, setAllPredictions] = useState([]);
   console.log('predictions', predictions);
-  console.log(userId);
 
   const resetPredictions = () => setPredictions([]);
 
-  // Actualizar el número de predicciones restantes por fecha
   const fetchRemainingPredictions = async (date) => {
     try {
       const data = await getRemainingPredictionByDate(userId, date);
@@ -28,7 +25,6 @@ export const PredictionsProvider = ({ children }) => {
     }
   };
 
-  // Obtener todas las predicciones por ID de perfil
   const fetchAllPredictions = async () => {
     try {
       const data = await getPredictions(userId);
@@ -44,16 +40,22 @@ export const PredictionsProvider = ({ children }) => {
     }
   }, [userId]);
 
-  const addPrediction = (newPrediction, isCombined) => {
-    if (isCombined) {
-      setPredictions([...predictions, newPrediction]);
-    } else {
-      setPredictions([...predictions, newPrediction]);
-    }
+  const addPrediction = (newPrediction) => {
+    setPredictions([...predictions, newPrediction]);
   };
 
   const removeLastPrediction = () => {
-    setPredictions((prevPredictions) => prevPredictions.slice(0, -1));
+    setPredictions((prev) => prev.slice(0, -1));
+  };
+
+  const getSelectedOption = (journeyCount) => {
+    const selected = predictions[journeyCount]?.match.expectedResult;
+    return selected;
+  };
+
+  const getPredictionMatch = (journeyCount) => {
+    const selectedMatch = predictions[journeyCount]?.selectedMatch;
+    return selectedMatch;
   };
 
   return (
@@ -64,9 +66,11 @@ export const PredictionsProvider = ({ children }) => {
         remainingPredictions,
         fetchRemainingPredictions,
         allPredictions,
-        removeLastPrediction,
         fetchAllPredictions,
         resetPredictions,
+        removeLastPrediction,
+        getSelectedOption,
+        getPredictionMatch,
       }}
     >
       {children}
