@@ -32,28 +32,31 @@ export default function SelectMatchTabs() {
             'bg-transparent border-b-[3px] border-label shadow-none rounded-none',
         }}
       >
-        {tabs.slice(1).map((tab, index) => (
-          <Tab
-            key={index}
-            value={formatDateNav(tab)}
-            onClick={() => handleTabClick(tab)}
-            className={`px-4 pb-1 text-regularNav-16 transition-colors duration-300 ${
-              activeTab === formatDateNav(tab)
-                ? 'font-medium text-label'
-                : 'text-grayWaki'
-            }`}
-            aria-selected={activeTab === formatDateNav(tab)}
-          >
-            <div className="flex flex-col items-center gap-2">
-              <PredictionsProgress
-                totalPredictions={2}
-                date={formatDate(tab)}
-                cantCircles={tab === today ? 5 : 2}
-              />
-              {tab === today ? 'Hoy' : formatDateNav(tab)}
-            </div>
-          </Tab>
-        ))}
+        {tabs.slice(1).map((tab, index) => {
+          const date = formatDate(tab);
+          return (
+            <Tab
+              key={index}
+              value={formatDateNav(tab)}
+              onClick={() => handleTabClick(tab)}
+              className={`px-4 pb-1 text-regularNav-16 transition-colors duration-300 ${
+                activeTab === formatDateNav(tab)
+                  ? 'font-medium text-label'
+                  : 'text-grayWaki'
+              }`}
+              aria-selected={activeTab === formatDateNav(tab)}
+            >
+              <div className="flex flex-col items-center gap-2">
+                <PredictionsProgress
+                  totalPredictions={2}
+                  date={date}
+                  cantCircles={tab === today ? 5 : 2}
+                />
+                {tab === today ? 'Hoy' : formatDateNav(tab)}
+              </div>
+            </Tab>
+          );
+        })}
       </TabsHeader>
     </Tabs>
   );

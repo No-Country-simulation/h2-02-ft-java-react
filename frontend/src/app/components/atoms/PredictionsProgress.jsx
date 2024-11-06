@@ -10,11 +10,16 @@ export default function PredictionsProgress({
   date = formatDate(new Date()),
   cantCircles,
 }) {
-  const { remainingPredictions, fetchRemainingPredictions } = usePredictions();
+  const {
+    remainingPredictions,
+    fetchRemainingPredictions,
+    getPredictionsCountByDate,
+  } = usePredictions();
   const { userId } = useAuth();
   const [remainingPredictionsForTwo, setRemainingPredictionsForTwo] = useState(
     totalPredictions === 2 ? 0 : null // Solo se utiliza cuando totalPredictions es 2
   );
+  const parcialPredictions = getPredictionsCountByDate(date);
 
   useEffect(() => {
     if (totalPredictions === 5) {
@@ -45,7 +50,11 @@ export default function PredictionsProgress({
         key={i}
         className={clsx(
           'rounded-full border-[1.11px] border-purpleWaki',
-          i < usedPredictions ? 'bg-purpleWaki' : 'bg-transparent',
+          i < usedPredictions
+            ? 'bg-purpleWaki' // Predicciones ya usadas
+            : i < usedPredictions + parcialPredictions
+              ? 'bg-blueWaki' // Predicciones parciales
+              : 'bg-transparent', // No usadas ni parciales
           totalPredictions !== 5 ? 'h-[10px] w-[10px]' : 'h-3 w-3'
         )}
       />

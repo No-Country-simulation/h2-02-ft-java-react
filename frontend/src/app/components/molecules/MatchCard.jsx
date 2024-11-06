@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MdOutlineSignalCellularAlt } from 'react-icons/md';
-import { formatDateNav, formatMatchTime } from '../../utils/dateUtils';
+import {
+  formatDate,
+  formatDateNav,
+  formatMatchTime,
+} from '../../utils/dateUtils';
 import { useMatch } from '../../context/MatchContext';
 import { useModal } from '../../context/ModalContext';
 import { useAuth } from '../../context/AuthContext';
+import { usePredictions } from '../../context/PredictionsContext';
 import { getPredictionExistenceByMatchId } from '../../services/predictionService';
 
 export default function MatchCard({ matchData, isCombined }) {
@@ -17,8 +22,19 @@ export default function MatchCard({ matchData, isCombined }) {
     handleNextJourney,
   } = useModal();
   const { userId } = useAuth();
+  const {
+    remainingPredictions,
+    fetchRemainingPredictions,
+    isDateLimitReached,
+  } = usePredictions();
   const { localTeam, visitorTeam, score, odds, startTime, status } = matchData;
   const [predictionExists, setPredictionExists] = useState(false);
+  const today = formatDate(new Date());
+  const date = formatDate(startTime);
+  console.log(today, date);
+  const limitReached =
+    (date !== today && isDateLimitReached(date, 2)) || // Si la fecha es futura y se alcanzaron las 2 predicciones
+    (date === today && isDateLimitReached(date, 5)); // Si la fecha es hoy y se alcanzaron las 5 predicciones
 
   // Verificación de existencia de predicción
   useEffect(() => {
@@ -35,6 +51,10 @@ export default function MatchCard({ matchData, isCombined }) {
     };
     fetchPredictionData();
   }, [userId, matchData.id]);
+
+  useEffect(() => {
+    fetchRemainingPredictions(date);
+  }, []);
 
   const handleClickStep = () => {
     handlePredictionMatch(matchData);
@@ -53,7 +73,11 @@ export default function MatchCard({ matchData, isCombined }) {
   };
 
   const isDisabled =
-    predictionExists || status === 'FT' || odds.localWin === 'N/A';
+    predictionExists ||
+    status === 'FT' ||
+    odds.localWin === 'N/A' ||
+    limitReached;
+  console.log(isDisabled);
 
   return (
     <div className="relative grid grid-rows-[1fr_auto_auto] gap-2 bg-grayCard px-4 py-5">

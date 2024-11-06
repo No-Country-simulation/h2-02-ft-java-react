@@ -12,6 +12,7 @@ export const PredictionsProvider = ({ children }) => {
   const [predictions, setPredictions] = useState([]);
   const [remainingPredictions, setRemainingPredictions] = useState(5);
   const [allPredictions, setAllPredictions] = useState([]);
+
   console.log('predictions', predictions);
 
   const resetPredictions = () => setPredictions([]);
@@ -40,8 +41,19 @@ export const PredictionsProvider = ({ children }) => {
     }
   }, [userId]);
 
+  useEffect(() => {
+    if (predictions.length) {
+      const latestDate = predictions[predictions.length - 1]?.match.matchDay;
+      if (latestDate) fetchRemainingPredictions(latestDate);
+    }
+  }, [predictions]);
+
   const addPrediction = (newPrediction) => {
-    setPredictions([...predictions, newPrediction]);
+    if (predictions.length <= remainingPredictions) {
+      setPredictions([...predictions, newPrediction]);
+    } else {
+      console.warn('Límite de predicciones alcanzado para esta fecha.');
+    }
   };
 
   const removeLastPrediction = () => {
@@ -58,6 +70,26 @@ export const PredictionsProvider = ({ children }) => {
     return selectedMatch;
   };
 
+  const getPredictionsCountByDate = (date) => {
+    return predictions.filter(
+      (prediction) => prediction.match.matchDay === date
+    ).length;
+  };
+
+  const isDateLimitReached = (date, cantPredictions) => {
+    const predictionsCountForDate =
+      predictions.length > 0 ? getPredictionsCountByDate(date) : 0;
+    const predictionsMadeToday = 5 - remainingPredictions;
+    if (cantPredictions === 5) {
+      return predictionsMadeToday + predictionsCountForDate === 5;
+    } else if (cantPredictions === 2) {
+      if (remainingPredictions > 3) {
+        // Si remainingPredictions - predictionsCount === 3, el límite ha sido alcanzado
+        return remainingPredictions - predictionsCountForDate === 3;
+      }
+    }
+  };
+
   return (
     <PredictionsContext.Provider
       value={{
@@ -71,6 +103,8 @@ export const PredictionsProvider = ({ children }) => {
         removeLastPrediction,
         getSelectedOption,
         getPredictionMatch,
+        getPredictionsCountByDate,
+        isDateLimitReached,
       }}
     >
       {children}
