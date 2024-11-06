@@ -16,6 +16,9 @@ public class PlayerProfile {
     private String firstname;
     private String lastname;
     private int age;
+    private String division;
+    private String released;
+    private String price;
 
     @Embedded
     private Birth birth;

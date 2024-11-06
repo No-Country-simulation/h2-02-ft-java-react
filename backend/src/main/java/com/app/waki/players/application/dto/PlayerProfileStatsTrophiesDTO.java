@@ -1,7 +1,6 @@
 package com.app.waki.players.application.dto;
 
 import com.app.waki.players.domain.player.Birth;
-import com.app.waki.players.domain.trophies.Trophie;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -29,5 +28,5 @@ public class PlayerProfileStatsTrophiesDTO {
     private int totalRedCards;
 
     // Lista de trofeos
-    private List<Trophie> trophies;
+    private List<?> trophies;
 }

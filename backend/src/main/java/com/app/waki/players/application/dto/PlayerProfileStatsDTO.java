@@ -1,7 +1,6 @@
 package com.app.waki.players.application.dto;
 
 import com.app.waki.players.domain.player.Birth;
-import com.app.waki.players.domain.trophies.Trophie;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
