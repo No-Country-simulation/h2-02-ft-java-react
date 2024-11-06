@@ -3,7 +3,7 @@ import MatchDropdown from '../molecules/MatchDropdown';
 import { getCompetitions } from '../../services/matchService';
 import { useDate } from '../../context/DateContext';
 
-export default function MatchList({ handleSelectMatch, isCombined = false }) {
+export default function MatchList({ isCombined = false }) {
   const { updateSelectedDate } = useDate();
   const [competitions, setCompetitions] = useState([]);
   const today = new Date();
@@ -38,7 +38,6 @@ export default function MatchList({ handleSelectMatch, isCombined = false }) {
             <MatchDropdown
               key={competition.id}
               competitionInfo={competitionInfo}
-              handleSelectMatch={handleSelectMatch}
               isCombined={isCombined}
             />
           );

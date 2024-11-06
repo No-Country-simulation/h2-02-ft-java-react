@@ -5,11 +5,7 @@ import { getMatchesLeagueDate } from '../../services/matchService';
 import { useDate } from '../../context/DateContext';
 import { formatDate } from '../../utils/dateUtils';
 
-export default function MatchDropdown({
-  competitionInfo,
-  handleSelectMatch,
-  isCombined,
-}) {
+export default function MatchDropdown({ competitionInfo, isCombined }) {
   const [matches, setMatches] = useState([]);
   const [activeLeague, setActiveLeague] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -116,7 +112,6 @@ export default function MatchDropdown({
                 <MatchCard
                   key={match.id}
                   matchData={match}
-                  handleSelectMatch={handleSelectMatch}
                   isCombined={isCombined}
                 />
               ))

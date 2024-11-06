@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import {
-  IoIosArrowDropleftCircle,
-  IoIosArrowDroprightCircle,
-} from 'react-icons/io';
+import { TbCircleArrowRight } from 'react-icons/tb';
 import HeaderLeague from '../atoms/HeaderLeague';
 import { BodyPredictionsCard } from '../atoms/BodyPredictionsCard';
 import StatusPredictionsCard from '../atoms/StatusPredictionsCard';
@@ -17,42 +14,20 @@ export function PredictionCarrousel({ totalPoints, status, match }) {
     );
   };
 
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? match.length - 1 : prevIndex - 1
-    );
-  };
-
   return (
-    <div className="relative">
-      {/* Botones de navegación fuera del contenedor principal */}
-      <button
-        onClick={handlePrev}
-        className="absolute left-0 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform p-2 text-purpleWaki"
-      >
-        <IoIosArrowDropleftCircle size={24} />
-      </button>
-      <button
-        onClick={handleNext}
-        className="absolute right-0 top-1/2 z-10 -translate-y-1/2 translate-x-1/2 transform p-2 text-purpleWaki"
-      >
-        <IoIosArrowDroprightCircle size={24} />
-      </button>
-
+    <div className="grid h-full w-full grid-cols-[1fr_auto] overflow-hidden rounded-large shadow-custom">
       {/* Contenedor principal del carrusel */}
-      <div className="flex flex-col divide-y overflow-hidden rounded-large shadow-custom">
+      <div className="flex flex-col divide-y">
         <HeaderLeague
           league={match[currentIndex].competition}
           competitionShield={match[currentIndex].competitionShield}
         />
-
-        {/* Prediction Card animada */}
         <motion.div
           key={currentIndex}
-          initial={{ opacity: 0, x: -20 }}
+          initial={{ opacity: 0, x: 90 }}
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 20 }}
-          transition={{ duration: 0.3 }}
+          exit={{ opacity: 0, x: -90 }}
+          transition={{ duration: 0.7 }}
         >
           <BodyPredictionsCard
             selected={match[currentIndex].expectedResult}
@@ -71,6 +46,13 @@ export function PredictionCarrousel({ totalPoints, status, match }) {
 
         <StatusPredictionsCard status={status} points={totalPoints} />
       </div>
+
+      <button
+        onClick={handleNext}
+        className="z-10 flex h-full w-8 items-center justify-center bg-gradient-to-r from-blueWaki to-purpleWaki text-white"
+      >
+        <TbCircleArrowRight size={24} />
+      </button>
     </div>
   );
 }

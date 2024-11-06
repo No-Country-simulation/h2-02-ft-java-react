@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import FooterNavbar from '../components/organisms/FooterNavbar';
 import ProfileHeader from '../components/molecules/ProfileHeader';
 import ProfileList from '../components/organisms/ProfileList';
+import RankingCard from '../components/molecules/rankingCard';
 import { Outlet, useLocation } from 'react-router-dom';
 
 export default function Profile() {
@@ -15,6 +16,7 @@ export default function Profile() {
   return (
     <main className="flex min-h-screen w-full flex-col overflow-hidden sm:min-w-[570px]">
       {isProfilePage && <ProfileHeader />}
+      {isProfilePage && <RankingCard />}
       {isProfilePage && <ProfileList />}
       <div className="mb-[90px] flex-grow">
         <Outlet />

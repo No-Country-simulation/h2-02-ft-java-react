@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { usePredictions } from '../../context/PredictionsContext';
-import { BodyPredictionsCard } from './BodyPredictionsCard';
 import {
   MdKeyboardDoubleArrowUp,
   MdKeyboardDoubleArrowDown,
 } from 'react-icons/md';
+import { usePredictions } from '../../context/PredictionsContext';
 import { getTeamName } from '../../utils/predictionUtils';
+import { BodyPredictionsCard } from './BodyPredictionsCard';
 
 export default function PredictionsSummary({
   selected,
@@ -20,7 +20,16 @@ export default function PredictionsSummary({
   const toggleSummary = () => {
     setIsOpen(!isOpen);
   };
-  const finalPoints = parseFloat(points) * 10;
+
+  const totalPointsPredictions =
+    predictions.length > 0
+      ? predictions.reduce(
+          (acc, prediction) => acc + (prediction.match.pay || 0),
+          0
+        )
+      : 0;
+
+  const finalPoints = (parseFloat(points) + totalPointsPredictions) * 10;
 
   return (
     <section className="flex w-full flex-col items-center divide-y pb-14 pt-5">
@@ -36,7 +45,7 @@ export default function PredictionsSummary({
 
       {/* Contenido oculto que se despliega */}
       <div
-        className={`w-full overflow-scroll transition-all duration-300 ${
+        className={`w-full divide-y divide-blueWaki/25 overflow-scroll transition-all duration-300 ${
           isOpen ? 'max-h-[150px] opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
@@ -44,19 +53,31 @@ export default function PredictionsSummary({
           selected={getTeamName(selected, homeTeam, awayTeam)}
           homeTeam={homeTeam}
           awayTeam={awayTeam}
-          points={points}
+          points={parseFloat(points)}
           status={status}
         />
-        {predictions.map((prediction, index) => (
-          <BodyPredictionsCard
-            key={index}
-            selected={prediction.expectedResult}
-            homeTeam={prediction.homeTeam}
-            awayTeam={prediction.awayTeam}
-            points={prediction.pay}
-            status={status}
-          />
-        ))}
+        {predictions.map((prediction) => {
+          const homeTeam = {
+            name: prediction.match.homeTeam,
+            logoUrl: prediction.match.homeShield,
+          };
+          const awayTeam = {
+            name: prediction.match.awayTeam,
+            logoUrl: prediction.match.awayShield,
+          };
+          const expectedResult = prediction.match.expectedResult;
+
+          return (
+            <BodyPredictionsCard
+              key={prediction.match.matchId}
+              selected={getTeamName(expectedResult, homeTeam, awayTeam)}
+              homeTeam={homeTeam}
+              awayTeam={awayTeam}
+              points={prediction.match.pay}
+              status={status}
+            />
+          );
+        })}
       </div>
 
       {/* Puntos totales */}

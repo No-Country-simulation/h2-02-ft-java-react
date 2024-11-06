@@ -45,24 +45,27 @@ export default function MyPredictionSection() {
   }, []);
 
   return (
-    <div className="mb-[90px] min-h-[calc(100vh-460px)] rounded-t-large bg-white p-5">
-      {shouldFetch ? (
-        <motion.div
-          key={selectedDate}
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 10 }}
-          transition={{ duration: 0.3 }}
-        >
-          <ActivePredictions />
-          <ListActivePredictions activePredictions={myPredictions} />
-          {pastPredictions.length > 0 && (
-            <ListPastPredictions pastPredictions={pastPredictions} />
-          )}
-        </motion.div>
-      ) : (
-        <NoPredictions />
-      )}
+    <div className="mb-[90px] flex min-h-[308px] items-center justify-center rounded-t-large bg-white p-5">
+      <motion.div
+        key={selectedDate}
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 10 }}
+        transition={{ duration: 0.3 }}
+        className="grow"
+      >
+        {shouldFetch ? (
+          <>
+            <ActivePredictions />
+            <ListActivePredictions activePredictions={myPredictions} />
+            {pastPredictions.length > 0 && (
+              <ListPastPredictions pastPredictions={pastPredictions} />
+            )}
+          </>
+        ) : (
+          <NoPredictions />
+        )}
+      </motion.div>
     </div>
   );
 }

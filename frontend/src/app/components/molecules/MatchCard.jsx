@@ -7,13 +7,15 @@ import { useModal } from '../../context/ModalContext';
 import { useAuth } from '../../context/AuthContext';
 import { getPredictionExistenceByMatchId } from '../../services/predictionService';
 
-export default function MatchCard({
-  matchData,
-  handleSelectMatch,
-  isCombined,
-}) {
+export default function MatchCard({ matchData, isCombined }) {
   const { selectMatch } = useMatch();
-  const { openModal, setSelectedOption } = useModal();
+  const {
+    openModal,
+    setSelectedOption,
+    handleNextStep,
+    handlePredictionMatch,
+    handleNextJourney,
+  } = useModal();
   const { userId } = useAuth();
   const { localTeam, visitorTeam, score, odds, startTime, status } = matchData;
   const [predictionExists, setPredictionExists] = useState(false);
@@ -34,9 +36,15 @@ export default function MatchCard({
     fetchPredictionData();
   }, [userId, matchData.id]);
 
+  const handleClickStep = () => {
+    handlePredictionMatch(matchData);
+    handleNextJourney();
+    handleNextStep(1);
+  };
+
   const handleClickDetails = () => {
     selectMatch(matchData);
-    handleSelectMatch?.(); // Llama a handleSelectMatch si está definido
+    handlePredictionMatch(matchData);
   };
 
   const handleClickPay = (option) => {
@@ -52,7 +60,7 @@ export default function MatchCard({
       {/* Fila 1: Escudos y marcador */}
       {isCombined ? (
         <button
-          onClick={handleClickDetails}
+          onClick={handleClickStep}
           disabled={isDisabled}
           className="disabled:cursor-not-allowed disabled:opacity-50"
         >
