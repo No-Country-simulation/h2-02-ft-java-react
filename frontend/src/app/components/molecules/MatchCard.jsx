@@ -22,16 +22,12 @@ export default function MatchCard({ matchData, isCombined }) {
     handleNextJourney,
   } = useModal();
   const { userId } = useAuth();
-  const {
-    remainingPredictions,
-    fetchRemainingPredictions,
-    isDateLimitReached,
-  } = usePredictions();
+  const { predictions, fetchRemainingPredictions, isDateLimitReached } =
+    usePredictions();
   const { localTeam, visitorTeam, score, odds, startTime, status } = matchData;
   const [predictionExists, setPredictionExists] = useState(false);
   const today = formatDate(new Date());
   const date = formatDate(startTime);
-  console.log(today, date);
   const limitReached =
     (date !== today && isDateLimitReached(date, 2)) || // Si la fecha es futura y se alcanzaron las 2 predicciones
     (date === today && isDateLimitReached(date, 5)); // Si la fecha es hoy y se alcanzaron las 5 predicciones
@@ -72,12 +68,16 @@ export default function MatchCard({ matchData, isCombined }) {
     setSelectedOption(option);
   };
 
+  const isMatchPredicted = predictions.some(
+    (prediction) => prediction.match.matchId == matchData.id
+  );
+
   const isDisabled =
     predictionExists ||
     status === 'FT' ||
     odds.localWin === 'N/A' ||
-    limitReached;
-  console.log(isDisabled);
+    limitReached ||
+    isMatchPredicted;
 
   return (
     <div className="relative grid grid-rows-[1fr_auto_auto] gap-2 bg-grayCard px-4 py-5">
