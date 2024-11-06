@@ -23,13 +23,11 @@ export default function PredictionsSummary({
 
   const totalPointsPredictions =
     predictions.length > 0
-      ? predictions.reduce(
-          (acc, prediction) => acc + (prediction.match.pay || 0),
-          0
-        )
+      ? predictions.reduce((acc, prediction) => acc * prediction.match.pay, 0)
       : 0;
 
-  const finalPoints = (parseFloat(points) + totalPointsPredictions) * 10;
+  const finalPoints =
+    parseFloat(points) * totalPointsPredictions * (10 * predictions.length);
 
   return (
     <section className="flex w-full flex-col items-center divide-y pb-14 pt-5">

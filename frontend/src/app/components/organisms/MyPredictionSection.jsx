@@ -35,6 +35,7 @@ export default function MyPredictionSection() {
   const pastPredictions = myPredictions.filter(
     (prediction) => prediction.status !== 'PENDING'
   );
+  console.log('myPredictions ', myPredictions);
 
   useEffect(() => {
     const checkPredictions = async () => {
