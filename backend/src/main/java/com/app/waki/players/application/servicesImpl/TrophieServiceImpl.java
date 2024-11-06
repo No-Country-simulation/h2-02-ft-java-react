@@ -39,7 +39,7 @@ public class TrophieServiceImpl implements TrophieService {
     @Scheduled(cron = "0 30 23 * * *")
     public void fetchAndSaveTrophies() throws IOException, InterruptedException {
 
-        List<Long> playerIds = List.of(154L, 874L, 1100L);
+        List<Long> playerIds = List.of(154L, 874L, 1100L, 331L, 59L, 2295L, 152L, 28L, 305L);
 
         for (Long playerId : playerIds) {
             // Busca el jugador en la base de datos
@@ -48,9 +48,6 @@ public class TrophieServiceImpl implements TrophieService {
             if (playerOptional.isPresent()) {
                 Player player = playerOptional.get();
                 Long PlayerId = player.getPlayer().getProfileId();
-                String name = player.getPlayer().getName();
-                String firstname = player.getPlayer().getFirstname();
-                String lastname = player.getPlayer().getLastname();
 
                 // Llamada a la API externa para obtener los trofeos
                 HttpRequest request = HttpRequest.newBuilder()
@@ -71,8 +68,13 @@ public class TrophieServiceImpl implements TrophieService {
                     Trophie trophie = new Trophie();
                     trophie.setPlayerId(PlayerId);
                     trophie.setLeague(trophyNode.path("league").asText());
-                    trophie.setSeason(trophyNode.path("season").asText());
                     trophie.setPlace(trophyNode.path("place").asText());
+
+                    // Procesa la cadena 'season' para obtener solo el año de inicio y evitar 2022/2023 o 2022 Qatar
+                    String season = trophyNode.path("season").asText();
+                    String startYear = season.split("/|\\s+")[0]; // Extrae el primer año
+
+                    trophie.setSeason(startYear); // Guarda solo el año inicial
 
                     trophies.add(trophie);
                 }

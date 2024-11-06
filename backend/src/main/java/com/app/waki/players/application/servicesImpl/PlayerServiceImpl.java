@@ -6,7 +6,6 @@ import com.app.waki.players.application.dto.PlayerProfileDTO;
 import com.app.waki.players.application.dto.PlayerProfileStatsDTO;
 import com.app.waki.players.application.dto.PlayerProfileStatsTrophiesDTO;
 import com.app.waki.players.domain.player.*;
-import com.app.waki.players.domain.trophies.Trophie;
 import com.app.waki.players.domain.trophies.TrophieRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,7 +41,7 @@ public class PlayerServiceImpl implements PlayerService {
     @Transactional
     @Scheduled(cron = "0 54 23 * * *") // Todos los días a las 23:50
     public void fetchAndSavePlayers() throws IOException, InterruptedException {
-        List<Long> playerIds = List.of(154L, 874L, 1100L);
+        List<Long> playerIds = List.of(154L, 874L, 1100L, 331L, 59L, 2295L, 152L, 28L, 305L);
         //List<Long> seasons = List.of(2002L, 2003L, 2004L,2005L,2006L);
         List<Long> seasons = List.of(2002L, 2003L, 2004L, 2005L, 2006L, 2007L, 2008L, 2009L, 2010L,
                 2011L, 2012L, 2013L, 2014L, 2015L, 2016L, 2017L, 2018L, 2019L, 2020L, 2021L, 2022L, 2023L, 2024L);
@@ -71,6 +70,52 @@ public class PlayerServiceImpl implements PlayerService {
                         if (playerRepository.existsByPlayer_ProfileId(profileId)) {
                             System.out.println("Player with profileId " + profileId + " already exists. Adding new statistics.");
                         } else {
+
+                            // Asignar división y valores para released y price según el playerId
+                            String division;
+                            String released = null;
+                            String price = null;
+
+                            if (playerId == 154L) {
+                                division = "ORO";
+                                released = "100k";
+                                price = "900";
+                            } else if (playerId == 874L) {
+                                division = "ORO";
+                                released = "90k";
+                                price = "800";
+                            } else if (playerId == 1100L) {
+                                division = "ORO";
+                                released = "80k";
+                                price = "700";
+                            } else if (playerId == 331L) {
+                                division = "PLATA";
+                                released = "60k";
+                                price = "600";
+                            } else if (playerId == 59L) {
+                                division = "PLATA";
+                                released = "50k";
+                                price = "550";
+                            } else if (playerId == 2295L) {
+                                division = "PLATA";
+                                released = "45k";
+                                price = "500";
+                            } else if (playerId == 152L) {
+                                division = "BRONCE";
+                                released = "30k";
+                                price = "250";
+                            } else if (playerId == 305L) {
+                                division = "BRONCE";
+                                released = "20k";
+                                price = "200";
+                            } else if (playerId == 28L) {
+                                division = "BRONCE";
+                                released = "15k";
+                                price = "150";
+                            } else {
+                                division = null; // O asignar una división por defecto si es necesario
+                            }
+
                             // Si no existe, crea el jugador y el perfil del jugador
                             Player player = new Player();
                             PlayerProfile playerProfile = new PlayerProfile(
@@ -79,6 +124,9 @@ public class PlayerServiceImpl implements PlayerService {
                                     playerNode.path("firstname").asText(),
                                     playerNode.path("lastname").asText(),
                                     playerNode.path("age").asInt(),
+                                    division, // Se agrega la División
+                                    released,  // Se asigna el valor de released
+                                    price,     // Se asigna el valor de price
                                     new Birth(
                                             playerNode.path("birth").path("date").asText(),
                                             playerNode.path("birth").path("place").asText(),
@@ -167,6 +215,9 @@ public class PlayerServiceImpl implements PlayerService {
                         player.getPlayer().getFirstname(),
                         player.getPlayer().getLastname(),
                         player.getPlayer().getAge(),
+                        player.getPlayer().getDivision(),
+                        player.getPlayer().getReleased(),
+                        player.getPlayer().getPrice(),
                         player.getPlayer().getBirth(),
                         player.getPlayer().getNationality(),
                         player.getPlayer().isInjured(),
@@ -299,8 +350,19 @@ public class PlayerServiceImpl implements PlayerService {
                 }
             }
 
-            // Obtener los trofeos del jugador usando el profileId
-            List<Trophie> trophies = trophieRepository.findByPlayerId(id);
+            // Obtener todos los trofeos del jugador usando el profileId
+            //List<Trophie> trophies = trophieRepository.findByPlayerId(id);
+
+            // Obtener solo los trofeos de la temporada más reciente
+            List<?> trophies = trophieRepository.findByPlayerId(id)
+                    .stream()
+                    .filter(trophie -> trophie.getSeason().startsWith("2024"))
+                    .toList();
+
+            // Agregar mensaje si no hay logros para 2024
+            if (trophies.isEmpty()) {
+                trophies = List.of("No hay logros para 2024");
+            }
 
             return new PlayerProfileStatsTrophiesDTO(
                     player.getPlayer().getProfileId(),

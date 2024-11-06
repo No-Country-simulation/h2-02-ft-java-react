@@ -5,6 +5,7 @@ import com.app.waki.players.application.TrophieService;
 import com.app.waki.players.domain.trophies.Trophie;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +32,7 @@ public class TrophieController {
         }
     }
 
-    //Trae los logros totales de un jugador especifico
+    //Trae los logros totales de un jugador especifico (TESTEO)
     @GetMapping("/playerTrophie/{id}")
     public ResponseEntity<List<Trophie>> getPlayerTrophies(@PathVariable Long id) {
         List<Trophie> logros = trophieService.getPlayerTrophieById(id);
@@ -40,8 +41,14 @@ public class TrophieController {
 
     //Trae los logros totales de un jugador y años especifico
     @GetMapping("/playerTrophie/{id}/{season}")
-    public ResponseEntity<List<Trophie>> getPlayerTrophiesByYear(@PathVariable Long id, @PathVariable String season) {
+    public ResponseEntity<?> getPlayerTrophiesByYear(@PathVariable Long id, @PathVariable String season) {
         List<Trophie> logros = trophieService.getPlayerTrophiesByIdAndSeason(id, season);
+
+        if (logros.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No hay logros para la temporada " + season);
+        }
+
         return ResponseEntity.ok(logros);
     }
 
