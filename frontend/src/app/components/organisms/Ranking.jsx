@@ -18,6 +18,7 @@ export default function Ranking({ divisionData }) {
     const fetchUserRankingList = async () => {
       try {
         const list = await getUserRankingList(userId);
+        list.sort((a, b) => a.position - b.position);
         setRankingList(list);
       } catch (error) {
         console.error(
