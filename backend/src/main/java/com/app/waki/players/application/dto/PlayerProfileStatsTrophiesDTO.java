@@ -19,6 +19,11 @@ public class PlayerProfileStatsTrophiesDTO {
     private boolean injured;
     private String photo;
 
+    private String logrosDesde;
+    private String logrosHasta;
+    private String estadisticasDesde;
+    private String estadisticasHasta;
+
     // Totales de estadísticas
     private int totalGoals;
     private int totalAppearances;

@@ -104,11 +104,11 @@ public class PlayerServiceImpl implements PlayerService {
                                 division = "BRONCE";
                                 released = "30k";
                                 price = "250";
-                            } else if (playerId == 305L) {
+                            } else if (playerId == 28L) {
                                 division = "BRONCE";
                                 released = "20k";
                                 price = "200";
-                            } else if (playerId == 28L) {
+                            } else if (playerId == 305L) {
                                 division = "BRONCE";
                                 released = "15k";
                                 price = "150";
@@ -158,7 +158,7 @@ public class PlayerServiceImpl implements PlayerService {
                                 statistics.setLeague(new League(
                                         statNode.path("league").path("name").asText(),
                                         statNode.path("league").path("logo").asText(),
-                                        statNode.path("league").path("season").asText()
+                                        statNode.path("league").path("season").asText().substring(0, 4) // Extrae solo el año de inicio
                                 ));
 
                                 // Configura los juegos
@@ -364,6 +364,11 @@ public class PlayerServiceImpl implements PlayerService {
                 trophies = List.of("No hay logros para 2024");
             }
 
+            String logrosDesde = trophieRepository.findOldestYearByPlayerId(id).orElse(null);
+            String logrosHasta = trophieRepository.findNewestYearByPlayerId(id).orElse(null);
+            String estadisticasDesde = playerRepository.findOldestYearByPlayerId(id).orElse(null);
+            String estadisticasHasta = playerRepository.findNewestYearByPlayerId(id).orElse(null);
+
             return new PlayerProfileStatsTrophiesDTO(
                     player.getPlayer().getProfileId(),
                     player.getPlayer().getName(),
@@ -374,6 +379,10 @@ public class PlayerServiceImpl implements PlayerService {
                     player.getPlayer().getNationality(),
                     player.getPlayer().isInjured(),
                     player.getPlayer().getPhoto(),
+                    logrosDesde,
+                    logrosHasta,
+                    estadisticasDesde,
+                    estadisticasHasta,
                     totalGoals,
                     totalAppearances,
                     totalMinutes,
