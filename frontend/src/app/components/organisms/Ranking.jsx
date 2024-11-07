@@ -62,8 +62,8 @@ export default function Ranking({ divisionData }) {
       <div className="mt-4 text-center text-[18px] text-label">
         {divisionTitles[division]}
       </div>
-      <div className="rounded-2xl m-6 shadow-custom">
-        <div className="grid h-[34.91px] grid-cols-[1fr_3fr_2fr] items-center border-b border-grayLightWaki px-6 text-regular-12 text-grayLightWaki">
+      <div className="m-6 divide-y rounded-large shadow-custom">
+        <div className="grid h-[34.91px] grid-cols-[1fr_3fr_2fr] items-center px-6 text-regular-12 text-grayLightWaki">
           <div className="text-left">#</div>
           <div className="text-left">Nombre de usuario</div>
           <div className="text-right">Puntos</div>
@@ -78,7 +78,7 @@ export default function Ranking({ divisionData }) {
           rankingList.map((user, index) => (
             <div
               key={index}
-              className="grid h-[59px] grid-cols-[1fr_3fr_2fr] items-center border-b border-grayLightWaki px-6 text-regular-12"
+              className="grid h-[59px] grid-cols-[1fr_3fr_2fr] items-center px-6 text-regular-12"
             >
               <div className="text-left text-[24px] text-blueWaki">
                 {user.position}
