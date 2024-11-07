@@ -13,6 +13,7 @@ export const PredictionsProvider = ({ children }) => {
   const [predictions, setPredictions] = useState([]);
   const [remainingPredictions, setRemainingPredictions] = useState(5);
   const [allPredictions, setAllPredictions] = useState([]);
+  console.log(allPredictions);
 
   const resetPredictions = () => setPredictions([]);
 

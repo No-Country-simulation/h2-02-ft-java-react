@@ -66,6 +66,7 @@ export default function MatchCard({ matchData, isCombined }) {
   const handleClickPay = (option) => {
     selectMatch(matchData);
     setSelectedOption(option);
+    handlePredictionMatch(matchData);
   };
 
   const isMatchPredicted = predictions.some(

@@ -21,6 +21,7 @@ export function PredictionCarrousel({ totalPoints, status, match }) {
         <HeaderLeague
           league={match[currentIndex].competition}
           competitionShield={match[currentIndex].competitionShield}
+          isCombined={true}
         />
         <motion.div
           key={currentIndex}

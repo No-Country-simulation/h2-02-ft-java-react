@@ -27,7 +27,9 @@ export default function PredictionsSummary({
       : 0;
 
   const finalPoints =
-    parseFloat(points) * totalPointsPredictions * (10 * predictions.length);
+    predictions.length > 0
+      ? parseFloat(points) * totalPointsPredictions * (10 * predictions.length)
+      : parseFloat(points) * 10;
 
   return (
     <section className="flex w-full flex-col items-center divide-y pb-14 pt-5">

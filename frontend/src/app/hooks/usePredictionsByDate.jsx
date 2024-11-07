@@ -13,7 +13,6 @@ export function usePredictionsByDate(userId, selectedDate) {
       if (selectedDate !== null) {
         fetchRemainingPredictions(selectedDate);
       }
-      console.log(remainingPredictions);
       // Realiza el fetch solo si remainingPredictions es menor a 5
       if (selectedDate !== null && remainingPredictions < 5) {
         try {

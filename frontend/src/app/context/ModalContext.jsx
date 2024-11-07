@@ -18,6 +18,7 @@ export const ModalProvider = ({ children }) => {
     getSelectedOption,
     getPredictionMatch,
   } = usePredictions();
+  // console.log('selectedPredictionMatch ', selectedPredictionMatch);
 
   const openModal = (initialStep = 1) => {
     setIsModalOpen(true);
@@ -31,6 +32,7 @@ export const ModalProvider = ({ children }) => {
     setModalStep(1);
     setJourneyCount(0);
     setSelectedOption(null);
+    setSelectedPredictionMatch(null);
     resetPredictions();
   };
 
