@@ -6,6 +6,7 @@ import { IoIosNotificationsOutline } from 'react-icons/io';
 import { LuLogOut } from 'react-icons/lu';
 import { useAuth } from '../../context/AuthContext';
 import { getNotifications } from '../../services/notificationService';
+import { useDate } from '../../context/DateContext';
 
 const iconSize = 20;
 
@@ -15,7 +16,12 @@ const options = [
     icon: <RxPerson size={iconSize} />,
     link: '/profile/personal-data',
   },
-  { name: 'Mis predicciones', icon: <MdBarChart size={iconSize} />, link: '' }, // Sin página creada
+  {
+    name: 'Mis predicciones',
+    icon: <MdBarChart size={iconSize} />,
+    link: '/match/mypredictions',
+    action: 'updateDate',
+  },
   {
     name: 'Notificaciones',
     icon: <IoIosNotificationsOutline size={iconSize} />,
@@ -36,6 +42,7 @@ const options = [
 export default function ProfileList() {
   const { logout } = useAuth();
   const { userId } = useAuth();
+  const { updateSelectedDate } = useDate();
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
@@ -65,8 +72,8 @@ export default function ProfileList() {
               onClick={
                 option.action === 'logout'
                   ? logout
-                  : option.name === 'Mi ranking'
-                    ? toggleRanking
+                  : option.action === 'updateDate'
+                    ? () => updateSelectedDate(new Date())
                     : null
               }
               className={`relative flex h-14 w-full items-center justify-between bg-white px-5 text-label ${
