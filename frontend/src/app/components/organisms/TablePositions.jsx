@@ -8,7 +8,7 @@ export default function TablePositions({ standings, localName, visitorName }) {
           <tr className="bg-white text-center">
             <th className="py-2 ps-4 text-left">Equipo</th>
             <th className="w-[28px] py-2">P</th>
-            <th className="w-[50px] py-2">Goles</th>
+            <th className="w-[50px] py-2">G/P</th>
             <th className="w-[40px] py-2">DG</th>
             <th className="w-[40px] py-2 pe-4">PTS</th>
           </tr>

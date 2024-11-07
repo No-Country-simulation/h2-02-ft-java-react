@@ -6,10 +6,12 @@ import { IoMdLock } from 'react-icons/io';
 import { FaUserCircle } from 'react-icons/fa';
 import { getUserRankingList } from '../../services/divisionService';
 import { useAuth } from '../../context/AuthContext';
+import { getProfile } from '../../services/profileService';
 
 export default function Ranking({ divisionData }) {
   const [rankingList, setRankingList] = useState([]);
-  const { division, points, username } = divisionData;
+  const [profile, setProfile] = useState({});
+  const { division, points } = divisionData;
   const { userId } = useAuth();
 
   useEffect(() => {
@@ -25,7 +27,17 @@ export default function Ranking({ divisionData }) {
       }
     };
 
+    const fetchUserProfile = async () => {
+      try {
+        const profileData = await getProfile(userId);
+        setProfile(profileData);
+      } catch (error) {
+        console.error('Error al obtener el perfil:', error);
+      }
+    };
+
     fetchUserRankingList();
+    fetchUserProfile();
   }, [userId]);
 
   const divisions = {
@@ -35,7 +47,7 @@ export default function Ranking({ divisionData }) {
   };
 
   const divisionTitles = {
-    BORNZE: 'División Bronce',
+    BRONZE: 'División Bronce',
     SILVER: 'División Plata',
     GOLD: 'División Oro',
   };
@@ -78,14 +90,16 @@ export default function Ranking({ divisionData }) {
           rankingList.map((user, index) => (
             <div
               key={index}
-              className="grid h-[59px] grid-cols-[1fr_3fr_2fr] items-center px-6 text-regular-12"
+              className={`grid h-[59px] grid-cols-[1fr_3fr_2fr] items-center px-6 text-regular-12 ${
+                user.username === profile.username ? 'bg-[#C2DAFF]' : ''
+              }`}
             >
               <div className="text-left text-[24px] text-blueWaki">
                 {user.position}
               </div>
               <div className="flex items-center text-left text-regularNav-16 text-label">
                 <FaUserCircle color="#B1B1B1" size={42} className="mr-2" />
-                {user.username}
+                {user.username === profile.username ? 'Tú' : user.username}
               </div>
               <div className="text-right text-regular-14 text-grayWaki">
                 {user.points}
