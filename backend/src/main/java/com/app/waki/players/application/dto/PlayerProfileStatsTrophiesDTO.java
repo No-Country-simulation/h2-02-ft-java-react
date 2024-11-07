@@ -23,6 +23,7 @@ public class PlayerProfileStatsTrophiesDTO {
     private String logrosHasta;
     private String estadisticasDesde;
     private String estadisticasHasta;
+    private String position;
 
     // Totales de estadísticas
     private int totalGoals;

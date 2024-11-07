@@ -335,6 +335,8 @@ public class PlayerServiceImpl implements PlayerService {
             int totalYellowCards = 0;
             int totalRedCards = 0;
 
+            String position = null;
+
             for (Statistics stat : player.getStatistics()) {
                 if (stat.getGoals() != null) {
                     totalGoals += stat.getGoals().getTotalGoals();
@@ -343,6 +345,11 @@ public class PlayerServiceImpl implements PlayerService {
                 if (stat.getGames() != null) {
                     totalAppearances += stat.getGames().getAppearences();
                     totalMinutes += stat.getGames().getMinutes();
+
+                    // Guardar la posición si está disponible
+                    if (position == null && stat.getGames().getPosition() != null) {
+                        position = stat.getGames().getPosition();
+                    }
                 }
                 if (stat.getCards() != null) {
                     totalYellowCards += stat.getCards().getYellow();
@@ -383,6 +390,7 @@ public class PlayerServiceImpl implements PlayerService {
                     logrosHasta,
                     estadisticasDesde,
                     estadisticasHasta,
+                    position,
                     totalGoals,
                     totalAppearances,
                     totalMinutes,
