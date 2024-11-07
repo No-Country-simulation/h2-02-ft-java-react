@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import TokenPlayer from '../components/organisms/TokenPlayer';
 import DetailsPlayer from '../components/organisms/DetailsPlayer';
 import { getPlayerProfileWithStatAndTrophies } from '../services/playerService';
+import FooterNavbar from '../components/organisms/FooterNavbar';
 
 export default function PlayerDetails() {
   const { id } = useParams();
@@ -22,6 +23,8 @@ export default function PlayerDetails() {
 
     fetchPlayerProfile();
   }, [id]);
+
+  console.log('info player: ', playerProfile);
 
   const renderContent = () => {
     switch (selectedView) {
@@ -42,7 +45,8 @@ export default function PlayerDetails() {
         photo={playerProfile.photo}
         name={playerProfile.name}
       />
-      <div className="mb-[90px] flex-grow">{renderContent()}</div>
+      <div className="mb-[100px] flex-grow">{renderContent()}</div>
+      <FooterNavbar />
     </main>
   );
 }

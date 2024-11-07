@@ -41,7 +41,7 @@ export default function Setting() {
   ];
 
   return (
-    <main className="flex min-h-screen w-full flex-col overflow-hidden sm:min-w-[570px]">
+    <main className="mt-[80px] flex min-h-screen w-full flex-col overflow-hidden sm:min-w-[570px]">
       <PageNavbar beforePage={'Perfil'} titlePage={'Configuración'} />
       <div className="flex flex-col items-center space-y-4 px-5 py-10">
         {buttons.map((button, index) => (

@@ -23,7 +23,7 @@ export default function RewardsDivision() {
     : getSilverDivisionPlayers();
 
   return (
-    <main className="relative flex w-full flex-col overflow-hidden sm:min-w-[570px]">
+    <main className="relative mt-[80px] flex w-full flex-col overflow-hidden sm:min-w-[570px]">
       <PageNavbar beforePage={'Divisiones'} />
       <div className="py-7 text-center text-[22px] font-semibold text-blueWaki">
         <div className="flex flex-col items-center gap-5">

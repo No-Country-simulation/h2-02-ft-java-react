@@ -8,7 +8,7 @@ export default function HeaderPlayer({
   name,
 }) {
   return (
-    <header className="w-full max-w-[570px] bg-white shadow-navbar">
+    <header className="mt-[80px] w-full max-w-[570px] bg-white shadow-navbar">
       <PageNavbar beforePage={'Scout players'} />
       <div className="flex w-full flex-col items-center justify-center pt-[60px] text-[22px] font-semibold normal-case text-[#181818]">
         <div className="mb-4 flex h-[125.31px] w-[125.31px] items-center justify-center rounded-full bg-purpleWaki">

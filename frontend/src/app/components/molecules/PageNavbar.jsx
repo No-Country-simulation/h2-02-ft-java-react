@@ -21,7 +21,7 @@ export default function PageNavbar({ beforePage, titlePage }) {
   };
 
   return (
-    <div className="relative flex h-20 items-center justify-between bg-white px-4 shadow-md">
+    <div className="fixed left-0 right-0 top-0 z-50 flex h-20 items-center justify-between bg-white px-4 shadow-md">
       <div
         className="absolute left-4 top-1/2 flex -translate-y-1/2 transform cursor-pointer items-center text-regular-14 text-blueWaki"
         onClick={handleBack}
