@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PredictionsHeader from '../components/organisms/PredictionsHeader';
 import PredictionsSections from '../components/organisms/PredictionsSections';
+import DetailsSections from '../components/organisms/DetailsSections';
 import Positions from './Positions';
 
 export default function Details() {
@@ -11,7 +12,7 @@ export default function Details() {
       case 'left':
         return <PredictionsSections />;
       case 'center':
-        return <h2>Details</h2>;
+        return <DetailsSections />;
       case 'right':
         return <Positions />;
       default:
