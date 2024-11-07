@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import { getRemainingPredictionByDate } from '../services/profileService';
 import { getPredictions } from '../services/predictionService';
 import { useAuth } from '../context/AuthContext';
+import { formatDate } from '../utils/dateUtils';
 
 const PredictionsContext = createContext();
 
@@ -13,13 +14,13 @@ export const PredictionsProvider = ({ children }) => {
   const [remainingPredictions, setRemainingPredictions] = useState(5);
   const [allPredictions, setAllPredictions] = useState([]);
 
-  console.log('predictions', predictions);
-
   const resetPredictions = () => setPredictions([]);
 
   const fetchRemainingPredictions = async (date) => {
+    const formattedDate = typeof date === 'string' ? date : formatDate(date);
+    if (!formattedDate) return;
     try {
-      const data = await getRemainingPredictionByDate(userId, date);
+      const data = await getRemainingPredictionByDate(userId, formattedDate);
       setRemainingPredictions(data.remainingPredictions);
     } catch (error) {
       console.error('Error al obtener las predicciones restantes:', error);

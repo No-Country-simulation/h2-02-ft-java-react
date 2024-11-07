@@ -1,3 +1,4 @@
+// MyPredictionSection.jsx
 import { useEffect, useState } from 'react';
 import { usePredictions } from '../../context/PredictionsContext';
 import { useDate } from '../../context/DateContext';
@@ -15,8 +16,8 @@ import {
 import { usePredictionsByDate } from '../../hooks/usePredictionsByDate';
 
 export default function MyPredictionSection() {
-  const { allPredictions } = usePredictions();
   const { selectedDate, updateSelectedDate } = useDate();
+  const { allPredictions } = usePredictions();
   const { userId } = useAuth();
   const [shouldFetch, setShouldFetch] = useState(false);
 
@@ -24,18 +25,21 @@ export default function MyPredictionSection() {
     updateSelectedDate('Todas');
   }, []);
 
+  // Simplificación al trasladar la lógica de remainingPredictions al hook
   const datePredictions = usePredictionsByDate(userId, selectedDate);
-  const myPredictions =
-    selectedDate !== null ? datePredictions : allPredictions;
+  const filteredPredictions = selectedDate ? datePredictions : allPredictions;
 
-  useEffect(() => {
-    setShouldFetch(myPredictions.length > 0);
-  }, [myPredictions]);
-
-  const pastPredictions = myPredictions.filter(
+  // Define active and past predictions based on status
+  const activePredictions = filteredPredictions.filter(
+    (prediction) => prediction.status === 'PENDING'
+  );
+  const pastPredictions = filteredPredictions.filter(
     (prediction) => prediction.status !== 'PENDING'
   );
-  console.log('myPredictions ', myPredictions);
+
+  useEffect(() => {
+    setShouldFetch(filteredPredictions.length > 0);
+  }, [filteredPredictions]);
 
   useEffect(() => {
     const checkPredictions = async () => {
@@ -43,7 +47,7 @@ export default function MyPredictionSection() {
       setShouldFetch(canFetchPredictions);
     };
     checkPredictions();
-  }, []);
+  }, [userId]);
 
   return (
     <div className="mb-[90px] flex min-h-[308px] items-center justify-center rounded-t-large bg-white p-5">
@@ -58,7 +62,7 @@ export default function MyPredictionSection() {
         {shouldFetch ? (
           <>
             <ActivePredictions />
-            <ListActivePredictions activePredictions={myPredictions} />
+            <ListActivePredictions activePredictions={activePredictions} />
             {pastPredictions.length > 0 && (
               <ListPastPredictions pastPredictions={pastPredictions} />
             )}

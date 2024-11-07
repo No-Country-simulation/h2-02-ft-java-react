@@ -1,14 +1,21 @@
 import { useEffect, useState } from 'react';
+import { usePredictions } from '../context/PredictionsContext';
 import { getPredictionByDate } from '../services/predictionService';
 import { formatDate } from '../utils/dateUtils';
 
 export function usePredictionsByDate(userId, selectedDate) {
+  const { remainingPredictions, fetchRemainingPredictions } = usePredictions();
   const [datePredictions, setDatePredictions] = useState([]);
 
   useEffect(() => {
     setDatePredictions([]);
     const fetchPredictionsByDate = async () => {
-      if (selectedDate) {
+      if (selectedDate !== null) {
+        fetchRemainingPredictions(selectedDate);
+      }
+      console.log(remainingPredictions);
+      // Realiza el fetch solo si remainingPredictions es menor a 5
+      if (selectedDate !== null && remainingPredictions < 5) {
         try {
           const data = await getPredictionByDate(
             userId,
@@ -21,7 +28,7 @@ export function usePredictionsByDate(userId, selectedDate) {
       }
     };
     fetchPredictionsByDate();
-  }, [userId, selectedDate]);
+  }, [userId, selectedDate, remainingPredictions]);
 
   return datePredictions;
 }
