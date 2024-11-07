@@ -104,11 +104,11 @@ public class PlayerServiceImpl implements PlayerService {
                                 division = "BRONCE";
                                 released = "30k";
                                 price = "250";
-                            } else if (playerId == 305L) {
+                            } else if (playerId == 28L) {
                                 division = "BRONCE";
                                 released = "20k";
                                 price = "200";
-                            } else if (playerId == 28L) {
+                            } else if (playerId == 305L) {
                                 division = "BRONCE";
                                 released = "15k";
                                 price = "150";
