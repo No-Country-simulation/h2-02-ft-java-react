@@ -22,13 +22,14 @@ import java.net.http.HttpResponse;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class StandingServiceImpl implements StandingService {
 
-    private static final List<Long> LEAGUE_IDS = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L, 135L, 137L, 66L, 45L, 143L);
+    private static final List<Long> LEAGUE_IDS = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L, 135L, 137L, 66L, 45L, 143L, 61L, 81L);
 
     @Value("${API_TOKEN}")
     private String apiToken;
@@ -70,11 +71,17 @@ public class StandingServiceImpl implements StandingService {
             standingsNode.forEach(standingGroupNode -> {
                 standingGroupNode.path("league").path("standings").forEach(standingNode -> {
                     standingNode.forEach(teamStandingNode -> {
-                        Standing standing = new Standing();
+
+                        Integer teamId = teamStandingNode.path("team").path("id").asInt();
+                        Optional<Standing> existingStandingOpt = standingRepository.findByLeague_leagueIdAndTeamId(
+                                leagueId, teamId); //Busca en la DB si existe una columna con el mismo team_id y league_id
+
+                        //Standing standing = new Standing();
+                        Standing standing = existingStandingOpt.orElseGet(Standing::new); //Si no existe crea un nuevo Standing
                         standing.setPosition(teamStandingNode.path("rank").asInt());
                         standing.setPoints(teamStandingNode.path("points").asInt());
                         standing.setGoalsDiff(teamStandingNode.path("goalsDiff").asInt());
-                        standing.setTeamId(teamStandingNode.path("team").path("id").asInt());
+                        standing.setTeamId(teamId); //Seteamos el TeamId que usamos arriba para la busqueda en la DB
                         standing.setTeamName(teamStandingNode.path("team").path("name").asText());
                         standing.setTeamLogo(teamStandingNode.path("team").path("logo").asText());
 

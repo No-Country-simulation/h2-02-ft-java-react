@@ -41,7 +41,7 @@ export default function Ranking({ divisionData }) {
   };
 
   return (
-    <main className="flex w-full flex-col overflow-hidden sm:min-w-[570px]">
+    <div className="flex w-full flex-col overflow-hidden">
       <div className="flex h-[132.52px] items-center justify-between p-4">
         {Object.keys(divisions).map((div, index) => (
           <div key={index} className="relative flex flex-col items-center p-4">
@@ -94,6 +94,6 @@ export default function Ranking({ divisionData }) {
           ))
         )}
       </div>
-    </main>
+    </div>
   );
 }

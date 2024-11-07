@@ -25,7 +25,7 @@ export default function Navbar() {
           className={({ isActive }) =>
             `flex h-[53.67px] flex-col items-center justify-between transition-all duration-300 ease-in-out ${
               isActive
-                ? 'font-medium text-white'
+                ? 'text-white'
                 : 'text-[rgba(255,255,255,0.32)] hover:text-white'
             }`
           }

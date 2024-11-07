@@ -13,7 +13,7 @@ export default function Quests({ divisionData }) {
   const nextDivisionTitle = nextDivisionTitles[division];
 
   return (
-    <main className="flex w-full flex-col overflow-hidden sm:min-w-[570px]">
+    <div className="flex w-full flex-col overflow-hidden">
       {division === 'LIMBO' ? (
         <div className="flex w-full flex-col items-center justify-center p-4">
           <p className="text-center text-[18px] text-label">
@@ -40,6 +40,6 @@ export default function Quests({ divisionData }) {
           </div>
         </div>
       )}
-    </main>
+    </div>
   );
 }
