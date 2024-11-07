@@ -10,6 +10,9 @@ export default function PageNavbar({ beforePage, titlePage }) {
       case 'Divisiones':
         url = '/divisions';
         break;
+      case 'Scout players':
+        url = '/scout-players';
+        break;
       default:
         url = '/';
         break;

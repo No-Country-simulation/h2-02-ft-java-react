@@ -15,6 +15,7 @@ import Notifications from '../pages/Notifications';
 import Help from '../pages/Help';
 import Setting from '../pages/Setting';
 import RewardsDivision from '../pages/RewardsDivision';
+import PlayerDetails from '../pages/PlayerDetails';
 
 export default function AppRouter() {
   const location = useLocation();
@@ -138,6 +139,15 @@ export default function AppRouter() {
           element={
             <PageWrapper>
               <RewardsDivision />
+            </PageWrapper>
+          }
+        />
+
+        <Route
+          path="/scout-players/player-details/:id"
+          element={
+            <PageWrapper>
+              <PlayerDetails />
             </PageWrapper>
           }
         />

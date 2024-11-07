@@ -8,7 +8,7 @@ export default function ScoutPlayerNavbar({ activeTab, setActiveTab }) {
   return (
     <Tabs value={activeTab} className="w-full">
       <TabsHeader
-        className="grid grid-cols-2 whitespace-nowrap rounded-none bg-transparent p-0 pt-5"
+        className="grid grid-cols-3 whitespace-nowrap rounded-none bg-transparent p-0 pt-5"
         indicatorProps={{
           className:
             'bg-transparent border-b-[3px] border-blueWaki shadow-none rounded-none',
@@ -35,6 +35,17 @@ export default function ScoutPlayerNavbar({ activeTab, setActiveTab }) {
           }`}
         >
           Market
+        </Tab>
+        <Tab
+          value="estadisticas-token"
+          onClick={() => handleTabChange('estadisticas-token')}
+          className={`px-4 py-2 text-regularNav-16 transition-colors duration-300 ${
+            activeTab === 'estadisticas-token'
+              ? 'font-medium text-blueWaki'
+              : 'text-grayWaki'
+          }`}
+        >
+          Token statistics
         </Tab>
       </TabsHeader>
     </Tabs>
