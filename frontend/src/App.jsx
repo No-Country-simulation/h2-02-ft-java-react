@@ -4,6 +4,7 @@ import { DateProvider } from './app/context/DateContext';
 import { MatchProvider } from './app/context/MatchContext';
 import { ModalProvider } from './app/context/ModalContext';
 import { PredictionsProvider } from './app/context/PredictionsContext';
+import { PlayerProvider } from './app/context/PlayerContext';
 import AppRouter from './app/routes/AppRouter';
 
 export default function App() {
@@ -13,9 +14,11 @@ export default function App() {
         <MatchProvider>
           <PredictionsProvider>
             <ModalProvider>
-              <Router>
-                <AppRouter />
-              </Router>
+              <PlayerProvider>
+                <Router>
+                  <AppRouter />
+                </Router>
+              </PlayerProvider>
             </ModalProvider>
           </PredictionsProvider>
         </MatchProvider>

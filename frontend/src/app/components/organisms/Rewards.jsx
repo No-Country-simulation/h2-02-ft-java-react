@@ -22,7 +22,7 @@ export default function Rewards({ divisionData }) {
   const necessaryPoints = 300;
 
   return (
-    <main className="flex w-full flex-col items-center overflow-hidden p-4 sm:min-w-[570px]">
+    <div className="flex w-full flex-col items-center overflow-hidden p-4">
       {division === 'LIMBO' ? (
         <p className="text-center text-[18px] text-label">
           Debes ganar puntos para clasificarte.
@@ -48,6 +48,6 @@ export default function Rewards({ divisionData }) {
         </>
       )}
       <MonthlyRewards divisions={divisions} divisionTitles={divisionTitles} />
-    </main>
+    </div>
   );
 }

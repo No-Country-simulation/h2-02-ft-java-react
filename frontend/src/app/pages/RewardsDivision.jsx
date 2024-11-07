@@ -5,6 +5,8 @@ import PageNavbar from '../components/molecules/PageNavbar';
 import FooterNavbar from '../components/organisms/FooterNavbar';
 import RewardsDivisions from '../components/organisms/RewardsDivisions';
 import RewardsMonthly from '../components/organisms/RewardsMonthly';
+import RankingList from '../components/organisms/RankingList';
+import { usePlayers } from '../context/PlayerContext';
 
 export default function RewardsDivision() {
   const location = useLocation();
@@ -14,6 +16,11 @@ export default function RewardsDivision() {
   const isGold = division === 'GOLD';
   const divisionImage = isGold ? DivisionOro : DivisionPlata;
   const divisionTitle = isGold ? 'División Oro' : 'División Plata';
+
+  const { getGoldDivisionPlayers, getSilverDivisionPlayers } = usePlayers();
+  const rankingList = isGold
+    ? getGoldDivisionPlayers()
+    : getSilverDivisionPlayers();
 
   return (
     <main className="relative flex w-full flex-col overflow-hidden sm:min-w-[570px]">
@@ -40,7 +47,9 @@ export default function RewardsDivision() {
         <div className="m-7 text-[18px] font-semibold text-label">
           Tokens {divisionTitle}
         </div>
-        <div className="mb-[90px]">**Aqui la lista de los jugadores</div>
+        <div className="mb-[100px]">
+          <RankingList rankingList={rankingList} />
+        </div>
       </div>
       <div className="relative z-20">
         <FooterNavbar />
