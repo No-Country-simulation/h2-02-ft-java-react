@@ -42,18 +42,16 @@ export default function PlayerStats({ playerTrophies, selectedYear }) {
     <div className="mb-5 flex w-full flex-col rounded-lg shadow-custom">
       {isMessage ? (
         <div className="flex items-center justify-center px-5 py-2">
-          <div className="text-[18px] text-[#181818]">{trophies[0]}</div>
+          <div className="text-medium-18 text-label">{trophies[0]}</div>
         </div>
       ) : (
         trophies.map((trophy, index) => (
           <div key={trophy.id}>
             <div className="flex items-center justify-between px-5 py-2">
               <div className="flex-grow text-left">
-                <div className="text-[14px] text-[#181818]">
-                  {trophy.league}
-                </div>
+                <div className="text-[14px] text-label">{trophy.league}</div>
               </div>
-              <div className="text-right text-[12px] text-[#8D8D8D]">
+              <div className="text-right text-regular-12 text-grayLightWaki">
                 {trophy.season}
               </div>
             </div>

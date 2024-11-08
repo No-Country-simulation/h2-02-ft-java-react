@@ -1,4 +1,6 @@
 import LeagueEmblem from '../../../assets/leagueEmblem.png';
+import CombinedIcon from '../../../assets/combined.svg';
+import SimpleIcon from '../../../assets/simple.svg';
 
 export default function HeaderLeague({
   league,
@@ -16,8 +18,14 @@ export default function HeaderLeague({
         />
         <p className="text-regular-12 text-grayWaki">{league}</p>
       </div>
-      {isCombined && (
-        <img src={LeagueEmblem} alt="logo is Combined" width={18} />
+      {isCombined ? (
+        <img
+          src={CombinedIcon}
+          alt="logo prediction Combined"
+          className="h-[18px]"
+        />
+      ) : (
+        <img src={SimpleIcon} alt="logo prediction Simple" width={18} />
       )}
     </div>
   );

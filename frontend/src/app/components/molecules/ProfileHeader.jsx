@@ -23,12 +23,12 @@ export default function ProfileHeader() {
   };
 
   return (
-    <div className="relative h-[300px] justify-center rounded-b-[25px] bg-gradient-to-b from-purpleWaki to-blueWaki p-[70px]">
+    <div className="relative flex h-[300px] items-center justify-center rounded-b-[25px] bg-gradient-to-b from-purpleWaki to-blueWaki">
       <IoSettingsOutline
         className="absolute right-8 top-2.5 h-9 w-9 cursor-pointer text-[#F8F8F8]"
         onClick={handleSettingsClick}
       />
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center gap-4">
         <div className="flex h-[89px] w-[89px] items-center justify-center overflow-hidden rounded-full bg-black bg-opacity-50">
           {profile.photo ? (
             <img
@@ -42,9 +42,9 @@ export default function ProfileHeader() {
             </div>
           )}
         </div>
-        <div className="mt-[30px] text-[18px] text-white">
+        <h2 className="text-medium-18 font-medium text-white">
           {profile.username || 'Undefined'}
-        </div>
+        </h2>
       </div>
     </div>
   );

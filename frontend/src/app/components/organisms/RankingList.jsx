@@ -26,8 +26,8 @@ export default function RankingList({ rankingList }) {
 
   return (
     <section className="px-5">
-      <div className="rounded-2xl shadow-custom">
-        <div className="grid h-[34.91px] grid-cols-[1.5fr_4fr_1fr_1.5fr_1.5fr_0.5fr] items-center border-b border-grayLightWaki text-regular-12 text-grayLightWaki">
+      <div className="divide-y rounded-large shadow-custom">
+        <div className="grid h-[34.91px] grid-cols-[1.5fr_4fr_1fr_1.5fr_1.5fr_0.5fr] items-center text-regular-12 text-grayLightWaki">
           <div className="text-center">#</div>
           <div className="text-left">Jugador</div>
           <div className="text-center">Div.</div>
@@ -37,7 +37,7 @@ export default function RankingList({ rankingList }) {
         </div>
         {rankingList.length === 0 ? (
           <div className="flex w-full flex-col items-center justify-center p-4">
-            <p className="text-center text-[18px] text-label">
+            <p className="text-center text-medium-18 text-label">
               No hay datos disponibles.
             </p>
           </div>
@@ -45,25 +45,25 @@ export default function RankingList({ rankingList }) {
           rankingList.map((player, index) => (
             <div
               key={player.profileId}
-              className="grid h-[59px] grid-cols-[1.5fr_4.5fr_1fr_1.5fr_1.5fr_0.5fr] items-center border-b border-grayLightWaki text-regular-12"
+              className="grid h-[59px] grid-cols-[1.5fr_4.5fr_1fr_1.5fr_1.5fr_0.5fr] items-center text-regular-12"
             >
               <div className="text-center text-[24px] text-blueWaki">
                 {index + 1}
               </div>
-              <div className="flex items-center text-regularNav-16 text-label">
+              <div className="flex items-center truncate text-regular-15 text-label">
                 {player.name}
               </div>
-              <div className="flex items-center justify-center text-center text-regular-14 text-grayWaki">
+              <div className="flex items-center justify-center">
                 <img
                   src={getDivisionImage(player.division)}
                   alt={player.division}
                   className="h-6"
                 />
               </div>
-              <div className="text-center text-regular-14 text-grayWaki">
+              <div className="text-center text-regular-14 text-grayLightWaki">
                 {player.released}
               </div>
-              <div className="text-center text-regular-14 text-grayWaki">
+              <div className="text-center text-regular-14 text-label">
                 {player.price}
               </div>
               <div className="flex justify-center">

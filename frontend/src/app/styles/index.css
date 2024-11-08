@@ -10,12 +10,12 @@ body {
   width: 100%;
 }
 
-@media (min-width: 640px) {
+/* @media (min-width: 540px) {
   body {
     display: grid;
     place-content: center;
   }
-}
+} */
 
 th {
   @apply text-regularTable-11 font-medium text-grayLightWaki;

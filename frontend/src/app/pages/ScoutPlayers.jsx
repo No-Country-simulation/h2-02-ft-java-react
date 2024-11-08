@@ -37,7 +37,7 @@ export default function ScoutPlayers() {
       case 'ranking-scout':
         return (
           <>
-            <h2 className="px-5 pt-5 text-[18px] text-[#181818]">
+            <h2 className="px-5 pt-5 text-medium-18 font-medium text-label">
               Ranking de jugadores
             </h2>
             <Searchbar
@@ -68,13 +68,15 @@ export default function ScoutPlayers() {
   };
 
   return (
-    <main className="flex min-h-screen w-full flex-col overflow-hidden sm:min-w-[570px]">
-      <HeaderScoutPlayer
-        currentView={selectedView}
-        onViewChange={setSelectedView}
-      />
-      <div className="mb-[100px] mt-[145px] flex-grow">{renderContent()}</div>
-      <FooterNavbar />
-    </main>
+    <div className="flex justify-center">
+      <main className="relative flex min-h-screen w-full flex-col sm:max-w-[570px] sm:overflow-hidden">
+        <HeaderScoutPlayer
+          currentView={selectedView}
+          onViewChange={setSelectedView}
+        />
+        <div className="mb-[100px] mt-[145px] flex-grow">{renderContent()}</div>
+        <FooterNavbar />
+      </main>
+    </div>
   );
 }

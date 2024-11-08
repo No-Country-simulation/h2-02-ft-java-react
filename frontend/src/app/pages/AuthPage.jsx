@@ -11,13 +11,15 @@ export default function AuthPage() {
   };
 
   return (
-    <main className="flex w-full flex-col overflow-hidden bg-white sm:m-2 sm:w-[390px] sm:border sm:border-inputBorder">
-      <AuthNavbar onTabClick={handleTabClick} isLogin={isLogin} />
-      {isLogin ? (
-        <LoginForm />
-      ) : (
-        <RegisterForm onRegisterSuccess={() => setIsLogin(true)} />
-      )}
-    </main>
+    <div className="flex justify-center">
+      <main className="flex w-full flex-col overflow-hidden bg-white sm:m-2 sm:w-[390px] sm:border sm:border-inputBorder">
+        <AuthNavbar onTabClick={handleTabClick} isLogin={isLogin} />
+        {isLogin ? (
+          <LoginForm />
+        ) : (
+          <RegisterForm onRegisterSuccess={() => setIsLogin(true)} />
+        )}
+      </main>
+    </div>
   );
 }

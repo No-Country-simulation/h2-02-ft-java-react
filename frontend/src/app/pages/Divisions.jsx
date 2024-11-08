@@ -45,13 +45,15 @@ export default function Divisions() {
   };
 
   return (
-    <main className="relative flex min-h-screen w-full flex-col sm:w-[570px] sm:overflow-hidden">
-      <HeaderDivision
-        currentView={selectedView}
-        onViewChange={setSelectedView}
-      />
-      <div className="mb-[90px] mt-[145px] flex-grow">{renderContent()}</div>
-      <FooterNavbar />
-    </main>
+    <div className="flex justify-center">
+      <main className="relative flex min-h-screen w-full flex-col sm:max-w-[570px] sm:overflow-hidden">
+        <HeaderDivision
+          currentView={selectedView}
+          onViewChange={setSelectedView}
+        />
+        <div className="mb-[90px] mt-[145px] flex-grow">{renderContent()}</div>
+        <FooterNavbar />
+      </main>
+    </div>
   );
 }

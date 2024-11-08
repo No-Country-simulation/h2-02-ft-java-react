@@ -58,6 +58,8 @@ module.exports = withMT({
       },
       backgroundImage: {
         gradientWaki: 'linear-gradient(90deg, #317EF4 -0.04%, #8E2BFF 99.96%)',
+        gradientWakiVertical:
+          'linear-gradient(180deg, #317EF4 -0.04%, #8E2BFF 99.96%)',
       },
       keyframes: {
         slideIn: {
@@ -92,6 +94,10 @@ module.exports = withMT({
       boxShadow: {
         custom: '0 0 14.6px 0 rgba(0, 0, 0, 0.2)',
         navbar: '0 0 10.2px 0 rgba(0, 0, 0, 0.2)',
+      },
+      gridTemplateColumns: {
+        '2fr-max': 'repeat(2, minmax(120px, 130px))',
+        '3fr-max': 'repeat(3, minmax(72px, 80px))',
       },
     },
     borderRadius: {

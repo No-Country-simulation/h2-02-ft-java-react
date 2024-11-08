@@ -38,7 +38,7 @@ export default function PlayerDetails() {
   };
 
   return (
-    <main className="flex min-h-screen w-full flex-col overflow-hidden sm:min-w-[570px]">
+    <main className="flex min-h-screen w-full flex-col overflow-hidden sm:max-w-[570px]">
       <HeaderPlayer
         currentView={selectedView}
         onViewChange={setSelectedView}

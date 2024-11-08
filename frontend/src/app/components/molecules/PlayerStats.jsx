@@ -35,44 +35,47 @@ export default function PlayerStats({ playerStats, selectedYear }) {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-evenly">
-        <div className="flex h-[70px] w-[82px] flex-col items-center justify-center rounded-lg shadow-custom">
-          <div className="text-[12px] text-[#8D8D8D]">Goles</div>
-          <div className="text-[16px] text-[#181818]">{stats.totalGoals}</div>
+        <div className="flex h-[70px] w-[82px] flex-col items-center justify-center overflow-hidden rounded-large shadow-custom">
+          <div className="text-regular-12 text-grayLightWaki">Goles</div>
+          <div className="text-regular-16 font-medium text-label">
+            {stats.totalGoals}
+          </div>
         </div>
-        <div className="flex h-[70px] w-[82px] flex-col items-center justify-center rounded-lg shadow-custom">
-          <div className="text-[12px] text-[#8D8D8D]">Partidos</div>
-          <div className="text-[16px] text-[#181818]">
+        <div className="flex h-[70px] w-[82px] flex-col items-center justify-center overflow-hidden rounded-large shadow-custom">
+          <div className="text-regular-12 text-grayLightWaki">Partidos</div>
+          <div className="text-regular-16 font-medium text-label">
             {stats.totalAppearances}
           </div>
         </div>
-        <div className="flex h-[70px] w-[82px] flex-col items-center justify-center rounded-lg shadow-custom">
-          <div className="text-[12px] text-[#8D8D8D]">Minutos</div>
-          <div className="text-[16px] text-[#181818]">{stats.totalMinutes}</div>
+        <div className="flex h-[70px] w-[82px] flex-col items-center justify-center overflow-hidden rounded-large shadow-custom">
+          <div className="text-regular-12 text-grayLightWaki">Minutos</div>
+          <div className="text-regular-16 font-medium text-label">
+            {stats.totalMinutes}
+          </div>
         </div>
-        <div className="flex h-[70px] w-[82px] flex-col items-center justify-center rounded-lg shadow-custom">
-          <div className="text-[12px] text-[#8D8D8D]">Asistencias</div>
-          <div className="text-[16px] text-[#181818]">{stats.totalAssists}</div>
+        <div className="flex h-[70px] w-[82px] flex-col items-center justify-center overflow-hidden rounded-large shadow-custom">
+          <div className="text-regular-12 text-grayLightWaki">Asistencias</div>
+          <div className="text-regular-16 font-medium text-label">
+            {stats.totalAssists}
+          </div>
         </div>
       </div>
-      <div className="flex w-full flex-col rounded-lg shadow-custom">
-        <div className="flex items-center justify-between px-5 py-2">
-          <TbCards className="mr-2 h-6 w-6 text-yellow-500" />
+      <div className="flex w-full flex-col divide-y overflow-hidden rounded-large shadow-custom">
+        <div className="flex items-center justify-between gap-2 px-4 py-2">
+          <TbCards className="h-6 w-6 scale-x-[-1] transform text-[#FFDD00]" />
           <div className="flex-grow">
-            <div className="text-[18px] text-[#181818]">Tarjetas amarillas</div>
+            <div className="text-regular-14 text-label">Tarjetas amarillas</div>
           </div>
-          <div className="text-[18px] text-[#181818]">
+          <div className="text-medium-18 text-label">
             {stats.totalYellowCards}
           </div>
         </div>
-        <hr className="border-t border-gray-300" />
-        <div className="flex items-center justify-between px-5 py-2">
-          <TbCards className="mr-2 h-6 w-6 text-red-500" />
+        <div className="flex items-center justify-between gap-2 px-4 py-2">
+          <TbCards className="h-6 w-6 scale-x-[-1] transform text-redWaki" />
           <div className="flex-grow">
-            <div className="text-[18px] text-[#181818]">Tarjetas rojas</div>
+            <div className="text-regular-14 text-label">Tarjetas rojas</div>
           </div>
-          <div className="text-[18px] text-[#181818]">
-            {stats.totalRedCards}
-          </div>
+          <div className="text-medium-18 text-label">{stats.totalRedCards}</div>
         </div>
       </div>
     </div>

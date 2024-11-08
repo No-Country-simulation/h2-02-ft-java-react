@@ -23,12 +23,14 @@ export default function PredictionsSummary({
 
   const totalPointsPredictions =
     predictions.length > 0
-      ? predictions.reduce((acc, prediction) => acc * prediction.match.pay, 0)
-      : 0;
+      ? predictions.reduce((acc, prediction) => acc * prediction.match.pay, 1)
+      : 1;
 
   const finalPoints =
     predictions.length > 0
-      ? parseFloat(points) * totalPointsPredictions * (10 * predictions.length)
+      ? parseFloat(points) *
+        totalPointsPredictions *
+        (10 * (predictions.length + 1))
       : parseFloat(points) * 10;
 
   return (

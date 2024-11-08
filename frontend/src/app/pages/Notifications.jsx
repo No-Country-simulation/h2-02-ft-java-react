@@ -28,7 +28,7 @@ export default function Notifications() {
   }, [userId]);
 
   return (
-    <main className="mt-[80px] flex min-h-screen w-full flex-col overflow-hidden sm:min-w-[570px]">
+    <main className="mt-[80px] flex min-h-screen w-full flex-col overflow-hidden sm:max-w-[570px]">
       <PageNavbar beforePage={'Perfil'} titlePage={'Notificaciones'} />
       <div className="flex flex-col items-center space-y-4 px-5 py-10">
         {notifications.length > 0 ? (

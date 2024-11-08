@@ -5,11 +5,7 @@ import { RxPerson } from 'react-icons/rx';
 import { GiSoccerBall } from 'react-icons/gi';
 
 const navItems = [
-  {
-    to: '/scout-players',
-    icon: <FaCoins size={28} />,
-    label: 'Scout players',
-  },
+  { to: '/scout-players', icon: <FaCoins size={28} />, label: 'Scout players' },
   { to: '/match', icon: <GiSoccerBall size={28} />, label: 'Partidos' },
   { to: '/divisions', icon: <BsTrophy size={28} />, label: 'Divisiones' },
   { to: '/profile', icon: <RxPerson size={28} />, label: 'Perfil' },
@@ -23,7 +19,7 @@ export default function Navbar() {
           key={index}
           to={item.to}
           className={({ isActive }) =>
-            `flex h-[53.67px] flex-col items-center justify-between transition-all duration-300 ease-in-out ${
+            `flex h-[53.67px] flex-col items-center justify-between gap-1 transition-all duration-300 ease-in-out ${
               isActive
                 ? 'text-white'
                 : 'text-[rgba(255,255,255,0.32)] hover:text-white'
@@ -31,7 +27,9 @@ export default function Navbar() {
           }
         >
           {item.icon}
-          <span className="mt-1 text-regular-12">{item.label}</span>
+          <span className="text-[10px] sm:text-regular-16 xs:text-regular-12">
+            {item.label}
+          </span>
         </NavLink>
       ))}
     </nav>
