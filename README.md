@@ -1,7 +1,6 @@
 <div align="center">
   <img src="./frontend/src/assets/bannerWaki.jpg" width="600px" />
 </div>
-<h1 align="center">Waki</h1>
 <h3 align="center">h2-02-ft-java-react 💜</h3>
 
 Waki es una plataforma orientada a los fanáticos del fútbol, diseñada para que los usuarios participen en una experiencia de predicciones deportivas, acumulen puntos y tengan la oportunidad de ganar premios y tokens.
