@@ -85,7 +85,7 @@ export default function PredictionsSummary({
       {/* Puntos totales */}
       <div className="grid w-full grid-cols-[1fr_50px] p-4 text-medium-18 font-medium text-blueWaki">
         <p>Puntos totales</p>
-        <p className="text-center">{finalPoints}</p>
+        <p className="text-center">{parseInt(finalPoints)}</p>
       </div>
     </section>
   );
