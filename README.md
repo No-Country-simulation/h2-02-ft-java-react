@@ -23,14 +23,14 @@ Waki es una plataforma orientada a los fanáticos del fútbol, diseñada para qu
 | Backend | Backend | 
 |[![Linkedin](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/cristian-gomez-montenegro/) **&nbsp;** **&nbsp;**[![Linkedin](https://skillicons.dev/icons?i=github)](https://github.com/Cristian-Maxi) | [![Linkedin](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/rocha-nahuel/) **&nbsp;** **&nbsp;**[![Linkedin](https://skillicons.dev/icons?i=github)](https://github.com/NahuelRocha) |
 
-|<img src="https://avatars.githubusercontent.com/u/72477825?v=4" width=165>|<img src="https://avatars.githubusercontent.com/u/44814229?v=4" width=165>|
+|<img src="https://avatars.githubusercontent.com/u/72477825?v=4" width=165>|<img src="https://avatars.githubusercontent.com/u/70725851?v=4" width=165>|
 |:--------:|:--------:|
 | **Jhonny Rosero** | **Marcos Travaglini** |
 | Frontend | Frontend |
 | [![Linkedin](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/mateok13/) **&nbsp;** **&nbsp;**[![Linkedin](https://skillicons.dev/icons?i=github)](https://github.com/mateok13) | [![Linkedin](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/marcos-travaglini/) **&nbsp;** **&nbsp;**[![Linkedin](https://skillicons.dev/icons?i=github)](https://github.com/Blackpachamame) |
 
-|<img src="https://avatars.githubusercontent.com/u/114031777?v=4" width=165>|<img src="https://avatars.githubusercontent.com/u/121970359?v=4" width=165>|
-|:--------:|:--------:|:--------:|
+|<img src="https://avatars.githubusercontent.com/u/114031777?v=4" width=165>|<img src="https://avatars.githubusercontent.com/u/105592322?v=4" width=165>|
+|:--------:|:--------:|
 | **Belen Fernandez** | **Noelia Arteaga** |
 | UX/UI | UX/UI |
 | [![Linkedin](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/belen-fernandez-morales/) **&nbsp;** **&nbsp;**[![Linkedin](https://skillicons.dev/icons?i=github)](https://github.com/BelenFernandezMorales) | [![Linkedin](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/emely-n-arteaga/) **&nbsp;** **&nbsp;**[![Linkedin](https://skillicons.dev/icons?i=github)](https://github.com/EmelyNoelia) |
