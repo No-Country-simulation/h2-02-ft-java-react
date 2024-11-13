@@ -11,7 +11,7 @@
 1. **Clona este repositorio**.
    - Clona el proyecto utilizando el siguiente comando:
      ```bash
-     git clone <URL_DEL_REPOSITORIO>
+     git clone (https://github.com/No-Country-simulation/h2-02-ft-java-react.git)
      ```
 
 2. **Configura las variables de entorno** en un archivo `.env`.
