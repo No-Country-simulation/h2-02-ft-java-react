@@ -25,7 +25,7 @@ public class OpenApiConfiguration {
             description("Server URL in Development environment");
 
     Server prodServer = new Server().
-            url("https://h2-02-ft-java-react-testing.onrender.com").
+            url("https://no-country-hackaton.onrender.com").
             description("Server URL in Production environment");
 
     Info info = new Info()
