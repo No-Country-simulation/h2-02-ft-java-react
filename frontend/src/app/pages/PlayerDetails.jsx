@@ -38,15 +38,17 @@ export default function PlayerDetails() {
   };
 
   return (
-    <main className="flex min-h-screen w-full flex-col overflow-hidden sm:max-w-[570px]">
-      <HeaderPlayer
-        currentView={selectedView}
-        onViewChange={setSelectedView}
-        photo={playerProfile.photo}
-        name={playerProfile.name}
-      />
-      <div className="mb-[100px] flex-grow">{renderContent()}</div>
-      <FooterNavbar />
-    </main>
+    <div className="flex justify-center">
+      <main className="flex min-h-screen w-full flex-col overflow-hidden sm:max-w-[570px]">
+        <HeaderPlayer
+          currentView={selectedView}
+          onViewChange={setSelectedView}
+          photo={playerProfile.photo}
+          name={playerProfile.name}
+        />
+        <div className="mb-[100px] flex-grow">{renderContent()}</div>
+        <FooterNavbar />
+      </main>
+    </div>
   );
 }

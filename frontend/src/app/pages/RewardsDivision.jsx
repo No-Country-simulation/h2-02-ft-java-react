@@ -23,37 +23,39 @@ export default function RewardsDivision() {
     : getSilverDivisionPlayers();
 
   return (
-    <main className="relative mt-[80px] flex w-full flex-col overflow-hidden sm:max-w-[570px]">
-      <PageNavbar beforePage={'Divisiones'} />
-      <div className="py-7 text-center text-[22px] font-semibold text-blueWaki">
-        <div className="flex flex-col items-center gap-5">
-          <span>{divisionTitle}</span>
-          <img
-            src={divisionImage}
-            alt={divisionTitle}
-            className="h-[111.31px] object-contain"
-          />
+    <div className="flex justify-center">
+      <main className="relative mt-[80px] flex w-full flex-col overflow-hidden sm:max-w-[570px]">
+        <PageNavbar beforePage={'Divisiones'} />
+        <div className="py-7 text-center text-[22px] font-semibold text-blueWaki">
+          <div className="flex flex-col items-center gap-5">
+            <span>{divisionTitle}</span>
+            <img
+              src={divisionImage}
+              alt={divisionTitle}
+              className="h-[111.31px] object-contain"
+            />
+          </div>
         </div>
-      </div>
-      <div className="w-full rounded-t-lg bg-[#F7F7F7] shadow-custom">
-        <div className="m-7 text-medium-18 font-semibold text-label">
-          Recompensas
+        <div className="w-full rounded-t-lg bg-[#F7F7F7] shadow-custom">
+          <div className="m-7 text-medium-18 font-semibold text-label">
+            Recompensas
+          </div>
+          <RewardsDivisions isGold={isGold} />
+          <div className="m-7 text-medium-18 font-semibold text-label">
+            Premios del mes
+          </div>
+          <RewardsMonthly isGold={isGold} />
+          <div className="m-7 text-medium-18 font-semibold text-label">
+            Tokens {divisionTitle}
+          </div>
+          <div className="mb-[100px]">
+            <RankingList rankingList={rankingList} />
+          </div>
         </div>
-        <RewardsDivisions isGold={isGold} />
-        <div className="m-7 text-medium-18 font-semibold text-label">
-          Premios del mes
+        <div className="relative z-20">
+          <FooterNavbar />
         </div>
-        <RewardsMonthly isGold={isGold} />
-        <div className="m-7 text-medium-18 font-semibold text-label">
-          Tokens {divisionTitle}
-        </div>
-        <div className="mb-[100px]">
-          <RankingList rankingList={rankingList} />
-        </div>
-      </div>
-      <div className="relative z-20">
-        <FooterNavbar />
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }
