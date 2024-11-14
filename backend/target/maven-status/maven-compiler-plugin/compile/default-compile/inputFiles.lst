@@ -3,6 +3,7 @@ F:\h2-02-ft-java-react\backend\src\main\java\com\app\waki\common\config\CorsDepl
 F:\h2-02-ft-java-react\backend\src\main\java\com\app\waki\common\config\CorsDeployFrontUrl.java
 F:\h2-02-ft-java-react\backend\src\main\java\com\app\waki\common\config\CorsLocalFrontUrl.java
 F:\h2-02-ft-java-react\backend\src\main\java\com\app\waki\common\config\DatabaseInitializer.java
+F:\h2-02-ft-java-react\backend\src\main\java\com\app\waki\common\config\package-info.java
 F:\h2-02-ft-java-react\backend\src\main\java\com\app\waki\common\events\CorrectPredictionEvent.java
 F:\h2-02-ft-java-react\backend\src\main\java\com\app\waki\common\events\CreatePredictionEvent.java
 F:\h2-02-ft-java-react\backend\src\main\java\com\app\waki\common\events\CreatePredictionRequestEvent.java

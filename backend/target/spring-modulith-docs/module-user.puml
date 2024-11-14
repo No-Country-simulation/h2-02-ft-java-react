@@ -13,7 +13,7 @@ Container_Boundary("WakiApplication.WakiApplication_boundary", "WakiApplication"
   Component(WakiApplication.WakiApplication.User, "User", $techn="Module", $descr="", $tags="", $link="")
 }
 
-Rel(WakiApplication.WakiApplication.User, WakiApplication.WakiApplication.Common, "depends on", $techn="", $tags="", $link="")
+Rel(WakiApplication.WakiApplication.User, WakiApplication.WakiApplication.Common, "uses", $techn="", $tags="", $link="")
 
 SHOW_LEGEND(true)
 @enduml

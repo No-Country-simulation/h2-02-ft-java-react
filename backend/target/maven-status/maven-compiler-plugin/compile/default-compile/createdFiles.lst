@@ -77,6 +77,7 @@ com\app\waki\match\domain\fixture\Score.class
 com\app\waki\user\infrastructure\security\AuthConfig.class
 com\app\waki\match\infrastructure\ApIKeyConfig.class
 com\app\waki\user\domain\valueObject\UserName.class
+com\app\waki\common\config\package-info.class
 com\app\waki\swagger\OpenApiConfiguration.class
 com\app\waki\match\infrastructure\FixtureController.class
 com\app\waki\division\domain\Division.class
