@@ -29,7 +29,7 @@ import java.util.Optional;
 @Slf4j
 public class StandingServiceImpl implements StandingService {
 
-    private static final List<Long> LEAGUE_IDS = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L, 135L, 137L, 66L, 45L, 143L, 61L, 81L);
+    private static final List<Long> LEAGUE_IDS = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L, 135L, 137L, 45L, 61L, 81L); //66L 143L
 
     @Value("${API_TOKEN}")
     private String apiToken;

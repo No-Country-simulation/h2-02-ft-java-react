@@ -44,8 +44,8 @@ public class OddsServiceImpl implements OddsService {
     @Scheduled(cron = "0 50 23 * * *") // Todos los días a las 23:52
     public void fetchAndSaveOdds() throws IOException, InterruptedException {
         // Lista de IDs de ligas y páginas
-        List<Long> leagueIds = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L, 135L, 137L, 66L, 45L, 143L, 61L, 81L);
-        List<Integer> pages = List.of(1, 2, 3);
+        List<Long> leagueIds = List.of(39L, 140L, 2L, 78L, 13L, 128L, 71L, 135L, 137L, 45L, 143L, 61L, 81L); //66L 143L
+                List<Integer> pages = List.of(1, 2, 3, 4, 5);
 
         for (Long leagueId : leagueIds) {
             for (Integer page : pages) {
