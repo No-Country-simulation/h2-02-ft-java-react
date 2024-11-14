@@ -10,11 +10,10 @@ public class CorsConfig implements WebMvcConfigurer {
 
     private final CorsDeployFrontUrl deployFrontUrls;
     private final CorsLocalFrontUrl localFrontUrl;
-    private final CorsDeployBackUrl deployBackUrl;
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins(deployFrontUrls.getCORS(), localFrontUrl.getCORS_LOCAL(), deployBackUrl.getCORS_BACK())
+                .allowedOrigins(deployFrontUrls.getCORS(), localFrontUrl.getCORS_LOCAL())
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .exposedHeaders("Authorization");
