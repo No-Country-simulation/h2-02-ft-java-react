@@ -101,6 +101,7 @@ com\app\waki\match\domain\odds\OddsResponse$OddsData$Fixture.class
 com\app\waki\match\domain\league\Season.class
 com\app\waki\user\domain\valueObject\UserId.class
 com\app\waki\match\domain\odds\OddValue.class
+com\app\waki\common\config\CorsDeployBackUrl.class
 com\app\waki\players\application\servicesImpl\TrophieServiceImpl.class
 META-INF\spring-configuration-metadata.json
 com\app\waki\players\domain\player\Statistics.class

@@ -19,14 +19,14 @@ Container_Boundary("WakiApplication.WakiApplication_boundary", "WakiApplication"
   Component(WakiApplication.WakiApplication.Players, "Players", $techn="Module", $descr="", $tags="", $link="")
 }
 
-Rel(WakiApplication.WakiApplication.Match, WakiApplication.WakiApplication.Common, "depends on", $techn="", $tags="", $link="")
-Rel(WakiApplication.WakiApplication.Division, WakiApplication.WakiApplication.Common, "listens to", $techn="", $tags="", $link="")
-Rel(WakiApplication.WakiApplication.Profile, WakiApplication.WakiApplication.Common, "listens to", $techn="", $tags="", $link="")
+Rel(WakiApplication.WakiApplication.Notification, WakiApplication.WakiApplication.Common, "listens to", $techn="", $tags="", $link="")
 Rel(WakiApplication.WakiApplication.User, WakiApplication.WakiApplication.Common, "depends on", $techn="", $tags="", $link="")
 Rel(WakiApplication.WakiApplication.Players, WakiApplication.WakiApplication.Common, "depends on", $techn="", $tags="", $link="")
+Rel(WakiApplication.WakiApplication.Match, WakiApplication.WakiApplication.Common, "depends on", $techn="", $tags="", $link="")
+Rel(WakiApplication.WakiApplication.Profile, WakiApplication.WakiApplication.Common, "listens to", $techn="", $tags="", $link="")
+Rel(WakiApplication.WakiApplication.Division, WakiApplication.WakiApplication.Common, "listens to", $techn="", $tags="", $link="")
 Rel(WakiApplication.WakiApplication.Prediction, WakiApplication.WakiApplication.Match, "listens to", $techn="", $tags="", $link="")
 Rel(WakiApplication.WakiApplication.Prediction, WakiApplication.WakiApplication.Common, "listens to", $techn="", $tags="", $link="")
-Rel(WakiApplication.WakiApplication.Notification, WakiApplication.WakiApplication.Common, "listens to", $techn="", $tags="", $link="")
 
 SHOW_LEGEND(true)
 @enduml

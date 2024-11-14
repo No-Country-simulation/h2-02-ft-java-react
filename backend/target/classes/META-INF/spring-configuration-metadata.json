@@ -12,6 +12,11 @@
     },
     {
       "name": "corslocal",
+      "type": "com.app.waki.common.config.CorsDeployBackUrl",
+      "sourceType": "com.app.waki.common.config.CorsDeployBackUrl"
+    },
+    {
+      "name": "corslocal",
       "type": "com.app.waki.common.config.CorsLocalFrontUrl",
       "sourceType": "com.app.waki.common.config.CorsLocalFrontUrl"
     },
@@ -31,6 +36,11 @@
       "name": "cors.c-o-r-s",
       "type": "java.lang.String",
       "sourceType": "com.app.waki.common.config.CorsDeployFrontUrl"
+    },
+    {
+      "name": "corslocal.c-o-r-s-b-a-c-k",
+      "type": "java.lang.String",
+      "sourceType": "com.app.waki.common.config.CorsDeployBackUrl"
     },
     {
       "name": "corslocal.c-o-r-s-l-o-c-a-l",
