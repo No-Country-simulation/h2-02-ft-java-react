@@ -18,6 +18,10 @@ export const formatMatchTime = (date) => {
   });
 };
 
+export const formatDateWithTime = (date) => {
+  return format(new Date(date), "dd 'de' MMMM HH:mm 'hs'", { locale: es });
+};
+
 export const adjustDate = (baseDate, days) => {
   const date = new Date(baseDate);
   date.setDate(date.getDate() + days);

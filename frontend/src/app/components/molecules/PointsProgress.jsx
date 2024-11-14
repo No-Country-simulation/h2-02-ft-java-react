@@ -18,7 +18,7 @@ export default function PointsProgress({
   return (
     <div className="w-full">
       <div className="mt-4 flex h-[65.82px] w-full items-center justify-between rounded-t-lg bg-blueWaki px-4">
-        <div className="flex items-center text-[18px] text-white">
+        <div className="flex items-center text-medium-18 text-white">
           <div className="mr-2 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white">
             <LuSparkle className="fill-current text-white" />
           </div>

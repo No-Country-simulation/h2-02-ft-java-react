@@ -1,13 +1,15 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaArrowTrendUp } from 'react-icons/fa6';
-import { LuGift, LuShieldClose, LuSparkle } from 'react-icons/lu';
-import { PiMedalThin } from 'react-icons/pi';
+import { LuGift, LuShieldClose } from 'react-icons/lu';
+import { PiMedal } from 'react-icons/pi';
 import { useAuth } from '../../context/AuthContext';
 import { getUserRanking } from '../../services/divisionService';
 import DivisionBronce from '../../../assets/bronce.png';
 import DivisionPlata from '../../../assets/plata.png';
 import DivisionOro from '../../../assets/oro.png';
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import PointsIcon from '../../../assets/points.svg';
+import PositionIcon from '../../../assets/position.svg';
 
 export default function RankingCard() {
   const { userId } = useAuth();
@@ -33,7 +35,7 @@ export default function RankingCard() {
     BRONZE: 'División Bronce',
     SILVER: 'División Plata',
     GOLD: 'División Oro',
-    LIMBO: '¡Gana puntos para clasificarte!',
+    LIMBO: '¡Ganá puntos para clasificarte!',
   };
 
   const divisionImages = {
@@ -49,10 +51,10 @@ export default function RankingCard() {
   return (
     <div className="relative -mt-16 px-5">
       {divisionData && (
-        <div className="flex h-[250px] w-full flex-col items-center justify-center gap-3 rounded-large bg-white shadow-custom">
-          <div className="flex w-full items-center justify-center space-x-4">
+        <div className="flex min-h-[250px] w-full flex-col items-center justify-center gap-4 rounded-large bg-white p-4 shadow-custom">
+          <div className="flex w-full flex-col items-center justify-center">
             {divisionData.division === 'LIMBO' ? (
-              <LuShieldClose className="text-red-500" size={60} />
+              <LuShieldClose className="text-redWaki" size={50} />
             ) : (
               <img
                 src={divisionImages[divisionData.division]}
@@ -60,31 +62,29 @@ export default function RankingCard() {
                 className="h-[50px] w-auto"
               />
             )}
-            <p className="text-[18px] text-label">
+            <p
+              className={`text-balance text-center text-label ${divisionData.division === 'LIMBO' ? 'text-regular-16' : 'text-medium-18'}`}
+            >
               {divisionTitles[divisionData.division]}
             </p>
           </div>
-          <div className="flex w-full items-center justify-evenly">
-            <div className="text-regularNav-14 flex h-[60px] w-[130px] flex-col items-center justify-center rounded-lg bg-gradient-to-b from-purpleWaki to-blueWaki text-white">
-              <p>{divisionData.points}</p>
-              <p className="flex items-center gap-3 space-x-2">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full border border-white text-white">
-                  <LuSparkle size={16} />
-                </span>
+          <div className="grid-cols-2fr-max grid w-full grid-rows-[60px] items-center justify-evenly gap-1 sm:justify-center sm:gap-3">
+            <div className="bg-gradientWakiVertical flex h-full flex-col items-center justify-center gap-1 rounded-xl text-white">
+              <p className="text-regular-16">{divisionData.points}</p>
+              <p className="flex items-center gap-1">
+                <img src={PointsIcon} alt="Points Icon" />
                 Puntos
               </p>
             </div>
-            <div className="text-regularNav-14 flex h-[60px] w-[120px] flex-col items-center justify-center rounded-lg bg-gradient-to-b from-purpleWaki to-blueWaki text-white">
-              <p>{divisionData.position}</p>
-              <p className="flex items-center gap-3 space-x-2">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full border border-white text-white">
-                  #
-                </span>
+            <div className="bg-gradientWakiVertical flex h-full flex-col items-center justify-center gap-1 rounded-xl text-white">
+              <p className="text-regular-16">{divisionData.position}</p>
+              <p className="flex items-center gap-1">
+                <img src={PositionIcon} alt="Position Icon" />
                 Posición
               </p>
             </div>
           </div>
-          <div className="mt-2 flex w-full justify-evenly space-x-4">
+          <div className="grid-cols-3fr-max grid w-full justify-evenly gap-4 sm:justify-center sm:gap-8">
             <div className="flex flex-col items-center">
               <div
                 className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-purpleWaki shadow-custom"
@@ -108,7 +108,7 @@ export default function RankingCard() {
                 className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-purpleWaki shadow-custom"
                 onClick={() => handleNavigation('quests')}
               >
-                <PiMedalThin size={30} className="text-purpleWaki" />
+                <PiMedal size={30} className="text-purpleWaki" />
               </div>
               <span className="mt-1 text-sm text-black">Quests</span>
             </div>

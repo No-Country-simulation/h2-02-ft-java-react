@@ -81,7 +81,9 @@ export default function RewardsMonthly({ isGold }) {
                   className="h-[150px] object-contain"
                 />
                 <div className="ml-1 mt-10 flex flex-col justify-center">
-                  <span className="text-[18px] text-white">{reward.title}</span>
+                  <span className="text-medium-18 text-white">
+                    {reward.title}
+                  </span>
                   <span className="text-regular-14 text-label">
                     {reward.subtitle}
                   </span>

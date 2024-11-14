@@ -23,7 +23,7 @@ export default function RewardsDivision() {
     : getSilverDivisionPlayers();
 
   return (
-    <main className="relative mt-[80px] flex w-full flex-col overflow-hidden sm:min-w-[570px]">
+    <main className="relative mt-[80px] flex w-full flex-col overflow-hidden sm:max-w-[570px]">
       <PageNavbar beforePage={'Divisiones'} />
       <div className="py-7 text-center text-[22px] font-semibold text-blueWaki">
         <div className="flex flex-col items-center gap-5">
@@ -36,15 +36,15 @@ export default function RewardsDivision() {
         </div>
       </div>
       <div className="w-full rounded-t-lg bg-[#F7F7F7] shadow-custom">
-        <div className="m-7 text-[18px] font-semibold text-label">
+        <div className="m-7 text-medium-18 font-semibold text-label">
           Recompensas
         </div>
         <RewardsDivisions isGold={isGold} />
-        <div className="m-7 text-[18px] font-semibold text-label">
+        <div className="m-7 text-medium-18 font-semibold text-label">
           Premios del mes
         </div>
         <RewardsMonthly isGold={isGold} />
-        <div className="m-7 text-[18px] font-semibold text-label">
+        <div className="m-7 text-medium-18 font-semibold text-label">
           Tokens {divisionTitle}
         </div>
         <div className="mb-[100px]">

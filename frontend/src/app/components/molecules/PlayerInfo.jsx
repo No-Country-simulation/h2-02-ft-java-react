@@ -8,40 +8,35 @@ export default function PlayerInfo({ playerInfo }) {
     : '';
 
   return (
-    <div className="rounded-lg p-5 shadow-custom">
-      <div className="mb-4 flex items-center gap-3">
-        {countryCode && (
-          <img
-            src={`https://flagcdn.com/${countryCode}.svg`}
-            alt="Flag"
-            className="mr-2 h-6 w-6"
-          />
-        )}
-        <div>
-          <div className="text-[14px] text-[#8D8D8D]">Nacionalidad</div>
-          <div className="text-[14px] text-[#181818]">
-            {playerInfo.nationality || 'N/A'}
+    <div className="flex flex-col gap-3">
+      <h2 className="text-regularNav-16 font-medium text-label">
+        Datos del jugador
+      </h2>
+      <ul className="flex flex-col divide-y overflow-hidden rounded-large shadow-custom">
+        <li className="grid h-14 grid-cols-[24px_1fr] items-center gap-4 px-4 py-2 text-sm leading-[16.8px]">
+          {countryCode && (
+            <img src={`https://flagcdn.com/${countryCode}.svg`} alt="Flag" />
+          )}
+          <div className="flex flex-col">
+            <p className="text-grayLightWaki">Nacionalidad</p>
+            <p className="text-label">{playerInfo.nationality || 'N/A'}</p>
           </div>
-        </div>
-      </div>
-      <hr className="border-t border-gray-300" />
-      <div className="mb-4 mt-4 flex items-center gap-3">
-        <IoCalendarClearOutline className="mr-2 h-6 w-6 text-purpleWaki" />
-        <div>
-          <div className="text-[14px] text-[#8D8D8D]">Edad</div>
-          <div className="text-[14px] text-[#181818]">{playerInfo.age}</div>
-        </div>
-      </div>
-      <hr className="border-t border-gray-300" />
-      <div className="mt-4 flex items-center gap-3">
-        <TbSoccerField className="mr-2 h-6 w-6 text-purpleWaki" />
-        <div>
-          <div className="text-[14px] text-[#8D8D8D]">Posición</div>
-          <div className="text-[14px] text-[#181818]">
-            {playerInfo.position}
+        </li>
+        <li className="grid h-14 grid-cols-[24px_1fr] items-center gap-4 px-4 py-2 text-sm leading-[16.8px]">
+          <IoCalendarClearOutline className="text-purpleWaki" size={24} />
+          <div className="flex flex-col">
+            <p className="text-grayLightWaki">Edad</p>
+            <p className="text-label">{playerInfo.age}</p>
           </div>
-        </div>
-      </div>
+        </li>
+        <li className="grid h-14 grid-cols-[24px_1fr] items-center gap-4 px-4 py-2 text-sm leading-[16.8px]">
+          <TbSoccerField className="text-purpleWaki" size={24} />
+          <div className="flex flex-col">
+            <p className="text-grayLightWaki">Posición</p>
+            <p className="text-label">{playerInfo.position}</p>
+          </div>
+        </li>
+      </ul>
     </div>
   );
 }

@@ -113,36 +113,37 @@ export default function DetailsPlayer({ playerData }) {
   }, []);
 
   return (
-    <div className="flex w-full flex-col gap-5 overflow-hidden px-5 pt-7 text-[16px]">
-      Datos del jugador
+    <div className="flex w-full flex-col gap-5 overflow-hidden px-5 pt-7 text-regular-16">
       <PlayerInfo playerInfo={playerInfo} />
       <div className="flex items-center justify-between">
-        <span>Estadísticas</span>
+        <h2 className="text-regularNav-16 font-medium text-label">
+          Estadísticas
+        </h2>
         <div className="relative" ref={statsDropdownRef}>
           <div
             className="flex cursor-pointer items-center"
             onClick={handleStatsFilterClick}
           >
             <IoFilterOutline className="text-purpleWaki" />
-            <span className="ml-1 text-[14px] text-[#181818]">Filtrar</span>
+            <span className="ml-1 text-[14px] text-label">Filtrar</span>
           </div>
           {showStatsDropdown && (
             <div
-              className="absolute bottom-full mb-2 w-[186.81px] rounded-lg bg-white shadow-lg"
+              className="absolute bottom-full mb-2 w-[186.81px] divide-y divide-[#B1B1B180] overflow-hidden rounded-large bg-white shadow-custom"
               style={{ right: '5px' }}
             >
-              <div className="flex items-center border-b bg-white p-2">
+              <div className="flex items-center bg-white px-2 py-1">
                 <IoFilterOutline className="text-purpleWaki" />
-                <span className="ml-1 text-[14px] text-[#181818]">Filtrar</span>
+                <span className="ml-1 text-[14px] text-label">Filtrar</span>
               </div>
               <div
-                className="cursor-pointer bg-[#EFEFF0] p-2"
+                className="cursor-pointer bg-[#EFEFF0] px-2 py-1 text-regular-14"
                 onClick={() => handleStatsYearSelect('Totales')}
               >
                 Totales
               </div>
               <div
-                className="cursor-pointer bg-[#EFEFF0] p-2"
+                className="cursor-pointer bg-[#EFEFF0] px-2 py-1 text-regular-14"
                 onClick={() => handleStatsYearSelect('Anuales')}
               >
                 Anuales
@@ -169,32 +170,32 @@ export default function DetailsPlayer({ playerData }) {
       </div>
       <PlayerStats playerStats={playerStats} selectedYear={selectedStatsYear} />
       <div className="flex items-center justify-between">
-        <span>Logros</span>
+        <h2 className="text-regularNav-16 font-medium text-label">Logros</h2>
         <div className="relative" ref={trophiesDropdownRef}>
           <div
             className="flex cursor-pointer items-center"
             onClick={handleTrophiesFilterClick}
           >
             <IoFilterOutline className="text-purpleWaki" />
-            <span className="ml-1 text-[14px] text-[#181818]">Filtrar</span>
+            <span className="ml-1 text-[14px] text-label">Filtrar</span>
           </div>
           {showTrophiesDropdown && (
             <div
-              className="absolute bottom-full mb-2 w-[186.81px] rounded-lg bg-white shadow-lg"
+              className="absolute bottom-full mb-2 w-[186.81px] divide-y divide-[#B1B1B180] overflow-hidden rounded-large bg-white shadow-custom"
               style={{ right: '5px' }}
             >
-              <div className="flex items-center border-b bg-white p-2">
+              <div className="flex items-center bg-white px-2 py-1">
                 <IoFilterOutline className="text-purpleWaki" />
-                <span className="ml-1 text-[14px] text-[#181818]">Filtrar</span>
+                <span className="ml-1 text-[14px] text-label">Filtrar</span>
               </div>
               <div
-                className="cursor-pointer bg-[#EFEFF0] p-2"
+                className="cursor-pointer bg-[#EFEFF0] px-2 py-1 text-regular-14"
                 onClick={() => handleTrophiesYearSelect('Totales')}
               >
                 Totales
               </div>
               <div
-                className="cursor-pointer bg-[#EFEFF0] p-2"
+                className="cursor-pointer bg-[#EFEFF0] px-2 py-1 text-regular-14"
                 onClick={() => handleTrophiesYearSelect('Anuales')}
               >
                 Anuales

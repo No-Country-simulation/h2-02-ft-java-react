@@ -26,6 +26,7 @@ export default function MatchDropdown({ competitionInfo, isCombined }) {
       setMatches(
         fetchedMatches.map((match) => ({
           id: match.fixture.id,
+          referee: match.fixture.referee,
           localTeam: {
             name: match.fixture.teams.home.teamName,
             logoUrl: match.fixture.teams.home.teamLogo,
@@ -46,6 +47,7 @@ export default function MatchDropdown({ competitionInfo, isCombined }) {
             visitorWin: match.odds[0]?.bookmaker?.bet?.values.awayOdd || 'N/A',
           },
           startTime: match.fixture.date,
+          stadium: match.fixture.venue.venueName,
           status: match.fixture.status.shortStatus,
           league: {
             id: match.fixture.league.id,

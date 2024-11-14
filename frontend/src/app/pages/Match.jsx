@@ -14,33 +14,35 @@ export default function Match() {
   const { updateSelectedDate } = useDate();
 
   return (
-    <main className="relative flex min-h-screen w-full flex-col sm:w-[570px] sm:overflow-hidden">
-      {location.pathname === '/match' && (
-        <>
-          <HeaderMatch />
-          <Searchbar placeholder="Buscar equipo" />
-          <div className="flex items-center justify-between px-5 pb-5">
-            <h2 className="text-regularNav-16 text-label">Ligas</h2>
-            <AnchorButton
-              to="/match/mypredictions"
-              onClick={() => {
-                updateSelectedDate(new Date());
-              }}
-            >
-              Mis predicciones
-            </AnchorButton>
-          </div>
-          <div className="mb-[90px]">
-            <MatchList />
-          </div>
-        </>
-      )}
+    <div className="flex justify-center">
+      <main className="relative flex min-h-screen w-full flex-col sm:max-w-[570px] sm:overflow-hidden">
+        {location.pathname === '/match' && (
+          <>
+            <HeaderMatch />
+            <Searchbar placeholder="Buscar equipo" />
+            <div className="flex items-center justify-between px-5 pb-5">
+              <h2 className="text-regularNav-16 text-label">Ligas</h2>
+              <AnchorButton
+                to="/match/mypredictions"
+                onClick={() => {
+                  updateSelectedDate(new Date());
+                }}
+              >
+                Mis predicciones
+              </AnchorButton>
+            </div>
+            <div className="mb-[90px]">
+              <MatchList />
+            </div>
+          </>
+        )}
 
-      <Outlet />
+        <Outlet />
 
-      <FooterNavbar />
+        <FooterNavbar />
 
-      {isModalOpen && <ModalPredictions isOpen={isModalOpen} />}
-    </main>
+        {isModalOpen && <ModalPredictions isOpen={isModalOpen} />}
+      </main>
+    </div>
   );
 }

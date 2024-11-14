@@ -72,7 +72,7 @@ export default function Ranking({ divisionData }) {
           </div>
         ))}
       </div>
-      <div className="mt-4 text-center text-[18px] text-label">
+      <div className="mt-4 text-center text-medium-18 text-label">
         {divisionTitles[division]}
       </div>
       <div className="m-6 divide-y rounded-large shadow-custom">
@@ -83,7 +83,7 @@ export default function Ranking({ divisionData }) {
         </div>
         {division === 'LIMBO' ? (
           <div className="flex w-full flex-col items-center justify-center p-4">
-            <p className="text-center text-[18px] text-label">
+            <p className="text-center text-medium-18 text-label">
               Debes ganar puntos para clasificarte.
             </p>
           </div>
