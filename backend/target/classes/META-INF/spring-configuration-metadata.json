@@ -1,0 +1,47 @@
+{
+  "groups": [
+    {
+      "name": "apikey",
+      "type": "com.app.waki.match.infrastructure.ApIKeyConfig",
+      "sourceType": "com.app.waki.match.infrastructure.ApIKeyConfig"
+    },
+    {
+      "name": "cors",
+      "type": "com.app.waki.common.config.CorsDeployFrontUrl",
+      "sourceType": "com.app.waki.common.config.CorsDeployFrontUrl"
+    },
+    {
+      "name": "corslocal",
+      "type": "com.app.waki.common.config.CorsLocalFrontUrl",
+      "sourceType": "com.app.waki.common.config.CorsLocalFrontUrl"
+    },
+    {
+      "name": "jwtkey",
+      "type": "com.app.waki.user.infrastructure.security.SecretKeyConfig",
+      "sourceType": "com.app.waki.user.infrastructure.security.SecretKeyConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "apikey.a-p-i-t-o-k-e-n",
+      "type": "java.lang.String",
+      "sourceType": "com.app.waki.match.infrastructure.ApIKeyConfig"
+    },
+    {
+      "name": "cors.c-o-r-s",
+      "type": "java.lang.String",
+      "sourceType": "com.app.waki.common.config.CorsDeployFrontUrl"
+    },
+    {
+      "name": "corslocal.c-o-r-s-l-o-c-a-l",
+      "type": "java.lang.String",
+      "sourceType": "com.app.waki.common.config.CorsLocalFrontUrl"
+    },
+    {
+      "name": "jwtkey.s-e-c-r-e-t-k-e-y",
+      "type": "java.lang.String",
+      "sourceType": "com.app.waki.user.infrastructure.security.SecretKeyConfig"
+    }
+  ],
+  "hints": []
+}

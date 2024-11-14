@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.app.waki.WakiApplicationTests" time="24.616" tests="3" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="22"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="MS932"/>
+    <property name="java.class.path" value="F:\h2-02-ft-java-react\backend\target\test-classes;F:\h2-02-ft-java-react\backend\target\classes;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-actuator\3.3.4\spring-boot-starter-actuator-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter\3.3.4\spring-boot-starter-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.3.4\spring-boot-starter-logging-3.3.4.jar;C:\Users\Cristian\.m2\repository\ch\qos\logback\logback-classic\1.5.8\logback-classic-1.5.8.jar;C:\Users\Cristian\.m2\repository\ch\qos\logback\logback-core\1.5.8\logback-core-1.5.8.jar;C:\Users\Cristian\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.23.1\log4j-to-slf4j-2.23.1.jar;C:\Users\Cristian\.m2\repository\org\apache\logging\log4j\log4j-api\2.23.1\log4j-api-2.23.1.jar;C:\Users\Cristian\.m2\repository\org\slf4j\jul-to-slf4j\2.0.16\jul-to-slf4j-2.0.16.jar;C:\Users\Cristian\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\Cristian\.m2\repository\org\yaml\snakeyaml\2.2\snakeyaml-2.2.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-actuator-autoconfigure\3.3.4\spring-boot-actuator-autoconfigure-3.3.4.jar;C:\Users\Cristian\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.17.2\jackson-datatype-jsr310-2.17.2.jar;C:\Users\Cristian\.m2\repository\io\micrometer\micrometer-observation\1.13.4\micrometer-observation-1.13.4.jar;C:\Users\Cristian\.m2\repository\io\micrometer\micrometer-commons\1.13.4\micrometer-commons-1.13.4.jar;C:\Users\Cristian\.m2\repository\io\micrometer\micrometer-jakarta9\1.13.4\micrometer-jakarta9-1.13.4.jar;C:\Users\Cristian\.m2\repository\io\micrometer\micrometer-core\1.13.4\micrometer-core-1.13.4.jar;C:\Users\Cristian\.m2\repository\org\hdrhistogram\HdrHistogram\2.2.2\HdrHistogram-2.2.2.jar;C:\Users\Cristian\.m2\repository\org\latencyutils\LatencyUtils\2.0.3\LatencyUtils-2.0.3.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-security\3.3.4\spring-boot-starter-security-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-aop\6.1.13\spring-aop-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-beans\6.1.13\spring-beans-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springframework\security\spring-security-config\6.3.3\spring-security-config-6.3.3.jar;C:\Users\Cristian\.m2\repository\org\springframework\security\spring-security-web\6.3.3\spring-security-web-6.3.3.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-expression\6.1.13\spring-expression-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.3.4\spring-boot-starter-web-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.3.4\spring-boot-starter-json-3.3.4.jar;C:\Users\Cristian\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.17.2\jackson-datatype-jdk8-2.17.2.jar;C:\Users\Cristian\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.17.2\jackson-module-parameter-names-2.17.2.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.3.4\spring-boot-starter-tomcat-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.30\tomcat-embed-core-10.1.30.jar;C:\Users\Cristian\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.30\tomcat-embed-el-10.1.30.jar;C:\Users\Cristian\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.30\tomcat-embed-websocket-10.1.30.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-web\6.1.13\spring-web-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-webmvc\6.1.13\spring-webmvc-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-starter-core\1.2.4\spring-modulith-starter-core-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-api\1.2.4\spring-modulith-api-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-core\1.2.4\spring-modulith-core-1.2.4.jar;C:\Users\Cristian\.m2\repository\com\tngtech\archunit\archunit\1.3.0\archunit-1.3.0.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-moments\1.2.4\spring-modulith-moments-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\jmolecules\jmolecules-events\1.9.0\jmolecules-events-1.9.0.jar;C:\Users\Cristian\.m2\repository\io\jsonwebtoken\jjwt-api\0.11.5\jjwt-api-0.11.5.jar;C:\Users\Cristian\.m2\repository\io\jsonwebtoken\jjwt-jackson\0.11.5\jjwt-jackson-0.11.5.jar;C:\Users\Cristian\.m2\repository\io\jsonwebtoken\jjwt-impl\0.11.5\jjwt-impl-0.11.5.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-devtools\3.3.4\spring-boot-devtools-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot\3.3.4\spring-boot-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.3.4\spring-boot-autoconfigure-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-actuator\1.2.4\spring-modulith-actuator-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-runtime\1.2.4\spring-modulith-runtime-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\jgrapht\jgrapht-core\1.4.0\jgrapht-core-1.4.0.jar;C:\Users\Cristian\.m2\repository\org\jheaps\jheaps\0.11\jheaps-0.11.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-actuator\3.3.4\spring-boot-actuator-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-observability\1.2.4\spring-modulith-observability-1.2.4.jar;C:\Users\Cristian\.m2\repository\io\micrometer\micrometer-tracing\1.3.4\micrometer-tracing-1.3.4.jar;C:\Users\Cristian\.m2\repository\io\micrometer\context-propagation\1.1.1\context-propagation-1.1.1.jar;C:\Users\Cristian\.m2\repository\aopalliance\aopalliance\1.0\aopalliance-1.0.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-configuration-processor\3.3.4\spring-boot-configuration-processor-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\projectlombok\lombok\1.18.34\lombok-1.18.34.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-test\3.3.4\spring-boot-starter-test-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-test\3.3.4\spring-boot-test-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-test-autoconfigure\3.3.4\spring-boot-test-autoconfigure-3.3.4.jar;C:\Users\Cristian\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\Cristian\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.2\jakarta.xml.bind-api-4.0.2.jar;C:\Users\Cristian\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.3\jakarta.activation-api-2.1.3.jar;C:\Users\Cristian\.m2\repository\net\minidev\json-smart\2.5.1\json-smart-2.5.1.jar;C:\Users\Cristian\.m2\repository\net\minidev\accessors-smart\2.5.1\accessors-smart-2.5.1.jar;C:\Users\Cristian\.m2\repository\org\ow2\asm\asm\9.6\asm-9.6.jar;C:\Users\Cristian\.m2\repository\org\assertj\assertj-core\3.25.3\assertj-core-3.25.3.jar;C:\Users\Cristian\.m2\repository\net\bytebuddy\byte-buddy\1.14.19\byte-buddy-1.14.19.jar;C:\Users\Cristian\.m2\repository\org\awaitility\awaitility\4.2.2\awaitility-4.2.2.jar;C:\Users\Cristian\.m2\repository\org\hamcrest\hamcrest\2.2\hamcrest-2.2.jar;C:\Users\Cristian\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.3\junit-jupiter-5.10.3.jar;C:\Users\Cristian\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.3\junit-jupiter-api-5.10.3.jar;C:\Users\Cristian\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\Cristian\.m2\repository\org\junit\platform\junit-platform-commons\1.10.3\junit-platform-commons-1.10.3.jar;C:\Users\Cristian\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Cristian\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.3\junit-jupiter-params-5.10.3.jar;C:\Users\Cristian\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.3\junit-jupiter-engine-5.10.3.jar;C:\Users\Cristian\.m2\repository\org\junit\platform\junit-platform-engine\1.10.3\junit-platform-engine-1.10.3.jar;C:\Users\Cristian\.m2\repository\org\mockito\mockito-core\5.11.0\mockito-core-5.11.0.jar;C:\Users\Cristian\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.19\byte-buddy-agent-1.14.19.jar;C:\Users\Cristian\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\Cristian\.m2\repository\org\mockito\mockito-junit-jupiter\5.11.0\mockito-junit-jupiter-5.11.0.jar;C:\Users\Cristian\.m2\repository\org\skyscreamer\jsonassert\1.5.3\jsonassert-1.5.3.jar;C:\Users\Cristian\.m2\repository\com\vaadin\external\google\android-json\0.0.20131108.vaadin1\android-json-0.0.20131108.vaadin1.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-core\6.1.13\spring-core-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-jcl\6.1.13\spring-jcl-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-test\6.1.13\spring-test-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\xmlunit\xmlunit-core\2.9.1\xmlunit-core-2.9.1.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-starter-test\1.2.4\spring-modulith-starter-test-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-test\1.2.4\spring-modulith-test-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-docs\1.2.4\spring-modulith-docs-1.2.4.jar;C:\Users\Cristian\.m2\repository\com\structurizr\structurizr-core\1.29.0\structurizr-core-1.29.0.jar;C:\Users\Cristian\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;C:\Users\Cristian\.m2\repository\commons-logging\commons-logging\1.2\commons-logging-1.2.jar;C:\Users\Cristian\.m2\repository\com\structurizr\structurizr-export\1.19.0\structurizr-export-1.19.0.jar;C:\Users\Cristian\.m2\repository\org\springframework\security\spring-security-test\6.3.3\spring-security-test-6.3.3.jar;C:\Users\Cristian\.m2\repository\org\springframework\security\spring-security-core\6.3.3\spring-security-core-6.3.3.jar;C:\Users\Cristian\.m2\repository\org\springframework\security\spring-security-crypto\6.3.3\spring-security-crypto-6.3.3.jar;C:\Users\Cristian\.m2\repository\me\paulschwarz\spring-dotenv\3.0.0\spring-dotenv-3.0.0.jar;C:\Users\Cristian\.m2\repository\io\github\cdimascio\dotenv-java\2.2.4\dotenv-java-2.2.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-data-jpa\3.3.4\spring-boot-starter-data-jpa-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-aop\3.3.4\spring-boot-starter-aop-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\aspectj\aspectjweaver\1.9.22.1\aspectjweaver-1.9.22.1.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-jdbc\3.3.4\spring-boot-starter-jdbc-3.3.4.jar;C:\Users\Cristian\.m2\repository\com\zaxxer\HikariCP\5.1.0\HikariCP-5.1.0.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-jdbc\6.1.13\spring-jdbc-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\hibernate\orm\hibernate-core\6.5.3.Final\hibernate-core-6.5.3.Final.jar;C:\Users\Cristian\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;C:\Users\Cristian\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar;C:\Users\Cristian\.m2\repository\org\jboss\logging\jboss-logging\3.5.3.Final\jboss-logging-3.5.3.Final.jar;C:\Users\Cristian\.m2\repository\org\hibernate\common\hibernate-commons-annotations\6.0.6.Final\hibernate-commons-annotations-6.0.6.Final.jar;C:\Users\Cristian\.m2\repository\io\smallrye\jandex\3.1.2\jandex-3.1.2.jar;C:\Users\Cristian\.m2\repository\com\fasterxml\classmate\1.7.0\classmate-1.7.0.jar;C:\Users\Cristian\.m2\repository\org\glassfish\jaxb\jaxb-runtime\4.0.5\jaxb-runtime-4.0.5.jar;C:\Users\Cristian\.m2\repository\org\glassfish\jaxb\jaxb-core\4.0.5\jaxb-core-4.0.5.jar;C:\Users\Cristian\.m2\repository\org\eclipse\angus\angus-activation\2.0.2\angus-activation-2.0.2.jar;C:\Users\Cristian\.m2\repository\org\glassfish\jaxb\txw2\4.0.5\txw2-4.0.5.jar;C:\Users\Cristian\.m2\repository\com\sun\istack\istack-commons-runtime\4.1.2\istack-commons-runtime-4.1.2.jar;C:\Users\Cristian\.m2\repository\jakarta\inject\jakarta.inject-api\2.0.1\jakarta.inject-api-2.0.1.jar;C:\Users\Cristian\.m2\repository\org\antlr\antlr4-runtime\4.13.0\antlr4-runtime-4.13.0.jar;C:\Users\Cristian\.m2\repository\org\springframework\data\spring-data-jpa\3.3.4\spring-data-jpa-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\data\spring-data-commons\3.3.4\spring-data-commons-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-orm\6.1.13\spring-orm-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-aspects\6.1.13\spring-aspects-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springdoc\springdoc-openapi-starter-webmvc-ui\2.5.0\springdoc-openapi-starter-webmvc-ui-2.5.0.jar;C:\Users\Cristian\.m2\repository\org\springdoc\springdoc-openapi-starter-webmvc-api\2.5.0\springdoc-openapi-starter-webmvc-api-2.5.0.jar;C:\Users\Cristian\.m2\repository\org\springdoc\springdoc-openapi-starter-common\2.5.0\springdoc-openapi-starter-common-2.5.0.jar;C:\Users\Cristian\.m2\repository\io\swagger\core\v3\swagger-core-jakarta\2.2.21\swagger-core-jakarta-2.2.21.jar;C:\Users\Cristian\.m2\repository\org\apache\commons\commons-lang3\3.14.0\commons-lang3-3.14.0.jar;C:\Users\Cristian\.m2\repository\io\swagger\core\v3\swagger-annotations-jakarta\2.2.21\swagger-annotations-jakarta-2.2.21.jar;C:\Users\Cristian\.m2\repository\io\swagger\core\v3\swagger-models-jakarta\2.2.21\swagger-models-jakarta-2.2.21.jar;C:\Users\Cristian\.m2\repository\jakarta\validation\jakarta.validation-api\3.0.2\jakarta.validation-api-3.0.2.jar;C:\Users\Cristian\.m2\repository\com\fasterxml\jackson\dataformat\jackson-dataformat-yaml\2.17.2\jackson-dataformat-yaml-2.17.2.jar;C:\Users\Cristian\.m2\repository\org\webjars\swagger-ui\5.13.0\swagger-ui-5.13.0.jar;C:\Users\Cristian\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.17.2\jackson-databind-2.17.2.jar;C:\Users\Cristian\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.17.2\jackson-annotations-2.17.2.jar;C:\Users\Cristian\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.17.2\jackson-core-2.17.2.jar;C:\Users\Cristian\.m2\repository\com\mysql\mysql-connector-j\8.3.0\mysql-connector-j-8.3.0.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-events-api\1.2.4\spring-modulith-events-api-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-context\6.1.13\spring-context-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-tx\6.1.13\spring-tx-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\slf4j\slf4j-api\2.0.16\slf4j-api-2.0.16.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-starter-jpa\1.2.4\spring-modulith-starter-jpa-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-events-core\1.2.4\spring-modulith-events-core-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\slf4j\jcl-over-slf4j\2.0.16\jcl-over-slf4j-2.0.16.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-events-jackson\1.2.4\spring-modulith-events-jackson-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-events-jpa\1.2.4\spring-modulith-events-jpa-1.2.4.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="user.timezone" value="America/Buenos_Aires"/>
+    <property name="org.jboss.logging.provider" value="slf4j"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="java.vm.specification.version" value="22"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="ES"/>
+    <property name="sun.boot.library.path" value="C:\Users\Cristian\.jdks\openjdk-22.0.2\bin"/>
+    <property name="sun.java.command" value="C:\Users\Cristian\AppData\Local\Temp\surefire17656780197736844753\surefirebooter-20241114175755053_3.jar C:\Users\Cristian\AppData\Local\Temp\surefire17656780197736844753 2024-11-14T17-57-54_930-jvmRun1 surefire-20241114175755053_1tmp surefire_0-20241114175755053_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="F:\h2-02-ft-java-react\backend\target\test-classes;F:\h2-02-ft-java-react\backend\target\classes;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-actuator\3.3.4\spring-boot-starter-actuator-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter\3.3.4\spring-boot-starter-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.3.4\spring-boot-starter-logging-3.3.4.jar;C:\Users\Cristian\.m2\repository\ch\qos\logback\logback-classic\1.5.8\logback-classic-1.5.8.jar;C:\Users\Cristian\.m2\repository\ch\qos\logback\logback-core\1.5.8\logback-core-1.5.8.jar;C:\Users\Cristian\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.23.1\log4j-to-slf4j-2.23.1.jar;C:\Users\Cristian\.m2\repository\org\apache\logging\log4j\log4j-api\2.23.1\log4j-api-2.23.1.jar;C:\Users\Cristian\.m2\repository\org\slf4j\jul-to-slf4j\2.0.16\jul-to-slf4j-2.0.16.jar;C:\Users\Cristian\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\Cristian\.m2\repository\org\yaml\snakeyaml\2.2\snakeyaml-2.2.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-actuator-autoconfigure\3.3.4\spring-boot-actuator-autoconfigure-3.3.4.jar;C:\Users\Cristian\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.17.2\jackson-datatype-jsr310-2.17.2.jar;C:\Users\Cristian\.m2\repository\io\micrometer\micrometer-observation\1.13.4\micrometer-observation-1.13.4.jar;C:\Users\Cristian\.m2\repository\io\micrometer\micrometer-commons\1.13.4\micrometer-commons-1.13.4.jar;C:\Users\Cristian\.m2\repository\io\micrometer\micrometer-jakarta9\1.13.4\micrometer-jakarta9-1.13.4.jar;C:\Users\Cristian\.m2\repository\io\micrometer\micrometer-core\1.13.4\micrometer-core-1.13.4.jar;C:\Users\Cristian\.m2\repository\org\hdrhistogram\HdrHistogram\2.2.2\HdrHistogram-2.2.2.jar;C:\Users\Cristian\.m2\repository\org\latencyutils\LatencyUtils\2.0.3\LatencyUtils-2.0.3.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-security\3.3.4\spring-boot-starter-security-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-aop\6.1.13\spring-aop-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-beans\6.1.13\spring-beans-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springframework\security\spring-security-config\6.3.3\spring-security-config-6.3.3.jar;C:\Users\Cristian\.m2\repository\org\springframework\security\spring-security-web\6.3.3\spring-security-web-6.3.3.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-expression\6.1.13\spring-expression-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.3.4\spring-boot-starter-web-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.3.4\spring-boot-starter-json-3.3.4.jar;C:\Users\Cristian\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.17.2\jackson-datatype-jdk8-2.17.2.jar;C:\Users\Cristian\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.17.2\jackson-module-parameter-names-2.17.2.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.3.4\spring-boot-starter-tomcat-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.30\tomcat-embed-core-10.1.30.jar;C:\Users\Cristian\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.30\tomcat-embed-el-10.1.30.jar;C:\Users\Cristian\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.30\tomcat-embed-websocket-10.1.30.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-web\6.1.13\spring-web-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-webmvc\6.1.13\spring-webmvc-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-starter-core\1.2.4\spring-modulith-starter-core-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-api\1.2.4\spring-modulith-api-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-core\1.2.4\spring-modulith-core-1.2.4.jar;C:\Users\Cristian\.m2\repository\com\tngtech\archunit\archunit\1.3.0\archunit-1.3.0.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-moments\1.2.4\spring-modulith-moments-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\jmolecules\jmolecules-events\1.9.0\jmolecules-events-1.9.0.jar;C:\Users\Cristian\.m2\repository\io\jsonwebtoken\jjwt-api\0.11.5\jjwt-api-0.11.5.jar;C:\Users\Cristian\.m2\repository\io\jsonwebtoken\jjwt-jackson\0.11.5\jjwt-jackson-0.11.5.jar;C:\Users\Cristian\.m2\repository\io\jsonwebtoken\jjwt-impl\0.11.5\jjwt-impl-0.11.5.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-devtools\3.3.4\spring-boot-devtools-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot\3.3.4\spring-boot-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.3.4\spring-boot-autoconfigure-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-actuator\1.2.4\spring-modulith-actuator-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-runtime\1.2.4\spring-modulith-runtime-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\jgrapht\jgrapht-core\1.4.0\jgrapht-core-1.4.0.jar;C:\Users\Cristian\.m2\repository\org\jheaps\jheaps\0.11\jheaps-0.11.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-actuator\3.3.4\spring-boot-actuator-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-observability\1.2.4\spring-modulith-observability-1.2.4.jar;C:\Users\Cristian\.m2\repository\io\micrometer\micrometer-tracing\1.3.4\micrometer-tracing-1.3.4.jar;C:\Users\Cristian\.m2\repository\io\micrometer\context-propagation\1.1.1\context-propagation-1.1.1.jar;C:\Users\Cristian\.m2\repository\aopalliance\aopalliance\1.0\aopalliance-1.0.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-configuration-processor\3.3.4\spring-boot-configuration-processor-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\projectlombok\lombok\1.18.34\lombok-1.18.34.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-test\3.3.4\spring-boot-starter-test-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-test\3.3.4\spring-boot-test-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-test-autoconfigure\3.3.4\spring-boot-test-autoconfigure-3.3.4.jar;C:\Users\Cristian\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\Cristian\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.2\jakarta.xml.bind-api-4.0.2.jar;C:\Users\Cristian\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.3\jakarta.activation-api-2.1.3.jar;C:\Users\Cristian\.m2\repository\net\minidev\json-smart\2.5.1\json-smart-2.5.1.jar;C:\Users\Cristian\.m2\repository\net\minidev\accessors-smart\2.5.1\accessors-smart-2.5.1.jar;C:\Users\Cristian\.m2\repository\org\ow2\asm\asm\9.6\asm-9.6.jar;C:\Users\Cristian\.m2\repository\org\assertj\assertj-core\3.25.3\assertj-core-3.25.3.jar;C:\Users\Cristian\.m2\repository\net\bytebuddy\byte-buddy\1.14.19\byte-buddy-1.14.19.jar;C:\Users\Cristian\.m2\repository\org\awaitility\awaitility\4.2.2\awaitility-4.2.2.jar;C:\Users\Cristian\.m2\repository\org\hamcrest\hamcrest\2.2\hamcrest-2.2.jar;C:\Users\Cristian\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.3\junit-jupiter-5.10.3.jar;C:\Users\Cristian\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.3\junit-jupiter-api-5.10.3.jar;C:\Users\Cristian\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\Cristian\.m2\repository\org\junit\platform\junit-platform-commons\1.10.3\junit-platform-commons-1.10.3.jar;C:\Users\Cristian\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Cristian\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.3\junit-jupiter-params-5.10.3.jar;C:\Users\Cristian\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.3\junit-jupiter-engine-5.10.3.jar;C:\Users\Cristian\.m2\repository\org\junit\platform\junit-platform-engine\1.10.3\junit-platform-engine-1.10.3.jar;C:\Users\Cristian\.m2\repository\org\mockito\mockito-core\5.11.0\mockito-core-5.11.0.jar;C:\Users\Cristian\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.19\byte-buddy-agent-1.14.19.jar;C:\Users\Cristian\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\Cristian\.m2\repository\org\mockito\mockito-junit-jupiter\5.11.0\mockito-junit-jupiter-5.11.0.jar;C:\Users\Cristian\.m2\repository\org\skyscreamer\jsonassert\1.5.3\jsonassert-1.5.3.jar;C:\Users\Cristian\.m2\repository\com\vaadin\external\google\android-json\0.0.20131108.vaadin1\android-json-0.0.20131108.vaadin1.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-core\6.1.13\spring-core-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-jcl\6.1.13\spring-jcl-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-test\6.1.13\spring-test-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\xmlunit\xmlunit-core\2.9.1\xmlunit-core-2.9.1.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-starter-test\1.2.4\spring-modulith-starter-test-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-test\1.2.4\spring-modulith-test-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-docs\1.2.4\spring-modulith-docs-1.2.4.jar;C:\Users\Cristian\.m2\repository\com\structurizr\structurizr-core\1.29.0\structurizr-core-1.29.0.jar;C:\Users\Cristian\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;C:\Users\Cristian\.m2\repository\commons-logging\commons-logging\1.2\commons-logging-1.2.jar;C:\Users\Cristian\.m2\repository\com\structurizr\structurizr-export\1.19.0\structurizr-export-1.19.0.jar;C:\Users\Cristian\.m2\repository\org\springframework\security\spring-security-test\6.3.3\spring-security-test-6.3.3.jar;C:\Users\Cristian\.m2\repository\org\springframework\security\spring-security-core\6.3.3\spring-security-core-6.3.3.jar;C:\Users\Cristian\.m2\repository\org\springframework\security\spring-security-crypto\6.3.3\spring-security-crypto-6.3.3.jar;C:\Users\Cristian\.m2\repository\me\paulschwarz\spring-dotenv\3.0.0\spring-dotenv-3.0.0.jar;C:\Users\Cristian\.m2\repository\io\github\cdimascio\dotenv-java\2.2.4\dotenv-java-2.2.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-data-jpa\3.3.4\spring-boot-starter-data-jpa-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-aop\3.3.4\spring-boot-starter-aop-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\aspectj\aspectjweaver\1.9.22.1\aspectjweaver-1.9.22.1.jar;C:\Users\Cristian\.m2\repository\org\springframework\boot\spring-boot-starter-jdbc\3.3.4\spring-boot-starter-jdbc-3.3.4.jar;C:\Users\Cristian\.m2\repository\com\zaxxer\HikariCP\5.1.0\HikariCP-5.1.0.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-jdbc\6.1.13\spring-jdbc-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\hibernate\orm\hibernate-core\6.5.3.Final\hibernate-core-6.5.3.Final.jar;C:\Users\Cristian\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;C:\Users\Cristian\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar;C:\Users\Cristian\.m2\repository\org\jboss\logging\jboss-logging\3.5.3.Final\jboss-logging-3.5.3.Final.jar;C:\Users\Cristian\.m2\repository\org\hibernate\common\hibernate-commons-annotations\6.0.6.Final\hibernate-commons-annotations-6.0.6.Final.jar;C:\Users\Cristian\.m2\repository\io\smallrye\jandex\3.1.2\jandex-3.1.2.jar;C:\Users\Cristian\.m2\repository\com\fasterxml\classmate\1.7.0\classmate-1.7.0.jar;C:\Users\Cristian\.m2\repository\org\glassfish\jaxb\jaxb-runtime\4.0.5\jaxb-runtime-4.0.5.jar;C:\Users\Cristian\.m2\repository\org\glassfish\jaxb\jaxb-core\4.0.5\jaxb-core-4.0.5.jar;C:\Users\Cristian\.m2\repository\org\eclipse\angus\angus-activation\2.0.2\angus-activation-2.0.2.jar;C:\Users\Cristian\.m2\repository\org\glassfish\jaxb\txw2\4.0.5\txw2-4.0.5.jar;C:\Users\Cristian\.m2\repository\com\sun\istack\istack-commons-runtime\4.1.2\istack-commons-runtime-4.1.2.jar;C:\Users\Cristian\.m2\repository\jakarta\inject\jakarta.inject-api\2.0.1\jakarta.inject-api-2.0.1.jar;C:\Users\Cristian\.m2\repository\org\antlr\antlr4-runtime\4.13.0\antlr4-runtime-4.13.0.jar;C:\Users\Cristian\.m2\repository\org\springframework\data\spring-data-jpa\3.3.4\spring-data-jpa-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\data\spring-data-commons\3.3.4\spring-data-commons-3.3.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-orm\6.1.13\spring-orm-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-aspects\6.1.13\spring-aspects-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springdoc\springdoc-openapi-starter-webmvc-ui\2.5.0\springdoc-openapi-starter-webmvc-ui-2.5.0.jar;C:\Users\Cristian\.m2\repository\org\springdoc\springdoc-openapi-starter-webmvc-api\2.5.0\springdoc-openapi-starter-webmvc-api-2.5.0.jar;C:\Users\Cristian\.m2\repository\org\springdoc\springdoc-openapi-starter-common\2.5.0\springdoc-openapi-starter-common-2.5.0.jar;C:\Users\Cristian\.m2\repository\io\swagger\core\v3\swagger-core-jakarta\2.2.21\swagger-core-jakarta-2.2.21.jar;C:\Users\Cristian\.m2\repository\org\apache\commons\commons-lang3\3.14.0\commons-lang3-3.14.0.jar;C:\Users\Cristian\.m2\repository\io\swagger\core\v3\swagger-annotations-jakarta\2.2.21\swagger-annotations-jakarta-2.2.21.jar;C:\Users\Cristian\.m2\repository\io\swagger\core\v3\swagger-models-jakarta\2.2.21\swagger-models-jakarta-2.2.21.jar;C:\Users\Cristian\.m2\repository\jakarta\validation\jakarta.validation-api\3.0.2\jakarta.validation-api-3.0.2.jar;C:\Users\Cristian\.m2\repository\com\fasterxml\jackson\dataformat\jackson-dataformat-yaml\2.17.2\jackson-dataformat-yaml-2.17.2.jar;C:\Users\Cristian\.m2\repository\org\webjars\swagger-ui\5.13.0\swagger-ui-5.13.0.jar;C:\Users\Cristian\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.17.2\jackson-databind-2.17.2.jar;C:\Users\Cristian\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.17.2\jackson-annotations-2.17.2.jar;C:\Users\Cristian\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.17.2\jackson-core-2.17.2.jar;C:\Users\Cristian\.m2\repository\com\mysql\mysql-connector-j\8.3.0\mysql-connector-j-8.3.0.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-events-api\1.2.4\spring-modulith-events-api-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-context\6.1.13\spring-context-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\springframework\spring-tx\6.1.13\spring-tx-6.1.13.jar;C:\Users\Cristian\.m2\repository\org\slf4j\slf4j-api\2.0.16\slf4j-api-2.0.16.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-starter-jpa\1.2.4\spring-modulith-starter-jpa-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-events-core\1.2.4\spring-modulith-events-core-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\slf4j\jcl-over-slf4j\2.0.16\jcl-over-slf4j-2.0.16.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-events-jackson\1.2.4\spring-modulith-events-jackson-1.2.4.jar;C:\Users\Cristian\.m2\repository\org\springframework\modulith\spring-modulith-events-jpa\1.2.4\spring-modulith-events-jpa-1.2.4.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\Cristian"/>
+    <property name="user.language" value="es"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="reactor.schedulers.defaultBoundedElasticOnVirtualThreads" value="true"/>
+    <property name="java.version.date" value="2024-07-16"/>
+    <property name="java.home" value="C:\Users\Cristian\.jdks\openjdk-22.0.2"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="F:\h2-02-ft-java-react\backend"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="FILE_LOG_CHARSET" value="UTF-8"/>
+    <property name="java.awt.headless" value="true"/>
+    <property name="surefire.real.class.path" value="C:\Users\Cristian\AppData\Local\Temp\surefire17656780197736844753\surefirebooter-20241114175755053_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="22.0.2+9-70"/>
+    <property name="LOG_CORRELATION_PATTERN" value="%correlationId"/>
+    <property name="user.name" value="Cristian"/>
+    <property name="stdout.encoding" value="MS932"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="localRepository" value="C:\Users\Cristian\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\Cristian\AppData\Local\Temp\"/>
+    <property name="idea.version" value="2024.1.4"/>
+    <property name="com.zaxxer.hikari.pool_number" value="1"/>
+    <property name="java.version" value="22.0.2"/>
+    <property name="user.dir" value="F:\h2-02-ft-java-react\backend"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="PID" value="1732"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
+    <property name="native.encoding" value="MS932"/>
+    <property name="java.library.path" value="C:\Users\Cristian\.jdks\openjdk-22.0.2\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;F:\Cosas\Programas\Git\cmd;C:\xampp\php;F:\Cosas\Programas\Node Js\;C:\Users\Cristian\AppData\Local\Programs\Eclipse Adoptium\jdk-17.0.8.101-hotspot\bin;C:\Users\Cristian\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\Cristian\AppData\Local\Programs\Python\Python311\;C:\Users\Cristian\AppData\Local\Microsoft\WindowsApps;C:\Juegos\Microsoft VS Code\bin;C:\Program Files\Azure Data Studio\bin;C:\Users\Cristian\AppData\Roaming\npm;C:\Users\Cristian\.fly\bin;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="MS932"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="22.0.2+9-70"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="66.0"/>
+    <property name="LOGGED_APPLICATION_NAME" value="[waki] "/>
+  </properties>
+  <testcase name="verifyModularity" classname="com.app.waki.WakiApplicationTests" time="0.731">
+    <system-out><![CDATA[17:57:56.038 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.app.waki.WakiApplicationTests]: WakiApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+17:57:56.204 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.app.waki.WakiApplication for test class com.app.waki.WakiApplicationTests
+17:57:56.387 [main] INFO com.tngtech.archunit.core.PluginLoader -- Detected Java version 22.0.2
+17:57:59.377 [main] INFO org.springframework.boot.devtools.restart.RestartApplicationListener -- Restart disabled due to context in which it is running
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2024-11-14T17:57:59.649-03:00  INFO 1732 --- [waki] [           main] [                                                 ] com.app.waki.WakiApplicationTests        : Starting WakiApplicationTests using Java 22.0.2 with PID 1732 (started by Cristian in F:\h2-02-ft-java-react\backend)
+2024-11-14T17:57:59.651-03:00  INFO 1732 --- [waki] [           main] [                                                 ] com.app.waki.WakiApplicationTests        : No active profile set, falling back to 1 default profile: "default"
+2024-11-14T17:58:00.837-03:00  INFO 1732 --- [waki] [           main] [                                                 ] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-14T17:58:00.975-03:00  INFO 1732 --- [waki] [           main] [                                                 ] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 129 ms. Found 11 JPA repository interfaces.
+2024-11-14T17:58:01.869-03:00  INFO 1732 --- [waki] [           main] [                                                 ] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-14T17:58:01.946-03:00  INFO 1732 --- [waki] [           main] [                                                 ] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2024-11-14T17:58:01.987-03:00  INFO 1732 --- [waki] [           main] [                                                 ] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-14T17:58:02.349-03:00  INFO 1732 --- [waki] [           main] [                                                 ] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-14T17:58:02.379-03:00  INFO 1732 --- [waki] [           main] [                                                 ] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-14T17:58:05.012-03:00  INFO 1732 --- [waki] [           main] [                                                 ] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@55b5e3b3
+2024-11-14T17:58:05.014-03:00  INFO 1732 --- [waki] [           main] [                                                 ] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-14T17:58:05.411-03:00  WARN 1732 --- [waki] [           main] [                                                 ] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-11-14T17:58:06.866-03:00  INFO 1732 --- [waki] [           main] [                                                 ] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-14T17:58:07.064-03:00  INFO 1732 --- [waki] [           main] [                                                 ] org.hibernate.orm.connections.access     : HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@23170fe] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+Hibernate: 
+    alter table event_publication 
+       modify column serialized_event varchar(255)
+2024-11-14T17:58:13.098-03:00  INFO 1732 --- [waki] [           main] [                                                 ] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-14T17:58:13.467-03:00  INFO 1732 --- [waki] [           main] [                                                 ] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-11-14T17:58:14.630-03:00  INFO 1732 --- [waki] [           main] [                                                 ] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-11-14T17:58:14.631-03:00  WARN 1732 --- [waki] [           main] [                                                 ] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-11-14T17:58:15.436-03:00  INFO 1732 --- [waki] [           main] [                                                 ] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2024-11-14T17:58:15.501-03:00 DEBUG 1732 --- [waki] [           main] [                                                 ] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+Hibernate: 
+    select
+        jep1_0.id,
+        jep1_0.completion_date,
+        jep1_0.event_type,
+        jep1_0.listener_id,
+        jep1_0.publication_date,
+        jep1_0.serialized_event 
+    from
+        event_publication jep1_0 
+    where
+        jep1_0.completion_date is null 
+    order by
+        jep1_0.publication_date
+2024-11-14T17:58:17.232-03:00  INFO 1732 --- [waki] [           main] [                                                 ] com.app.waki.WakiApplicationTests        : Started WakiApplicationTests in 17.865 seconds (process running for 22.041)
+Hibernate: 
+    select
+        count(*) 
+    from
+        division d1_0
+2024-11-14T17:58:17.498-03:00  INFO 1732 --- [waki] [           main] [                                                 ] c.a.w.d.application.DivisionInitializer  : Divisions already initialized, skipping...
+Hibernate: 
+    select
+        d1_0.division_id,
+        d1_0.division,
+        d1_0.version 
+    from
+        division d1_0 
+    where
+        d1_0.division=?
+Hibernate: 
+    select
+        r1_0.division_id,
+        r1_0.user_id,
+        r1_0.division_level,
+        r1_0.points,
+        r1_0.position,
+        r1_0.username,
+        r1_0.version 
+    from
+        user_ranking r1_0 
+    where
+        r1_0.division_id=?
+2024-11-14T17:58:18.097-03:00  INFO 1732 --- [waki] [           main] [                                                 ] c.a.w.d.a.UserRankingInitializer         : Users already exist in LIMBO division, skipping initialization...
+# Common
+> Logical name: common
+> Base package: com.app.waki.common
+> Named interfaces:
+  + NamedInterface: name=<<UNNAMED>>, types=[]
+  + NamedInterface: name=events, types=[ c.a.w.c.e.CorrectPredictionEvent, c.a.w.c.e.CreatePredictionEvent, c.a.w.c.e.CreatePredictionRequestEvent, c.a.w.c.e.EstablishedPredictionEvent, c.a.w.c.e.FinishCorrectPredictionEvent, c.a.w.c.e.FinishFailedPredictionEvent, c.a.w.c.e.FinishedMatchEvent, c.a.w.c.e.ProfilePointsBatchEvent, c.a.w.c.e.ProfilePointsData, c.a.w.c.e.UserCreatedEvent ]
+  + NamedInterface: name=exceptions, types=[ c.a.w.c.e.ConcurrencyException, c.a.w.c.e.EmailNotAvailableException, c.a.w.c.e.EntityNotFoundException, c.a.w.c.e.GlobalHandlerException, c.a.w.c.e.InsufficientPredictionsException, c.a.w.c.e.ValidationException ]
+> Spring beans:
+  o ….config.CorsDeployFrontUrl
+  o ….config.CorsLocalFrontUrl
+  o ….config.DatabaseInitializer
+  + ….exceptions.GlobalHandlerException
+
+# Match
+> Logical name: match
+> Base package: com.app.waki.match
+> Named interfaces:
+  + NamedInterface: name=<<UNNAMED>>, types=[]
+  + NamedInterface: name=match-events, types=[ c.a.w.m.m.MatchFinalizedEvent, c.a.w.m.m.MatchResultDto, c.a.w.m.m.MatchTestController ]
+> Spring beans:
+  o ….application.servicesImpl.FixtureServiceImpl
+  o ….application.servicesImpl.LeagueServiceImpl
+  o ….application.servicesImpl.OddsServiceImpl
+  o ….application.servicesImpl.StandingServiceImpl
+  o ….domain.fixture.FixtureRepository
+  o ….domain.league.LeagueRepository
+  o ….domain.odds.OddsRepository
+  o ….domain.standings.StandingRepository
+  o ….infrastructure.ApIKeyConfig
+  o ….infrastructure.FixtureController
+  o ….infrastructure.LeagueController
+  o ….infrastructure.OddController
+  o ….infrastructure.StandingController
+  + ….matchtest.MatchTestController
+
+# Swagger
+> Logical name: swagger
+> Base package: com.app.waki.swagger
+> Spring beans:
+  + ….OpenApiConfiguration
+  o io.swagger.v3.oas.models.OpenAPI
+
+# User
+> Logical name: user
+> Base package: com.app.waki.user
+> Spring beans:
+  o ….application.service.impl.UserServiceImpl
+  o ….infrastructure.controller.UserController
+  o ….infrastructure.jpa.JpaUserDataRepository
+  o ….infrastructure.jpa.JpaUserRepositoryImpl
+  o ….infrastructure.security.AuthConfig
+  o ….infrastructure.security.JwtAuthenticationFilter
+  o ….infrastructure.security.JwtService
+  o ….infrastructure.security.SecretKeyConfig
+  o ….infrastructure.security.SecurityConfig
+  o org.springframework.security.authentication.AuthenticationManager
+  o org.springframework.security.authentication.AuthenticationProvider
+  o org.springframework.security.core.userdetails.UserDetailsService
+  o org.springframework.security.crypto.password.PasswordEncoder
+  o org.springframework.security.web.SecurityFilterChain
+
+# Prediction
+> Logical name: prediction
+> Base package: com.app.waki.prediction
+> Spring beans:
+  o ….application.service.impl.PredictionServiceImpl
+  o ….infrastructure.controller.PredictionController
+  o ….infrastructure.jpa.JpaPredictionDataRepository
+  o ….infrastructure.jpa.JpaPredictionRepositoryImpl
+
+# Profile
+> Logical name: profile
+> Base package: com.app.waki.profile
+> Spring beans:
+  o ….application.service.ProfileBatchService
+  o ….application.service.impl.ProfileServiceImpl
+  o ….infrastructure.controller.ProfileController
+  o ….infrastructure.jpa.JpaProfileDataRepository
+  o ….infrastructure.jpa.JpaProfileRepositoryImpl
+
+# Players
+> Logical name: players
+> Base package: com.app.waki.players
+> Spring beans:
+  o ….application.servicesImpl.PlayerServiceImpl
+  o ….application.servicesImpl.TrophieServiceImpl
+  o ….domain.player.PlayerRepository
+  o ….domain.trophies.TrophieRepository
+  o ….infrastructure.PlayerController
+  o ….infrastructure.TrophieController
+
+# Notification
+> Logical name: notification
+> Base package: com.app.waki.notification
+> Spring beans:
+  o ….application.NotificationServiceImpl
+  o ….infrastructure.NotificationController
+  o ….infrastructure.jpa.JpaNotificationDataRepository
+  o ….infrastructure.jpa.JpaNotificationRepositoryImpl
+
+# Division
+> Logical name: division
+> Base package: com.app.waki.division
+> Spring beans:
+  o ….application.DivisionInitializer
+  o ….application.DivisionRecalculationService
+  o ….application.DivisionServiceImpl
+  o ….application.ProfilePointsBatchListener
+  o ….application.UserRankingInitializer
+  o ….infrastructure.controller.DivisionController
+  o ….infrastructure.jpa.JpaDivisionDataRepository
+  o ….infrastructure.jpa.JpaDivisionRepositoryImpl
+
+# Market
+> Logical name: market
+> Base package: com.app.waki.market
+> Spring beans: none
+
+]]></system-out>
+    <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (C:\Users\Cristian\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.19\byte-buddy-agent-1.14.19.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+  </testcase>
+  <testcase name="createModuleDocumentation" classname="com.app.waki.WakiApplicationTests" time="0.873"/>
+  <testcase name="contextLoads" classname="com.app.waki.WakiApplicationTests" time="0.003"/>
+</testsuite>
