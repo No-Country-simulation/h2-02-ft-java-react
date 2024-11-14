@@ -15,8 +15,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                //.allowedOrigins(deployFrontUrls.getCORS(), localFrontUrl.getCORS_LOCAL(), corsDeployBackUrl.getCORS_BACK())
-                .allowedOrigins("http://localhost:5173", "https://waki-front.vercel.app/","https://no-country-hackaton.onrender.com")
+                .allowedOrigins(deployFrontUrls.getCORS(), localFrontUrl.getCORS_LOCAL(), corsDeployBackUrl.getCORS_BACK())
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .exposedHeaders("Authorization");
