@@ -5,11 +5,19 @@
 
 Waki es una plataforma orientada a los fanáticos del fútbol, diseñada para que los usuarios participen en una experiencia de predicciones deportivas, acumulen puntos y tengan la oportunidad de ganar premios y tokens.
 
-## 📌 Características
-- **Predicciones de Fútbol:** Los usuarios pueden realizar predicciones sobre los resultados de partidos de fútbol, lo que les permite ganar puntos en función de su precisión.
-- **Sistema de Divisiones y Ranking:** Los puntos obtenidos por predicciones y desafíos determinan el lugar del usuario en un ranking dividido en tres divisiones (Oro, Plata y Bronce).
-- **Mercado de Tokens:** Los usuarios pueden ver el ranking de jugadores según la cantidad de tokens liberados anualmente.
-- **Perfil de Usuario y Progreso:** Cada usuario tiene un perfil donde puede ver sus puntos, logros, recompensas y ranking en el sistema de divisiones.
+## 📌 **Características**
+- **🎯 Predicciones de Fútbol:** Los usuarios pueden realizar predicciones sobre los resultados de partidos de fútbol, ganando puntos según su precisión.
+- **🏆 Sistema de Divisiones y Ranking:** Los puntos obtenidos determinan el lugar del usuario en un ranking dividido en tres divisiones: Oro, Plata y Bronce.
+- **💰 Mercado de Tokens:** Los usuarios pueden ver el ranking de jugadores según la cantidad de tokens liberados anualmente.
+- **👤 Perfil de Usuario y Progreso:** Cada usuario tiene un perfil donde puede consultar sus puntos, logros, recompensas y posición en el sistema de divisiones.
+
+---
+
+## 🎥 **Video demostrativo**
+Explora las principales funcionalidades de <em>Waki</em> en este breve video:  
+[![Ver en YouTube](https://img.shields.io/badge/Ver%20en-YouTube-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/watch?v=HcOgbXkLETA)
+
+---
 
 ## 👩🏻‍💻 Tecnologías
 - [Backend](backend/README.md)
