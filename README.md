@@ -19,6 +19,12 @@ Explora las principales funcionalidades de <em>Waki</em> en este breve video:
 
 ---
 
+## 🚀 **Prueba la aplicación en vivo**
+¡Descubre <em>Waki</em> directamente desde tu navegador!  
+[![Ver Deploy](https://img.shields.io/badge/Ver%20Deploy-Waki-blue?style=for-the-badge&logo=vercel)](https://waki-front.vercel.app/)
+
+---
+
 ## 👩🏻‍💻 Tecnologías
 - [Backend](backend/README.md)
 - [Frontend](frontend/README.md)
